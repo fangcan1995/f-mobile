@@ -1,0 +1,49 @@
+@import 'library';
+html {
+    -ms-touch-action: manipulation;
+        touch-action: manipulation;
+    // 将rem单位设为响应单位，全屏20rem;
+    // 以下媒体查询部分为JS未执行时的预设，防止某些手机打开页面JS执行慢会有抖动的现象，同时也可以作为某些禁止了脚本的智能设备（极少数）的fallback
+    @iPhone5: 320px;
+    @GalaxyS5: 360px;
+    @iPone6: 375px;
+    @Nexus5X: 411px;
+    @iPone6Plus: 414px;
+    @Nexus6P: 435px;
+    @LowEndPhones: 480px;
+    @iPad: 768px;
+    @PC: 800px;
+    font-size: @iPhone5 / 20;
+    @media only screen and (min-width: @GalaxyS5) {
+        font-size: @GalaxyS5 / 20;
+    }
+    @media only screen and (min-width: @iPone6) {
+        font-size: @iPone6 / 20;
+    }
+    @media only screen and (min-width: @Nexus5X) {
+        font-size: @Nexus5X / 20;
+    }
+    @media only screen and (min-width: @iPone6Plus) {
+        font-size: @iPone6Plus / 20;
+    }
+    @media only screen and (min-width: @Nexus6P) {
+        font-size: @Nexus6P / 20;
+    }
+    @media only screen and (min-width: @LowEndPhones) {
+        font-size: @LowEndPhones / 20;
+    }
+    @media only screen and (min-width: @iPad) {
+        font-size: @iPad / 20;
+    }
+    @media only screen and (min-width: @PC) {
+        font-size: @PC / 20;
+    }
+}
+body {
+    font-size: unit(32px / (@baseWidth / @baseColumns), rem);
+}
+html,
+body {
+    height: 100%;
+    -webkit-tap-highlight-color: transparent;
+}

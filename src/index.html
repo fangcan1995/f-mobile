@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <script>
+    (function (doc, win) {
+      var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function () {
+          var clientWidth = docEl.clientWidth;
+          if (!clientWidth) return;
+          docEl.style.fontSize = clientWidth / 20 + 'px';
+        };
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+      
+      var setDpr = function () {
+        var dpr = win.devicePixelRatio;
+        if ( !dpr ) return;
+        docEl.dataset['dpr'] = dpr;
+      }
+      win.addEventListener(resizeEvt, setDpr, false);
+      doc.addEventListener('DOMContentLoaded', setDpr, false);
+    })(document, window);
+  </script>
+  
+  <!-- antd-mobile -->
+  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+  <script>
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+      }, false);
+    }
+    if(!window.Promise) {
+      document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+    }
+  </script>
+
+</head>
+<body>
+</body>
+</html>

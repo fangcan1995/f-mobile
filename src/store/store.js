@@ -1,0 +1,15 @@
+import { createStore, applyMiddleware } from 'redux';
+import { combineReducers } from 'redux-immutablejs';
+import { fromJS } from 'immutable';
+import thunk from 'redux-thunk';
+import promiseMiddleware from 'redux-promise-middleware';
+import { createEpicMiddleware } from 'redux-observable';
+import { createLogger } from 'redux-logger';
+import rootReducer from '../reducers/root';
+import rootEpic from '../epics/root';
+const epicMiddleware = createEpicMiddleware(rootEpic);
+const logger = createLogger();
+const state = fromJS({});
+const store = rootReducer(state);
+const finalCreateStore = applyMiddleware(thunk, promiseMiddleware(), epicMiddleware, logger)(createStore);
+export default finalCreateStore(rootReducer, store);
