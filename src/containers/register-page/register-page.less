@@ -1,0 +1,34 @@
+@import '../../assets/stylesheets/library';
+@import '../login-page/login-page.less';
+.login-body{
+ .login-form{
+     .login-password-box{
+         .login-password{
+            width:unit(350px / (@baseWidth / @baseColumns), rem);
+            padding-right: unit(160px / (@baseWidth / @baseColumns), rem);
+         }
+         .get-Messcode{
+             font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+             color: #3296FA;
+             position: absolute;
+             right:unit(30px / (@baseWidth / @baseColumns), rem);
+             top:unit(39px / (@baseWidth / @baseColumns), rem);
+         }
+     }
+ }  
+ .agreement{
+     overflow: hidden;
+     font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+     p{
+         text-align: center;
+         margin-top: unit(60px / (@baseWidth / @baseColumns), rem);
+         &:last-child{
+            margin-top: unit(30px / (@baseWidth / @baseColumns), rem);
+         }
+         span{
+             color:#3296FA;
+         }
+     }
+ }
+    
+}

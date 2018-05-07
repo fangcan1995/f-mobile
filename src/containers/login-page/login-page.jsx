@@ -21,11 +21,14 @@ class LoginPage extends Component {
                     登陆
                 </div>
                 <form className='login-form'>
-                    <div className='login-name-box'>
+                    <div className='login-box login-name-box'>
+                        <i className='icon-username'></i>
                         <input type="text" className='login-name' placeholder='请输入手机号/用户名'/>
                     </div>
-                    <div className='login-password-box'>
+                    <div className='login-box login-password-box'>
+                        <i className='icon-password'></i>
                         <input type="password" className='login-password' placeholder='请输入密码'/>
+                        <i className='icon-show-password'></i>
                     </div>
                     <div className='login-password-box'>
                         <button className='login-submit'>登陆</button>
@@ -33,8 +36,26 @@ class LoginPage extends Component {
                     
                 </form>
                 <div className='other-login'>
-                    
+                    <div className='border-box'></div>
                     <div className='user-other'>使用其他登陆方式</div>
+                </div>
+                <ul className='login-way'>
+                    <li className='l'>
+                        <i className='icon-wechat-border'></i><br />
+                        <span>微信登陆</span>
+                    </li>
+                    <li className='l'>
+                        <i className='icon-message-special'></i><br />
+                        <span>短信登录</span>
+                    </li>
+                </ul>
+                <div className='todo-other'>
+                    <div className='l li'>
+                        忘记密码
+                    </div>
+                    <div className='l li'>
+                        注册账号
+                    </div>
                 </div>
                 
             </div>
