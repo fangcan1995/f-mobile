@@ -5,7 +5,7 @@ import './personalPage.less';
 
 const PersonalPage = (props) => {
     return (
-        <div>PersonalPage</div>
+        <div><i className="icon-username"></i>PersonalPage</div>
     );
 }
 

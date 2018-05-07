@@ -48,6 +48,15 @@ const config = {
                 }
             },
             {
+                test: /\.(woff|svg|eot|ttf)(\?.*)?$/,
+                loader: 'url-loader',
+                query: {
+                    limit: 40960,
+                    name: 'font/[name].[hash:7].[ext]',
+
+                }
+            },
+            {
                 test: /\.css$/,
                 loaders: ['style-loader', 'css-loader', 'postcss-loader'],
             },
