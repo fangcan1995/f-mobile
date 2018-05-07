@@ -19,6 +19,22 @@
         width: unit(600px / (@baseWidth / @baseColumns), rem);
         margin-left:unit(75px / (@baseWidth / @baseColumns), rem);
         margin-top:unit(80px / (@baseWidth / @baseColumns), rem);
+        .login-box{
+            position: relative;
+            i{
+                position: absolute;
+                font-size: unit(32px / (@baseWidth / @baseColumns), rem);
+                left:unit(29px / (@baseWidth / @baseColumns), rem);
+                top:unit(36px / (@baseWidth / @baseColumns), rem);
+                &.icon-show-password{
+                    left:inherit;
+                    right:unit(29px / (@baseWidth / @baseColumns), rem);
+                    color:#3296FA;
+                }
+            }
+
+        }
+
         input{
             width:unit(510px / (@baseWidth / @baseColumns), rem);
             height:unit(102px / (@baseWidth / @baseColumns), rem);
@@ -27,6 +43,10 @@
             .phc(#ccc);
             font-size:unit(30px / (@baseWidth / @baseColumns), rem);
             padding-left: unit(90px / (@baseWidth / @baseColumns), rem);
+            &.login-password{
+                width:unit(420px / (@baseWidth / @baseColumns), rem);
+                padding-right: unit(90px / (@baseWidth / @baseColumns), rem);
+            }
         }
         button{
             .g-btn-bg();
@@ -42,6 +62,7 @@
     .other-login{
         margin-top: unit(100px / (@baseWidth / @baseColumns), rem);   
         position: relative;
+        height:unit(25px / (@baseWidth / @baseColumns), rem);
         .border-box{
             border-top:1px solid #eaeaea;
             width:unit(600px / (@baseWidth / @baseColumns), rem);
@@ -52,8 +73,8 @@
             z-index: 1;
         }
         .user-other{
-            left:unit(250px / (@baseWidth / @baseColumns), rem) ;
-            width:unit(250px / (@baseWidth / @baseColumns), rem);
+            left:unit(225px / (@baseWidth / @baseColumns), rem) ;
+            width:unit(300px / (@baseWidth / @baseColumns), rem);
             position: absolute;
             text-align: center;
             font-size:unit(24px / (@baseWidth / @baseColumns), rem);
@@ -61,6 +82,41 @@
             background: #fff;
                   
         }
+    }
+    .login-way{
+        overflow: hidden;
+        margin-top: unit(50px / (@baseWidth / @baseColumns), rem);
+        li{
+            margin-left:  unit(135px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            text-align: center;
+            i{
+                font-size:unit(80px / (@baseWidth / @baseColumns), rem);
+                display: inline-block;
+            }
+            span{
+                margin-top: unit(20px / (@baseWidth / @baseColumns), rem);
+                display: inline-block;
+            }
+        }
+        
+    }
+    .todo-other{
+        overflow: hidden;
+        margin-top: unit(103px / (@baseWidth / @baseColumns), rem);
+        .li{
+            box-sizing: border-box;           
+            width:50%;
+            text-align: center;
+            font-size:unit(24px / (@baseWidth / @baseColumns), rem); 
+            &:first-child{
+                border-right: 1px solid #eaeaea;
+            }
+            &:last-child{
+                color:#3296FA; 
+            }
+        }
+        
     }
     
 }
