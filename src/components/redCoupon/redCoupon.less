@@ -2,14 +2,14 @@
 
 
 .baseStyle {
-    width: 92%;
-    height: 7.5rem;
+    width: unit(690px / (@baseWidth / @baseColumns), rem);
+    height: unit(300px / (@baseWidth / @baseColumns), rem);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: .25rem;
+    border-radius: unit(10px / (@baseWidth / @baseColumns), rem);
     position: relative;
-    margin: .75rem auto;
+    margin: unit(30px / (@baseWidth / @baseColumns), rem) auto;
     box-shadow: 0px 9px 18px -6px rgba(0, 0, 0, .2);
     &.redpacket {
         background-image: url(../../assets/images/rpBg.png);
@@ -26,35 +26,36 @@
         position: absolute;
     }
     .couponInfo {
-        top: .9rem; left: .75rem;
+        top: unit(53px / (@baseWidth / @baseColumns), rem); 
+        left: unit(30px / (@baseWidth / @baseColumns), rem);
         .title {
-            font-size: 1rem;
+            font-size: unit(40px / (@baseWidth / @baseColumns), rem);
             .value {
-                font-size: 1.5rem;
+                font-size: unit(60px / (@baseWidth / @baseColumns), rem);
             }
         }
         .canuse {
-            font-size: .6rem;
-            margin-left: 1.1rem;
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            margin-left: unit(44 / (@baseWidth / @baseColumns), rem);
             opacity: .8;
         }
     }
     .intro {
-        font-size: .75rem;
+        font-size: unit(30px / (@baseWidth / @baseColumns), rem);
         font-weight: bold;
-        bottom: 1.95rem;
-        left: .75rem;
+        bottom: unit(78px / (@baseWidth / @baseColumns), rem);
+        left: unit(30px / (@baseWidth / @baseColumns), rem);
     }
     .endTime {
-        font-size: .6rem;
-        bottom: 0.825rem;
-        left: .75rem;
+        font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+        bottom: unit(33px / (@baseWidth / @baseColumns), rem);
+        left: unit(30px / (@baseWidth / @baseColumns), rem);
         opacity: .8;
     }
     .toUse {
-        font-size: .6rem;
-        right: .8rem;
-        bottom: .825rem;
+        font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+        right: unit(32px / (@baseWidth / @baseColumns), rem);
+        bottom: unit(33px / (@baseWidth / @baseColumns), rem);
     }
 }
 
