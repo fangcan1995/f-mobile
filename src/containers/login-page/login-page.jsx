@@ -33,7 +33,7 @@ class LoginPage extends Component {
                     
                 </form>
                 <div className='other-login'>
-                    
+                    <div className='border-box'></div>
                     <div className='user-other'>使用其他登陆方式</div>
                 </div>
                 

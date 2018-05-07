@@ -40,14 +40,26 @@
         }
     }
     .other-login{
-        text-align: center;
+        margin-top: unit(100px / (@baseWidth / @baseColumns), rem);   
+        position: relative;
+        .border-box{
+            border-top:1px solid #eaeaea;
+            width:unit(600px / (@baseWidth / @baseColumns), rem);
+            
+            position: absolute;
+            left:unit(75px / (@baseWidth / @baseColumns), rem);
+            top:unit(15px / (@baseWidth / @baseColumns), rem);
+            z-index: 1;
+        }
         .user-other{
+            left:unit(250px / (@baseWidth / @baseColumns), rem) ;
+            width:unit(250px / (@baseWidth / @baseColumns), rem);
+            position: absolute;
+            text-align: center;
             font-size:unit(24px / (@baseWidth / @baseColumns), rem);
-            margin-top: unit(100px / (@baseWidth / @baseColumns), rem); 
-            &:before{
-                border: 1px solid #ccc;
-            }
-        
+            z-index: 2;
+            background: #fff;
+                  
         }
     }
     
