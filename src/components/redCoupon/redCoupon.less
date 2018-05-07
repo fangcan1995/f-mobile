@@ -1,0 +1,64 @@
+@import '../../assets/stylesheets/global';
+
+
+.baseStyle {
+    width: 17.25rem;
+    height: 7.5rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: .25rem;
+    position: relative;
+    margin: .75rem auto;
+    box-shadow: 0px 9px 18px -6px rgba(0, 0, 0, .2);
+    &.redpacket {
+        background-image: url(../../assets/images/rpBg.png);
+    }
+    &.coupon {
+        background-image: url(../../assets/images/cpBg.png);
+    }
+    &.fail {
+        background-image: url(../../assets/images/failBg.png);
+    }
+
+    > * {
+        color: #fff;
+        position: absolute;
+    }
+    .couponInfo {
+        top: .9rem; left: .75rem;
+        .title {
+            font-size: 1rem;
+            .value {
+                font-size: 1.5rem;
+            }
+        }
+        .canuse {
+            font-size: .6rem;
+            margin-left: 1.1rem;
+            opacity: .8;
+        }
+    }
+    .intro {
+        font-size: .75rem;
+        font-weight: bold;
+        bottom: 1.95rem;
+        left: .75rem;
+    }
+    .endTime {
+        font-size: .6rem;
+        bottom: 0.825rem;
+        left: .75rem;
+        opacity: .8;
+    }
+    .toUse {
+        font-size: .6rem;
+        right: .8rem;
+        bottom: .825rem;
+    }
+}
+
+
+
+
+

@@ -6,19 +6,21 @@ import App from './components/app/app';
 import HomePage from './containers/home-page/home-page';
 import LoginPage from './containers/login-page/login-page';
 import PersonalContainer from './containers/personal-page/personal-page';
+import RedPacket from './containers/redpacket/redpacket';
 
 const userIsAuthenticated = connectedRouterRedirect({
-  redirectPath: '/login',
-  authenticatedSelector: state => state.getIn(['auth', 'isAuthenticated']),
-  wrapperDisplayName: 'UserIsAuthenticated'
+    redirectPath: '/login',
+    authenticatedSelector: state => state.getIn(['auth', 'isAuthenticated']),
+    wrapperDisplayName: 'UserIsAuthenticated'
 })
 
 export default (
     <App>
-    	<Switch>
-    		<Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/personal" component={PersonalContainer} />
-    	</Switch>
+        <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/personal" component={PersonalContainer} />
+            <Route exact path="/redpacket" component={RedPacket} />
+        </Switch>
     </App>
 );
