@@ -4,6 +4,7 @@ import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 
 import App from './components/app/app';
 import HomePage from './containers/home-page/home-page';
+import PersonalContainer from './containers/personal-page/personal-page';
 
 const userIsAuthenticated = connectedRouterRedirect({
   redirectPath: '/login',
@@ -15,6 +16,7 @@ export default (
     <App>
     	<Switch>
     		<Route exact path="/" component={HomePage} />
+            <Route exact path="/personal" component={PersonalContainer} />
     	</Switch>
     </App>
 );
