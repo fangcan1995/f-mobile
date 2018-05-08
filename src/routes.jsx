@@ -13,6 +13,8 @@ import AuthenticationPage from './containers/authentication-page/authentication-
 import BindPhonePage from './containers/bindPhone-page/bindPhone-page';
 import CertificationPage from './containers/certification-page/certification-page';
 import ChangePasswordPage from './containers/changePassword-page/changePassword-page';
+import ChangePhonePage from './containers/changePhone-page/changePhone-page';
+import DiscoverPage from './containers/discover-page/discover-page';
 
 const userIsAuthenticated = connectedRouterRedirect({
   redirectPath: '/login',
@@ -33,6 +35,8 @@ export default (
         <Route exact path="/bindPhone" component={BindPhonePage} />
         <Route exact path="/certification" component={CertificationPage} />
         <Route exact path="/changePassword" component={ChangePasswordPage} />
+        <Route exact path="/changePhone" component={ChangePhonePage} />
+        <Route exact path="/discover" component={DiscoverPage} />
     	</Switch>
     </App>
 );
