@@ -1,0 +1,66 @@
+@import '../../assets/stylesheets/global';
+
+a {
+    color: #333;
+    text-decoration: none;
+    &:focus {
+        text-decoration: none;
+        outline: none;
+    }
+    &:active {
+        color: #333;
+    }
+}
+
+.personalPage {
+    width: 100%;
+    overflow: hidden;
+    > dl {
+        margin: unit(20px / (@baseWidth / @baseColumns), rem) 0;
+        dd {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: unit(100px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+            background: #fff;
+
+            > .leftTitle {
+                padding-left: unit(30px / (@baseWidth / @baseColumns), rem);
+            }
+            > .rightAction {
+                min-width: unit(80px / (@baseWidth / @baseColumns), rem);
+                font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+                line-height: unit(50px / (@baseWidth / @baseColumns), rem);
+                padding-right: unit(30px / (@baseWidth / @baseColumns), rem);
+                > a > * {
+                    float: right;
+                }
+                
+                .icon-arrow {
+                    height: unit(50px / (@baseWidth / @baseColumns), rem);
+                    line-height: unit(50px / (@baseWidth / @baseColumns), rem);
+                }
+            }
+            .actionText {
+                color: #979aa7;
+                margin-right: unit(30px / (@baseWidth / @baseColumns), rem);
+            }
+            .personIcon {
+                width: unit(50px / (@baseWidth / @baseColumns), rem);
+                height: unit(50px / (@baseWidth / @baseColumns), rem);
+                background: #f2f2f2;
+                border-radius: 50%;
+                margin-right: unit(30px / (@baseWidth / @baseColumns), rem);
+            }
+        }
+    }
+    .loginOut {
+        width: 100%;
+        height: unit(100px / (@baseWidth / @baseColumns), rem);
+        text-align: center;
+        line-height: unit(100px / (@baseWidth / @baseColumns), rem);
+        background: #fff;
+    }
+}

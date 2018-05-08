@@ -6,6 +6,7 @@ import App from './components/app/app';
 import HomePage from './containers/home-page/home-page';
 import LoginPage from './containers/login-page/login-page';
 import PersonalContainer from './containers/personal-page/personal-page';
+import RedPacket from './containers/redpacket/redpacket';
 import LoginMessagePage from './containers/login-message-page/login-message-page';
 import RegisterPage from './containers/register-page/register-page';
 import RetrievePasswordPage from './containers/retrievePassword-page/retrievePassword-page';
@@ -17,26 +18,27 @@ import ChangePhonePage from './containers/changePhone-page/changePhone-page';
 import DiscoverPage from './containers/discover-page/discover-page';
 
 const userIsAuthenticated = connectedRouterRedirect({
-  redirectPath: '/login',
-  authenticatedSelector: state => state.getIn(['auth', 'isAuthenticated']),
-  wrapperDisplayName: 'UserIsAuthenticated'
+    redirectPath: '/login',
+    authenticatedSelector: state => state.getIn(['auth', 'isAuthenticated']),
+    wrapperDisplayName: 'UserIsAuthenticated'
 })
 
 export default (
     <App>
-    	<Switch>
-    		<Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/loginMessage" component={LoginMessagePage} />
-        <Route exact path="/personal" component={PersonalContainer} />
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/retrievePassword" component={RetrievePasswordPage} />
-        <Route exact path="/authentication" component={AuthenticationPage} />
-        <Route exact path="/bindPhone" component={BindPhonePage} />
-        <Route exact path="/certification" component={CertificationPage} />
-        <Route exact path="/changePassword" component={ChangePasswordPage} />
-        <Route exact path="/changePhone" component={ChangePhonePage} />
-        <Route exact path="/discover" component={DiscoverPage} />
-    	</Switch>
+        <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/loginMessage" component={LoginMessagePage} />
+            <Route exact path="/personal" component={PersonalContainer} />
+            <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/retrievePassword" component={RetrievePasswordPage} />
+            <Route exact path="/authentication" component={AuthenticationPage} />
+            <Route exact path="/bindPhone" component={BindPhonePage} />
+            <Route exact path="/certification" component={CertificationPage} />
+            <Route exact path="/changePassword" component={ChangePasswordPage} />
+            <Route exact path="/redpacket" component={RedPacket} />
+            <Route exact path="/changePhone" component={ChangePhonePage} />
+            <Route exact path="/discover" component={DiscoverPage} />
+        </Switch>
     </App>
 );
