@@ -24,7 +24,7 @@ class DiscoverPage extends Component {
 							</a>
 						</div>
 						<div className='li'>
-							<a href="./dynamic.html">
+							<a href="##">
 								<i className="icon-activity"></i>
 								<div className='list-label'>巴巴汇动态</div>
 							</a>
@@ -36,7 +36,7 @@ class DiscoverPage extends Component {
 							</a>
 						</div>
 						<div className='li'>
-							<a href="./help-center.html">
+							<a href="##">
 								<i className="icon-help"></i>
 								<div className='list-label'>帮助中心</div>
 							</a>
@@ -48,13 +48,39 @@ class DiscoverPage extends Component {
 							</a>
 						</div>
 						<div className='li'>
-							<a href="./followWechat.html">
+							<a href="##">
 								<i className="icon-wechat-nc"></i>
 								<div className='list-label'>关注微信</div>
 							</a>
 						</div>
 					</div>
-                </div>           
+                </div> 
+				<ul>
+					<li className='activity-list'>
+						<img src={bbhLogo} className='activity-img' />
+						<div className='activity-shadel'></div>
+						<div className='activity-word'>
+							<h3>活动标题</h3>
+							<p>活动内容活动内容活动内容活动内容活动内容活动内容活动内容</p>
+						</div>						
+					</li>
+					<li className='activity-list'>
+						<img src={bbhLogo} className='activity-img' />
+						<div className='activity-shadel'></div>
+						<div className='activity-word'>
+							<h3>活动标题</h3>
+							<p>活动内容活动内容活动内容活动内容活动内容活动内容活动内容</p>
+						</div>						
+					</li>
+					<li className='activity-list'>
+						<img src={bbhLogo} className='activity-img' />
+						<div className='activity-shadel'></div>
+						<div className='activity-word'>
+							<h3>活动标题</h3>
+							<p>活动内容活动内容活动内容活动内容活动内容活动内容活动内容</p>
+						</div>						
+					</li>
+				</ul>          
 	        </div>
 			)
 	}

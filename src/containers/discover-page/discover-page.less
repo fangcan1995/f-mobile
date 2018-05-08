@@ -21,7 +21,7 @@
             .li{
                 width:33.3%;
                 height:unit(135px / (@baseWidth / @baseColumns), rem);
-                margin-top: unit(30px / (@baseWidth / @baseColumns), rem);
+                margin-top: unit(52px / (@baseWidth / @baseColumns), rem);
                 
                 a{
                     display: block;
@@ -34,11 +34,69 @@
                     }
                     .list-label{
                         font-size: unit(24px / (@baseWidth / @baseColumns), rem);
-                        margin-top:unit(29px / (@baseWidth / @baseColumns), rem); 
+                        margin-top:unit(25px / (@baseWidth / @baseColumns), rem); 
                     }
                 }
             }
         }
+    }
+    .activity-list{
+        height:unit(480px / (@baseWidth / @baseColumns), rem);
+        margin: unit(20px / (@baseWidth / @baseColumns), rem) unit(25px / (@baseWidth / @baseColumns), rem);
+        background: #fff;
+        margin-top:unit(40px / (@baseWidth / @baseColumns), rem);
+        overflow: hidden;
+        border-radius: unit(15px / (@baseWidth / @baseColumns), rem);
+        box-shadow: unit(10px / (@baseWidth / @baseColumns), rem) unit(10px / (@baseWidth / @baseColumns), rem) unit(20px / (@baseWidth / @baseColumns), rem) #ccc;
+        position: relative;
+
+        .goDetail{
+            display: block;
+            height: unit(480px / (@baseWidth / @baseColumns), rem);
+
+        }
+        .activity-img{
+            height:unit(480px / (@baseWidth / @baseColumns), rem);
+            width:100%;
+            position: absolute;
+            z-index: 1;
+        }
+        .activity-shadel{
+            position: absolute;
+            width:100%;
+            height:unit(480px / (@baseWidth / @baseColumns), rem);
+            background: #000;
+            opacity: .3;
+            z-index: 2
+        }
+        .activity-word{
+            width:100%;
+            position: absolute;
+            bottom:unit(50px / (@baseWidth / @baseColumns), rem);
+            z-index: 3
+
+        }
+        h3{
+            margin: 0 unit(34px / (@baseWidth / @baseColumns), rem);
+            margin-top: unit(15px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(45px / (@baseWidth / @baseColumns), rem);
+            font-weight: bold;
+            color:#fff;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+        }
+        p{
+            margin: 0 unit(34px / (@baseWidth / @baseColumns), rem);
+            margin-top: unit(15px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            color: #fff;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+
+        }
+
     }
     
 	

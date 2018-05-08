@@ -1,0 +1,60 @@
+@import '../../assets/stylesheets/library';
+
+.helpCenter-body{
+    .main{
+		ul.tab-title{
+			font-size: unit(50px / (@baseWidth / @baseColumns), rem);
+			padding-top: unit(40px / (@baseWidth / @baseColumns), rem);
+			background: #f8f8fb;
+			overflow: hidden;
+			margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
+			color:#6e7277;
+			li{
+				margin-right: unit(30px / (@baseWidth / @baseColumns), rem);
+				&.active{
+					color:#191f25;
+				}
+			}
+		}
+		.dynamic-content{
+			margin-top: unit(60px / (@baseWidth / @baseColumns), rem);
+			.dynamic-list{
+				margin-bottom: unit(60px / (@baseWidth / @baseColumns), rem);
+				li{
+					margin: unit(40px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
+					margin-bottom: 0;
+					padding-bottom: unit(40px / (@baseWidth / @baseColumns), rem);
+					overflow: hidden;
+					font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+					background: #fff;
+					padding: unit(25px / (@baseWidth / @baseColumns), rem);
+					border-radius: unit(15px / (@baseWidth / @baseColumns), rem);
+					h3{
+						font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+						overflow: hidden;
+						text-overflow:ellipsis;
+						white-space: nowrap;
+					}
+					.list-content{
+						margin-top: unit(10px / (@baseWidth / @baseColumns), rem);
+						overflow: hidden;
+						text-overflow:ellipsis;
+						white-space: nowrap;
+						color:#979aa7;
+					}
+					.time-p{
+						margin-top: unit(10px / (@baseWidth / @baseColumns), rem);
+						color:#979aa7;
+						.icon-time{
+							font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+							color:#3799fa;
+						}
+					}
+				}
+			}
+		}
+	}   
+    
+	
+}
+
