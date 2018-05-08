@@ -1,8 +1,11 @@
 @import '../../assets/stylesheets/library';
+
 .login-body{
+    
     .logo-box{
         margin-top: unit(78px / (@baseWidth / @baseColumns), rem);
         text-align: center;
+        
         .bbh-logo{
             width:unit(260px / (@baseWidth / @baseColumns), rem);
             height:unit(88px / (@baseWidth / @baseColumns), rem);
@@ -13,6 +16,7 @@
         font-size:unit(66px / (@baseWidth / @baseColumns), rem); 
         margin-left: unit(75px / (@baseWidth / @baseColumns), rem); 
         margin-top: unit(80px / (@baseWidth / @baseColumns), rem); 
+        font-weight:bold;
     }
     .login-form{
         overflow: hidden;
@@ -43,6 +47,7 @@
             .phc(#ccc);
             font-size:unit(30px / (@baseWidth / @baseColumns), rem);
             padding-left: unit(90px / (@baseWidth / @baseColumns), rem);
+            background:#f8f8fb;
             &.login-password{
                 width:unit(420px / (@baseWidth / @baseColumns), rem);
                 padding-right: unit(90px / (@baseWidth / @baseColumns), rem);
@@ -118,5 +123,9 @@
         }
         
     }
-    
+    .other-login{
+        .user-other{
+            background:#f8f8fb;
+        }
+    }   
 }

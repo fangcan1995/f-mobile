@@ -18,7 +18,7 @@ class LoginPage extends Component {
                     <img src={bbhLogo} className='bbh-logo'/>
                 </div>
                 <div className='page-title'>
-                    登陆
+                    登录
                 </div>
                 <form className='login-form'>
                     <div className='login-box login-name-box'>
@@ -31,7 +31,7 @@ class LoginPage extends Component {
                         <i className='icon-show-password'></i>
                     </div>
                     <div className='login-password-box'>
-                        <button className='login-submit'>登陆</button>
+                        <button className='login-submit'>登录</button>
                     </div>
                     
                 </form>
