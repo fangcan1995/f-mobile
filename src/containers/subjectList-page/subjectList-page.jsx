@@ -26,12 +26,12 @@ class SubjectListPage extends Component {
 										默认
 									</li>
 									<li className='active'>
-										收益率<i className='icon-arrow up-arrow'></i>
-										<i className='icon-arrow down-arrow'></i>
+										收益率<i className='icon-up-arrow'></i>
+										<i className='icon-down-arrow'></i>
 									</li>
 									<li>
-										期限<i className='icon-arrow up-arrow'></i>
-										<i className='icon-arrow down-arrow'></i>
+										期限<i className='icon-up-arrow'></i>
+										<i className='icon-down-arrow'></i>
 									</li>
 								</ul>
 								<ul className='content-list'>
