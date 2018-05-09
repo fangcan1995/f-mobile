@@ -14,7 +14,7 @@ class MyTransferPage extends Component {
                 <TradeCard />
                 <TradeCard />
                 <FilterButton />
-                <Filter />
+                {/* <Filter /> */}
             </div>
         );
     }

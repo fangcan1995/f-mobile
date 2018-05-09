@@ -40,22 +40,25 @@ const userIsAuthenticated = connectedRouterRedirect({
 export default (
     <App>
         <Switch>
+            {/* add by zhiqiang */}
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/loginMessage" component={LoginMessagePage} />
-            <Route exact path="/personal" component={PersonalContainer} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/retrievePassword" component={RetrievePasswordPage} />
             <Route exact path="/authentication" component={AuthenticationPage} />
             <Route exact path="/bindPhone" component={BindPhonePage} />
             <Route exact path="/certification" component={CertificationPage} />
             <Route exact path="/changePassword" component={ChangePasswordPage} />
-            <Route exact path="/redpacket" component={RedPacket} />
             <Route exact path="/changePhone" component={ChangePhonePage} />
             <Route exact path="/discover" component={DiscoverPage} />
             <Route exact path="/helpCenter" component={HelpCenterPage} />
+            <Route exact path="/dynamic" component={DynamicPage} />
+            <Route exact path="/subjectList" component={SubjectListPage} />
 
             {/* add by ShadowCover */}
+            <Route exact path="/personal" component={PersonalContainer} />
+            <Route exact path="/redpacket" component={RedPacket} />
             <Route exact path="/coupon" component={CouponPage} />
             <Route exact path="/withdraw" component={WithdrawPage} />
             <Route exact path="/transfer" component={TransferPage} />
@@ -66,9 +69,9 @@ export default (
             <Route exact path="/trade-history" component={TradeHistoryPage} />
             <Route exact path="/my-transfer" component={MyTransferPage} />
             <Route exact path="/repay-plan" component={RepayPlanPage} />
+
+            {/* add by fangcan */}
             <Route exact path="/detail" component={Detail} />
-            <Route exact path="/dynamic" component={DynamicPage} />
-            <Route exact path="/subjectList" component={SubjectListPage} />
         </Switch>
     </App>
 );

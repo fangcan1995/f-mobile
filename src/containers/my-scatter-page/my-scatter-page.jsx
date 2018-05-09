@@ -13,7 +13,7 @@ class MyScatterPage extends Component {
                 <AgreementCard isFull={true}/>
                 <AgreementCard isFull={true}/>
                 <FilterButton />
-                <Filter />
+                {/* <Filter /> */}
             </div>
         );
     }
