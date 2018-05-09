@@ -63,10 +63,10 @@ class My extends Component{
                         <p>
                             <i className = 'icon-tel'></i><span>0411-84609588</span>（工作日：8:30~17:30）
                         </p>
-                        <p>
+                        <div>
                             <div className = 'left'><i className = 'icon-consult-fill'></i><span>喵宝</span>（工作日：8:30~17:30）</div>
                             <div className = 'right'><i className = 'icon-wechat-fill'></i><span>“巴巴汇金服”</span>（工作日：8:30~17:30）</div>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
