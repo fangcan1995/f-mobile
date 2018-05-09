@@ -1,0 +1,165 @@
+@import '../../assets/stylesheets/library';
+#my{
+    div,p,span{
+        box-sizing: border-box
+    }
+}
+ .my-nav{
+    // height:unit(660px / (@baseWidth / @baseColumns), rem);
+    color: #ffffff;
+    .clearfix();
+    padding: unit(30px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
+    position: relative;
+    .g-detail-bg;
+    .my{
+        font-size: unit(60px / (@baseWidth / @baseColumns), rem);
+        padding-bottom: unit(30px / (@baseWidth / @baseColumns), rem);
+        font-family:MicrosoftYaHei;
+        border-bottom: 1px solid #629CEC;
+        span{
+            float: right;
+            font-size: unit(50px / (@baseWidth / @baseColumns), rem);
+            line-height: 2.4rem;
+        }
+    }
+    .base-info{
+        margin: unit(50px / (@baseWidth / @baseColumns), rem) 0;
+        height: unit(50px / (@baseWidth / @baseColumns), rem);
+        line-height: unit(50px / (@baseWidth / @baseColumns), rem);
+        position: relative;
+        img{
+            width: unit(50px / (@baseWidth / @baseColumns), rem);
+            height: unit(50px / (@baseWidth / @baseColumns), rem);
+            margin-right:unit(20px / (@baseWidth / @baseColumns), rem)
+        }
+        // .name{
+        //     display: inline-block;
+        //     font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+        //     line-height: unit(50px / (@baseWidth / @baseColumns), rem)
+        // }
+        .tital{
+            display: inline-block;
+            position: absolute;
+            top:0;
+            font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+            height: unit(50px / (@baseWidth / @baseColumns), rem);
+            line-height: unit(50px / (@baseWidth / @baseColumns), rem);
+            .greet{
+                font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            }
+        }
+    }
+    .money{
+        text-align: center;
+        font-size: unit(66px / (@baseWidth / @baseColumns), rem);
+        p{
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+        }
+    }
+    .show{
+        padding: 0 unit(78px / (@baseWidth / @baseColumns), rem);
+        margin-top: unit(50px / (@baseWidth / @baseColumns), rem);
+        .yesterday{
+            display: inline-block;
+            // width:unit(158px / (@baseWidth / @baseColumns), rem);
+            height:unit(70px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(35px / (@baseWidth / @baseColumns), rem);
+            text-align: center; 
+            p{
+                font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            }
+        }
+        .sum{
+            float: right;
+            height:unit(70px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(35px / (@baseWidth / @baseColumns), rem);
+            text-align: center; 
+            p{
+                font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            }
+        }
+        
+    }
+    
+}
+.my-card{
+    // position: absolute;
+    // margin-top: unit(42px / (@baseWidth / @baseColumns), rem);
+    width: 100%;
+    height:unit(120px / (@baseWidth / @baseColumns), rem);
+    line-height: unit(120px / (@baseWidth / @baseColumns), rem);
+    background:rgba(255,255,255,1);
+    box-shadow:5px 0px 15px rgba(0,0,0,0.05);
+    padding:0 unit(78px / (@baseWidth / @baseColumns), rem);
+    color: #000000;
+    i{
+        color: #979AA7;
+        margin-right: unit(20px / (@baseWidth / @baseColumns), rem);
+    }
+    div{
+        display: inline-block;
+        span{
+            color:#FF3366
+        }
+    }
+    .right{
+        float: right
+    }  
+
+}
+.right{
+    float: right;
+}
+
+.container{
+    padding: unit(50px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
+    color: #979AA7;
+    font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+    .my-count{
+        span{
+            color: #FF3366;
+        }
+    }
+    .buttom{
+        margin-top: unit(30px / (@baseWidth / @baseColumns), rem);
+        div{
+            display: inline-block;
+            width:unit(330px / (@baseWidth / @baseColumns), rem);
+            height:unit(90px / (@baseWidth / @baseColumns), rem); 
+            background:rgba(50,150,250,1);
+            border-radius: unit(10px / (@baseWidth / @baseColumns), rem);
+            text-align: center;
+            line-height: unit(90px / (@baseWidth / @baseColumns), rem); 
+            color: #ffffff;
+            &.right{
+                background:rgba(248,248,251,1);
+                border:1px solid rgba(50,150,250,1);
+                color: rgba(50,150,250,1);    
+                float: right;
+            }
+        }
+    }
+    .list{
+        margin-top: unit(50px / (@baseWidth / @baseColumns), rem);
+        border-top:1px solid #EAEAEA;
+        border-bottom:1px solid #EAEAEA;
+        .list-item{
+            line-height: unit(100px / (@baseWidth / @baseColumns), rem);
+            i{
+                font-size: 0.8rem;
+                line-height: unit(100px / (@baseWidth / @baseColumns), rem);
+            }
+            span{
+                color: #000000;
+                margin-left: unit(28px / (@baseWidth / @baseColumns), rem);
+            }
+        }
+    }
+    .contact{
+        text-align: center;
+        font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+        .left{
+            float: left;
+        }
+    }
+}

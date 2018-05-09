@@ -131,7 +131,7 @@ class HomePage extends Component {
 						<li className="active">					
 							<a href="">
 								<i className='icon-home-fill'></i>
-								<div class="active">首页</div>
+								<div>首页</div>
 							</a>
 						</li>
 						<li className="">				
