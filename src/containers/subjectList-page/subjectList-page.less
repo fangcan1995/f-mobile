@@ -1,0 +1,168 @@
+@import '../../assets/stylesheets/library';
+
+.subjectList-body{
+    .main{
+		ul.tab-title{
+			font-size: unit(50px / (@baseWidth / @baseColumns), rem);
+			padding-top: unit(40px / (@baseWidth / @baseColumns), rem);
+			background: #f8f8fb;
+			overflow: hidden;
+			margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
+			color:#6e7277;
+			position: relative;
+			padding-bottom: unit(30px / (@baseWidth / @baseColumns), rem);
+			li{
+				margin-right: unit(30px / (@baseWidth / @baseColumns), rem);
+				&.active{
+                    color:#191f25;
+				}
+				&.border-li{
+					 border-bottom:4px solid #3296FA;
+					 width: unit(50px / (@baseWidth / @baseColumns), rem);
+					 position: absolute;
+					 bottom:0;
+					 left:unit(25px / (@baseWidth / @baseColumns), rem);
+					 //left:unit(160px / (@baseWidth / @baseColumns), rem);
+				}
+				&.contact-li i{
+					font-size: unit(50px / (@baseWidth / @baseColumns), rem);
+					color:#3296FA;
+				}
+			}
+		}
+		ul.filter-list{
+			margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
+			margin-right: unit(30px / (@baseWidth / @baseColumns), rem);
+			margin-top: unit(33px / (@baseWidth / @baseColumns), rem);
+			color:#6e7277;
+			display: flex;
+			overflow: hidden;
+			border:1px solid #ddd;
+			border-radius: unit(10px / (@baseWidth / @baseColumns), rem);
+			li{
+				flex:1;
+				text-align: center;
+				padding: unit(12px / (@baseWidth / @baseColumns), rem) 0;
+				font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+				position: relative;
+				&.active{
+					background:#EAEAEA;
+				}
+				.icon-up-arrow{
+					position: absolute;
+					display: inline-block;
+					font-size: unit(18px / (@baseWidth / @baseColumns), rem);
+					top:unit(5px / (@baseWidth / @baseColumns), rem);
+					//right:unit(47px / (@baseWidth / @baseColumns), rem);
+				}
+				.icon-down-arrow{
+					position: absolute;
+					display: inline-block;
+					font-size: unit(18px / (@baseWidth / @baseColumns), rem);
+					top:unit(24px / (@baseWidth / @baseColumns), rem);
+					//right:unit(47px / (@baseWidth / @baseColumns), rem);
+				}
+			}
+		}
+		ul.content-list{
+			margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
+			margin-right: unit(30px / (@baseWidth / @baseColumns), rem);
+			margin-top: unit(20px / (@baseWidth / @baseColumns), rem);
+			font-size:unit(24px / (@baseWidth / @baseColumns), rem);
+			overflow: hidden;
+			li{
+				margin-top: unit(20px / (@baseWidth / @baseColumns), rem);
+				background: #fff;
+				overflow: hidden;
+				padding: unit(36px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
+				position: relative;
+				img{
+					position: absolute;
+					width:unit(136px / (@baseWidth / @baseColumns), rem);
+					height:unit(127px / (@baseWidth / @baseColumns), rem);
+					top:0;
+					right:0;
+				}
+				.title{
+					overflow: hidden;
+					.subject-name{
+						font-size:unit(28px / (@baseWidth / @baseColumns), rem);
+						color:#333;
+						font-weight: bold;
+					}
+					.tag-list{
+						color:#3296FA;
+						border:1px solid #3296FA;
+						padding: unit(4px / (@baseWidth / @baseColumns), rem) unit(10px / (@baseWidth / @baseColumns), rem); 
+						margin-left: unit(10px / (@baseWidth / @baseColumns), rem);
+					}
+				}
+				.yield{
+					overflow: hidden;
+					font-size:unit(24px / (@baseWidth / @baseColumns), rem);
+					margin-top: unit(28px / (@baseWidth / @baseColumns), rem);
+					color:#979aa7;
+					.money{
+						.number{
+							font-size:unit(50px / (@baseWidth / @baseColumns), rem);
+							color:#3296fa;
+							
+						}
+					}
+					.deadline{
+						margin-top: unit(26px / (@baseWidth / @baseColumns), rem);
+						.number{
+							color:#000;
+						}
+						.unit{
+							color:#000;
+						}
+					}
+					
+				}
+				.residue{
+					overflow: hidden;
+					font-size:unit(24px / (@baseWidth / @baseColumns), rem);
+					margin-top: unit(22px / (@baseWidth / @baseColumns), rem);
+					.percent{
+						position: relative;
+						overflow: hidden;
+						height:unit(28px / (@baseWidth / @baseColumns), rem);
+						width:unit(250px / (@baseWidth / @baseColumns), rem);
+						.none-line{
+							width:unit(180px / (@baseWidth / @baseColumns), rem);
+							border-top:2px solid #eaeaea;
+							height: 1px;
+							position: absolute;
+							top:unit(14px / (@baseWidth / @baseColumns), rem);
+						}
+						.reality-line{
+							width:unit(135px / (@baseWidth / @baseColumns), rem);
+							border-top:2px solid #3296fa;
+							height: 1px;
+							position: absolute;
+							top:unit(14px / (@baseWidth / @baseColumns), rem);
+						}
+						.percent-number{
+						
+							position: absolute;
+							right:0;
+						}
+					}
+					.residue-money{
+						color:#979AA7;
+						.number{
+							color:#000;
+						}
+						.unit{
+							color:#000;
+						}
+					}
+				}
+			}
+		}
+	}   
+    
+	
+}
+

@@ -18,9 +18,18 @@ class HelpCenterPage extends Component {
 					<ul className="tab-title">
 						<li className="l active tabClass">法律法规</li>
 						<li className="l tabClass">常规问题</li>
+						<li className='l border-li'></li>
 					</ul>
 					<div className="dynamic-content">
 						<ul className="dynamic-list" id='active-content'>
+							<li>
+								<h3>银保监会一号文“剑指”占字占字占字占字占字占字占字占字占字占字占字占字</h3>
+								<p className="time-p"><i className="icon-time"></i>&nbsp;&nbsp;&nbsp;发布时间：2017-10-20</p>
+							</li>
+							<li>
+								<h3>银保监会一号文“剑指”占字占字占字占字占字占字占字占字占字占字占字占字</h3>
+								<p className="time-p"><i className="icon-time"></i>&nbsp;&nbsp;&nbsp;发布时间：2017-10-20</p>
+							</li>
 							<li>
 								<h3>银保监会一号文“剑指”占字占字占字占字占字占字占字占字占字占字占字占字</h3>
 								<p className="time-p"><i className="icon-time"></i>&nbsp;&nbsp;&nbsp;发布时间：2017-10-20</p>

@@ -27,6 +27,9 @@ import MyScatterPage from './containers/my-scatter-page/my-scatter-page';
 import TradeHistoryPage from './containers/trade-history-page/trade-history-page';
 import MyTransferPage from './containers/my-transfer-page/my-transfer-page';
 import RepayPlanPage from './containers/repay-plan-page/repay-plan-page';
+import Detail from './containers/detail/detail'
+import DynamicPage from './containers/dynamic-page/dynamic-page';
+import SubjectListPage from './containers/subjectList-page/subjectList-page';
 
 const userIsAuthenticated = connectedRouterRedirect({
     redirectPath: '/login',
@@ -63,6 +66,9 @@ export default (
             <Route exact path="/trade-history" component={TradeHistoryPage} />
             <Route exact path="/my-transfer" component={MyTransferPage} />
             <Route exact path="/repay-plan" component={RepayPlanPage} />
+            <Route exact path="/detail" component={Detail} />
+            <Route exact path="/dynamic" component={DynamicPage} />
+            <Route exact path="/subjectList" component={SubjectListPage} />
         </Switch>
     </App>
 );

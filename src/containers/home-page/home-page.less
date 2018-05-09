@@ -1,0 +1,186 @@
+@import '../../assets/stylesheets/library';
+
+.home-body{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    .home-content{
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        width: 100%;
+        overflow: auto;
+        /* winphone8和android4+ */
+        -webkit-overflow-scrolling: touch;
+        margin-bottom:unit(20px / (@baseWidth / @baseColumns), rem);  
+    }
+    .footer {
+        background-color: #fff;
+        border-top: 1px solid #f5f5f5;
+        overflow: hidden;
+        display: flex;
+        padding-top: unit(15px / (@baseWidth / @baseColumns), rem); 
+        padding-bottom: unit(11px / (@baseWidth / @baseColumns), rem); 
+        li{
+            text-align: center;
+            flex:1;
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);  
+            i{
+                margin-bottom: unit(12px / (@baseWidth / @baseColumns), rem);  
+                font-size: unit(40px / (@baseWidth / @baseColumns), rem);  
+            }
+            &.active{
+                a{
+                    color:#3296FA;
+                    i{
+                        color:#3296FA; 
+                    }
+                }
+                
+            }
+        }
+      }
+    .swipe {
+        overflow: hidden;
+        visibility: hidden;
+        position: relative;
+      }
+      .swipe-wrap {
+        overflow: hidden;
+        position: relative;
+      }
+      .swipe-wrap > div {
+        float:left;
+        width:100%;
+        position: relative;
+      }
+    .page-title{
+        font-size:unit(66px / (@baseWidth / @baseColumns), rem); 
+        margin-left: unit(30px / (@baseWidth / @baseColumns), rem); 
+        margin-top: unit(37px / (@baseWidth / @baseColumns), rem); 
+        font-weight:bold;
+    } 
+    .banner{
+        margin-top: unit(40px / (@baseWidth / @baseColumns), rem); 
+        height:unit(325px / (@baseWidth / @baseColumns), rem); 
+        .swiper{
+            .slider-item{
+                height:unit(320px / (@baseWidth / @baseColumns), rem); 
+                img{
+                    height:unit(260px / (@baseWidth / @baseColumns), rem); 
+                    width:92%;
+                    margin:0 4%; 
+                    border-radius: unit(15px / (@baseWidth / @baseColumns), rem);
+                     
+                }
+                
+            }
+            .swiper-pagination-bullets{
+                bottom: unit(5px / (@baseWidth / @baseColumns), rem); 
+            }
+        }
+    } 
+    .other-list{
+        margin: 0 unit(30px / (@baseWidth / @baseColumns), rem); 
+        display: flex;
+        overflow: hidden;
+        padding-bottom: unit(30px / (@baseWidth / @baseColumns), rem); 
+        border-bottom: 1px solid #eee;
+        li{
+            text-align: center;
+            background: #fff;
+            overflow: hidden;
+            flex: 1;
+            padding: unit(21px / (@baseWidth / @baseColumns), rem);
+            margin-right: unit(30px / (@baseWidth / @baseColumns), rem);
+            border-radius: unit(15px / (@baseWidth / @baseColumns), rem);
+            img{
+                width:unit(54px / (@baseWidth / @baseColumns), rem);
+                height:unit(54px / (@baseWidth / @baseColumns), rem);
+            }
+            .list-label{
+                margin-top: unit(18px / (@baseWidth / @baseColumns), rem);
+                font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+                color: #979AA7;
+            }
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+    }
+    .greenhand{       
+        margin: 0 unit(30px / (@baseWidth / @baseColumns), rem);
+        margin-top: unit(50px / (@baseWidth / @baseColumns), rem);
+        img{           
+            width:100%;
+            box-shadow: unit(10px / (@baseWidth / @baseColumns), rem) unit(10px / (@baseWidth / @baseColumns), rem) unit(20px / (@baseWidth / @baseColumns), rem) #ccc;
+        }
+        .greenhand-content{
+            padding-bottom: unit(50px / (@baseWidth / @baseColumns), rem); 
+            border-bottom: 1px solid #eee;
+            overflow: hidden;
+            margin-top: unit(30px / (@baseWidth / @baseColumns), rem);
+            .tag{
+                overflow: hidden;
+            }
+            label{
+                font-size: unit(40px / (@baseWidth / @baseColumns), rem);
+            }
+            ul{
+                overflow: hidden;
+                margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
+                margin-top: unit(8px / (@baseWidth / @baseColumns), rem);
+                
+                li{
+                    margin-right: unit(10px / (@baseWidth / @baseColumns), rem);
+                    font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+                    border: 1px solid #3296fa;
+                    color:#3296fa;
+                    padding: unit(4px / (@baseWidth / @baseColumns), rem) unit(12px / (@baseWidth / @baseColumns), rem);
+                    border-radius: unit(6px / (@baseWidth / @baseColumns), rem);
+                    &:nth-child(3n+2){
+                        border: 1px solid #f9766c;
+                        color:#f9766c;
+                    }
+                    &:nth-child(3n){
+                        border: 1px solid #897ef3;
+                        color:#897ef3;
+                    }
+                    
+                }
+            }
+            .yield{
+                overflow: hidden;
+                font-size:unit(28px / (@baseWidth / @baseColumns), rem);
+                margin-top: unit(35px / (@baseWidth / @baseColumns), rem);
+                color:#979aa7;
+                .money{
+                    margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
+                    .number{
+                        font-size:unit(50px / (@baseWidth / @baseColumns), rem);
+                        color:#3296fa;
+                        
+                    }
+                }
+                .deadline{
+                    margin-right: unit(70px / (@baseWidth / @baseColumns), rem);
+                    .number{
+                        font-size:unit(50px / (@baseWidth / @baseColumns), rem);
+                        color:#000;
+                    }
+                }
+                
+            }
+            
+        }
+        
+    }
+}
