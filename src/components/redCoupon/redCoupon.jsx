@@ -42,7 +42,7 @@ const RedCoupon = ({ type, invalid, data }) => {
     }
 
     return (
-        <div className={`baseStyle ${colorClass}`}>
+        <div className={`couponBaseStyle ${colorClass}`}>
             <div className="couponInfo">
                 <span className="title">
                     {type === 'rp' && '￥'}

@@ -1,0 +1,106 @@
+@import '../../assets/stylesheets/library';
+
+
+.cardBody {
+    width: unit(690px / (@baseWidth / @baseColumns), rem);
+    height: unit(290px / (@baseWidth / @baseColumns), rem);
+    margin: unit(20px / (@baseWidth / @baseColumns), rem) auto unit(40px / (@baseWidth / @baseColumns), rem);
+    background: #fff;
+    border-radius: unit(10px / (@baseWidth / @baseColumns), rem);
+    box-shadow: 0px 5px 18px -6px rgba(0, 0, 0, .2);
+    overflow: hidden;
+    &.full {
+        height: unit(373px / (@baseWidth / @baseColumns), rem);
+    }
+
+    .cardInfo {
+        width: unit(630px / (@baseWidth / @baseColumns), rem);
+        position: relative;
+        margin: 0 auto;
+
+        .title {
+            font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+            color: #333;
+            margin: unit(30px / (@baseWidth / @baseColumns), rem) auto;
+        }
+    
+        .valueBlock {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: unit(80px / (@baseWidth / @baseColumns), rem);
+            margin-top: unit(40px / (@baseWidth / @baseColumns), rem);
+    
+            .cell {
+                height: inherit;
+    
+                .value {
+                    font-size: unit(40px / (@baseWidth / @baseColumns), rem);
+                    color: #333;
+                    line-height: unit(40px / (@baseWidth / @baseColumns), rem);
+                }
+                .info {
+                    font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+                    color: #979aa7;
+                    line-height: unit(24px / (@baseWidth / @baseColumns), rem);
+                    margin-top: unit(20px / (@baseWidth / @baseColumns), rem);
+                }
+            }
+        }
+    
+        .timeBlock {
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            color: #979aa7;
+            margin-top: unit(36px / (@baseWidth / @baseColumns), rem);
+            margin-bottom: unit(36px / (@baseWidth / @baseColumns), rem);
+
+            span {
+                color: #333;
+            }
+        }
+
+        .tag {
+            width: unit(100px / (@baseWidth / @baseColumns), rem);
+            height: unit(36px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(20px / (@baseWidth / @baseColumns), rem);
+            text-align: center;
+            line-height: unit(36px / (@baseWidth / @baseColumns), rem);
+            border: solid 1px transparent;
+            border-radius: unit(4px / (@baseWidth / @baseColumns), rem);
+            position: absolute;
+            top: 0; right: 0;
+
+            &.blue {
+                color: #3296fa;
+                border-color: #3296fa;
+            }
+        }
+    }
+
+    .cardAction {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: unit(630px / (@baseWidth / @baseColumns), rem);
+        height: unit(72px / (@baseWidth / @baseColumns), rem);
+        border-top: solid unit(2px / (@baseWidth / @baseColumns), rem) #eee;
+        margin: 0 auto;
+
+        .actionButton {
+            flex: auto;
+            height: unit(40px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+            color: #bbb;
+            text-align: center;
+            border-right: solid unit(2px / (@baseWidth / @baseColumns), rem) #eee;
+
+            &:last-child {
+                border-right: none;
+            }
+            &.active {
+                color: #3296fa;
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,79 @@
+@import '../../assets/stylesheets/library';
+
+.myAssets {
+    overflow: hidden;
+    .chartArea {
+        width: unit(400px / (@baseWidth / @baseColumns), rem);
+        height: unit(400px / (@baseWidth / @baseColumns), rem);
+        background: url(../../assets/images/chart.png) center / contain no-repeat;
+        margin: unit(100px / (@baseWidth / @baseColumns), rem) auto;
+    }
+
+    .chartInfo {
+        .infoLine {
+            display: flex;
+            justify-content: space-between;
+            width: unit(680px / (@baseWidth / @baseColumns), rem);
+            line-height: unit(72px / (@baseWidth / @baseColumns), rem);
+            margin: 0 auto;
+
+            .title {
+                display: flex;
+                align-items: center;
+                font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+                color: #979aa7;
+
+                .color {
+                    width: unit(24px / (@baseWidth / @baseColumns), rem);
+                    height: unit(24px / (@baseWidth / @baseColumns), rem);
+                    border: solid unit(5px / (@baseWidth / @baseColumns), rem) transparent;
+                    border-radius: 50%;
+                    margin-right: unit(10px / (@baseWidth / @baseColumns), rem);
+
+                    &.colorAccount {
+                        border-color: #3298fa;
+                    }
+
+                    &.colorAlready {
+                        border-color: #71d1f5;
+                    }
+
+                    &.colorFreeze {
+                        border-color: #c5d4ff;
+                    }
+                }
+
+            }
+
+            .val {
+                font-size: unit(40px / (@baseWidth / @baseColumns), rem);
+                color: #333;
+            }
+        }
+    }
+
+    .chartAction {
+        display: flex;
+        width: 100%;
+        height: unit(99px / (@baseWidth / @baseColumns), rem);
+        border-top: solid 1px #eee;
+        position: fixed;
+        bottom: 0;
+
+        button {
+            width: 50%;
+            font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+            color: #333;
+            background: #fff;
+            border: none;
+
+            &.charge {
+                color: #fff;
+                background: #3296fa;
+            }
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

@@ -17,6 +17,16 @@ import ChangePasswordPage from './containers/changePassword-page/changePassword-
 import ChangePhonePage from './containers/changePhone-page/changePhone-page';
 import DiscoverPage from './containers/discover-page/discover-page';
 import HelpCenterPage from './containers/helpCenter-page/helpCenter-page';
+import CouponPage from './containers/coupon-page/coupon-page';
+import WithdrawPage from './containers/withdraw-page/withdraw-page';
+import TransferPage from './containers/transfer-page/transfer-page';
+import ChargePage from './containers/charge-page/charge-page';
+import MyAssetsPage from './containers/my-assets-page/my-assets-page';
+import MyAgreementPage from './containers/my-agreement-page/my-agreement-page';
+import MyScatterPage from './containers/my-scatter-page/my-scatter-page';
+import TradeHistoryPage from './containers/trade-history-page/trade-history-page';
+import MyTransferPage from './containers/my-transfer-page/my-transfer-page';
+import RepayPlanPage from './containers/repay-plan-page/repay-plan-page';
 
 const userIsAuthenticated = connectedRouterRedirect({
     redirectPath: '/login',
@@ -41,6 +51,18 @@ export default (
             <Route exact path="/changePhone" component={ChangePhonePage} />
             <Route exact path="/discover" component={DiscoverPage} />
             <Route exact path="/helpCenter" component={HelpCenterPage} />
+
+            {/* add by ShadowCover */}
+            <Route exact path="/coupon" component={CouponPage} />
+            <Route exact path="/withdraw" component={WithdrawPage} />
+            <Route exact path="/transfer" component={TransferPage} />
+            <Route exact path="/charge" component={ChargePage} />
+            <Route exact path="/my-assets" component={MyAssetsPage} />
+            <Route exact path="/my-agreement" component={MyAgreementPage} />
+            <Route exact path="/my-scatter" component={MyScatterPage} />
+            <Route exact path="/trade-history" component={TradeHistoryPage} />
+            <Route exact path="/my-transfer" component={MyTransferPage} />
+            <Route exact path="/repay-plan" component={RepayPlanPage} />
         </Switch>
     </App>
 );

@@ -1,0 +1,76 @@
+@import '../../assets/stylesheets/library';
+.trade-card {
+    width: unit(690px / (@baseWidth / @baseColumns), rem);
+    height: unit(156px / (@baseWidth / @baseColumns), rem);
+    background: #fff;
+    border-radius: unit(10px / (@baseWidth / @baseColumns), rem);
+    position: relative;
+    margin: unit(20px / (@baseWidth / @baseColumns), rem) auto;
+    box-shadow: 0px 5px 18px -6px rgba(0, 0, 0, .2);
+
+    &.full {
+        height: unit(194px / (@baseWidth / @baseColumns), rem);
+
+        .value {
+            font-size: unit(38px / (@baseWidth / @baseColumns), rem);
+            color: #333;
+            line-height: unit(38px / (@baseWidth / @baseColumns), rem);
+            right: unit(30px / (@baseWidth / @baseColumns), rem);
+            bottom: unit(78px / (@baseWidth / @baseColumns), rem);
+        }
+
+        .action {
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            color: #979aa7;
+            line-height: unit(40px / (@baseWidth / @baseColumns), rem);
+            right: unit(30px / (@baseWidth / @baseColumns), rem);
+            bottom: unit(30px / (@baseWidth / @baseColumns), rem);
+        }
+
+    }
+
+    > * {
+        position: absolute;
+    }
+
+    .title {
+        font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+        color: #333;
+        line-height: unit(30px / (@baseWidth / @baseColumns), rem);
+        top: unit(36px / (@baseWidth / @baseColumns), rem);
+        left: unit(30px / (@baseWidth / @baseColumns), rem);
+    }
+
+    .time {
+        font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+        color: #979aa7;
+        line-height: unit(24px / (@baseWidth / @baseColumns), rem);
+        bottom: unit(36px / (@baseWidth / @baseColumns), rem);
+        left: unit(30px / (@baseWidth / @baseColumns), rem);
+    }
+
+    .value {
+        font-size: unit(38px / (@baseWidth / @baseColumns), rem);
+        color: #333;
+        line-height: unit(38px / (@baseWidth / @baseColumns), rem);
+        right: unit(30px / (@baseWidth / @baseColumns), rem);
+        bottom: unit(30px / (@baseWidth / @baseColumns), rem);
+    }
+
+    .tag {
+        width: unit(100px / (@baseWidth / @baseColumns), rem);
+        height: unit(36px / (@baseWidth / @baseColumns), rem);
+        font-size: unit(20px / (@baseWidth / @baseColumns), rem);
+        text-align: center;
+        line-height: unit(36px / (@baseWidth / @baseColumns), rem);
+        border: solid 1px transparent;
+        border-radius: unit(5px / (@baseWidth / @baseColumns), rem);
+        top: unit(28px / (@baseWidth / @baseColumns), rem);
+        right: unit(30px / (@baseWidth / @baseColumns), rem);
+
+        &.blue {
+            color: #3296fa;
+            border-color: #3296fa;
+        }
+    }
+}
