@@ -18,6 +18,8 @@ import ChangePhonePage from './containers/changePhone-page/changePhone-page';
 import DiscoverPage from './containers/discover-page/discover-page';
 import HelpCenterPage from './containers/helpCenter-page/helpCenter-page';
 import Detail from './containers/detail/detail'
+import DynamicPage from './containers/dynamic-page/dynamic-page';
+import SubjectListPage from './containers/subjectList-page/subjectList-page';
 
 const userIsAuthenticated = connectedRouterRedirect({
     redirectPath: '/login',
@@ -43,6 +45,8 @@ export default (
             <Route exact path="/discover" component={DiscoverPage} />
             <Route exact path="/helpCenter" component={HelpCenterPage} />
             <Route exact path="/detail" component={Detail} />
+            <Route exact path="/dynamic" component={DynamicPage} />
+            <Route exact path="/subjectList" component={SubjectListPage} />
         </Switch>
     </App>
 );
