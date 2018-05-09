@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { loginUser } from '../../actions/auth';
 import './subjectList-page.less';
-import bbhLogo from '../../assets/images/bbh-logo.png'
+import earnings from '../../assets/images/earnings.png'
 class SubjectListPage extends Component {
 	handleClick = (e) => {
 		const { loginUser } = this.props;
@@ -45,7 +45,33 @@ class SubjectListPage extends Component {
 														预计年化收益率&nbsp;<span className='number'>12</span><span className='unit'>%</span>
 												</div>
 												<div className='deadline r'>
-														期限&nbsp;<span className='number'>12</span><span className='unit'>个月</span>
+														期限：&nbsp;<span className='number'>12</span><span className='unit'>个月</span>
+												</div>
+											</div>
+											<div className='residue'>
+												<div className='percent l'>
+														<div className='none-line'></div>
+														<div className='reality-line'></div>
+														<div className='percent-number'>75%</div>
+												</div>
+												<div className='residue-money r'>
+														剩余金额：&nbsp;<span className='unit'>￥</span><span className='number'>1000</span>
+												</div>
+											</div>
+										</li>
+										<li>
+											<img src={earnings} alt=""/>
+											<div className='title'>
+												<div className='subject-name l'>汇车贷0123456789</div>
+												<div className='tag-list r'>按月付息，到期还本</div>
+												<div className='tag-list r'>加息</div>
+											</div>
+											<div className='yield'>
+												<div className='money l'>
+														预计年化收益率&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
+												</div>
+												<div className='deadline r'>
+														期限：&nbsp;<span className='number'>12</span><span className='unit'>个月</span>
 												</div>
 											</div>
 											<div className='residue'>
