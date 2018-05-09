@@ -28,6 +28,7 @@ import TradeHistoryPage from './containers/trade-history-page/trade-history-page
 import MyTransferPage from './containers/my-transfer-page/my-transfer-page';
 import RepayPlanPage from './containers/repay-plan-page/repay-plan-page';
 import Detail from './containers/detail/detail'
+import My from './containers/my/my'
 import DynamicPage from './containers/dynamic-page/dynamic-page';
 import SubjectListPage from './containers/subjectList-page/subjectList-page';
 
@@ -72,6 +73,7 @@ export default (
 
             {/* add by fangcan */}
             <Route exact path="/detail" component={Detail} />
+            <Route exact path="/my" component={My} />
         </Switch>
     </App>
 );
