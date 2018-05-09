@@ -46,6 +46,7 @@ class HomePage extends Component {
 			 
 		return (
 			<div className="home-page home-body" id="home-page">
+				<div className='home-content'>
 				<div className='page-title'>
 						首页
 				</div>
@@ -125,6 +126,34 @@ class HomePage extends Component {
 					</div>
 					
 				</div>
+				</div>
+				<ul className='footer'>
+						<li className="active">					
+							<a href="">
+								<i className='icon-home-fill'></i>
+								<div class="active">首页</div>
+							</a>
+						</li>
+						<li className="">				
+							<a href="">
+								<i className='icon-invest-border'></i>
+								<div>投资</div>
+							</a>
+						</li>
+						<li className="">					
+							<a href="">
+								<i className='icon-discovery-border'></i>
+								<div>发现</div>
+							</a>
+						</li>
+						<li className="">					
+							<a href="">
+								<i className='icon-mine-border'></i>
+								<div>我的</div>
+							</a>
+						</li>
+				</ul>
+
 			</div>
 			)
 	}

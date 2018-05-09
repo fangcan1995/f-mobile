@@ -48,19 +48,19 @@
 				&.active{
 					background:#EAEAEA;
 				}
-				.up-arrow{
+				.icon-up-arrow{
 					position: absolute;
 					display: inline-block;
-					transform:rotate(-90deg);
-					font-size: unit(24px / (@baseWidth / @baseColumns), rem);
-					top:unit(10px / (@baseWidth / @baseColumns), rem);
+					font-size: unit(18px / (@baseWidth / @baseColumns), rem);
+					top:unit(5px / (@baseWidth / @baseColumns), rem);
+					//right:unit(47px / (@baseWidth / @baseColumns), rem);
 				}
-				.down-arrow{
+				.icon-down-arrow{
 					position: absolute;
 					display: inline-block;
-					transform:rotate(90deg);
-					font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+					font-size: unit(18px / (@baseWidth / @baseColumns), rem);
 					top:unit(24px / (@baseWidth / @baseColumns), rem);
+					//right:unit(47px / (@baseWidth / @baseColumns), rem);
 				}
 			}
 		}
@@ -75,16 +75,26 @@
 				background: #fff;
 				overflow: hidden;
 				padding: unit(36px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
+				position: relative;
+				img{
+					position: absolute;
+					width:unit(136px / (@baseWidth / @baseColumns), rem);
+					height:unit(127px / (@baseWidth / @baseColumns), rem);
+					top:0;
+					right:0;
+				}
 				.title{
 					overflow: hidden;
 					.subject-name{
 						font-size:unit(28px / (@baseWidth / @baseColumns), rem);
 						color:#333;
+						font-weight: bold;
 					}
 					.tag-list{
 						color:#3296FA;
 						border:1px solid #3296FA;
-						padding: unit(4px / (@baseWidth / @baseColumns), rem) unit(25px / (@baseWidth / @baseColumns), rem); 
+						padding: unit(4px / (@baseWidth / @baseColumns), rem) unit(10px / (@baseWidth / @baseColumns), rem); 
+						margin-left: unit(10px / (@baseWidth / @baseColumns), rem);
 					}
 				}
 				.yield{
@@ -100,9 +110,11 @@
 						}
 					}
 					.deadline{
-
+						margin-top: unit(26px / (@baseWidth / @baseColumns), rem);
 						.number{
-							font-size:unit(50px / (@baseWidth / @baseColumns), rem);
+							color:#000;
+						}
+						.unit{
 							color:#000;
 						}
 					}
@@ -112,7 +124,6 @@
 					overflow: hidden;
 					font-size:unit(24px / (@baseWidth / @baseColumns), rem);
 					margin-top: unit(22px / (@baseWidth / @baseColumns), rem);
-					
 					.percent{
 						position: relative;
 						overflow: hidden;
@@ -139,8 +150,11 @@
 						}
 					}
 					.residue-money{
-
+						color:#979AA7;
 						.number{
+							color:#000;
+						}
+						.unit{
 							color:#000;
 						}
 					}

@@ -17,6 +17,16 @@ import ChangePasswordPage from './containers/changePassword-page/changePassword-
 import ChangePhonePage from './containers/changePhone-page/changePhone-page';
 import DiscoverPage from './containers/discover-page/discover-page';
 import HelpCenterPage from './containers/helpCenter-page/helpCenter-page';
+import CouponPage from './containers/coupon-page/coupon-page';
+import WithdrawPage from './containers/withdraw-page/withdraw-page';
+import TransferPage from './containers/transfer-page/transfer-page';
+import ChargePage from './containers/charge-page/charge-page';
+import MyAssetsPage from './containers/my-assets-page/my-assets-page';
+import MyAgreementPage from './containers/my-agreement-page/my-agreement-page';
+import MyScatterPage from './containers/my-scatter-page/my-scatter-page';
+import TradeHistoryPage from './containers/trade-history-page/trade-history-page';
+import MyTransferPage from './containers/my-transfer-page/my-transfer-page';
+import RepayPlanPage from './containers/repay-plan-page/repay-plan-page';
 import Detail from './containers/detail/detail'
 import My from './containers/my/my'
 import DynamicPage from './containers/dynamic-page/dynamic-page';
@@ -31,24 +41,39 @@ const userIsAuthenticated = connectedRouterRedirect({
 export default (
     <App>
         <Switch>
+            {/* add by zhiqiang */}
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/loginMessage" component={LoginMessagePage} />
-            <Route exact path="/personal" component={PersonalContainer} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/retrievePassword" component={RetrievePasswordPage} />
             <Route exact path="/authentication" component={AuthenticationPage} />
             <Route exact path="/bindPhone" component={BindPhonePage} />
             <Route exact path="/certification" component={CertificationPage} />
             <Route exact path="/changePassword" component={ChangePasswordPage} />
-            <Route exact path="/redpacket" component={RedPacket} />
             <Route exact path="/changePhone" component={ChangePhonePage} />
             <Route exact path="/discover" component={DiscoverPage} />
             <Route exact path="/helpCenter" component={HelpCenterPage} />
-            <Route exact path="/detail" component={Detail} />
-            <Route exact path="/my" component={My} />
             <Route exact path="/dynamic" component={DynamicPage} />
             <Route exact path="/subjectList" component={SubjectListPage} />
+
+            {/* add by ShadowCover */}
+            <Route exact path="/personal" component={PersonalContainer} />
+            <Route exact path="/redpacket" component={RedPacket} />
+            <Route exact path="/coupon" component={CouponPage} />
+            <Route exact path="/withdraw" component={WithdrawPage} />
+            <Route exact path="/transfer" component={TransferPage} />
+            <Route exact path="/charge" component={ChargePage} />
+            <Route exact path="/my-assets" component={MyAssetsPage} />
+            <Route exact path="/my-agreement" component={MyAgreementPage} />
+            <Route exact path="/my-scatter" component={MyScatterPage} />
+            <Route exact path="/trade-history" component={TradeHistoryPage} />
+            <Route exact path="/my-transfer" component={MyTransferPage} />
+            <Route exact path="/repay-plan" component={RepayPlanPage} />
+
+            {/* add by fangcan */}
+            <Route exact path="/detail" component={Detail} />
+            <Route exact path="/my" component={My} />
         </Switch>
     </App>
 );

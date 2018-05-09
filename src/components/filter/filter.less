@@ -32,6 +32,17 @@
         position: relative;
         float: right;
 
+        .type {
+            > * {
+                margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
+            }
+
+            h4 {
+                margin-top: unit(40px / (@baseWidth / @baseColumns), rem);
+                margin-bottom: unit(40px / (@baseWidth / @baseColumns), rem);
+            }
+        }
+
         .buttonAction {
             display: flex;
             width: 100%;
@@ -53,6 +64,26 @@
                 }
                 &:focus {
                     outline: none;
+                }
+            }
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+
+            > li {
+                padding: unit(17px / (@baseWidth / @baseColumns), rem) unit(44px / (@baseWidth / @baseColumns), rem);
+                background: #f1f2f6;
+                border-radius: .25rem;
+                margin: 0 unit(20px / (@baseWidth / @baseColumns), rem) unit(20px / (@baseWidth / @baseColumns), rem) 0;
+
+                &.activeOption {
+                    color: #3296fa;
+                    padding: unit(15px / (@baseWidth / @baseColumns), rem) unit(42px / (@baseWidth / @baseColumns), rem);
+                    background: #fff;
+                    border: solid 1px #3296fa;
                 }
             }
         }
