@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import './my-transfer-page.less';
 import TradeCard from '../../components/trade-card/trade-card';
 import Filter from '../../components/filter/filter';
-import FilterButton from '../../components/filter/filter-button';
 
 
 class MyTransferPage extends Component {
@@ -13,8 +12,7 @@ class MyTransferPage extends Component {
                 <TradeCard isTrade={false} />
                 <TradeCard />
                 <TradeCard />
-                <FilterButton />
-                {/* <Filter /> */}
+                <Filter />
             </div>
         );
     }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import AgreementCard from '../../components/agreement-card/agreement-card';
 import Filter from '../../components/filter/filter';
-import FilterButton from '../../components/filter/filter-button';
 import './my-scatter-page.less';
 
 class MyScatterPage extends Component {
@@ -12,8 +11,7 @@ class MyScatterPage extends Component {
                 <AgreementCard isFull={true}/>
                 <AgreementCard isFull={true}/>
                 <AgreementCard isFull={true}/>
-                <FilterButton />
-                {/* <Filter /> */}
+                <Filter />
             </div>
         );
     }
