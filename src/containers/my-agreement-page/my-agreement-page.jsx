@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import AgreementCard from '../../components/agreement-card/agreement-card';
 import Filter from '../../components/filter/filter';
-import FilterButton from '../../components/filter/filter-button';
 import './my-agreement-page.less';
 
 class MyAgreementPage extends Component {
@@ -12,8 +11,7 @@ class MyAgreementPage extends Component {
                 <AgreementCard />
                 <AgreementCard />
                 <AgreementCard />
-                <FilterButton />
-                {/* <Filter /> */}
+                <Filter />
             </div>
         );
     }

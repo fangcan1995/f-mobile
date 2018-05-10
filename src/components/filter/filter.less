@@ -1,89 +1,117 @@
 @import '../../assets/stylesheets/global';
 
-.filterButton {
-    width: unit(100px / (@baseWidth / @baseColumns), rem);
-    height: unit(100px / (@baseWidth / @baseColumns), rem);
-    color: #fff;
-    text-align: center;
-    line-height: unit(100px / (@baseWidth / @baseColumns), rem);
-    background: #1e2742;
-    border-radius: 50%;
-    position: fixed;
-    right: unit(60px / (@baseWidth / @baseColumns), rem);
-    bottom: unit(100px / (@baseWidth / @baseColumns), rem);
-    i {
-        font-size: unit(34px / (@baseWidth / @baseColumns), rem);
+
+.filterBlock {
+    width: 0;
+    height: 0;
+
+    .filterButton {
+        width: unit(100px / (@baseWidth / @baseColumns), rem);
+        height: unit(100px / (@baseWidth / @baseColumns), rem);
         color: #fff;
+        text-align: center;
+        line-height: unit(100px / (@baseWidth / @baseColumns), rem);
+        background: #1e2742;
+        border-radius: 50%;
+        position: fixed;
+        right: unit(60px / (@baseWidth / @baseColumns), rem);
+        bottom: unit(100px / (@baseWidth / @baseColumns), rem);
+
+        i {
+            font-size: unit(34px / (@baseWidth / @baseColumns), rem);
+            color: #fff;
+        }
     }
-}
 
-
-.filter {
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .4);
-    position: fixed;
-    top: 0; right: 0; bottom: 0; left: 0;
-
-    > .filterArea {
-        width: unit(660px / (@baseWidth / @baseColumns), rem);
+    .filter {
+        width: 100%;
         height: 100%;
-        background: #fff;
-        position: relative;
-        float: right;
+        background: rgba(0, 0, 0, .6);
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -2;
 
-        .type {
-            > * {
-                margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
-            }
-
-            h4 {
-                margin-top: unit(40px / (@baseWidth / @baseColumns), rem);
-                margin-bottom: unit(40px / (@baseWidth / @baseColumns), rem);
-            }
-        }
-
-        .buttonAction {
-            display: flex;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            button {
-                width: 50%;
-                height: unit(87px / (@baseWidth / @baseColumns), rem);
-                font-size: unit(30px / (@baseWidth / @baseColumns), rem);
-                color: #333;
-                background: #fff;
-                border: 0;
-                border-top: solid 1px #e1e1e1;
-                outline: none;
-                &.makeSure {
-                    color: #fff;
-                    background: #3296fa;
-                    border-top: solid 1px #3296fa;
-                }
-                &:focus {
-                    outline: none;
-                }
+        &.show {
+            z-index: 2;
+            > .filterArea {
+                transform: translateX(0);
             }
         }
+        > .hideArea {
+            width: unit(90px / (@baseWidth / @baseColumns), rem);
+            height: 100%;
+            float: left;
+        }
 
-        .options {
-            display: flex;
-            flex-wrap: wrap;
-            align-content: flex-start;
+        > .filterArea {
+            width: unit(660px / (@baseWidth / @baseColumns), rem);
+            height: 100%;
+            background: #fff;
+            position: relative;
+            float: right;
+            transform: translateX(100%);
+            transition: transform .2s;
 
-            > li {
-                padding: unit(17px / (@baseWidth / @baseColumns), rem) unit(44px / (@baseWidth / @baseColumns), rem);
-                background: #f1f2f6;
-                border-radius: .25rem;
-                margin: 0 unit(20px / (@baseWidth / @baseColumns), rem) unit(20px / (@baseWidth / @baseColumns), rem) 0;
+            .type {
 
-                &.activeOption {
-                    color: #3296fa;
-                    padding: unit(15px / (@baseWidth / @baseColumns), rem) unit(42px / (@baseWidth / @baseColumns), rem);
+                > * {
+                    margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
+                }
+
+                h4 {
+                    margin-top: unit(40px / (@baseWidth / @baseColumns), rem);
+                    margin-bottom: unit(40px / (@baseWidth / @baseColumns), rem);
+                }
+            }
+
+            .buttonAction {
+                display: flex;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+
+                button {
+                    width: 50%;
+                    height: unit(87px / (@baseWidth / @baseColumns), rem);
+                    font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+                    color: #333;
                     background: #fff;
-                    border: solid 1px #3296fa;
+                    border: 0;
+                    border-top: solid 1px #e1e1e1;
+                    outline: none;
+
+                    &.makeSure {
+                        color: #fff;
+                        background: #3296fa;
+                        border-top: solid 1px #3296fa;
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+
+            .options {
+                display: flex;
+                flex-wrap: wrap;
+                align-content: flex-start;
+
+                > li {
+                    padding: unit(17px / (@baseWidth / @baseColumns), rem) unit(44px / (@baseWidth / @baseColumns), rem);
+                    background: #f1f2f6;
+                    border-radius: .25rem;
+                    margin: 0 unit(20px / (@baseWidth / @baseColumns), rem) unit(20px / (@baseWidth / @baseColumns), rem) 0;
+
+                    &.activeOption {
+                        color: #3296fa;
+                        padding: unit(15px / (@baseWidth / @baseColumns), rem) unit(42px / (@baseWidth / @baseColumns), rem);
+                        background: #fff;
+                        border: solid 1px #3296fa;
+                    }
                 }
             }
         }

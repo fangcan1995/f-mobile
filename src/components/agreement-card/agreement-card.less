@@ -93,11 +93,19 @@
             text-align: center;
             border-right: solid unit(2px / (@baseWidth / @baseColumns), rem) #eee;
 
+            a {
+                font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+                color: #bbb;
+            }
+
             &:last-child {
                 border-right: none;
             }
+
             &.active {
-                color: #3296fa;
+                a {
+                    color: #3296fa;
+                }
             }
         }
     }

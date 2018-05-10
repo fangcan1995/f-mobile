@@ -1,4 +1,5 @@
 import React, { Componnet } from 'react';
+import { Link } from 'react-router-dom';
 
 import './agreement-card.less';
 
@@ -32,9 +33,9 @@ const AgreementCard = ({ isFull }) => {
                 <div className="tag blue">{'回款中'}</div>
             </div>
             <div className="cardAction">
-                <div className="actionButton">转让</div>
-                <div className="actionButton active">回款计划</div>
-                <div className="actionButton active">项目合同</div>
+                <div className="actionButton"><Link to="/transfer">转让</Link></div>
+                <div className="actionButton active"><Link to="/repay-plan">回款计划</Link></div>
+                <div className="actionButton active"><Link to="/">项目合同</Link></div>
             </div>
         </div>
     );
