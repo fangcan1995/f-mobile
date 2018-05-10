@@ -63,9 +63,9 @@ class My extends Component{
                         <p>
                             <i className = 'icon-tel'></i><span>0411-84609588</span>（工作日：8:30~17:30）
                         </p>
-                        <div>
-                            <div className = 'left'><i className = 'icon-consult-fill'></i><span>喵宝</span>（工作日：8:30~17:30）</div>
-                            <div className = 'right'><i className = 'icon-wechat-fill'></i><span>“巴巴汇金服”</span>（工作日：8:30~17:30）</div>
+                        <div className = 'contact-icon'>
+                            <div className = 'left'><i className = 'icon-consult-fill'></i>咨询在线客服<span>喵宝</span></div>
+                            <div className = 'right'><i className = 'icon-wechat-fill'></i>微信搜索<span>“巴巴汇金服”</span></div>
                         </div>
                     </div>
                 </div>

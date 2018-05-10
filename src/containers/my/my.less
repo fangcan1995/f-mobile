@@ -157,9 +157,16 @@
     }
     .contact{
         text-align: center;
+        padding: unit(50px / (@baseWidth / @baseColumns), rem) 0;
         font-size: unit(24px / (@baseWidth / @baseColumns), rem);
         .left{
             float: left;
+        }
+        span{
+            color: #000000;
+        }
+        .contact-icon{
+            padding: 0 unit(50px / (@baseWidth / @baseColumns), rem) ;
         }
     }
 }
