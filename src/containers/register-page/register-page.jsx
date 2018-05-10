@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { loginUser } from '../../actions/auth';
+import { Link } from 'react-router-dom';
 import './register-page.less';
 import bbhLogo from '../../assets/images/bbh-logo.png'
 class RegisterPage extends Component {
@@ -15,7 +16,9 @@ class RegisterPage extends Component {
 		return (
             <div className='login-body'>
                 <div className='logo-box'>
-                    <img src={bbhLogo} className='bbh-logo'/>
+                    <Link to='/'>
+                        <img src={bbhLogo} className='bbh-logo'/>
+                    </Link>    
                 </div>
                 <div className='page-title'>
                     注册
@@ -46,7 +49,7 @@ class RegisterPage extends Component {
                 </form>   
                 <div className='agreement'>
                     <p>注册即表示您已同意<span>《用户注册及服务协议》</span></p>
-                    <p>已有账号？<span>请登陆</span></p>
+                    <p>已有账号？<Link to='/login'><span>请登陆</span></Link></p>
                 </div>         
             </div>
 			)
