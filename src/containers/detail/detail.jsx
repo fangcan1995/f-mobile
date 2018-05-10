@@ -91,7 +91,7 @@ class Detail extends Component{
                         <div className = 'checkbox'>
                             <label className = 'tips'>
                                 <input type = 'checkbox'/>我已阅读并同意
-                                <span className= 'agreement'><a href=''>《投资协议》</a>、<br/><a href=''>《网络借贷风险和禁止性行为提示》</a></span>
+                                <span className= 'agreement'><a href=''>《投资协议》</a>、<a href=''>《网络借贷风险和禁止性行为提示》</a></span>
                             </label>
                         </div>
                         <div className = 'button'>立即投资</div>

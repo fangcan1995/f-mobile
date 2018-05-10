@@ -54,6 +54,7 @@ export default (
             <Route exact path="/changePhone" component={ChangePhonePage} />
             <Route exact path="/discover" component={DiscoverPage} />
             <Route exact path="/helpCenter" component={HelpCenterPage} />
+            <Route exact path="/detail" component={Detail} />
             <Route exact path="/dynamic" component={DynamicPage} />
             <Route exact path="/subjectList" component={SubjectListPage} />
 
