@@ -6,6 +6,7 @@ import ReactSwipe from 'react-swipe';
 import ReactSwiper from 'reactjs-swiper';
 import { loginUser } from '../../actions/auth';
 import './home-page.less';
+import FooterTab from '../../components/footer-tab/footer-tab';
 import homeList1 from './../../assets/images/home-list1.png';
 import homeList2 from './../../assets/images/home-list2.png';
 import homeList3 from './../../assets/images/home-list3.png';
@@ -45,8 +46,8 @@ class HomePage extends Component {
 			}; 
 			 
 		return (
-			<div className="home-page home-body" id="home-page">
-				<div className='home-content'>
+			<div className="home-page home-body footer-tab-body" id="home-page">
+				<div className='home-content footer-tab-content'>
 				<div className='page-title'>
 						首页
 				</div>
@@ -127,32 +128,9 @@ class HomePage extends Component {
 					
 				</div>
 				</div>
-				<ul className='footer'>
-						<li className="active">					
-							<a href="">
-								<i className='icon-home-fill'></i>
-								<div>首页</div>
-							</a>
-						</li>
-						<li className="">				
-							<a href="">
-								<i className='icon-invest-border'></i>
-								<div>投资</div>
-							</a>
-						</li>
-						<li className="">					
-							<a href="">
-								<i className='icon-discovery-border'></i>
-								<div>发现</div>
-							</a>
-						</li>
-						<li className="">					
-							<a href="">
-								<i className='icon-mine-border'></i>
-								<div>我的</div>
-							</a>
-						</li>
-				</ul>
+				<div className='footer-tab-parent'>
+					<FooterTab></FooterTab>
+				</div>
 
 			</div>
 			)
