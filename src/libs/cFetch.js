@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
 import StandardError from 'standard-error';
 import { API_CONFIG } from './../config/api';
-import { message, Modal } from 'antd';
+// import { message, Modal } from 'antd';
 
 const errorMessages = (res) => `${res.status} ${res.statusText}`;
 
@@ -145,7 +145,7 @@ function cFetch(url, options, withAuth = true) {
 window.addEventListener("unhandledrejection", function(err) {
   const ex = err.reason;
   if(ex.constructor != null && ex.constructor == StandardError || ex.msg != null){
-    message.error(ex.msg, 2.5);
+    // message.error(ex.msg, 2.5);
   }
 });
 
