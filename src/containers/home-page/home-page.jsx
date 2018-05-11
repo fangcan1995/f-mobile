@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import ReactSwipe from 'react-swipe';
 import ReactSwiper from 'reactjs-swiper';
 import { loginUser } from '../../actions/auth';
+import { getAdverts } from '../../actions/home';
 import './home-page.less';
 import FooterTab from '../../components/footer-tab/footer-tab';
 import homeList1 from './../../assets/images/home-list1.png';
@@ -21,8 +23,11 @@ class HomePage extends Component {
 	handleLeftSwipe = (e)=> {
 		console.log(e);
 	  }
+	componentDidMount(){
+
+	}
 	render() {
-		const { auth } = this.props;
+		const { auth ,home } = this.props;
 		const items = [{
 			image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci1.jpg',
 			title: '图片1',
@@ -76,22 +81,25 @@ class HomePage extends Component {
 				<div className='greenhand'>
 					<img src={newPerson} alt=""/>
 					<div className='greenhand-content'>
-						<div className='tag'>
-							<label className='l'>新手专享</label>
-							<ul className='l'>
-								<li className='l'>加息</li>
-								<li className='l'>限额1万元</li>
-								<li className='l'>限投一次</li>
-							</ul>
-						</div>
-						<div className='yield'>
-							<div className='money l'>
-									预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
+						<Link to='/detail'>
+							<div className='tag'>
+								<label className='l'>新手专享</label>
+								<ul className='l'>
+									<li className='l'>加息</li>
+									<li className='l'>限额1万元</li>
+									<li className='l'>限投一次</li>
+								</ul>
+								
 							</div>
-							<div className='deadline r'>
-									期限&nbsp;&nbsp;&nbsp;<span className='number'>3</span><span className='unit'>个月</span>
+							<div className='yield'>
+								<div className='money l'>
+										预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
+								</div>
+								<div className='deadline r'>
+										期限&nbsp;&nbsp;&nbsp;<span className='number'>3</span><span className='unit'>个月</span>
+								</div>
 							</div>
-						</div>
+						</Link>
 					</div>
 					<div className='greenhand-content'>
 						<div className='tag'>
@@ -141,13 +149,15 @@ class HomePage extends Component {
 function select(state) {
   const { auth } = state.toJS();
   return {
-    auth
+	auth,
+	home
   };
 }
 
 const mapDispatchToProps = dispatch => 
 bindActionCreators({
   loginUser,
+  getAdverts,
 }, dispatch)
 
 export default connect(select, mapDispatchToProps)(HomePage);

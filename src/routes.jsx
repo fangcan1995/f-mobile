@@ -42,7 +42,7 @@ export default (
     <App>
         <Switch>
             {/* add by zhiqiang */}
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/home" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/loginMessage" component={LoginMessagePage} />
             <Route exact path="/register" component={RegisterPage} />

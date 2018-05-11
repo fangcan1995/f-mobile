@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { loginUser } from '../../actions/auth';
+import { login } from '../../actions/login';
 import './login-page.less';
 import { Link } from 'react-router-dom';
 import bbhLogo from '../../assets/images/bbh-logo.png'
@@ -13,15 +13,13 @@ const params = {
     send_terminal: 'iphone',
 }
 class LoginPage extends Component {
-	handleClick = (e) => {
-		const { loginUser } = this.props;
-		loginUser({ accout: 'aaa', password: 'aaa' })
-    }
     handleSubmit(){
-        alert('测试')
+        const {dispatch }=this.props;
+        dispatch(login(params))
+
     }
 	render() {
-		const { auth } = this.props;
+		const { login } = this.props;
 		return (
             <div className='login-body'>
                 <div className='logo-box'>
@@ -86,15 +84,12 @@ class LoginPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { login } = state.toJS();
   return {
-    auth
+    login
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  loginUser,
-}, dispatch)
 
-export default connect(select, mapDispatchToProps)(LoginPage);
+
+export default connect(select)(LoginPage);
