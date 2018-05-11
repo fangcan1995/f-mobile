@@ -13,13 +13,13 @@ const initialState = fromJS({
     project:{
         advertList:[],
         noviceList:[],
+        standardList:[],
     },
 });
 
 export default createReducer(initialState, {
   [`homePage/GET_ADVERTS_PENDING`]: (state, action) => state.merge({
     isFetching: true,
-    isAuthenticated: false,
   }),
   [`homePage/GET_ADVERTS_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
@@ -32,7 +32,6 @@ export default createReducer(initialState, {
 
   [`homePage/GET_PROJECT_PENDING`]: (state, action) => state.merge({
     isFetching: true,
-    isAuthenticated: false,
   }),
   [`homePage/GET_PROJECT_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,

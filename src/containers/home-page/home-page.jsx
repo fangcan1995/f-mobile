@@ -80,22 +80,7 @@ class HomePage extends Component {
 					</ReactSwipe>
 				</div>
 				<ul className='other-list'>
-					{/* <li>
-							<img src={homeList1} alt=""/>
-							<div className='list-label'>平台介绍</div>
-					</li>
-					<li>
-							<img src={homeList2} alt=""/>
-							<div className='list-label'>安全保障</div>
-					</li>
-					<li>
-							<img src={homeList3} alt=""/>
-							<div className='list-label'>信息披漏</div>
-					</li>
-					<li>
-							<img src={homeList4} alt=""/>
-							<div className='list-label'>五重风控</div>
-					</li> */}
+					
 					{
 						home.adverts.randomList.map(item=>{
 							return (
@@ -108,44 +93,76 @@ class HomePage extends Component {
 
 				</ul>
 				<div className='greenhand'>
-					<img src={newPerson} alt=""/>
+					{
+						home.project.advertList.length?<img src={home.project.advertList[0].imgsrc} alt={home.project.advertList[0].title} />
+						:
+						<img src={newPerson} alt='' />
+					}
+					
 					<div className='greenhand-content'>
-						<Link to='/detail'>
-							<div className='tag'>
-								<label className='l'>新手专享</label>
-								<ul className='l'>
-									<li className='l'>加息</li>
-									<li className='l'>限额1万元</li>
-									<li className='l'>限投一次</li>
-								</ul>
+						{
+							home.project.noviceList.length?
+							<div>
+								{
+									home.project.noviceList.map(item=>{
+										return (
+											<div key={item.id}>
+												<div className='tag'>
+													<label className='l'>新手专享</label>
+													<ul className='l'>
+														<li className='l'>加息</li>
+														<li className='l'>限额1万元</li>
+														<li className='l'>限投一次</li>
+													</ul>
+													
+												</div>
+												<div className='yield'>
+													<div className='money l'>
+															预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>{item.annualRate}</span><span className='unit'>%</span>
+													</div>
+													<div className='deadline r'>
+															期限&nbsp;&nbsp;&nbsp;<span className='number'>{item.loanExpiry}</span><span className='unit'>个月</span>
+													</div>
+												</div>
+											</div>	
+										)
+									})
+								}
 								
 							</div>
-							<div className='yield'>
-								<div className='money l'>
-										预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
-								</div>
-								<div className='deadline r'>
-										期限&nbsp;&nbsp;&nbsp;<span className='number'>3</span><span className='unit'>个月</span>
-								</div>
-							</div>
-						</Link>
+							:''
+						}
 					</div>
-					<div className='greenhand-content'>
-						<div className='tag'>
-							<label className='l'>优质推荐</label>
-							<ul className='l'>
-								<li className='l'>加息</li>
-							</ul>
-						</div>
-						<div className='yield'>
-							<div className='money l'>
-									预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
+					{
+						home.project.standardList.length?
+							<div className='greenhand-content'>
+								{
+									home.project.standardList.map(item=>{
+										return (
+											<div key = {item.id}>
+												<div className='tag'>
+													<label className='l'>优质推荐</label>
+													<ul className='l'>
+														<li className='l'>加息</li>
+													</ul>
+												</div>
+												<div className='yield'>
+													<div className='money l'>
+															预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
+													</div>
+													<div className='deadline r'>
+															期限&nbsp;&nbsp;&nbsp;<span className='number'>3</span><span className='unit'>个月</span>
+													</div>
+												</div>
+											</div>
+										)
+									})
+								}
+								
 							</div>
-							<div className='deadline r'>
-									期限&nbsp;&nbsp;&nbsp;<span className='number'>3</span><span className='unit'>个月</span>
-							</div>
-						</div>
-					</div>
+							:''
+					}
+					
 					<div className='greenhand-content'>
 						<div className='tag'>
 							<label className='l'>其他</label>
