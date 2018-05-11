@@ -5,6 +5,8 @@ import RedCoupon from '../../components/redCoupon/redCoupon';
 import Filter from '../../components/filter/filter';
 import './RedPacket.less';
 
+import { getRedpacket } from '../../actions/redpacket';
+
 class RedPacket extends Component {
 
     constructor(props) {
@@ -12,12 +14,22 @@ class RedPacket extends Component {
     }
 
     componentDidMount () {
-        console.log(this.props);
+        const { getRedpacket } = this.props;
+        getRedpacket();
     }
 
     render() {
+        const { redpacketsList } = this.props;
+
         return (
             <div className="couponList">
+                {
+                    redpacketsList.map((list, i) => {
+                        return (
+                            <RedCoupon type='rp' data={{status: '1'}}/>
+                        )
+                    })
+                }
                 <RedCoupon type='rp' data={{status: '1'}}/>
                 <RedCoupon type='cp'/>
                 <RedCoupon type='cp' invalid={true}/>
@@ -28,19 +40,25 @@ class RedPacket extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { auth } = state.toJS();
+    const { redpacket } = state.toJS();
+    console.log(redpacket);
     return {
-        auth
+        redpacketsList: state.toJS().redpacket.redpacketsList
     }
 };
 
-const mapDispatchToProps = (state) => {
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getRedpacket: () => {
+            dispatch(getRedpacket());
+        }
+    }
     
 }
 
 RedPacket = connect(
     mapStateToProps, 
-    //mapDispatchToProps
+    mapDispatchToProps
 )(RedPacket);
 
 export default RedPacket;
