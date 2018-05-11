@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
@@ -23,7 +24,7 @@ class ChangePhonePage extends Component {
                </div>
                
                <div className='word'>为了您的账户安全，若手机更换修改绑定手机号码</div>
-               <button className='login-submit'>修改绑定手机号</button>
+               <Link to="/bindPhone"><button className='login-submit'>修改绑定手机号</button></Link>
             </div>
 			)
 	}
