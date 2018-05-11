@@ -6,6 +6,12 @@ import { loginUser } from '../../actions/auth';
 import './login-page.less';
 import { Link } from 'react-router-dom';
 import bbhLogo from '../../assets/images/bbh-logo.png'
+const params = {
+    client_id: 'member',
+    client_secret: 'secret',
+    grant_type: 'password',
+    send_terminal: 'iphone',
+}
 class LoginPage extends Component {
 	handleClick = (e) => {
 		const { loginUser } = this.props;
