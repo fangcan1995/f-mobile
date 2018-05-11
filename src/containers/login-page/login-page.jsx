@@ -2,24 +2,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { loginUser } from '../../actions/auth';
+import { login } from '../../actions/login';
 import './login-page.less';
+import { Link } from 'react-router-dom';
 import bbhLogo from '../../assets/images/bbh-logo.png'
+const params = {
+    client_id: 'member',
+    client_secret: 'secret',
+    grant_type: 'password',
+    send_terminal: 'iphone',
+}
 class LoginPage extends Component {
-	handleClick = (e) => {
-		const { loginUser } = this.props;
-		loginUser({ accout: 'aaa', password: 'aaa' })
-	}
+    handleSubmit(){
+        const {dispatch }=this.props;
+        dispatch(login(params))
+
+    }
 	render() {
-		const { auth } = this.props;
+		const { login } = this.props;
 		return (
             <div className='login-body'>
                 <div className='logo-box'>
-                    <img src={bbhLogo} className='bbh-logo'/>
-                </div>
-                <div className='page-title'>
-                    登录
-                </div>
+                    <Link to='/'>
+                        <img src={bbhLogo} className='bbh-logo'/>
+                    </Link>
+                </div>               
+                    <div className='page-title'>
+                        登录
+                    </div>
+                
                 <form className='login-form'>
                     <div className='login-box login-name-box'>
                         <i className='icon-username'></i>
@@ -31,7 +42,7 @@ class LoginPage extends Component {
                         <i className='icon-show-password'></i>
                     </div>
                     <div className='login-password-box'>
-                        <button className='login-submit'>登录</button>
+                        <button type='button' className='login-submit' onClick={this.handleSubmit.bind(this)}>登录</button>
                     </div>
                     
                 </form>
@@ -41,20 +52,28 @@ class LoginPage extends Component {
                 </div>
                 <ul className='login-way'>
                     <li className='l'>
-                        <i className='icon-wechat-border'></i><br />
-                        <span>微信登陆</span>
+                         <Link to='/loginMessage'>
+                            <i className='icon-wechat-border'></i><br />
+                            <span>微信登陆</span>
+                        </Link>
                     </li>
                     <li className='l'>
-                        <i className='icon-message-special'></i><br />
-                        <span>短信登录</span>
+                        <Link to='/loginMessage'>
+                            <i className='icon-message-special'></i><br />
+                            <span>短信登录</span>
+                        </Link>   
                     </li>
                 </ul>
                 <div className='todo-other'>
                     <div className='l li'>
-                        忘记密码
+                        <Link to='/retrievePassword'>
+                            忘记密码
+                        </Link>
                     </div>
                     <div className='l li'>
-                        注册账号
+                        <Link to='/register'>
+                            注册账号
+                        </Link>    
                     </div>
                 </div>
                 
@@ -65,15 +84,12 @@ class LoginPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { login } = state.toJS();
   return {
-    auth
+    login
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  loginUser,
-}, dispatch)
 
-export default connect(select, mapDispatchToProps)(LoginPage);
+
+export default connect(select)(LoginPage);

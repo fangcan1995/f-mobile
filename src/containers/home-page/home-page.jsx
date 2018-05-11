@@ -66,15 +66,15 @@ class HomePage extends Component {
 					</li>
 					<li>
 							<img src={homeList2} alt=""/>
-							<div className='list-label'>平台介绍</div>
+							<div className='list-label'>安全保障</div>
 					</li>
 					<li>
 							<img src={homeList3} alt=""/>
-							<div className='list-label'>平台介绍</div>
+							<div className='list-label'>信息披漏</div>
 					</li>
 					<li>
 							<img src={homeList4} alt=""/>
-							<div className='list-label'>平台介绍</div>
+							<div className='list-label'>五重风控</div>
 					</li>
 
 				</ul>

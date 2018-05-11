@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
@@ -25,7 +26,7 @@ class CertificationPage extends Component {
               
                 </form> 
                 <div className='retrievePassword-password-box'>
-                    <button className='retrievePassword-submit'>提交审核</button>
+                    <Link to="/"><button className='retrievePassword-submit'>提交审核</button></Link>
                 </div>
             </div>
 			)
