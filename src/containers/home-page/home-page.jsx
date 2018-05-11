@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import ReactSwipe from 'react-swipe';
 import ReactSwiper from 'reactjs-swiper';
 import { loginUser } from '../../actions/auth';
-import { getAdverts } from '../../actions/home';
+import { getAdverts, getProject } from '../../actions/home';
 import './home-page.less';
 import FooterTab from '../../components/footer-tab/footer-tab';
 import homeList1 from './../../assets/images/home-list1.png';
@@ -23,31 +23,43 @@ class HomePage extends Component {
 	handleLeftSwipe = (e)=> {
 		console.log(e);
 	  }
-	componentDidMount(){
+	componentDidMount () {
+		const { getAdverts, getProject } = this.props;
+		getAdverts()
+		getProject()
+	}
+	handleBannerClick (e) {
+		window.location.href=e
+	}
 
+	handleAdClick (e) {
+		window.location.href=e
 	}
 	render() {
 		const { auth ,home } = this.props;
-		const items = [{
-			image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci1.jpg',
-			title: '图片1',
-			link: 'http://jd.com'
-		  }, {
-			image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci2.jpg',
-			title: '图片2',
-		  }, {
-			image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci3.jpg',
-			title: '图片3',
-			link: 'http://jd.com'
-		  }, {
-			image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci4.jpg',
-			title: '图片4',
-		  }];
+		console.log(home)
+		// const items = [{
+		// 	image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci1.jpg',
+		// 	title: '图片1',
+		// 	link: 'http://jd.com'
+		//   }, {
+		// 	image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci2.jpg',
+		// 	title: '图片2',
+		//   }, {
+		// 	image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci3.jpg',
+		// 	title: '图片3',
+		// 	link: 'http://jd.com'
+		//   }, {
+		// 	image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci4.jpg',
+		// 	title: '图片4',
+		//   }];
 		 
 		  let swiperOptions = {
-				preloadImages: true,
-				autoplay: 1000,
-				autoplayDisableOnInteraction: false
+				speed: 400,
+				auto: 3000,
+				disableScroll: false,
+				stopPropagation: false,
+				continuous: true
 			}; 
 			 
 		return (
@@ -57,10 +69,18 @@ class HomePage extends Component {
 						首页
 				</div>
 				<div className='banner'>
-					<ReactSwiper swiperOptions={swiperOptions} showPagination items={items} className="swiper" />
+					<ReactSwipe swipeOptions={swiperOptions} showPagination className="swiper" key={home.adverts.carouselList.length}>
+						{
+							home.adverts.carouselList.map((item)=>{
+								return (
+									<img src={item.imgsrc} key={item.id} onClick={this.handleBannerClick.bind(this,item.imgurl)}/>
+								)
+							})
+						}
+					</ReactSwipe>
 				</div>
 				<ul className='other-list'>
-					<li>
+					{/* <li>
 							<img src={homeList1} alt=""/>
 							<div className='list-label'>平台介绍</div>
 					</li>
@@ -75,7 +95,16 @@ class HomePage extends Component {
 					<li>
 							<img src={homeList4} alt=""/>
 							<div className='list-label'>五重风控</div>
-					</li>
+					</li> */}
+					{
+						home.adverts.randomList.map(item=>{
+							return (
+								<li key={item.id} onClick={this.handleAdClick.bind(this,item.imgurl)}>
+										<img src={item.imgsrc} alt={item.title}/>
+								</li>
+							)
+						})
+					}
 
 				</ul>
 				<div className='greenhand'>
@@ -147,7 +176,7 @@ class HomePage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { auth, home } = state.toJS();
   return {
 	auth,
 	home
@@ -158,6 +187,7 @@ const mapDispatchToProps = dispatch =>
 bindActionCreators({
   loginUser,
   getAdverts,
+  getProject,
 }, dispatch)
 
 export default connect(select, mapDispatchToProps)(HomePage);
