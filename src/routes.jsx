@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 
 import App from './components/app/app';
@@ -73,8 +73,15 @@ export default (
             <Route exact path="/repay-plan" component={RepayPlanPage} />
 
             {/* add by fangcan */}
-            <Route exact path="/detail" component={Detail} />
+            <Route path="/detail/:id" render={
+                ({ match }) => {
+                    return (
+                        <Detail match={match} />
+                    );
+                }
+            } />
             <Route exact path="/my" component={My} />
+            <Redirect to = '/home' />
         </Switch>
     </App>
 );

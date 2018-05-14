@@ -1,36 +1,46 @@
 import React, { Component } from 'react';
+import { getDetails } from '../../actions/detail';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/auth';
+import { bindActionCreators } from 'redux';
 import './detail.less'
 
 class Detail extends Component{
     state = {
         percent: 75,
       };
+      componentDidMount(){
+		const { getDetails } = this.props;
+		getDetails(this.props.match.params.id)
+	}
     render(){
+        const { auth , detail } = this.props;
+        console.log(detail);
         return (
             <div id='detail'>
                 <div className = 'warpper'>
                     <div className = 'content'>
                         <div className = 'nav'>
                             <div className = 'nav-tital'>
-                                8+2%<span>预计年化收益率</span>
+                                {detail.project.annualRate}%<br/><span>预计年化收益率</span>
                             </div>
                             <div className = 'plus'>加息</div>
                             <div className = 'clear'></div>
                             <ul className = 'show-massage'>
-                                <li>10000
+                                <li>{detail.project.surplusAmount}
                                     <p>剩余金额（元）</p>
                                 </li>
-                                <li>12
+                                <li>{detail.project.loanExpiry}
                                     <p>期限（月）</p>
                                 </li>
-                                <li>1000
+                                <li>{detail.project.minInvestAmount}
                                     <p>起投金额（元）</p>
                                 </li>
                             </ul>
                             <div className="progress">
                                 <div className="progress__bar">
-                                    <div className="progress__bar--cur" style={{width: `${75}%`}}>
-                                        <div className = 'num'>75%
+                                    <div className="progress__bar--cur" style={{width: `${detail.project.investmentProgress}%`}}>
+                                        <div className = 'num'>{detail.project.investmentProgress}
                                             <span className = 'triangle'></span>
                                         </div>
                                     </div>
@@ -102,4 +112,18 @@ class Detail extends Component{
     }
 }
 
-export default Detail
+function select(state) {
+    const { auth, detail } = state.toJS();
+    return {
+      auth,
+      detail
+    };
+  }
+  
+  const mapDispatchToProps = dispatch => 
+  bindActionCreators({
+    loginUser,
+    getDetails,
+  }, dispatch)
+  
+  export default connect(select, mapDispatchToProps)(Detail);

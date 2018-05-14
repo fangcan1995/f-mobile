@@ -32,6 +32,9 @@ class HomePage extends Component {
 		window.location.href=e
 	}
 
+	handleDetailClick (e) {
+		this.props.history.push(`/detail/${e}`)
+	}
 	handleAdClick (e) {
 		window.location.href=e
 	}
@@ -106,7 +109,7 @@ class HomePage extends Component {
 								{
 									home.project.noviceList.map(item=>{
 										return (
-											<div key={item.id}>
+											<div key={item.id} onClick = {this.handleDetailClick.bind(this,item.id)}>
 												<div className='tag'>
 													<label className='l'>新手专享</label>
 													<ul className='l'>
@@ -133,13 +136,13 @@ class HomePage extends Component {
 							:''
 						}
 					</div>
-					{
-						home.project.standardList.length?
-							<div className='greenhand-content'>
+						{
+							home.project.standardList.length?
+							<div>
 								{
 									home.project.standardList.map(item=>{
 										return (
-											<div key = {item.id}>
+											<div key = {item.id} className='greenhand-content' onClick = {this.handleDetailClick.bind(this,item.id)}>
 												<div className='tag'>
 													<label className='l'>优质推荐</label>
 													<ul className='l'>
@@ -148,38 +151,19 @@ class HomePage extends Component {
 												</div>
 												<div className='yield'>
 													<div className='money l'>
-															预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
+															预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>{item.annualRate}</span><span className='unit'>%</span>
 													</div>
 													<div className='deadline r'>
-															期限&nbsp;&nbsp;&nbsp;<span className='number'>3</span><span className='unit'>个月</span>
+															期限&nbsp;&nbsp;&nbsp;<span className='number'>{item.loanExpiry}</span><span className='unit'>个月</span>
 													</div>
 												</div>
 											</div>
 										)
 									})
 								}
-								
 							</div>
-							:''
-					}
-					
-					<div className='greenhand-content'>
-						<div className='tag'>
-							<label className='l'>其他</label>
-							<ul className='l'>
-								<li className='l'>加息</li>
-							</ul>
-						</div>
-						<div className='yield'>
-							<div className='money l'>
-									预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
-							</div>
-							<div className='deadline r'>
-									期限&nbsp;&nbsp;&nbsp;<span className='number'>3</span><span className='unit'>个月</span>
-							</div>
-						</div>
-					</div>
-					
+								:''
+						}
 				</div>
 				</div>
 				<div className='footer-tab-parent'>
