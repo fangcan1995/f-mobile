@@ -26,12 +26,17 @@ class RedPacket extends Component {
                 {
                     redpacketsList.map((list, i) => {
                         return (
-                            <RedCoupon type='rp' data={{status: '1'}}/>
+                            <RedCoupon type='rp' data={{status: '1'}}  key={i}/>
                         )
                     })
                 }
                 <RedCoupon type='rp' data={{status: '1'}}/>
                 <RedCoupon type='cp'/>
+                <RedCoupon type='cp' invalid={true}/>
+                <RedCoupon type='cp' invalid={true}/>
+                <RedCoupon type='cp' invalid={true}/>
+                <RedCoupon type='cp' invalid={true}/>
+                <RedCoupon type='cp' invalid={true}/>
                 <RedCoupon type='cp' invalid={true}/>
                 <Filter />
             </div>
