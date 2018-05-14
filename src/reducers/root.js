@@ -6,12 +6,14 @@ import home from './home';
 import login from './login';
 import detail from './detail'
 import redpacket from './redpacket';
+import discover from './discover';
 
 const rootReducer = combineReducers({
     auth,
     home,
     login,
     redpacket,
+	discover,
     detail
 });
 export default rootReducer;

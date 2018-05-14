@@ -2,24 +2,73 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { login } from '../../actions/login';
+import { loginUser,authCode } from '../../actions/auth';
 import './login-page.less';
 import { Link } from 'react-router-dom';
 import bbhLogo from '../../assets/images/bbh-logo.png'
-const params = {
+let params = {
     client_id: 'member',
     client_secret: 'secret',
     grant_type: 'password',
-    send_terminal: 'iphone',
+    send_terminal: 'iPhone',
 }
 class LoginPage extends Component {
+    constructor(){
+        super();
+        this.state={
+            username:'',
+            password:'',
+            passwordName:'icon-show-password',
+            passwordType:'password'
+        }
+    }
     handleSubmit(){
-        const {dispatch }=this.props;
-        dispatch(login(params))
+        console.log(this.props)
+        if(!this.state.username){
+            alert('请输入手机号或用户名')
+            return false
+        }else if(!this.state.password){
+            alert('请输入密码')
+            return false
+        }else{
+            let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
+            submitData.username=this.state.username;
+            submitData.password=this.state.password;
+            console.log(submitData)
+            const { dispatch } = this.props;
+            dispatch(loginUser(submitData));
+        }
+       
 
     }
+
+    handleChange (type, e) {
+        console.log(type);
+        this.setState({
+            [type]: e.target.value
+        });
+    }
+    changeType(e){
+        if(this.state.passwordName=='icon-show-password'){
+            this.setState({
+                passwordName: 'icon-hide-password',
+                passwordType:'text'
+            });
+        }else{
+            this.setState({
+                passwordName: 'icon-show-password',
+                passwordType:'password'
+            });
+        }       
+    }
+    componentDidMount() {       
+        const { dispatch } = this.props;
+        dispatch(authCode());
+       
+    }
+
 	render() {
-		const { login } = this.props;
+        const { auth } = this.props;
 		return (
             <div className='login-body'>
                 <div className='logo-box'>
@@ -34,12 +83,12 @@ class LoginPage extends Component {
                 <form className='login-form'>
                     <div className='login-box login-name-box'>
                         <i className='icon-username'></i>
-                        <input type="text" className='login-name' placeholder='请输入手机号/用户名'/>
+                        <input type="text" className='login-name' placeholder='请输入手机号/用户名' onChange={this.handleChange.bind(this, 'username')} value={this.state.username}/>
                     </div>
                     <div className='login-box login-password-box'>
                         <i className='icon-password'></i>
-                        <input type="password" className='login-password' placeholder='请输入密码'/>
-                        <i className='icon-show-password'></i>
+                        <input type={`${this.state.passwordType}`} className='login-password' placeholder='请输入密码' onChange={this.handleChange.bind(this, 'password')} value={this.state.password}/>
+                        <i className={`${this.state.passwordName} icon-password-right`} onClick={this.changeType.bind(this)}></i>
                     </div>
                     <div className='login-password-box'>
                         <button type='button' className='login-submit' onClick={this.handleSubmit.bind(this)}>登录</button>
@@ -84,9 +133,9 @@ class LoginPage extends Component {
 }
 
 function select(state) {
-  const { login } = state.toJS();
+  const { auth } = state.toJS();
   return {
-    login
+    auth
   };
 }
 

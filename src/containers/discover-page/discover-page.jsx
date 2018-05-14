@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { loginUser } from '../../actions/auth';
+import { discover } from '../../actions/discover';
 import './discover-page.less';
 import FooterTab from '../../components/footer-tab/footer-tab';
-import bbhLogo from '../../assets/images/bbh-logo.png'
+import bbhLogo from '../../assets/images/bbh-logo.png';
+let ajaxData={
+	adType:'7',
+    number:''
+}
+let list=[];
 class DiscoverPage extends Component {
-	handleClick = (e) => {
-		const { loginUser } = this.props;
-		loginUser({ accout: 'aaa', password: 'aaa' })
+	componentDidMount(){
+		const { dispatch } = this.props;
+        dispatch(discover(ajaxData));
+		console.log(this.props)
 	}
 	render() {
-		const { auth } = this.props;
+		const { discover } = this.props;
 		return (
             <div className="discover-body footer-tab-body">
 				<div className='footer-tab-content'>
@@ -94,15 +100,15 @@ class DiscoverPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { discover } = state.toJS();
   return {
-    auth
+    discover
   };
 }
 
 const mapDispatchToProps = dispatch => 
 bindActionCreators({
-  loginUser,
+	discover,
 }, dispatch)
 
 export default connect(select, mapDispatchToProps)(DiscoverPage);
