@@ -22,25 +22,25 @@ class Detail extends Component{
                     <div className = 'content'>
                         <div className = 'nav'>
                             <div className = 'nav-tital'>
-                                {detail.project.annualRate}%<br/><span>预计年化收益率</span>
+                                {detail.projectDetails.annualRate}%<br/><span>预计年化收益率</span>
                             </div>
                             <div className = 'plus'>加息</div>
                             <div className = 'clear'></div>
                             <ul className = 'show-massage'>
-                                <li>{detail.project.surplusAmount}
+                                <li>{detail.projectDetails.surplusAmount}
                                     <p>剩余金额（元）</p>
                                 </li>
-                                <li>{detail.project.loanExpiry}
+                                <li>{detail.projectDetails.loanExpiry}
                                     <p>期限（月）</p>
                                 </li>
-                                <li>{detail.project.minInvestAmount}
+                                <li>{detail.projectDetails.minInvestAmount}
                                     <p>起投金额（元）</p>
                                 </li>
                             </ul>
                             <div className="progress">
                                 <div className="progress__bar">
-                                    <div className="progress__bar--cur" style={{width: `${detail.project.investmentProgress}%`}}>
-                                        <div className = 'num'>{detail.project.investmentProgress}
+                                    <div className="progress__bar--cur" style={{width: `${detail.projectDetails.investmentProgress}%`}}>
+                                        <div className = 'num'>{detail.projectDetails.investmentProgress}
                                             <span className = 'triangle'></span>
                                         </div>
                                     </div>
