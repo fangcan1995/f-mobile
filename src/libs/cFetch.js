@@ -115,8 +115,8 @@ function toQueryString(object) {
 
 
 function cFetch(url, options, withAuth = true) {
-  let mergeUrl =API_CONFIG.baseUri +  url;
-  // let mergeUrl = url;
+  // let mergeUrl = API_CONFIG.baseUri + url;
+   let mergeUrl = url;
   const defaultOptions = {
     method: 'GET'
   };

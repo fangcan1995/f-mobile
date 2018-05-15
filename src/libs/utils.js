@@ -9,6 +9,10 @@ const isTel = val => {
     var reg = /^1[3|4|5|7|8]\d{9}$/;
     return reg.test(val);
 }
+const isIdCard = val => {
+    var reg = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/;
+    return reg.test(val);
+}
 const isBankcard = val => {
     var reg = /^(\d{16}|\d{19})$/;
     return reg.test(val);
@@ -227,6 +231,7 @@ const dataURLtoBlob = dataURL => {
 export {
     isNumber,
     isTel,
+    isIdCard,
     trim,
     isArray,
     preloadImage,
