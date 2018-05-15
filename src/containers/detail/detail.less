@@ -152,6 +152,7 @@
                     padding: unit(20px / (@baseWidth / @baseColumns), rem) unit(26px / (@baseWidth / @baseColumns), rem);
                     border-radius: 3px;
                     margin-bottom: unit(20px / (@baseWidth / @baseColumns), rem); 
+                    position: relative;
                     .number{
                         display: inline-block;
                         width:unit(470px / (@baseWidth / @baseColumns), rem);
@@ -163,15 +164,24 @@
                         text-align: center;
                         border-left:1px solid #EAEAEA;
                         border-right:1px solid #EAEAEA;
-                        margin: 0 unit(22px / (@baseWidth / @baseColumns), rem);
+                        margin: 0 unit(54px / (@baseWidth / @baseColumns), rem);
                         line-height:unit(38px / (@baseWidth / @baseColumns), rem);
                     }
                     span{
                         display: inline-block;
+                        position: absolute;
                         width:unit(30px / (@baseWidth / @baseColumns), rem);
-                        height:unit(30px / (@baseWidth / @baseColumns), rem);
+                        height:unit(20px / (@baseWidth / @baseColumns), rem);
                         line-height: unit(10px / (@baseWidth / @baseColumns), rem);
-                        color:#979AA7
+                        color:#979AA7;
+                        &.minus{
+                            top:unit(25px / (@baseWidth / @baseColumns), rem);
+                            left:unit(26px / (@baseWidth / @baseColumns), rem);
+                        }
+                        &.plus{
+                            top:unit(25px / (@baseWidth / @baseColumns), rem);
+                            right:unit(26px / (@baseWidth / @baseColumns), rem);
+                        }
                     }
                     // width:unit(95px / (@baseWidth / @baseColumns), rem);
                     // height:unit(34px / (@baseWidth / @baseColumns), rem);
