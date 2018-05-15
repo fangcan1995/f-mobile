@@ -1,46 +1,85 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Immutable from 'immutable';
-import { loginUser } from '../../actions/auth';
-import './helpCenter-page.less';
-import bbhLogo from '../../assets/images/bbh-logo.png'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import Immutable from "immutable";
+import { loginUser } from "../../actions/auth";
+import "./helpCenter-page.less";
+import bbhLogo from "../../assets/images/bbh-logo.png";
 class HelpCenterPage extends Component {
-	handleClick = (e) => {
-		const { loginUser } = this.props;
-		loginUser({ accout: 'aaa', password: 'aaa' })
-	}
-	render() {
-		const { auth } = this.props;
-		return (
-            <div className="helpCenter-body">
-				<div className="main">
-					<ul className="tab-title">
-						<li className="l active tabClass">法律法规</li>
-						<li className="l tabClass">常规问题</li>
-						<li className='l border-li'></li>
-					</ul>
-					<div className="dynamic-content">
-						<ul className="dynamic-list" id='active-content'>
-							<li>
-								<h3>银保监会一号文“剑指”占字占字占字占字占字占字占字占字占字占字占字占字</h3>
-								<p className="time-p"><i className="icon-time"></i>&nbsp;&nbsp;&nbsp;发布时间：2017-10-20</p>
-							</li>
-							<li>
-								<h3>银保监会一号文“剑指”占字占字占字占字占字占字占字占字占字占字占字占字</h3>
-								<p className="time-p"><i className="icon-time"></i>&nbsp;&nbsp;&nbsp;发布时间：2017-10-20</p>
-							</li>
-							<li>
-								<h3>银保监会一号文“剑指”占字占字占字占字占字占字占字占字占字占字占字占字</h3>
-								<p className="time-p"><i className="icon-time"></i>&nbsp;&nbsp;&nbsp;发布时间：2017-10-20</p>
-							</li>
-						</ul>
-					</div>
-				</div>
-	        </div>
-			)
-	}
-	
+  constructor() {
+    super();
+    this.state = {
+      borderClass: "one",
+      tabClassOne: "active",
+      tabClassTwo: ""
+    };
+  }
+  handleClick(type, e) {
+    if (type == 1) {
+      this.setState({
+        borderClass: "one",
+        tabClassOne: "active",
+        tabClassTwo: ""
+      });
+    } else {
+      this.setState({
+        borderClass: "two",
+        tabClassOne: "",
+        tabClassTwo: "active"
+      });
+    }
+  }
+  render() {
+    const { auth } = this.props;
+    let list = [
+      {
+        id: 1,
+        affIcon: bbhLogo,
+        title:
+          "测试占字测试占字测试占字测试占字测试占字测试占字测试占字测试占字测试占字",
+        affContent:
+          "测试占字测试占字测试占字测试占字测试占字测试占字测试占字测试占字测试占字",
+        updateTime: "2017-10-20"
+      }
+    ];
+    return (
+      <div className="helpCenter-body">
+        <div className="main">
+          <ul className="tab-title">
+            <li
+              className={`l tabClass ${this.state.tabClassOne}`}
+              onClick={this.handleClick.bind(this, "1")}
+            >
+              法律法规
+            </li>
+            <li
+              className={`l tabClass ${this.state.tabClassTwo}`}
+              onClick={this.handleClick.bind(this, "2")}
+            >
+              常规问题
+            </li>
+            <li className={`l border-li ${this.state.borderClass}`} />
+          </ul>
+          <div className="dynamic-content">
+            <ul className="dynamic-list" id="active-content">
+              {list.map(item => {
+                return (
+                  <li>
+                    <h3>
+											{item.title}
+                    </h3>
+                    <p className="time-p">
+                      <i className="icon-time" />&nbsp;&nbsp;&nbsp;发布时间：{item.updateTime}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 function select(state) {
@@ -50,9 +89,12 @@ function select(state) {
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  loginUser,
-}, dispatch)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      loginUser
+    },
+    dispatch
+  );
 
 export default connect(select, mapDispatchToProps)(HelpCenterPage);
