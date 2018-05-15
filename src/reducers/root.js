@@ -8,6 +8,7 @@ import detail from './detail'
 import redpacket from './redpacket';
 import discover from './discover';
 import dynamic from './dynamic';
+import discoverDeail from './discoverDetail';
 
 const rootReducer = combineReducers({
     auth,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     redpacket,
     discover,
     dynamic,
+    discoverDeail,
     detail
 });
 export default rootReducer;

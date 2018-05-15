@@ -38,8 +38,6 @@ class LoginPage extends Component {
             const { dispatch } = this.props;
             dispatch(loginUser(submitData));
         }
-       
-
     }
 
     handleChange (type, e) {

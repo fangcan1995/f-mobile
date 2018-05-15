@@ -1,0 +1,31 @@
+@import '../../assets/stylesheets/library';
+
+.discoverDetail-body{
+    margin: unit(30px / (@baseWidth / @baseColumns), rem);
+    
+    h2{
+        .mte(@lines: 1);
+        height: unit(70px / (@baseWidth / @baseColumns), rem);
+        overflow: hidden;
+    }
+    .discoverDetail-time{
+        font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+        margin-top: unit(10px / (@baseWidth / @baseColumns), rem);
+        color:#979aa7;
+        .icon-time{
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            color:#3296FA;
+        }
+    }
+    .discoverDetail-content{
+        width:100%;
+        overflow: hidden;
+        font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+        margin-top: unit(20px / (@baseWidth / @baseColumns), rem);
+        img{
+            width:100%;
+        }
+    }
+	
+}
+

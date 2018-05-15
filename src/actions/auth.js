@@ -3,7 +3,7 @@ import cFetch from './../libs/cFetch';
 import {urls,token} from '../libs/utils';
 import parseJson2URL from './../libs/parseJson2URL';
 import cookie from 'js-cookie';
-let URL_JIALIN ='http://172.16.1.234:8020/';
+let URL_JIALIN ='http://172.16.7.3:8020/';
 
 export const loginUser = (params) => {
   return {

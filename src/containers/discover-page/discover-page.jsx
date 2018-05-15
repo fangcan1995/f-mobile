@@ -80,8 +80,7 @@ class DiscoverPage extends Component {
 								</a>						
 							</li>
 							)							
-						})}
-						
+						})}						
 					</ul>  
 				</div>
 				<div className='footer-tab-parent'>
