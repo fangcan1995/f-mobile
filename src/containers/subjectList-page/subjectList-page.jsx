@@ -3,16 +3,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { loginUser } from '../../actions/auth';
+import { getsubjectList } from "../../actions/subjectList";
 import './subjectList-page.less';
 import FooterTab from '../../components/footer-tab/footer-tab';
 import earnings from '../../assets/images/earnings.png';
+import finish from '../../assets/images/finish.png';
+import full from '../../assets/images/full.png';
 class SubjectListPage extends Component {
 	handleClick = (e) => {
 		const { loginUser } = this.props;
 		loginUser({ accout: 'aaa', password: 'aaa' })
 	}
+	componentDidMount (){
+		const { getsubjectList } = this.props;
+		getsubjectList()
+	}
 	render() {
-		const { auth } = this.props;
+		const { auth, subjectList } = this.props;
+		console.log(this.props)
 		return (
             <div className="subjectList-body footer-tab-body">
 				<div className="main footer-tab-content">
@@ -36,32 +44,56 @@ class SubjectListPage extends Component {
 						</li>
 					</ul>
 					<ul className='content-list'>
+						{
+							subjectList.list.map(item=>{
+								return (
+									<li key = {item.id} >
+									{ 
+										item.statusString == '收益中'?<img src={earnings} alt=""/>:''
+									}
+									{
+										item.statusString == '已结清'?<img src={finish} alt=""/>:''
+									}
+									{
+										item.statusString == '提前还款'?<img src={finish} alt=""/>:''
+									}
+									{
+										item.statusString == '满标审核'?<img src={full} alt=""/>:''
+									}
+									{
+										item.statusString == '待满标划转'?<img src={full} alt=""/>:''
+									}
+									
+										<div className='title'>
+											<div className='subject-name l'>{item.project.name}</div>
+											<div className='tag-list r'>{item.refundWayString}</div>
+											<div className='tag-list r'>加息</div>
+										</div>
+										<div className='yield'>
+											<div className='money l'>
+													预计年化收益率&nbsp;<span className='number'>{item.annualRate }</span><span className='unit'>%</span>
+											</div>
+											<div className='deadline r'>
+													期限：&nbsp;<span className='number'>{item.loanExpiry}</span><span className='unit'>个月</span>
+											</div>
+										</div>
+										<div className='residue'>
+											<div className='percent l'>
+													<div className='none-line'><div className='reality-line' style={{width: `${item.investmentProgress}%`}}></div></div>
+													
+													<div className='percent-number'>{item.investmentProgress}%</div>
+											</div>
+											<div className='residue-money r'>
+													剩余金额：&nbsp;<span className='unit'>￥</span><span className='number'>{item.surplusAmount}</span>
+											</div>
+										</div>
+									</li>
+								)
+							})
+						}
+							
 							<li>
-								<div className='title'>
-									<div className='subject-name l'>汇车贷0123456789</div>
-									<div className='tag-list r'>按月付息，到期还本</div>
-								</div>
-								<div className='yield'>
-									<div className='money l'>
-											预计年化收益率&nbsp;<span className='number'>12</span><span className='unit'>%</span>
-									</div>
-									<div className='deadline r'>
-											期限：&nbsp;<span className='number'>12</span><span className='unit'>个月</span>
-									</div>
-								</div>
-								<div className='residue'>
-									<div className='percent l'>
-											<div className='none-line'></div>
-											<div className='reality-line'></div>
-											<div className='percent-number'>75%</div>
-									</div>
-									<div className='residue-money r'>
-											剩余金额：&nbsp;<span className='unit'>￥</span><span className='number'>1000</span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<img src={earnings} alt=""/>
+								
 								<div className='title'>
 									<div className='subject-name l'>汇车贷0123456789</div>
 									<div className='tag-list r'>按月付息，到期还本</div>
@@ -98,15 +130,17 @@ class SubjectListPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { auth, subjectList } = state.toJS();
   return {
-    auth
+	auth,
+	subjectList
   };
 }
 
 const mapDispatchToProps = dispatch => 
 bindActionCreators({
   loginUser,
+  getsubjectList
 }, dispatch)
 
 export default connect(select, mapDispatchToProps)(SubjectListPage);

@@ -17,13 +17,19 @@
                     color:#191f25;
 				}
 				&.border-li{
-					 border-bottom:4px solid #3296FA;
-					 width: unit(100px / (@baseWidth / @baseColumns), rem);
-					 position: absolute;
-					 bottom:0;
-					 left:unit(50px / (@baseWidth / @baseColumns), rem);
-					 //left:unit(280px / (@baseWidth / @baseColumns), rem);
-				}
+					border-bottom:4px solid #3296FA;
+					width: unit(100px / (@baseWidth / @baseColumns), rem);
+					position: absolute;
+					bottom:0;
+					transition: all 1s;
+					//left:unit(280px / (@baseWidth / @baseColumns), rem);
+			   }
+			   &.border-li.one{
+				left:unit(50px / (@baseWidth / @baseColumns), rem);
+			   }
+			   &.border-li.two{
+				left:unit(280px / (@baseWidth / @baseColumns), rem);
+			   }
 			}
 		}
 		.dynamic-content{

@@ -30,7 +30,7 @@
                 font-size: unit(32px / (@baseWidth / @baseColumns), rem);
                 left:unit(29px / (@baseWidth / @baseColumns), rem);
                 top:unit(36px / (@baseWidth / @baseColumns), rem);
-                &.icon-show-password{
+                &.icon-password-right{
                     left:inherit;
                     right:unit(29px / (@baseWidth / @baseColumns), rem);
                     color:#3296FA;
@@ -53,7 +53,7 @@
                 padding-right: unit(90px / (@baseWidth / @baseColumns), rem);
             }
         }
-        button{
+        button.login-submit{
             .g-btn-bg();
             border: 0;
             width:unit(600px / (@baseWidth / @baseColumns), rem);
@@ -62,6 +62,15 @@
             font-size: unit(30px / (@baseWidth / @baseColumns), rem);
             color:#fff;
             border-radius: unit(20px / (@baseWidth / @baseColumns), rem);
+        }
+        button.get-Messcode{
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+             color: #3296FA;
+             position: absolute;
+             right:unit(30px / (@baseWidth / @baseColumns), rem);
+             top:unit(39px / (@baseWidth / @baseColumns), rem);
+             border:0;
+             background: #f8f8fb;
         }
     }
     .other-login{

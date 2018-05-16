@@ -2,17 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { loginUser } from '../../actions/auth';
+import { discover } from '../../actions/discover';
 import './discover-page.less';
+import { Link } from 'react-router-dom';
 import FooterTab from '../../components/footer-tab/footer-tab';
-import bbhLogo from '../../assets/images/bbh-logo.png'
+import bbhLogo from '../../assets/images/bbh-logo.png';
+let ajaxData={
+	adType:'7',
+	putEnv:'2',
+    number:''
+}
+
 class DiscoverPage extends Component {
-	handleClick = (e) => {
-		const { loginUser } = this.props;
-		loginUser({ accout: 'aaa', password: 'aaa' })
+	componentDidMount(){
+		const { dispatch } = this.props;
+        dispatch(discover(ajaxData));
 	}
 	render() {
-		const { auth } = this.props;
+		const { discover } = this.props;
+		console.log(this.props)
+		let list =this.props.discover.discover
 		return (
             <div className="discover-body footer-tab-body">
 				<div className='footer-tab-content'>
@@ -20,16 +29,16 @@ class DiscoverPage extends Component {
 						<div className='title'>发现</div>
 						<div className='header-list'>
 							<div className='li'>
-								<a href="##">
+								<Link to="/">
 									<i className="icon-redpacket"></i>
 									<div className='list-label'>分享得红包</div>
-								</a>
+								</Link>
 							</div>
 							<div className='li'>
-								<a href="##">
+								<Link to="/dynamic">
 									<i className="icon-activity"></i>
 									<div className='list-label'>巴巴汇动态</div>
-								</a>
+								</Link>
 							</div>
 							<div className='li'>
 								<a href="https://www.baba88.com/a/app/more/companyIntroduce">
@@ -38,10 +47,10 @@ class DiscoverPage extends Component {
 								</a>
 							</div>
 							<div className='li'>
-								<a href="##">
+								<Link to="/helpCenter">
 									<i className="icon-help"></i>
 									<div className='list-label'>帮助中心</div>
-								</a>
+								</Link>
 							</div>
 							<div className='li'>
 								<a href="https://www.sobot.com/chat/h5/index.html?sysNum=5c3913e80fbf4388aa19109113c92fa4&groupId=86b3b620fb034e62863b9c115d99c737&source=2">
@@ -58,30 +67,20 @@ class DiscoverPage extends Component {
 						</div>
 					</div> 
 					<ul>
-						<li className='activity-list'>
-							<img src={bbhLogo} className='activity-img' />
-							<div className='activity-shadel'></div>
-							<div className='activity-word'>
-								<h3>活动标题</h3>
-								<p>活动内容活动内容活动内容活动内容活动内容活动内容活动内容</p>
-							</div>						
-						</li>
-						<li className='activity-list'>
-							<img src={bbhLogo} className='activity-img' />
-							<div className='activity-shadel'></div>
-							<div className='activity-word'>
-								<h3>活动标题</h3>
-								<p>活动内容活动内容活动内容活动内容活动内容活动内容活动内容</p>
-							</div>						
-						</li>
-						<li className='activity-list'>
-							<img src={bbhLogo} className='activity-img' />
-							<div className='activity-shadel'></div>
-							<div className='activity-word'>
-								<h3>活动标题</h3>
-								<p>活动内容活动内容活动内容活动内容活动内容活动内容活动内容</p>
-							</div>						
-						</li>
+						{list.map(item=>{
+							return(
+							<li className='activity-list' key={item.id}>
+								<a href={item.imgurl}>
+									<img src={item.imgsrc} className='activity-img' />
+									<div className='activity-shadel'></div>
+									<div className='activity-word'>
+										<h3>{item.title}</h3>
+										{/* <p>活动内容活动内容活动内容活动内容活动内容活动内容活动内容</p> */}
+									</div>
+								</a>						
+							</li>
+							)							
+						})}						
 					</ul>  
 				</div>
 				<div className='footer-tab-parent'>
@@ -94,15 +93,11 @@ class DiscoverPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { discover } = state.toJS();
   return {
-    auth
+    discover
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  loginUser,
-}, dispatch)
 
-export default connect(select, mapDispatchToProps)(DiscoverPage);
+export default connect(select)(DiscoverPage);

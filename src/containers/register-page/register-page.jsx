@@ -2,17 +2,161 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { loginUser } from '../../actions/auth';
+import { register,registerCode,smsRegisterCode } from '../../actions/register';
 import { Link } from 'react-router-dom';
 import './register-page.less';
-import bbhLogo from '../../assets/images/bbh-logo.png'
+import { isTel } from '../../libs/utils';
+import { hex_md5 } from '../../libs/md5';
+import parseJson2URL from '../../libs/parseJson2URL'; 
+import {parseQueryString} from '../../libs/utils';
+import bbhLogo from '../../assets/images/bbh-logo.png';
+let params = {
+    send_terminal: 'iPhone',
+    is_read:true
+}
 class RegisterPage extends Component {
+    constructor(){
+        super();
+        this.state={
+            username:'',
+            password:'',
+            invite_code:'',
+            register_token:'',
+            register_code:'',
+            is_read:true,
+            send_terminal:'iPhone',
+            passwordName:'icon-show-password',
+            passwordType:'password',
+            verifyCodeCd:''
+        }
+    }
 	handleClick = (e) => {
 		const { loginUser } = this.props;
 		loginUser({ accout: 'aaa', password: 'aaa' })
-	}
+    }
+    handleChange (type, e) {
+        this.setState({
+            [type]: e.target.value
+        });
+    }
+    getMessageCode(e){
+
+        if(!this.state.username){
+            alert('请输入手机号')
+            return false;            
+        }
+        else if(!isTel(this.state.username)){
+            alert('请输入正确手机号')
+            return false;
+        }else{
+            console.log(this.props)
+            let smsRegisterCodeData={
+                username:this.state.username,
+                image_code: this.props.register.registerCode.imageCode,
+                send_terminal: 'iPhone',
+
+            }
+            const { dispatch } = this.props;
+            dispatch(smsRegisterCode(smsRegisterCodeData))
+            .then(res=>{
+                const { dispatch } = this.props;
+                dispatch(registerCode());
+                console.log(res)
+                this.setTime();
+            })
+            .catch(res=>{
+                alert(res.msg)
+            })
+            
+            
+        }           
+    }
+    setTime(){
+        let time=180;
+        var timeInt= setInterval(()=>{ 
+            if(time>0){
+                time--;
+                if(this.mounted){
+                    this.setState({
+                        verifyCodeCd:time
+                    })
+                }  
+            }else{                               
+                if(this.mounted){
+                    this.setState({
+                        verifyCodeCd:''
+                    })
+                } 
+                clearInterval(timeInt)
+            }           
+        },1000) 
+    }
+    componentWillMount(){
+        this.mounted = true;
+    }
+    componentWillUnmount() {
+        this.mounted = false;
+    }
+    changeType(e){
+        if(this.state.passwordName=='icon-show-password'){
+            this.setState({
+                passwordName: 'icon-hide-password',
+                passwordType:'text'
+            });
+        }else{
+            this.setState({
+                passwordName: 'icon-show-password',
+                passwordType:'password'
+            });
+        }       
+    }
+    handleSubmit(){
+        console.log(this.props)
+        if(!this.state.username){
+            alert('请输入手机号')
+            return false
+        }
+        else if(!isTel(this.state.username)){
+            alert('请输入正确手机号')
+            return false;
+        }
+        else if(!this.state.password){
+            alert('请输入登陆密码')
+            return false;
+        }
+        else if(!this.state.register_code){
+            alert('请输入短信验证码')
+            return false
+        }
+        else{
+            console.log(this.props)
+            let submitData = {...{image_code:this.props.register.registerCode.imageCode},...params};
+            submitData.username=this.state.username;
+            submitData.password=hex_md5(this.state.password);
+            submitData.register_code=this.state.register_code;
+            submitData.invite_code=this.state.invite_code;
+            submitData.register_token=this.props.register.smsRegisterCode.token
+            console.log(submitData)
+            submitData=`?${parseJson2URL(submitData)}`
+            console.log(submitData)
+            const { dispatch } = this.props;
+            dispatch(register(submitData))
+            .then(res=>{
+                this.props.history.push('/login')
+            })
+            .catch(err=>{
+                alert(err.msg)
+            })
+        }
+    }
+    componentDidMount() {       
+        const { dispatch } = this.props;
+        dispatch(registerCode());
+       
+    }
+   
 	render() {
-		const { auth } = this.props;
+		const { register } = this.props;
 		return (
             <div className='login-body'>
                 <div className='logo-box'>
@@ -26,24 +170,24 @@ class RegisterPage extends Component {
                 <form className='login-form'>
                     <div className='login-box login-name-box'>
                         <i className='icon-telnum'></i>
-                        <input type="text" className='login-name' placeholder='请输入手机号'/>
+                        <input type="text" className='login-name' placeholder='请输入手机号' onChange={this.handleChange.bind(this, 'username')} value={this.state.username}/>
                     </div>
                     <div className='login-box login-password-box'>
                         <i className='icon-password'></i>
-                        <input type="password" className='login-password' placeholder='请输入登录密码'/>
-                        <i className='icon-show-password'></i>
+                        <input type={`${this.state.passwordType}`} className='login-password' placeholder='请输入登录密码' onChange={this.handleChange.bind(this, 'password')} value={this.state.password}/>
+                        <i className={`${this.state.passwordName} icon-password-right`} onClick={this.changeType.bind(this)}></i>
                     </div>
                     <div className='login-box login-password-box'>
                         <i className='icon-message-code'></i>
-                        <input type="text" className='login-password' placeholder='请输入短信验证码'/>
-                        <span className='get-Messcode'>获取验证码</span>
+                        <input type="text" className='login-password' placeholder='请输入短信验证码' onChange={this.handleChange.bind(this, 'register_code')} value={this.state.register_code}/>
+                        <button type='button' className='get-Messcode' disabled={this.state.verifyCodeCd} onClick={this.getMessageCode.bind(this)}>{this.state.verifyCodeCd||'获取验证码'}</button>
                     </div>
                     <div className='login-box login-password-box'>
                         <i className='icon-invite-code'></i>
-                        <input type="text" className='login-name' placeholder='请输入邀请码（选填）'/>
+                        <input type="text" className='login-name' placeholder='请输入邀请码（选填）' onChange={this.handleChange.bind(this, 'invite_code')} value={this.state.invite_code}/>
                     </div>
                     <div className='login-password-box'>
-                        <button className='login-submit'>注册</button>
+                        <button className='login-submit' type='button' onClick={this.handleSubmit.bind(this)}>注册</button>
                     </div>
                     
                 </form>   
@@ -58,15 +202,12 @@ class RegisterPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { register } = state.toJS();
   return {
-    auth
+    register
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  loginUser,
-}, dispatch)
 
-export default connect(select, mapDispatchToProps)(RegisterPage);
+
+export default connect(select)(RegisterPage);

@@ -6,10 +6,26 @@ import Immutable from 'immutable';
 import { retrievePasswordUser } from '../../actions/auth';
 import './../retrievePassword-page/retrievePassword-page.less';
 class AuthenticationPage extends Component {
-	handleClick = (e) => {
-		const { retrievePasswordUser } = this.props;
-		retrievePasswordUser({ accout: 'aaa', password: 'aaa' })
-	}
+    constructor(){
+        super();
+        this.state={
+            password:''
+        }
+    }
+    handleChange (type, e) {
+        this.setState({
+            [type]: e.target.value
+        });
+    }
+    handleSubmit(){
+        if(!this.state.password){
+            alert('请输入正确的密码')
+            return false;            
+        }
+        else{
+
+        }
+    }
 	render() {
 		const { auth } = this.props;
 		return (
@@ -17,11 +33,11 @@ class AuthenticationPage extends Component {
                <form className='retrievePassword-form'>
                     <div className='retrievePassword-box retrievePassword-name-box'>
                         <label>登陆密码</label>
-                        <input type="password" className='retrievePassword-name' placeholder='请输入登陆密码'/>
+                        <input type="password" className='retrievePassword-name' placeholder='请输入登陆密码' onChange={this.handleChange.bind(this, 'password')}/>
                     </div>                
                 </form> 
                 <div className='retrievePassword-password-box'>
-                    <Link to="/changePassword"><button className='retrievePassword-submit'>验证</button></Link>
+                    <Link to="/changePassword"><button className='retrievePassword-submit' type='button' onClick={this.handleSubmit.bind(this)}>验证</button></Link>
                 </div>
             </div>
 			)
