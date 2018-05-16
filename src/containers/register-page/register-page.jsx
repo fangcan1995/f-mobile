@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { loginUser } from '../../actions/auth';
+import { register,registerCode,smsRegisterCode } from '../../actions/register';
 import { Link } from 'react-router-dom';
 import './register-page.less';
 import { isTel } from '../../libs/utils';
-import bbhLogo from '../../assets/images/bbh-logo.png'
+import bbhLogo from '../../assets/images/bbh-logo.png';
+let params = {
+    send_terminal: 'iPhone',
+}
 class RegisterPage extends Component {
     constructor(){
         super();
@@ -34,6 +37,7 @@ class RegisterPage extends Component {
         });
     }
     getMessageCode(e){
+
         if(!this.state.username){
             alert('请输入手机号')
             return false;            
@@ -42,6 +46,16 @@ class RegisterPage extends Component {
             alert('请输入正确手机号')
             return false;
         }else{
+            console.log(this.props)
+            let smsRegisterCodeData={
+                username:this.state.username,
+                image_code: this.props.register.registerCode.imageCode,
+                send_terminal: 'iPhone',
+
+            }
+            const { dispatch } = this.props;
+            dispatch(smsRegisterCode(smsRegisterCodeData));
+            console.log(this.props)
             let time=60;
             let timeInt= setInterval(()=>{ 
                 console.log(time)
@@ -91,7 +105,7 @@ class RegisterPage extends Component {
             return false
         }
         else{
-            let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
+            let submitData = {...{image_code:this.props.register.registerCode.registerCode},...params};
             submitData.username=this.state.username;
             submitData.password=this.state.password;
             console.log(submitData)
@@ -99,8 +113,13 @@ class RegisterPage extends Component {
             dispatch(loginUser(submitData));
         }
     }
+    componentDidMount() {       
+        const { dispatch } = this.props;
+        dispatch(registerCode());
+       
+    }
 	render() {
-		const { auth } = this.props;
+		const { register } = this.props;
 		return (
             <div className='login-body'>
                 <div className='logo-box'>
@@ -146,15 +165,12 @@ class RegisterPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { register } = state.toJS();
   return {
-    auth
+    register
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  loginUser,
-}, dispatch)
 
-export default connect(select, mapDispatchToProps)(RegisterPage);
+
+export default connect(select)(RegisterPage);

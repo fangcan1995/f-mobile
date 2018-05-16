@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { loginUser } from '../../actions/auth';
+import { loginUser,authCode,smsCode } from '../../actions/auth';
 import { isTel } from '../../libs/utils';
 import './login-message-page.less';
 import bbhLogo from '../../assets/images/bbh-logo.png';
+import parseJson2URL from '../../libs/parseJson2URL'; 
+import {parseQueryString} from '../../libs/utils';
 import { Link } from 'react-router-dom';
 let params = {
     client_id: 'member',
     client_secret: 'secret',
     send_terminal: 'iPhone',
-    erify_token:''
 }
 class LoginMessagePage extends Component {
     constructor(){
@@ -42,10 +43,20 @@ class LoginMessagePage extends Component {
         }else{
             let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
             submitData.username=this.state.username;
-            submitData.password=this.state.password;
+            submitData.verify_code=this.state.verify_code;
+            submitData=`?${parseJson2URL(submitData)}`
             console.log(submitData)
             const { dispatch } = this.props;
-            dispatch(loginUser(submitData));
+            dispatch(loginUser(submitData))
+            .then(res=>{
+                const { history, location } = this.props;
+                const { redirect } = parseQueryString(location.search);
+                history.push(redirect ? decodeURIComponent(redirect) : '/')
+                dispatch(authCode());
+            })
+            .catch(err=>{
+                alert(err.msg)
+            })
         }
     }
     getMessageCode(e){
@@ -57,9 +68,17 @@ class LoginMessagePage extends Component {
             alert('请输入正确手机号')
             return false;
         }else{
+            let smsCodeData={
+                username:this.state.username,
+                image_code: this.props.auth.loginCode.imageCode,
+                send_terminal: 'iPhone',
+
+            }
+            const { dispatch } = this.props;
+            dispatch(smsCode(smsCodeData));
+            console.log(this.props)
             let time=60;
             let timeInt= setInterval(()=>{ 
-                console.log(time)
                 if(time>0){
                     time--;
                     this.setState({
@@ -73,6 +92,10 @@ class LoginMessagePage extends Component {
                 }           
             },1000)   
         }           
+    }
+    componentDidMount() {       
+        const { dispatch } = this.props;
+        dispatch(authCode());      
     }
 
 	render() {
@@ -115,9 +138,4 @@ function select(state) {
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  loginUser,
-}, dispatch)
-
-export default connect(select, mapDispatchToProps)(LoginMessagePage);
+export default connect(select)(LoginMessagePage);

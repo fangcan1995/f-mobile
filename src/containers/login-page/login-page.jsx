@@ -5,6 +5,9 @@ import Immutable from 'immutable';
 import { loginUser,authCode } from '../../actions/auth';
 import './login-page.less';
 import { Link } from 'react-router-dom';
+import { hex_md5 } from '../../libs/md5';
+import parseJson2URL from '../../libs/parseJson2URL'; 
+import {parseQueryString} from '../../libs/utils';
 import bbhLogo from '../../assets/images/bbh-logo.png'
 let params = {
     client_id: 'member',
@@ -23,7 +26,6 @@ class LoginPage extends Component {
         }
     }
     handleSubmit(){
-        console.log(this.props)
         if(!this.state.username){
             alert('请输入手机号或用户名')
             return false
@@ -33,10 +35,20 @@ class LoginPage extends Component {
         }else{
             let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
             submitData.username=this.state.username;
-            submitData.password=this.state.password;
+            submitData.password=hex_md5(this.state.password);
+            submitData=`?${parseJson2URL(submitData)}`
             console.log(submitData)
             const { dispatch } = this.props;
-            dispatch(loginUser(submitData));
+            dispatch(loginUser(submitData))
+            .then(res=>{
+                const { history, location } = this.props;
+                const { redirect } = parseQueryString(location.search);
+                history.push(redirect ? decodeURIComponent(redirect) : '/')
+                dispatch(authCode());
+            })
+            .catch(err=>{
+                alert(err.msg)
+            })
         }
     }
 
