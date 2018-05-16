@@ -21,7 +21,6 @@ import personal from './personal';
 const rootReducer = combineReducers({
     auth,
     home,
-    login,
     redpacket,
     subjectList,
     discover,
