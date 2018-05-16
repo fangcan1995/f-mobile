@@ -1,10 +1,26 @@
 import React, { Component }  from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
+import { personal } from '../../actions/personal';
 
 import './personal-page.less';
-
+let ajaxData={
+	adType:'7',
+	putEnv:'2',
+    number:''
+}
 class PersonalContainer extends Component {
+    componentDidMount(){
+		const { dispatch } = this.props;
+        dispatch(personal(ajaxData));
+	}
     render () {
+        const { personal } = this.props;
+
+        console.log(this.props)
+        let personalObj=this.props.personal.personal
         return (
             <div className="personalPage">
                 <dl>
@@ -13,7 +29,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/">
                                 <span className="icon-arrow"></span>
-                                <i className="personIcon"></i>
+                                <img className="personIcon" src={personalObj.photo} />
                             </Link>
                         </span>
                     </dd>
@@ -24,7 +40,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/changePhone">
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">188****1720</span>
+                                <span className="actionText">{personalObj.isNovice}</span>
                             </Link>
                         </span>
                     </dd>
@@ -33,7 +49,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/certification">
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">已认证</span>
+                                <span className="actionText">{personalObj.isCertification==0?'未实名':'已实名'}</span>
                             </Link>
                         </span>
                     </dd>
@@ -44,7 +60,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/">
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">稳健性</span>
+                                <span className="actionText">{personalObj.riskLevel==''?'未评估':'稳健股'}</span>
                             </Link>
                         </span>
                     </dd>
@@ -53,7 +69,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/">
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">已开户</span>
+                                <span className="actionText">{personalObj.isNovice}</span>
                             </Link>
                         </span>
                     </dd>
@@ -73,6 +89,13 @@ class PersonalContainer extends Component {
         );
     }
 }
+function select(state) {
+    const { personal } = state.toJS();
+    return {
+        personal
+    };
+  }
+  
+export default connect(select)(PersonalContainer);
 
-
-export default PersonalContainer;
+//export default PersonalContainer;

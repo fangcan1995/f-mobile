@@ -1,0 +1,64 @@
+@import '../../assets/stylesheets/library';
+
+#project-detail{
+    height: 100%;
+    div,p,span,ul,li,a{
+        box-sizing: border-box;
+    }
+    .cantainer{
+        .content{
+            margin-top: unit(20px / (@baseWidth / @baseColumns), rem); 
+            width:unit(750px / (@baseWidth / @baseColumns), rem);
+            // height:unit(791px / (@baseWidth / @baseColumns), rem); 
+            overflow: hidden;
+            background:rgba(255,255,255,1);
+            padding-left: unit(30px / (@baseWidth / @baseColumns), rem); 
+            .head{
+                height: unit(104px / (@baseWidth / @baseColumns), rem);
+                line-height: unit(104px / (@baseWidth / @baseColumns), rem);
+                font-size:unit(30px / (@baseWidth / @baseColumns), rem);
+                font-family:MicrosoftYaHei;
+                color:rgba(51,51,51,1);
+                font-weight: 600;
+                border-bottom:2px solid #EAEAEA;
+            }
+            .text{
+                text-align: left;
+                text-indent: 1em;
+                color: #333333;
+                line-height: unit(60px / (@baseWidth / @baseColumns), rem);
+                height: unit(60px / (@baseWidth / @baseColumns), rem);
+                &.longtext{
+                    // height: unit(120px / (@baseWidth / @baseColumns), rem);
+                }
+                p{
+                    display: inline-block;
+                    height: unit(60px / (@baseWidth / @baseColumns), rem);
+                    width: unit(490px / (@baseWidth / @baseColumns), rem);
+                    line-height: 1;
+                    text-indent: 0;
+                }
+                font-size:unit(24px / (@baseWidth / @baseColumns), rem);
+                span{
+                    width: unit(203px / (@baseWidth / @baseColumns), rem);
+                    display: inline-block;
+                    color: #999999;
+                    font-family:MicrosoftYaHei;
+                    line-height: unit(60px / (@baseWidth / @baseColumns), rem);
+                    
+                }
+            }
+            .list{
+                height: unit(150px / (@baseWidth / @baseColumns), rem);
+                padding: unit(22px / (@baseWidth / @baseColumns), rem) 0;
+                display: flex;
+                overflow-y: scroll;
+                img{
+                    width: 100px;
+                    height: unit(105px / (@baseWidth / @baseColumns), rem);
+                    padding: 0 30px;
+                }
+            }
+        }
+    }
+}

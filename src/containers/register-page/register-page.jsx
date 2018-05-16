@@ -30,10 +30,6 @@ class RegisterPage extends Component {
             verifyCodeCd:''
         }
     }
-	handleClick = (e) => {
-		const { loginUser } = this.props;
-		loginUser({ accout: 'aaa', password: 'aaa' })
-    }
     handleChange (type, e) {
         this.setState({
             [type]: e.target.value
@@ -66,9 +62,7 @@ class RegisterPage extends Component {
             })
             .catch(res=>{
                 alert(res.msg)
-            })
-            
-            
+            })           
         }           
     }
     setTime(){
