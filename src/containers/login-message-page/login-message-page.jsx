@@ -41,11 +41,12 @@ class LoginMessagePage extends Component {
             alert('请输入短信验证码')
             return false;
         }else{
+            console.log(this.props)
             let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
             submitData.username=this.state.username;
             submitData.verify_code=this.state.verify_code;
-            submitData=`?${parseJson2URL(submitData)}`
-            console.log(submitData)
+            submitData.verify_token=this.props.auth.smsLoginCode.token;
+            submitData=`?${parseJson2URL(submitData)}`           
             const { dispatch } = this.props;
             dispatch(loginUser(submitData))
             .then(res=>{
@@ -58,6 +59,32 @@ class LoginMessagePage extends Component {
                 alert(err.msg)
             })
         }
+    }
+    setTime(){
+        let time=180;
+        var timeInt= setInterval(()=>{ 
+            if(time>0){
+                time--;
+                if(this.mounted){
+                    this.setState({
+                        verifyCodeCd:time
+                    })
+                }  
+            }else{                               
+                if(this.mounted){
+                    this.setState({
+                        verifyCodeCd:''
+                    })
+                } 
+                clearInterval(timeInt)
+            }           
+        },1000) 
+    }
+    componentWillMount(){
+        this.mounted = true;
+    }
+    componentWillUnmount() {
+        this.mounted = false;
     }
     getMessageCode(e){
         if(!this.state.username){
@@ -75,22 +102,16 @@ class LoginMessagePage extends Component {
 
             }
             const { dispatch } = this.props;
-            dispatch(smsCode(smsCodeData));
-            console.log(this.props)
-            let time=60;
-            let timeInt= setInterval(()=>{ 
-                if(time>0){
-                    time--;
-                    this.setState({
-                        verifyCodeCd:time
-                    })
-                }else{               
-                    this.setState({
-                        verifyCodeCd:''
-                    })
-                    clearInterval(timeInt)
-                }           
-            },1000)   
+            dispatch(smsCode(smsCodeData))
+            .then(res=>{
+                const { dispatch } = this.props;
+                dispatch(authCode());
+                this.setTime();
+            })
+            .catch(res=>{
+                alert(res.msg)
+            })
+  
         }           
     }
     componentDidMount() {       

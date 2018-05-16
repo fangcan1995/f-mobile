@@ -4,7 +4,7 @@ import {urls,token} from '../libs/utils';
 import parseJson2URL from './../libs/parseJson2URL';
 import cookie from 'js-cookie';
 let URL ='http://172.16.7.3:8020';
-let URL_JIA ='http://172.16.7.3:8020';
+//let URL ='http://172.16.1.234:8020';
 
 export const loginUser = (params) => {
   return {
@@ -50,6 +50,7 @@ export const authCode = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
+             credentials: 'include'
         });
         console.log(res)
         if(res.imageCode){
@@ -73,10 +74,9 @@ export const smsCode = (params) => {
         let res= await cFetch(`${URL}/uaa/code/sms/login?${params}`, {           
             credentials: 'include'
         },false);
-        console.log(res)
-        if(res.imageCode){
-          console.log(res)
-          return res || {};
+        const { code, data } = res;
+        if(code==0){
+          return data || {};
         }else{
             throw res;
         }

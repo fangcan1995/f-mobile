@@ -6,9 +6,13 @@ import { register,registerCode,smsRegisterCode } from '../../actions/register';
 import { Link } from 'react-router-dom';
 import './register-page.less';
 import { isTel } from '../../libs/utils';
+import { hex_md5 } from '../../libs/md5';
+import parseJson2URL from '../../libs/parseJson2URL'; 
+import {parseQueryString} from '../../libs/utils';
 import bbhLogo from '../../assets/images/bbh-logo.png';
 let params = {
     send_terminal: 'iPhone',
+    is_read:true
 }
 class RegisterPage extends Component {
     constructor(){
@@ -31,7 +35,6 @@ class RegisterPage extends Component {
 		loginUser({ accout: 'aaa', password: 'aaa' })
     }
     handleChange (type, e) {
-        console.log(type);
         this.setState({
             [type]: e.target.value
         });
@@ -54,24 +57,45 @@ class RegisterPage extends Component {
 
             }
             const { dispatch } = this.props;
-            dispatch(smsRegisterCode(smsRegisterCodeData));
-            console.log(this.props)
-            let time=60;
-            let timeInt= setInterval(()=>{ 
-                console.log(time)
-                if(time>0){
-                    time--;
+            dispatch(smsRegisterCode(smsRegisterCodeData))
+            .then(res=>{
+                const { dispatch } = this.props;
+                dispatch(registerCode());
+                console.log(res)
+                this.setTime();
+            })
+            .catch(res=>{
+                alert(res.msg)
+            })
+            
+            
+        }           
+    }
+    setTime(){
+        let time=180;
+        var timeInt= setInterval(()=>{ 
+            if(time>0){
+                time--;
+                if(this.mounted){
                     this.setState({
                         verifyCodeCd:time
                     })
-                }else{               
+                }  
+            }else{                               
+                if(this.mounted){
                     this.setState({
                         verifyCodeCd:''
                     })
-                    clearInterval(timeInt)
-                }           
-            },1000)   
-        }           
+                } 
+                clearInterval(timeInt)
+            }           
+        },1000) 
+    }
+    componentWillMount(){
+        this.mounted = true;
+    }
+    componentWillUnmount() {
+        this.mounted = false;
     }
     changeType(e){
         if(this.state.passwordName=='icon-show-password'){
@@ -105,12 +129,24 @@ class RegisterPage extends Component {
             return false
         }
         else{
-            let submitData = {...{image_code:this.props.register.registerCode.registerCode},...params};
+            console.log(this.props)
+            let submitData = {...{image_code:this.props.register.registerCode.imageCode},...params};
             submitData.username=this.state.username;
-            submitData.password=this.state.password;
+            submitData.password=hex_md5(this.state.password);
+            submitData.register_code=this.state.register_code;
+            submitData.invite_code=this.state.invite_code;
+            submitData.register_token=this.props.register.smsRegisterCode.token
+            console.log(submitData)
+            submitData=`?${parseJson2URL(submitData)}`
             console.log(submitData)
             const { dispatch } = this.props;
-            dispatch(loginUser(submitData));
+            dispatch(register(submitData))
+            .then(res=>{
+                this.props.history.push('/login')
+            })
+            .catch(err=>{
+                alert(err.msg)
+            })
         }
     }
     componentDidMount() {       
@@ -118,6 +154,7 @@ class RegisterPage extends Component {
         dispatch(registerCode());
        
     }
+   
 	render() {
 		const { register } = this.props;
 		return (
