@@ -20,7 +20,6 @@ import retrievePassword from './retrievePassword';
 const rootReducer = combineReducers({
     auth,
     home,
-    login,
     redpacket,
     subjectList,
     discover,
