@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import touxiang from '../../assets/images/home-list4.png';
@@ -6,8 +7,21 @@ import './my.less'
 import FooterTab from '../../components/footer-tab/footer-tab';
 import './my.less';
 
+import { getMyInfo } from '../../actions/my';
+
 class My extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        const { getMyInfo } = this.props;
+        getMyInfo();
+    }
+
     render() {
+        const { myInfo } = this.props;
+        console.log(!!(myInfo.availableBalance !== undefined));
         return (
             <div id='my' className='footer-tab-body'>
                 <div className='footer-tab-content'>
@@ -17,19 +31,35 @@ class My extends Component {
                         </div>
                         <div className='base-info'>
                             <Link to='/personal'>
-                                <img src={touxiang} /><div className='tital'><span className='name'>二狗子 </span><span className='greet'>先生，您好</span></div>
+                                <img src={touxiang} /><div className='tital'><span className='name'>{myInfo.userName}</span><span className='greet'>您好，</span></div>
                             </Link>
                         </div>
                         <Link to="/my-assets">
-                            <div className='money'>20000.00
+                            <div className='money'>
+                                {
+                                    myInfo.availableBalance !== undefined
+                                        ? (myInfo.availableBalance + myInfo.freezingAmount + myInfo.investAmount).toFixed(2)
+                                        : 0..toFixed(2)
+
+                                }
                                 <p>资产总额（元）</p>
                             </div>
                             <div className='show'>
-                                <div className='yesterday'>5.30
-                                <p>昨日收益（元）</p>
+                                <div className='yesterday'>
+                                    {
+                                        myInfo.dayIncome !== undefined
+                                            ? myInfo.dayIncome.toFixed(2)
+                                            : 0..toFixed(2)
+                                    }
+                                    <p>昨日收益（元）</p>
                                 </div>
-                                <div className='sum'>126.30
-                                <p>累计收益（元）</p>
+                                <div className='sum'>
+                                    {
+                                        myInfo.monthsIncome !== undefined
+                                            ? myInfo.monthsIncome.toFixed(2)
+                                            : 0..toFixed(2)
+                                    }
+                                    <p>累计收益（元）</p>
                                 </div>
                             </div>
                         </Link>
@@ -37,19 +67,43 @@ class My extends Component {
                     <div className='my-card'>
                         <Link to="/redpacket">
                             <div className='left'>
-                                <i className='icon-redpacket'></i>红包<span>888.00</span>元
+                                <i className='icon-redpacket'></i>
+                                红包
+                                <span>
+                                    {
+                                        myInfo.memberRedInfo && myInfo.memberRedInfo.amountSum !== undefined 
+                                            ? myInfo.memberRedInfo.amountSum.toFixed(2)
+                                            : 0..toFixed(2)
+                                    }
+                                </span>
+                                元
                             </div>
                         </Link>
                         <Link to="/coupon">
                             <div className='right'>
-                                <i className='icon-coupon'></i>加息券<span>10</span>张
+                                <i className='icon-coupon'></i>
+                                加息券
+                                <span>
+                                    {
+                                        myInfo.memberCoupon && myInfo.memberCoupon.number !== undefined 
+                                            ? myInfo.memberCoupon.number
+                                            : 0
+                                    }
+                                </span>
+                                张
                         </div>
                         </Link>
                     </div>
                     <div className='container'>
                         <div className='my-count'>
                             账户余额：
-                            <span>￥888.00</span>
+                            <span>￥
+                                {
+                                    myInfo.accountBalance !== undefined 
+                                        ? myInfo.accountBalance.toFixed(2)
+                                        : 0..toFixed(2)
+                                }
+                            </span>
                         </div>
                         <div className='buttom'>
                             <Link to="/charge"><div className='left'>充值</div></Link>
@@ -98,5 +152,25 @@ class My extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    const { my } = state.toJS();
+    return {
+        myInfo: my.myInfo
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getMyInfo: () => {
+            dispatch(getMyInfo());
+        }
+    }
+}
+
+My = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(My);
 
 export default My;

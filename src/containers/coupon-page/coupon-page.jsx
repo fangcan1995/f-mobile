@@ -1,20 +1,57 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';  
 
 import RedCoupon from '../../components/redCoupon/redCoupon';
 import Filter from '../../components/filter/filter';
 import '../redpacket/redpacket.less';
 
+import { getCouponList } from '../../actions/coupon';
+
 class CouponPage extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        const { getCouponList } = this.props;
+        getCouponList();
+    }
+
     render() {
+        const { couponList, match } = this.props;
+        let type = match.url === '/redpacket' ? 'rp' : 'cp';
         return (
             <div className="couponList">
-                <RedCoupon type='rp' data={{status: '1'}}/>
-                <RedCoupon type='cp'/>
-                <RedCoupon type='cp' invalid={true}/>
+                {
+                    couponList.map(item => {
+                        return <RedCoupon type={type} data={item} key={item.id}/>
+                    })
+                }
                 <Filter />
             </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    const { coupon } = state.toJS();
+    return {
+        couponList: coupon.couponList
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getCouponList: () => {
+            dispatch(getCouponList());
+        }
+    }
+}
+
+CouponPage = connect(
+    mapStateToProps, 
+    mapDispatchToProps
+)(CouponPage);
 
 export default CouponPage;
