@@ -3,49 +3,253 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { loginUser } from '../../actions/auth';
-import { getsubjectList } from "../../actions/subjectList";
+import { getsubjectList, gettransferList } from "../../actions/subjectList";
 import './subjectList-page.less';
 import FooterTab from '../../components/footer-tab/footer-tab';
 import earnings from '../../assets/images/earnings.png';
 import finish from '../../assets/images/finish.png';
 import full from '../../assets/images/full.png';
 class SubjectListPage extends Component {
-	handleClick = (e) => {
-		const { loginUser } = this.props;
-		loginUser({ accout: 'aaa', password: 'aaa' })
+	constructor() {
+		super();
+		this.state = {
+		  borderClass: "one",
+		  tabClassOne: "active",
+		  tabClassTwo: "",
+		  liClassOne: 'active',
+		  liClassTwo: '',
+		  liClassThr:'',
+		  list:[],
+		  arrow:0,
+		  otherArrow:0
+		};
+	  }
+	  handleClick(type) {
+		const { subjectList } = this.props;
+		if (type == 1) {
+		  this.setState({
+			borderClass: "one",
+			tabClassOne: "active",
+			tabClassTwo: ""
+		  });
+		  this.setState({
+			  list:subjectList.list
+		  })
+		} else {
+		  this.setState({
+			borderClass: "two",
+			tabClassOne: "",
+			tabClassTwo: "active"
+		  });
+		  this.setState({
+			list:subjectList.transferList
+		})
+		}
+	  }
+	handleLiClick(type) {
+		const { subjectList } = this.props;
+		if (type == 1) {
+		  this.setState({
+			liClassOne: 'active',
+			liClassTwo: '',
+			liClassThr:'',
+			arrow:0,
+			otherArrow:0
+		  });
+		  console.log(this.state)
+		  if(this.state.tabClassOne){
+			  console.log(11111111111)
+			this.getsubjectList()
+			this.setState({
+				list:subjectList.list
+			})
+		  }else{
+			console.log(222222222222222)
+			console.log(subjectList.transferList)
+			this.gettransferList()
+			this.setState({
+				list:subjectList.transferList
+			})  
+		  }
+		  
+		} else if(type == 2){
+			if(this.state.arrow==1){
+				this.setState({
+					arrow:2,
+				})
+			}else{
+				this.setState({
+					arrow:1,
+				})
+			}
+		  this.setState({
+			liClassOne: '',
+			liClassTwo: 'active',
+			liClassThr:'',
+		  });
+		  if(this.state.tabClassOne){
+				if(this.state.arrow==1){
+					const cred = {
+								sortBy:'-annualRate'
+							}
+					this.getsubjectList(cred)
+					this.setState({
+							list:subjectList.list,
+							otherArrow:0,
+					})
+					}else{
+					const cred = {
+								sortBy:'annualRate'
+							}
+					this.getsubjectList(cred)
+					this.setState({
+							list:subjectList.list,
+							otherArrow:0,
+					})
+				}
+		  	}else{
+				if(this.state.arrow==1){
+					const cred = {
+								sortBy:'-annualRate'
+							}
+					this.gettransferList(cred)
+					this.setState({
+							list:subjectList.transferList,
+							otherArrow:0,
+					})
+					}else{
+					const cred = {
+								sortBy:'annualRate'
+							}
+					this.gettransferList(cred)
+					this.setState({
+							list:subjectList.transferList,
+							otherArrow:0,
+					})
+				}
+			}	
+		} else{
+			if(this.state.otherArrow==1){
+				this.setState({
+					otherArrow:2
+				})
+			}else{
+				this.setState({
+					otherArrow:1
+				})
+			}
+			if(this.state.tabClassOne){
+				if(this.state.otherArrow==1){
+					const cred = {
+						sortBy:'-loanExpiry'
+					}
+					this.getsubjectList(cred)
+					this.setState({
+						list:subjectList.list,
+						arrow:0,
+					})
+				}else{
+					const cred = {
+						sortBy:'loanExpiry'
+					}
+					this.getsubjectList(cred)
+					this.setState({
+						list:subjectList.list,
+						arrow:0,
+					})
+				}
+			}else{
+				if(this.state.otherArrow==1){
+					const cred = {
+						sortBy:'-loanExpiry'
+					}
+					this.gettransferList(cred)
+					this.setState({
+						list:subjectList.transferList,
+						arrow:0,
+					})
+				}else{
+					const cred = {
+						sortBy:'loanExpiry'
+					}
+					this.gettransferList(cred)
+					this.setState({
+						list:subjectList.transferList,
+						arrow:0,
+					})
+				}
+			}
+			this.setState({
+				liClassOne: '',
+				liClassTwo: '',
+				liClassThr:'active',
+			});
+		}
 	}
-	componentDidMount (){
+	componentDidMount () {	
+		this.getsubjectList()
+		this.gettransferList()
+	}
+	componentWillReceiveProps (nextProps) {
+		console.log(nextProps)
+		const { subjectList } = nextProps;
+		if(this.state.tabClassOne){
+			this.setState({
+				list:subjectList.list
+			})
+		}else{
+			this.setState({
+				list:subjectList.transferList
+			})
+		}
+		
+	}
+	getsubjectList(e){
 		const { getsubjectList } = this.props;
-		getsubjectList()
+		getsubjectList(e)
+	}
+	gettransferList(e){
+		const { gettransferList } = this.props;
+		gettransferList(e)
 	}
 	render() {
 		const { auth, subjectList } = this.props;
-		console.log(this.props)
+		console.log(this.state.list)
 		return (
             <div className="subjectList-body footer-tab-body">
 				<div className="main footer-tab-content">
 					<ul className="tab-title">
-						<li className="l active tabClass">散标</li>
-						<li className="l tabClass">债转</li>
-						<li className='l border-li'></li>
-						<li className='r contact-li'><i className='icon-contact'></i></li>
+						<li
+						className={`l tabClass ${this.state.tabClassOne}`}
+						onClick={this.handleClick.bind(this, "1")}
+						>散标
+						</li>
+						<li
+						className={`l tabClass ${this.state.tabClassTwo}`}
+						onClick={this.handleClick.bind(this, "2")}
+						>债转
+						</li>
+						<li className={`l border-li ${this.state.borderClass}`} />
 					</ul>
-					<ul className='filter-list'>
-						<li>
+					<ul className={`filter-list `}>
+						<li className={this.state.liClassOne}
+						onClick={this.handleLiClick.bind(this, '1')}>
 							默认
 						</li>
-						<li className='active'>
-							收益率<i className='icon-up-arrow'></i>
-							<i className='icon-down-arrow'></i>
+						<li className={this.state.liClassTwo}
+						onClick={this.handleLiClick.bind(this, '2')}>
+							收益率<i className={`icon-up-arrow ${this.state.arrow==1?'active':''}`}></i>
+							<i className={`icon-down-arrow ${this.state.arrow==2?'active':''}`}></i>
 						</li>
-						<li>
-							期限<i className='icon-up-arrow'></i>
-							<i className='icon-down-arrow'></i>
+						<li className={this.state.liClassThr}
+						onClick={this.handleLiClick.bind(this, '3')}>
+							期限<i className={`icon-up-arrow ${this.state.otherArrow==1?'active':''}`}></i>
+							<i className={`icon-down-arrow ${this.state.otherArrow==2?'active':''}`}></i>
 						</li>
 					</ul>
 					<ul className='content-list'>
 						{
-							subjectList.list.map(item=>{
+							this.state.list.map(item=>{
 								return (
 									<li key = {item.id} >
 									{ 
@@ -91,33 +295,6 @@ class SubjectListPage extends Component {
 								)
 							})
 						}
-							
-							<li>
-								
-								<div className='title'>
-									<div className='subject-name l'>汇车贷0123456789</div>
-									<div className='tag-list r'>按月付息，到期还本</div>
-									<div className='tag-list r'>加息</div>
-								</div>
-								<div className='yield'>
-									<div className='money l'>
-											预计年化收益率&nbsp;<span className='number'>8+2</span><span className='unit'>%</span>
-									</div>
-									<div className='deadline r'>
-											期限：&nbsp;<span className='number'>12</span><span className='unit'>个月</span>
-									</div>
-								</div>
-								<div className='residue'>
-									<div className='percent l'>
-											<div className='none-line'></div>
-											<div className='reality-line'></div>
-											<div className='percent-number'>75%</div>
-									</div>
-									<div className='residue-money r'>
-											剩余金额：&nbsp;<span className='unit'>￥</span><span className='number'>1000</span>
-									</div>
-								</div>
-							</li>
 					</ul>
 				</div>
 				<div className='footer-tab-parent'>
@@ -140,7 +317,8 @@ function select(state) {
 const mapDispatchToProps = dispatch => 
 bindActionCreators({
   loginUser,
-  getsubjectList
+  getsubjectList,
+  gettransferList,
 }, dispatch)
 
 export default connect(select, mapDispatchToProps)(SubjectListPage);

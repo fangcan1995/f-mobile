@@ -12,10 +12,16 @@ class Detail extends Component{
       componentDidMount(){
 		const { getDetails } = this.props;
 		getDetails(this.props.match.params.id)
-	}
+    }
+    handleProjectClick(e){
+        this.props.history.push(`/projectDetail/${e}`)
+    }
+    handleRecordsClick(e){
+        this.props.history.push(`/investment-records/${e}`)
+    }
     render(){
         const { auth , detail } = this.props;
-        console.log(detail);
+        console.log(detail,this.props);
         return (
             <div id='detail'>
                 <div className = 'warpper'>
@@ -82,15 +88,15 @@ class Detail extends Component{
                                 </div>
                             </div>
                             <div className = 'i-list'>
-                                <div className = 'i-list-item'>
+                                <div className = 'i-list-item' onClick={this.handleProjectClick.bind(this,detail.projectDetails.id)}>
                                     <i className = 'icon-item-detail icon'></i>
                                     <p>项目详情</p>
                                 </div>
-                                <div className = 'i-list-item'>
+                                <div className = 'i-list-item' onClick={this.handleRecordsClick.bind(this,detail.projectDetails.id)}>
                                     <i className = 'icon-invest-history icon'></i>
                                     <p>投资记录</p>
                                 </div>
-                                <div className = 'i-list-item'>
+                                <div className = 'i-list-item' >
                                     <i className = 'icon-danger-control icon'></i>
                                     <p>风险提示</p>
                                 </div>

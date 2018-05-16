@@ -1,0 +1,35 @@
+@import '../../assets/stylesheets/library';
+#investment-records{
+    height: 100%;
+    div,p,span,ul,li,a{
+        box-sizing: border-box;
+    }
+    .content{
+        padding: unit(40px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
+        .records-list{
+            width:unit(690px / (@baseWidth / @baseColumns), rem);
+            height:unit(150px / (@baseWidth / @baseColumns), rem); 
+            background:rgba(255,255,255,1);
+            border-radius: unit(10px / (@baseWidth / @baseColumns), rem) ;
+            box-shadow:5px 0px 15px rgba(0,0,0,0.05) ;
+            padding: unit(30px / (@baseWidth / @baseColumns), rem);
+        }
+        .name{
+            font-size:unit(30px / (@baseWidth / @baseColumns), rem);
+            font-family:MicrosoftYaHei;
+            color:rgba(51,51,51,1);
+            margin-bottom: unit(32px / (@baseWidth / @baseColumns), rem);
+            span{
+                font-size:unit(40px / (@baseWidth / @baseColumns), rem);
+                font-family:MicrosoftYaHei;
+                color:rgba(51,51,51,1);
+            }
+        }
+        .invest-way{
+            font-size:unit(24px / (@baseWidth / @baseColumns), rem);;
+            font-family:MicrosoftYaHei;
+            color:rgba(151,154,167,1);
+            line-height:0px;
+        }
+    }
+}

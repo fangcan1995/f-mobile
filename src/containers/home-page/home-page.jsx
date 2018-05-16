@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import ReactSwipe from 'react-swipe';
@@ -40,7 +39,7 @@ class HomePage extends Component {
 	}
 	render() {
 		const { auth ,home } = this.props;
-		console.log(home)
+		console.log(this.props)
 		// const items = [{
 		// 	image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci1.jpg',
 		// 	title: '图片1',

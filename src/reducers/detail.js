@@ -12,7 +12,7 @@ export default createReducer(initialState, {
   }),
   [`detail/GET_DETAILS_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
-    project: action.payload
+    projectDetails: action.payload
   }),
   [`detail/GET_DETAILS_REJECTED`]: (state, action) => state.merge({
     isFetching: false,
