@@ -21,7 +21,7 @@ class RetrievePasswordPage extends Component {
                     <div className='retrievePassword-box retrievePassword-password-box'>
                         <label>验证码</label>
                         <input type="text" className='retrievePassword-password' placeholder='请输入短信验证码'/>
-                        <span className='get-Messcode'>获取验证码</span>
+                        <button className='get-Messcode' type='button'>获取验证码</button>
                     </div>
                     <div className='retrievePassword-box retrievePassword-name-box'>
                         <label>新密码</label>

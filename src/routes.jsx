@@ -16,6 +16,7 @@ import CertificationPage from './containers/certification-page/certification-pag
 import ChangePasswordPage from './containers/changePassword-page/changePassword-page';
 import ChangePhonePage from './containers/changePhone-page/changePhone-page';
 import DiscoverPage from './containers/discover-page/discover-page';
+import DiscoverDetailPage from './containers/discoverDetail-page/discoverDetail-page';
 import HelpCenterPage from './containers/helpCenter-page/helpCenter-page';
 import CouponPage from './containers/coupon-page/coupon-page';
 import WithdrawPage from './containers/withdraw-page/withdraw-page';
@@ -59,6 +60,7 @@ export default (
             <Route exact path="/detail" component={Detail} />
             <Route exact path="/dynamic" component={DynamicPage} />
             <Route exact path="/subjectList" component={SubjectListPage} />
+            <Route exact path="/discoverDetail/:id" component={DiscoverDetailPage} />
 
             {/* add by ShadowCover */}
             <Route exact path="/personal" component={PersonalContainer} />

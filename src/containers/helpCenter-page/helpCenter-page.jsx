@@ -2,9 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Immutable from "immutable";
-import { loginUser } from "../../actions/auth";
+import { dynamic } from '../../actions/dynamic';
 import "./helpCenter-page.less";
 import bbhLogo from "../../assets/images/bbh-logo.png";
+import { Link } from 'react-router-dom';
+let ajaxData={
+  pageNum:'1',
+  pageSize:'5',
+  number:'5',
+
+}
 class HelpCenterPage extends Component {
   constructor() {
     super();
@@ -21,27 +28,27 @@ class HelpCenterPage extends Component {
         tabClassOne: "active",
         tabClassTwo: ""
       });
+      this.getListData(4)
     } else {
       this.setState({
         borderClass: "two",
         tabClassOne: "",
         tabClassTwo: "active"
       });
+      this.getListData(5)
     }
   }
+  componentDidMount(){
+		this.getListData(4)
+  }
+  getListData(type){
+    const { dispatch } = this.props;
+    dispatch(dynamic(type,ajaxData));
+  }
   render() {
-    const { auth } = this.props;
-    let list = [
-      {
-        id: 1,
-        affIcon: bbhLogo,
-        title:
-          "测试占字测试占字测试占字测试占字测试占字测试占字测试占字测试占字测试占字",
-        affContent:
-          "测试占字测试占字测试占字测试占字测试占字测试占字测试占字测试占字测试占字",
-        updateTime: "2017-10-20"
-      }
-    ];
+    const { dynamic } = this.props;
+    console.log(this.props)
+    let list = this.props.dynamic.dynamic.list;
     return (
       <div className="helpCenter-body">
         <div className="main">
@@ -64,13 +71,15 @@ class HelpCenterPage extends Component {
             <ul className="dynamic-list" id="active-content">
               {list.map(item => {
                 return (
-                  <li>
-                    <h3>
-											{item.title}
-                    </h3>
-                    <p className="time-p">
-                      <i className="icon-time" />&nbsp;&nbsp;&nbsp;发布时间：{item.updateTime}
-                    </p>
+                  <li key={item.id}>
+                    <Link to={'/discoverDetail/' + item.id }>
+                      <h3>
+                        {item.title}
+                      </h3>
+                      <p className="time-p">
+                        <i className="icon-time" />&nbsp;&nbsp;&nbsp;发布时间：{item.updateTime}
+                      </p>
+                    </ Link>
                   </li>
                 );
               })}
@@ -83,18 +92,10 @@ class HelpCenterPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { dynamic } = state.toJS();
   return {
-    auth
+    dynamic
   };
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      loginUser
-    },
-    dispatch
-  );
-
-export default connect(select, mapDispatchToProps)(HelpCenterPage);
+export default connect(select)(HelpCenterPage);

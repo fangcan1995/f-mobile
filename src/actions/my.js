@@ -1,20 +1,20 @@
 import cFetch from '../libs/cFetch';
 
-let url = `http://172.16.7.3:9070/members/memberRedEnvelopes?access_token=3f022ea4-470d-44c3-85b3-8552ddfc0b41`;
+let getMyInfoUrl = 'http://172.16.7.3:9070/accounts/my/info?access_token=45f6c3b7-4fae-4b25-94d6-3d247c1d8362';
 
-export const getRedpacket = () => {
+export const getMyInfo = () => {
     return {
-        type: 'GET_REDPACKET',
+        type: 'GET_MYINFO',
         async payload() {
-            const res = await cFetch(url, {
+            let res = await cFetch(getMyInfoUrl, {
                 method: 'GET',
             }, false);
             const { code, data } = res;
             if (code == 0) {
-                return data.list;
+                return data;
             } else {
                 throw res;
             }
         }
-    };
-};
+    }
+}

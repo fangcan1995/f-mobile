@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import './repay-plan-page.less';
+
+import { getRepayList, getRepayTotal } from '../../actions/repay-plan';
 
 
 class RepayPlanPage extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        const { getRepayList, getRepayTotal } = this.props;
+        getRepayList();
+    }
+
     render() {
+        const { repayList } = this.props;
         return (
             <div className="repay-plan">
                 <div className="totalInfo">
@@ -34,59 +47,58 @@ class RepayPlanPage extends Component {
                     <div className="tag">还款中</div>
                 </div>
                 <div className="listBlock">
-                    <div className="listPart">
-                        <div className="title">
-                            <span className="bigTitle">第{1}期</span><span>&nbsp;/共{12}期</span>
-                        </div>
-                        <div className="content">
-                            <div className="contentLine">
-                                <span>还款日期：<em>{'2017.06.10'}</em></span>
-                                <span>应还利息：<em>￥{'100.00'}</em></span>
-                            </div>
-                            <div className="contentLine">
-                                <span>应还本金：<em>￥{'0.00'}</em></span>
-                                <span>应付罚息：<em>￥{'0.00'}</em></span>
-                            </div>
-                        </div>
-                        <div className="tag blue">{'还款中'}</div>
-                    </div>
-                    <div className="listPart">
-                        <div className="title">
-                            <span className="bigTitle">第{1}期</span><span>&nbsp;/共{12}期</span>
-                        </div>
-                        <div className="content">
-                            <div className="contentLine">
-                                <span>还款日期：<em>{'2017.06.10'}</em></span>
-                                <span>应还利息：<em>￥{'100.00'}</em></span>
-                            </div>
-                            <div className="contentLine">
-                                <span>应还本金：<em>￥{'0.00'}</em></span>
-                                <span>应付罚息：<em>￥{'0.00'}</em></span>
-                            </div>
-                        </div>
-                        <div className="tag blue">{'还款中'}</div>
-                    </div>
-                    <div className="listPart">
-                        <div className="title">
-                            <span className="bigTitle">第{1}期</span><span>&nbsp;/共{12}期</span>
-                        </div>
-                        <div className="content">
-                            <div className="contentLine">
-                                <span>还款日期：<em>{'2017.06.10'}</em></span>
-                                <span>应还利息：<em>￥{'100.00'}</em></span>
-                            </div>
-                            <div className="contentLine">
-                                <span>应还本金：<em>￥{'0.00'}</em></span>
-                                <span>应付罚息：<em>￥{'0.00'}</em></span>
-                            </div>
-                        </div>
-                        <div className="tag blue">{'还款中'}</div>
-                    </div>
+                    {
+                        repayList.map((item, i) => {
+                            return (
+                                <div className="listPart" key={item.earnIssue}>
+                                    <div className="title">
+                                        <span className="bigTitle">第{item.earnIssue}期</span><span>&nbsp;/共{repayList.length}期</span>
+                                    </div>
+                                    <div className="content">
+                                        <div className="contentLine">
+                                            <span>还款日期：<em>{item.earnShdEarnDate}</em></span>
+                                            <span>应还利息：<em>￥{item.earnIint}</em></span>
+                                        </div>
+                                        <div className="contentLine">
+                                            <span>应还本金：<em>￥{item.earnCapital}</em></span>
+                                            <span>应付罚息：<em>￥{item.lateIint}</em></span>
+                                        </div>
+                                    </div>
+                                    <div className="tag blue">{'还款中'}</div>
+                                </div>
+                            );
+                        })
+                    }
+
                 </div>
             </div>
         );
     }
 
 }
+
+const mapStateToProps = state => {
+    const { repayPlan } = state.toJS();
+    return {
+        repayList: repayPlan.repayList,
+        repayTotal: repayPlan.repayTotal,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getRepayList: () => {
+            dispatch(getRepayList());
+        },
+        getRepayTotal: () => {
+            dispatch(getRepayTotal());
+        }
+    }
+}
+
+RepayPlanPage = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RepayPlanPage);
 
 export default RepayPlanPage;

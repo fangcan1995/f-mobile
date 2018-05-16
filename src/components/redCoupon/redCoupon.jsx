@@ -1,43 +1,40 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './redCoupon.less';
 
 
-const RedCoupon = ({ type, invalid, data }) => {
+const RedCoupon = ({ type, data }) => {
+    //console.log(data);
+
     data = data ? data : {};
     // rp 红包 cp 加息券 fail 失效
     //status 1 未激活 2 已使用 3 已过期
     let colorClass;
     let toUseDOM;
     let statusDOM;
-    switch (true) {
-        case type === 'rp' && !invalid:
-            colorClass = 'redpacket';
-            break;
-        case type === 'cp' && !invalid:
-            colorClass = 'coupon';
-            break;
-        default:
-            colorClass = 'fail';
-            break;
-    }
-    
-    switch (data.status) {
-        case '1':
-            toUseDOM = <div className="toUse">点击立即激活</div>;
+    let status = type === 'rp' ? data.reStatus : data.rcStatus; 
+    console.log(status);
+    switch (status) {
+        case 0:
+            toUseDOM = <div className="toUse"><Link to="/personal">点击立即激活</Link></div>;
             statusDOM = <div className="status inactive"></div>;
+            colorClass = type === 'rp' ? 'redpacket' : 'coupon';
             break;
-        case '2':
+        case 2:
             toUseDOM = null;
             statusDOM = <div className="status used"></div>;
+            colorClass = 'fail'
             break;
-        case '3':
+        case 3:
             toUseDOM = null;
             statusDOM = <div className="status invalid"></div>;
+            colorClass = 'fail'
             break;
         default:
-            toUseDOM = <div className="toUse">点击立即使用</div>;
+            toUseDOM = <div className="toUse"><Link to="/subjectList">点击立即使用</Link></div>;
             statusDOM = <div className="status"></div>;
+            colorClass = type === 'rp' ? 'redpacket' : 'coupon';
             break;
     }
 
@@ -47,13 +44,13 @@ const RedCoupon = ({ type, invalid, data }) => {
                 <span className="title">
                     {type === 'rp' && '￥'}
                     {type === 'cp' && '+'}
-                    <span className="value">{data.val}</span>
+                    <span className="value">{type === 'rp' ? data.reAmount : data.rcAmount}</span>
                     {type === 'cp' && '%'}
                 </span>
-                <span className="canuse">{data.canuse}</span>
+                <span className="canuse">{data.productCategoryName}</span>
             </div>
-            <div className="intro">红包说明</div>
-            <div className="endTime">截止日期:{data.endTime}</div>
+            <div className="intro">{data.reTypeName}</div>
+            <div className="endTime">截止日期：{data.endTime ? data.endTime.split(' ')[0] : '暂无期限'}</div>
             {
                 toUseDOM
             }

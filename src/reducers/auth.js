@@ -1,13 +1,14 @@
 import { createReducer } from 'redux-immutablejs';
 import { fromJS } from 'immutable';
 import cookie from 'js-cookie';
-import { LOGIN, LOGOUT,LOGINCODE } from '../actions-type/auth';
+import { LOGIN, LOGOUT,LOGINCODE,SMSLOGINCODE } from '../actions-type/auth';
 
 const initialState = fromJS({
 	isFetching: false,
-	isAuthenticated: !!cookie.get('token'),
-  userInfo: cookie.getJSON('userInfo') || {},
-  loginCode:{}
+	isAuthenticated:cookie.get('token') ? true : false,
+  userInfo: cookie.getJSON('user') || {},
+  loginCode:{},
+  smsLoginCode:{}
 });
 
 export default createReducer(initialState, {
@@ -56,6 +57,20 @@ export default createReducer(initialState, {
   }),
 
   [`${LOGINCODE}_REJECTED`]: (state, action) => state.merge({
+    isFetching: false,
+    errorMessage: action.message
+  }),
+
+  //获取登陆短信验证码
+  [`${SMSLOGINCODE}_PENDING`]: (state, action) => state.merge({
+    isFetching: true,
+  }),
+  [`${SMSLOGINCODE}_FULFILLED`]: (state, action) => state.merge({
+    isFetching: false,
+    smsLoginCode:action.payload,
+  }),
+
+  [`${SMSLOGINCODE}_REJECTED`]: (state, action) => state.merge({
     isFetching: false,
     errorMessage: action.message
   }),
