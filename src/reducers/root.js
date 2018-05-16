@@ -16,6 +16,7 @@ import dynamic from './dynamic';
 import discoverDeail from './discoverDetail';
 import register from './register';
 import retrievePassword from './retrievePassword';
+import personal from './personal';
 
 const rootReducer = combineReducers({
     auth,
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
     discoverDeail,
     register,
     retrievePassword,
+    personal,
     detail
 });
 export default rootReducer;
