@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import '../withdraw-page/withdraw-page.less';
 
 
+import { getMyInfo } from '../../actions/my';
+
+
 class ChargePage extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        const { getMyInfo } = this.props;
+        getMyInfo();
+    }
+
     render() {
         const total = 10200;
         return (
@@ -45,5 +59,25 @@ class ChargePage extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    const { my } = state.toJS();
+    return {
+        myInfo: my.myInfo
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getMyInfo: () => {
+            dispatch(getMyInfo());
+        }
+    }
+}
+
+ChargePage = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ChargePage);
 
 export default ChargePage;
