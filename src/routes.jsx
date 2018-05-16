@@ -29,6 +29,8 @@ import TradeHistoryPage from './containers/trade-history-page/trade-history-page
 import MyTransferPage from './containers/my-transfer-page/my-transfer-page';
 import RepayPlanPage from './containers/repay-plan-page/repay-plan-page';
 import Detail from './containers/detail/detail'
+import ProjectDetail from './containers/projectDetail/projectDetail'
+import InvestmentRecords from './containers/investment-records/investment-records'
 import My from './containers/my/my'
 import DynamicPage from './containers/dynamic-page/dynamic-page';
 import SubjectListPage from './containers/subjectList-page/subjectList-page';
@@ -76,13 +78,16 @@ export default (
 
             {/* add by fangcan */}
             <Route path="/detail/:id" render={
-                ({ match }) => {
+                ( props ) => {
+                    const {match} = props
                     return (
-                        <Detail match={match} />
+                        <Detail match={match} {...props}/>
                     );
                 }
             } />
             <Route exact path="/my" component={My} />
+            <Route exact path='/projectDetail/:id' component = {ProjectDetail}/>
+            <Route exact path='/investment-records/:id' component = {InvestmentRecords}/>
             <Redirect to = '/home' />
         </Switch>
     </App>

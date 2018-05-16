@@ -1,12 +1,21 @@
 @import '../../assets/stylesheets/library';
 
 .myAssets {
+    position: relative;
     overflow: hidden;
     .chartArea {
-        width: unit(400px / (@baseWidth / @baseColumns), rem);
-        height: unit(400px / (@baseWidth / @baseColumns), rem);
-        background: url(../../assets/images/chart.png) center / contain no-repeat;
-        margin: unit(100px / (@baseWidth / @baseColumns), rem) auto;
+        text-align: center;
+        position: absolute;
+
+        .totalNum {
+            font-size: unit(70px / (@baseWidth / @baseColumns), rem);
+            font-weight: bold;
+            color: #333;
+        }
+        .totalLabel {
+            font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+            color: #979aa7;
+        }
     }
 
     .chartInfo {
@@ -60,19 +69,26 @@
         position: fixed;
         bottom: 0;
 
-        button {
+        a {
+            display: block;
             width: 50%;
+            height: inherit;
             font-size: unit(30px / (@baseWidth / @baseColumns), rem);
             color: #333;
-            background: #fff;
-            border: none;
-
-            &.charge {
-                color: #fff;
-                background: #3296fa;
-            }
-            &:focus {
-                outline: none;
+            button {
+                width: 100%;
+                height: inherit;
+                font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+                color: #333;
+                background: #fff;
+                border: none;
+                &.charge {
+                    color: #fff;
+                    background: #3296fa;
+                }
+                &:focus {
+                    outline: none;
+                }
             }
         }
     }

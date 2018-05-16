@@ -19,25 +19,18 @@ class RedPacket extends Component {
     }
 
     render() {
-        const { redpacketsList } = this.props;
-
+        console.log(this.props);
+        const { redpacketsList, match } = this.props;
+        let type = match.url === '/redpacket' ? 'rp' : 'cp';
         return (
             <div className="couponList">
                 {
-                    redpacketsList.map((list, i) => {
+                    redpacketsList.map((list) => {
                         return (
-                            <RedCoupon type='rp' data={{status: '1'}}  key={i}/>
+                            <RedCoupon data={list} key={list.id} type={type} />
                         )
                     })
                 }
-                <RedCoupon type='rp' data={{status: '1'}}/>
-                <RedCoupon type='cp'/>
-                <RedCoupon type='cp' invalid={true}/>
-                <RedCoupon type='cp' invalid={true}/>
-                <RedCoupon type='cp' invalid={true}/>
-                <RedCoupon type='cp' invalid={true}/>
-                <RedCoupon type='cp' invalid={true}/>
-                <RedCoupon type='cp' invalid={true}/>
                 <Filter />
             </div>
         );
@@ -46,9 +39,8 @@ class RedPacket extends Component {
 
 const mapStateToProps = (state) => {
     const { redpacket } = state.toJS();
-    console.log(redpacket);
     return {
-        redpacketsList: state.toJS().redpacket.redpacketsList
+        redpacketsList: redpacket.redpacketsList
     }
 };
 

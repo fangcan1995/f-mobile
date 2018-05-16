@@ -23,6 +23,13 @@
 					 bottom:0;
 					 left:unit(25px / (@baseWidth / @baseColumns), rem);
 					 //left:unit(160px / (@baseWidth / @baseColumns), rem);
+					 transition: all 1s;
+				}
+				&.border-li.one{
+				left:unit(20px / (@baseWidth / @baseColumns), rem);
+				}
+				&.border-li.two{
+				left:unit(150px / (@baseWidth / @baseColumns), rem);
 				}
 				&.contact-li i{
 					font-size: unit(50px / (@baseWidth / @baseColumns), rem);
@@ -54,6 +61,10 @@
 					font-size: unit(18px / (@baseWidth / @baseColumns), rem);
 					top:unit(5px / (@baseWidth / @baseColumns), rem);
 					//right:unit(47px / (@baseWidth / @baseColumns), rem);
+					color: #6e7277;
+					&.active{
+						color:#3296FA;
+					}
 				}
 				.icon-down-arrow{
 					position: absolute;
@@ -61,6 +72,10 @@
 					font-size: unit(18px / (@baseWidth / @baseColumns), rem);
 					top:unit(24px / (@baseWidth / @baseColumns), rem);
 					//right:unit(47px / (@baseWidth / @baseColumns), rem);
+					color: #6e7277;
+					&.active{
+						color:#3296FA;
+					}
 				}
 			}
 		}

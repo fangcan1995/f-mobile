@@ -7,18 +7,18 @@ import {
 
 const initialState = fromJS({
     isFetching: false,
-    redpacketsList: []
+    couponList: []
 });
 
 export default createReducer(initialState, {
-    ['GET_REDPACKET_PENDING']: (state, action) => state.merge({
+    ['GET_COUPON_PENDING']: (state, action) => state.merge({
         isFetching: true,
     }),
-    ['GET_REDPACKET_FULFILLED']: (state, action) => state.merge({
-            isFetching: false,
-            redpacketsList: action.payload
+    ['GET_COUPON_FULFILLED']: (state, action) => state.merge({
+        isFetching: false,
+        couponList: action.payload
     }),
-    ['GET_REDPACKET_REJECTED']: (state, action) => state.merge({
+    ['GET_COUPON_REJECTED']: (state, action) => state.merge({
         isFetching: false,
         errorMessage: action.message
     }),
