@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
 import { personal } from '../../actions/personal';
+import { auth,logoutUser } from '../../actions/auth';
+import {mdPhone} from '../../libs/utils';
 
 import './personal-page.less';
 let ajaxData={
@@ -15,12 +17,23 @@ class PersonalContainer extends Component {
     componentDidMount(){
 		const { dispatch } = this.props;
         dispatch(personal(ajaxData));
-	}
+    }
+    logout(){
+        const { dispatch } = this.props;
+        dispatch(logoutUser())
+        .then(res=>{
+            alert('已登出')
+            this.props.history.push('/login')
+        })
+        .catch(res=>{
+            alert('登出失败')
+        })
+    }
     render () {
-        const { personal } = this.props;
-
+        const { personal,auth } = this.props;
         console.log(this.props)
-        let personalObj=this.props.personal.personal
+        let personalObj=this.props.personal.personal;
+        personalObj.userName=this.props.auth.userInfo.userName;
         return (
             <div className="personalPage">
                 <dl>
@@ -40,7 +53,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/changePhone">
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">{personalObj.isNovice}</span>
+                                <span className="actionText">{mdPhone(personalObj.userName)}</span>
                             </Link>
                         </span>
                     </dd>
@@ -49,7 +62,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/certification">
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">{personalObj.isCertification==0?'未实名':'已实名'}</span>
+                                <span className="actionText">{personalObj.isCertification==0?'未认证':'已认证'}</span>
                             </Link>
                         </span>
                     </dd>
@@ -60,7 +73,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/">
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">{personalObj.riskLevel==''?'未评估':'稳健股'}</span>
+                                <span className="actionText">{personalObj.riskLevel==''?'未评估':'稳健性'}</span>
                             </Link>
                         </span>
                     </dd>
@@ -69,7 +82,7 @@ class PersonalContainer extends Component {
                         <span className="rightAction">
                             <Link to="/">
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">{personalObj.isNovice}</span>
+                                <span className="actionText">{personalObj.bankNo?'已开户':'未开户'}</span>
                             </Link>
                         </span>
                     </dd>
@@ -78,21 +91,22 @@ class PersonalContainer extends Component {
                     <dd>
                         <div className="leftTitle">修改密码</div>
                         <span className="rightAction">
-                            <Link to="/authentication">
+                            <Link to="/changePassword">
                                 <span className="icon-arrow"></span>
                             </Link>
                         </span>
                     </dd>
                 </dl>
-                <div className="loginOut">退出登录</div>
+                <div className="loginOut" onClick={this.logout.bind(this)}>退出登录</div>
             </div>
         );
     }
 }
 function select(state) {
-    const { personal } = state.toJS();
+    const { personal,auth } = state.toJS();
     return {
-        personal
+        personal,
+        auth
     };
   }
   

@@ -25,7 +25,6 @@ export const discover = (ajaxData) => {
         } else {
           throw res;
         }
-
     } 
   };
 };

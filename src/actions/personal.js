@@ -1,10 +1,13 @@
-import { PERSONAL } from "../actions-type/personal";
+import { PERSONAL,CERTIFICATION } from "../actions-type/personal";
 import cFetch from "./../libs/cFetch";
 import { urls, token } from "../libs/utils";
 import parseJson2URL from "./../libs/parseJson2URL";
 import cookie from "js-cookie";
 let URL = "http://172.16.7.3:9070";
+let URL_LI = "http://172.16.1.225:9070";
 
+
+//获取个人中心数据
 export const personal = ajaxData => {
   ajaxData = parseJson2URL(ajaxData);
   console.log(ajaxData);
@@ -41,5 +44,29 @@ export const personal = ajaxData => {
         throw res;
       }
     }
+  };
+};
+
+//实名验证
+
+export const certification = (params) => {
+  return {
+    type: CERTIFICATION,
+    async payload(){
+        let res= await cFetch(`${URL_LI}/members/auth?access_token=d1d95671-ff8f-4de5-af6f-f21ed4d0e25f`, {           
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(params),
+            // credentials: 'include' 
+        },false);
+        if ( res.code == 0 ) {
+            console.log(res.data)
+          return res || {};
+        } else {
+          throw res;
+        }
+    } 
   };
 };

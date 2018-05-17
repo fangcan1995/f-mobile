@@ -3,32 +3,45 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { retrievePasswordUser } from '../../actions/auth';
+import { certification } from '../../actions/personal';
 import { isIdCard } from '../../libs/utils';
 import './../retrievePassword-page/retrievePassword-page.less';
 class CertificationPage extends Component {
 	constructor(){
         super();
         this.state={
-            realName:'',
-            IDcard:'',
+            tureName:'',
+            idNumber:'',
         }
     }
     handleSubmit(){
         console.log(this.props)
-        if(!this.state.realName){
+        if(!this.state.tureName){
             alert('请输入真实姓名')
             return false
         }
-        else if(!this.state.IDcard){
+        else if(!this.state.idNumber){
             alert('请输入身份证号')
             return false
-        }else if(!isIdCard(this.state.IDcard)){
+        }else if(!isIdCard(this.state.idNumber)){
             alert('请输入正确的身份证号')
             return false
         }
         else{
-            
+            let ajaxData={
+                tureName:this.state.tureName,
+                idNumber:this.state.idNumber,
+            }
+            const { dispatch } = this.props;
+            dispatch(certification(ajaxData))
+            .then(res=>{
+                alert('认证成功')
+                this.props.history.goBack()
+                
+            })
+            .catch(err=>{
+                alert(err.msg)
+            })
         }
        
 
@@ -41,22 +54,22 @@ class CertificationPage extends Component {
         });
     }
 	render() {
-		const { auth } = this.props;
+		const { personal } = this.props;
 		return (
             <div className='retrievePassword-body'>
                <form className='retrievePassword-form'>
                     <div className='retrievePassword-box retrievePassword-name-box'>
                         <label>真实姓名</label>
-                        <input type="text" className='retrievePassword-name' placeholder='请输入真实姓名' onChange={this.handleChange.bind(this, 'realName')} value={this.state.realName}/>
+                        <input type="text" className='retrievePassword-name' placeholder='请输入真实姓名' onChange={this.handleChange.bind(this, 'tureName')} value={this.state.tureName}/>
                     </div>
                     <div className='retrievePassword-box retrievePassword-name-box'>
                         <label>身份证号</label>
-                        <input type="text" className='retrievePassword-name' placeholder='请输入身份证号' onChange={this.handleChange.bind(this, 'IDcard')} value={this.state.IDcard}/>
+                        <input type="text" className='retrievePassword-name' placeholder='请输入身份证号' onChange={this.handleChange.bind(this, 'idNumber')} value={this.state.idNumber}/>
                     </div>
               
                 </form> 
                 <div className='retrievePassword-password-box'>
-                    <Link to="/"><button className='retrievePassword-submit'  type='button' onClick={this.handleSubmit.bind(this)}>提交审核</button></Link>
+                    <button className='retrievePassword-submit'  type='button' onClick={this.handleSubmit.bind(this)}>提交审核</button>
                 </div>
             </div>
 			)
@@ -65,15 +78,10 @@ class CertificationPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { personal } = state.toJS();
   return {
-    auth
+    personal
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  retrievePasswordUser,
-}, dispatch)
-
-export default connect(select, mapDispatchToProps)(CertificationPage);
+export default connect(select)(CertificationPage);
