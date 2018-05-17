@@ -1,11 +1,47 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import '../withdraw-page/withdraw-page.less';
+//import 'antd-mobile/dist/antd-mobile.css';
 
+
+import { getMyInfo } from '../../actions/my';
+
+import { Toast, Button } from 'antd-mobile';
+
+function successToast() {
+    Toast.success('Load success !!!', 1);
+}
 
 class ChargePage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            chargeNum: 0..toFixed(2),
+            leftNum: 0..toFixed(2)
+        }
+    }
+
+    /* successToast () {
+        Toast.success('Load success !!!', 1);
+    } */
+
+    handleChange(e) {
+        const { myInfo } = this.props;
+        this.setState({
+            chargeNum: e.target.value,
+            leftNum: (myInfo.availableBalance - parseFloat(e.target.value === '' ? 0 : e.target.value)).toFixed(2)
+        });
+    }
+
+    componentDidMount() {
+        const { getMyInfo } = this.props;
+        getMyInfo();
+    }
+
     render() {
-        const total = 10200;
+        const { myInfo } = this.props;
         return (
             <div className="withdraw">
                 <div className="area withdrawArea">
@@ -13,13 +49,16 @@ class ChargePage extends Component {
                         <label className="symbol">￥
                             <input type="text"
                                 placeholder="请输入充值金额"
+                                value={this.state.chargeNum === 0..toFixed(2) ? '' : this.state.chargeNum}
+                                onChange={this.handleChange.bind(this)}
+                                disabled={myInfo.availableBalance === undefined}
                             />
                             <span className="inputTip">手续费 {'0.00'} 元</span>
                         </label>
                     </div>
                     <div className="canuse">
-                        <span>可用余额 {'0.00'} 元</span>
-                        <span>充值后余额 {'0.00'} 元</span>
+                        <span>可用余额 {myInfo.availableBalance !== undefined ? myInfo.availableBalance.toFixed(2) : 0..toFixed(2)} 元</span>
+                        <span>充值后余额 {this.state.leftNum} 元</span>
                     </div>
                 </div>
                 <div className="textInfo">
@@ -32,6 +71,7 @@ class ChargePage extends Component {
                     <p>7. 每日的充值限额依据各银行限额为准，请注意您的银行卡充值限制，以免造成不便；</p>
                 </div>
                 <div className="withdrawButton">充值</div>
+                <Button onClick={successToast}>test</Button>
                 <div className="contactBlock">
                     <p>
                         如有问题可拨打客服热线
@@ -45,5 +85,25 @@ class ChargePage extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    const { my } = state.toJS();
+    return {
+        myInfo: my.myInfo
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getMyInfo: () => {
+            dispatch(getMyInfo());
+        }
+    }
+}
+
+ChargePage = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ChargePage);
 
 export default ChargePage;
