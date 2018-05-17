@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { retrievePasswordUser } from '../../actions/auth';
 import { isTel } from '../../libs/utils';
+import  { Toast } from 'antd-mobile';
 import './../retrievePassword-page/retrievePassword-page.less';
 class BindPhonePage extends Component {
     constructor(){
@@ -21,11 +22,11 @@ class BindPhonePage extends Component {
     }
     getMessageCode(e){
         if(!this.state.username){
-            alert('请输入手机号')
+            Toast.info('请输入手机号')
             return false;            
         }
         else if(!isTel(this.state.username)){
-            alert('请输入正确手机号')
+            Toast.info('请输入正确手机号')
             return false;
         }else{
             let time=60;
@@ -46,15 +47,15 @@ class BindPhonePage extends Component {
     }
     handleSubmit(){
         if(!this.state.username){
-            alert('请输入手机号')
+            Toast.info('请输入手机号')
             return false;            
         }
         else if(!isTel(this.state.username)){
-            alert('请输入正确手机号')
+            Toast.info('请输入正确手机号')
             return false;
         }
         else if(!this.state.verify_code){
-            alert('请输入短信验证码')
+            Toast.info('请输入短信验证码')
             return false;
         }else{
 

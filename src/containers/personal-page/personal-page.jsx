@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { personal } from '../../actions/personal';
 import { auth,logoutUser } from '../../actions/auth';
 import {mdPhone} from '../../libs/utils';
-
+import  { Toast } from 'antd-mobile';
 import './personal-page.less';
 let ajaxData={
 	adType:'7',
@@ -22,11 +22,13 @@ class PersonalContainer extends Component {
         const { dispatch } = this.props;
         dispatch(logoutUser())
         .then(res=>{
-            alert('已登出')
-            this.props.history.push('/login')
+            Toast.success('已登出',1,()=>{
+                this.props.history.push('/login')
+            })
+            
         })
         .catch(res=>{
-            alert('登出失败')
+            Toast.fail('登出失败',1)
         })
     }
     render () {

@@ -5,6 +5,7 @@ import Immutable from 'immutable';
 import './../retrievePassword-page/retrievePassword-page.less';
 import { hex_md5 } from '../../libs/md5';
 import { changePassword } from '../../actions/changePassword'
+import  { Toast } from 'antd-mobile';
 class ChangePasswordPage extends Component {
 	constructor(){
         super();
@@ -42,18 +43,18 @@ class ChangePasswordPage extends Component {
     }
     handleSubmit(){
         if(!this.state.newPassword){
-            alert('请输入原密码')
+            Toast.info('请输入原密码')
             return false
         }
         else if(!this.state.newPassword){
-            alert('请输入新密码')
+            Toast.info('请输入新密码')
             return false
         }else if(!this.state.confirmPassword){
-            alert('请输入确认密码')
+            Toast.info('请输入确认密码')
             return false
         }
         else if(this.state.newPassword != this.state.confirmPassword){
-            alert('两次输入密码不一致')
+            Toast.info('两次输入密码不一致')
             return false
         }
         else{
@@ -67,11 +68,13 @@ class ChangePasswordPage extends Component {
             const { dispatch } = this.props;
             dispatch(changePassword(appInfo))
             .then(res=>{
-                alert('修改密码成功')
-                this.props.history.push('/login')
+                Toast.success('修改密码成功',1,()=>{
+                    this.props.history.push('/login')
+                })
+                
             })
             .catch(err=>{
-                alert('修改密码失败')
+                Toast.fail('修改密码失败',1)
             })
         }
        

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { retrievePasswordUser } from '../../actions/auth';
 import './../retrievePassword-page/retrievePassword-page.less';
+import  { Toast } from 'antd-mobile';
 class AuthenticationPage extends Component {
     constructor(){
         super();
@@ -19,7 +20,7 @@ class AuthenticationPage extends Component {
     }
     handleSubmit(){
         if(!this.state.password){
-            alert('请输入正确的密码')
+            Toast.info('请输入正确的密码')
             return false;            
         }
         else{

@@ -6,6 +6,7 @@ import Immutable from 'immutable';
 import { certification } from '../../actions/personal';
 import { isIdCard } from '../../libs/utils';
 import './../retrievePassword-page/retrievePassword-page.less';
+import  { Toast } from 'antd-mobile';
 class CertificationPage extends Component {
 	constructor(){
         super();
@@ -17,14 +18,14 @@ class CertificationPage extends Component {
     handleSubmit(){
         console.log(this.props)
         if(!this.state.tureName){
-            alert('请输入真实姓名')
+            Toast.info('请输入真实姓名')
             return false
         }
         else if(!this.state.idNumber){
-            alert('请输入身份证号')
+            Toast.info('请输入身份证号')
             return false
         }else if(!isIdCard(this.state.idNumber)){
-            alert('请输入正确的身份证号')
+            Toast.info('请输入正确的身份证号')
             return false
         }
         else{
@@ -35,12 +36,12 @@ class CertificationPage extends Component {
             const { dispatch } = this.props;
             dispatch(certification(ajaxData))
             .then(res=>{
-                alert('认证成功')
-                this.props.history.goBack()
-                
+                Toast.success('认证成功',1,()=>{
+                    this.props.history.goBack()
+                })               
             })
             .catch(err=>{
-                alert(err.msg)
+                Toast.fail(err.msg,1)
             })
         }
        
