@@ -73,7 +73,7 @@ class PersonalContainer extends Component {
                     <dd>
                         <div className="leftTitle">风险评估</div>
                         <span className="rightAction">
-                            <Link to="/">
+                            <Link to= { personalObj.riskLevel?"/riskEvaluationResult":'/authentication' }>
                                 <span className="icon-arrow"></span>
                                 <span className="actionText">{personalObj.riskLevel==''?'未评估':'稳健性'}</span>
                             </Link>
