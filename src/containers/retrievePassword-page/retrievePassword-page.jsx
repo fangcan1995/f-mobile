@@ -8,6 +8,7 @@ import './retrievePassword-page.less';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
 import {parseQueryString} from '../../libs/utils';
+import  { Toast } from 'antd-mobile';
 
 const params = {
     client_id: 'member',
@@ -33,11 +34,11 @@ class RetrievePasswordPage extends Component {
     getMessageCode(e){
 
         if(!this.state.username){
-            alert('请输入手机号')
+            Toast.info('请输入手机号')
             return false;            
         }
         else if(!isTel(this.state.username)){
-            alert('请输入正确手机号')
+            Toast.info('请输入正确手机号')
             return false;
         }else{
             console.log(this.props)
@@ -55,7 +56,7 @@ class RetrievePasswordPage extends Component {
                 this.setTime();
             })
             .catch(res=>{
-                alert(res.msg)
+                Toast.fail(res.msg,1)
             })
             
             
@@ -90,15 +91,15 @@ class RetrievePasswordPage extends Component {
     handleSubmit(){
         console.log(this.props)
         if(!this.state.username){
-            alert('请输入手机号')
+            Toast.info('请输入手机号')
             return false
         }
         else if(!isTel(this.state.username)){
-            alert('请输入正确手机号')
+            Toast.info('请输入正确手机号')
             return false;
         }
         else if(!this.state.forget_password_code){
-            alert('请输入短信验证码')
+            Toast.info('请输入短信验证码')
             return false
         }
         else{
@@ -117,7 +118,7 @@ class RetrievePasswordPage extends Component {
                 this.props.history.push('/login')
             })
             .catch(err=>{
-                alert(err.msg)
+                Toast.fail(err.msg,1)
             })
         }
     }

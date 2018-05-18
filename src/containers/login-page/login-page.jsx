@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
 import {parseQueryString} from '../../libs/utils';
-import bbhLogo from '../../assets/images/bbh-logo.png'
+import bbhLogo from '../../assets/images/bbh-logo.png';
+import  { Toast } from 'antd-mobile';
 let params = {
     client_id: 'member',
     client_secret: 'secret',
@@ -27,10 +28,10 @@ class LoginPage extends Component {
     }
     handleSubmit(){
         if(!this.state.username){
-            alert('请输入手机号或用户名')
+            Toast.info('请输入手机号或用户名')
             return false
         }else if(!this.state.password){
-            alert('请输入密码')
+            Toast.info('请输入密码')
             return false
         }else{
             let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
@@ -47,7 +48,7 @@ class LoginPage extends Component {
                 dispatch(authCode());
             })
             .catch(err=>{
-                alert(err.msg)
+                Toast.fail(err.msg,1)
             })
         }
     }

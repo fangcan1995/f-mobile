@@ -10,6 +10,7 @@ import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
 import {parseQueryString} from '../../libs/utils';
 import bbhLogo from '../../assets/images/bbh-logo.png';
+import  { Toast } from 'antd-mobile';
 let params = {
     send_terminal: 'iPhone',
     is_read:true
@@ -38,11 +39,11 @@ class RegisterPage extends Component {
     getMessageCode(e){
 
         if(!this.state.username){
-            alert('请输入手机号')
+            Toast.info('请输入手机号')
             return false;            
         }
         else if(!isTel(this.state.username)){
-            alert('请输入正确手机号')
+            Toast.info('请输入正确手机号')
             return false;
         }else{
             console.log(this.props)
@@ -61,7 +62,7 @@ class RegisterPage extends Component {
                 this.setTime();
             })
             .catch(res=>{
-                alert(res.msg)
+                Toast.fail(res.msg,1)
             })           
         }           
     }
@@ -107,19 +108,19 @@ class RegisterPage extends Component {
     handleSubmit(){
         console.log(this.props)
         if(!this.state.username){
-            alert('请输入手机号')
+            Toast.info('请输入手机号')
             return false
         }
         else if(!isTel(this.state.username)){
-            alert('请输入正确手机号')
+            Toast.info('请输入正确手机号')
             return false;
         }
         else if(!this.state.password){
-            alert('请输入登陆密码')
+            Toast.info('请输入登陆密码')
             return false;
         }
         else if(!this.state.register_code){
-            alert('请输入短信验证码')
+            Toast.info('请输入短信验证码')
             return false
         }
         else{
@@ -139,7 +140,7 @@ class RegisterPage extends Component {
                 this.props.history.push('/login')
             })
             .catch(err=>{
-                alert(err.msg)
+                Toast.fail(err.msg,1)
             })
         }
     }

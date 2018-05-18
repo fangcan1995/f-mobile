@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import { retrievePasswordUser } from '../../actions/auth';
 import './../retrievePassword-page/retrievePassword-page.less';
+import { hex_md5 } from '../../libs/md5';
+import { changePassword } from '../../actions/changePassword'
+import  { Toast } from 'antd-mobile';
 class ChangePasswordPage extends Component {
 	constructor(){
         super();
         this.state={
             password:'',
+            newPassword:'',        
             confirmPassword:'',
+            passwordName:'icon-show-password',
+            passwordType:'password',
             newPasswordName:'icon-show-password',
             newPasswordType:'password',
             confimPasswordName:'icon-show-password',
@@ -37,36 +42,62 @@ class ChangePasswordPage extends Component {
         }       
     }
     handleSubmit(){
-        console.log(this.props)
-        if(!this.state.password){
-            alert('请输入新密码')
-            return false
-        }else if(!this.state.confirmPassword){
-            alert('请输入确认密码')
+        if(!this.state.newPassword){
+            Toast.info('请输入原密码')
             return false
         }
-        else if(this.state.password != this.state.confirmPassword){
-            alert('两次输入密码不一致')
+        else if(!this.state.newPassword){
+            Toast.info('请输入新密码')
+            return false
+        }else if(!this.state.confirmPassword){
+            Toast.info('请输入确认密码')
+            return false
+        }
+        else if(this.state.newPassword != this.state.confirmPassword){
+            Toast.info('两次输入密码不一致')
             return false
         }
         else{
-            
+            console.log(this.props)
+            let appInfo={
+                type:`member`,
+                username:this.props.auth.userInfo.userName,
+                old_password:hex_md5(this.state.password),
+                new_password:hex_md5(this.state.newPassword),
+            }
+            const { dispatch } = this.props;
+            dispatch(changePassword(appInfo))
+            .then(res=>{
+                Toast.success('修改密码成功',1,()=>{
+                    this.props.history.push('/login')
+                })
+                
+            })
+            .catch(err=>{
+                Toast.fail('修改密码失败',1)
+            })
         }
        
 
     }
 	render() {
-		const { auth } = this.props;
+		const { auth,changePassword } = this.props;
 		return (
             <div className='retrievePassword-body'>
                <form className='retrievePassword-form'>
                     <div className='retrievePassword-box retrievePassword-name-box'>
+                        <label>原密码</label>
+                        <input type={`${this.state.passwordType}`} className='retrievePassword-password' placeholder='请输入密码' onChange={this.handleChange.bind(this, 'password')} value={this.state.password}/>
+                        <i className={`${this.state.passwordName} icon-password-right`} onClick={this.changeType.bind(this,'passwordName','passwordType')}></i>                    
+                    </div>
+                    <div className='retrievePassword-box retrievePassword-name-box'>
                         <label>新密码</label>
-                        <input type={`${this.state.newPasswordType}`} className='retrievePassword-password' placeholder='请输入密码' onChange={this.handleChange.bind(this, 'password')}/>
-                        <i className={`${this.state.newPasswordName} icon-password-right`} onClick={this.changeType.bind(this,'newPasswordName','newPasswordType')}></i>                    </div>
+                        <input type={`${this.state.newPasswordType}`} className='retrievePassword-password' placeholder='请输入密码' onChange={this.handleChange.bind(this, 'newPassword')} value={this.state.newPassword}/>
+                        <i className={`${this.state.newPasswordName} icon-password-right`} onClick={this.changeType.bind(this,'newPasswordName','newPasswordType')}></i>                    
+                    </div>
                     <div className='retrievePassword-box retrievePassword-name-box'>
                         <label>确认密码</label>
-                        <input type={`${this.state.confimPasswordType}`} className='retrievePassword-password' placeholder='请输入密码' onChange={this.handleChange.bind(this, 'confirmPassword')}/>
+                        <input type={`${this.state.confimPasswordType}`} className='retrievePassword-password' placeholder='请输入密码' onChange={this.handleChange.bind(this, 'confirmPassword')} value={this.state.confirmPassword}/>
                         <i className={`${this.state.confimPasswordName} icon-password-right`} onClick={this.changeType.bind(this,'confimPasswordName','confimPasswordType')}></i>
                     </div>                                    
                 </form> 
@@ -80,15 +111,12 @@ class ChangePasswordPage extends Component {
 }
 
 function select(state) {
-  const { auth } = state.toJS();
+  const { auth,changePassword } = state.toJS();
   return {
+    changePassword,
     auth
   };
 }
 
-const mapDispatchToProps = dispatch => 
-bindActionCreators({
-  retrievePasswordUser,
-}, dispatch)
 
-export default connect(select, mapDispatchToProps)(ChangePasswordPage);
+export default connect(select)(ChangePasswordPage);
