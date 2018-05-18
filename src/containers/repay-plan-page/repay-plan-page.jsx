@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import './repay-plan-page.less';
 
-import { getRepayList, getRepayTotal } from '../../actions/repay-plan';
+import { getRepayPlan } from '../../actions/repay-plan';
 
 
 class RepayPlanPage extends Component {
@@ -13,58 +13,66 @@ class RepayPlanPage extends Component {
     }
 
     componentDidMount() {
-        const { getRepayList, getRepayTotal } = this.props;
-        getRepayList();
+        const { getRepayPlan, match } = this.props;
+        getRepayPlan(match.params.proId);
     }
 
     render() {
-        const { repayList } = this.props;
+        const { repayData } = this.props;
         return (
             <div className="repay-plan">
                 <div className="totalInfo">
-                    <div className="title">{'汇车贷0123456789105355'}</div>
-                    <div className="valueBlock">
-                        <div className="cell">
-                            <div className="value">{'20000.00'}</div>
-                            <div className="info">投资总额（ 元 ）</div>
-                        </div>
-                        <div className="cell">
-                            <div className="value">{'20000.00'}</div>
-                            <div className="info">预期收益（ 元 ）</div>
-                        </div>
-                        <div className="cell">
-                            <div className="value">{'20000.00'}</div>
-                            <div className="info">累计回款（ 元 ）</div>
-                        </div>
-                    </div>
-                    <div className="timeBlock">
-                        截止日期：
-                        {'2018.05.10'}
-                        &nbsp;&nbsp;/&nbsp;
-                        下期回款日：
-                        {'2017.8.10'}
-                    </div>
-                    <div className="tag">还款中</div>
+                    {
+                        repayData.proName
+                            ? (
+                                <div>
+                                    <div className="title">{repayData.proName ? repayData.proName : '--'}</div>
+                                    <div className="valueBlock">
+                                        <div className="cell">
+                                            <div className="value">{repayData.investAmt ? repayData.investAmt : '--'}</div>
+                                            <div className="info">投资总额（ 元 ）</div>
+                                        </div>
+                                        <div className="cell">
+                                            <div className="value">{repayData.expectedEarns ? repayData.expectedEarns : '--'}</div>
+                                            <div className="info">预期收益（ 元 ）</div>
+                                        </div>
+                                        <div className="cell">
+                                            <div className="value">{repayData.rePaymentsTotals ? repayData.rePaymentsTotals : '--'}</div>
+                                            <div className="info">累计回款（ 元 ）</div>
+                                        </div>
+                                    </div>
+                                    <div className="timeBlock">
+                                        截止日期：
+                                        {repayData.dueDate ? repayData.dueDate.split(' ')[0] : '--'}
+                                        &nbsp;&nbsp;/&nbsp;
+                                        下期回款日：
+                                        {repayData.nextRePaymentsDate ? repayData.nextRePaymentsDate.split(' ')[0] : '--'}
+                                    </div>
+                                    <div className="tag">{repayData.investStatusName ? repayData.investStatusName : '--'}</div>
+                                </div>
+                            )
+                            : <h1 className="noData">暂无数据</h1>
+                    }
                 </div>
                 <div className="listBlock">
                     {
-                        repayList.map((item, i) => {
+                        repayData.earnPlanDetailsDtos && repayData.earnPlanDetailsDtos.map((item, i) => {
                             return (
                                 <div className="listPart" key={item.earnIssue}>
                                     <div className="title">
-                                        <span className="bigTitle">第{item.earnIssue}期</span><span>&nbsp;/共{repayList.length}期</span>
+                                        <span className="bigTitle">第{item.earnIssue}期</span><span>&nbsp;/共{repayData.earnPlanDetailsDtos.length}期</span>
                                     </div>
                                     <div className="content">
                                         <div className="contentLine">
-                                            <span>还款日期：<em>{item.earnShdEarnDate}</em></span>
-                                            <span>应还利息：<em>￥{item.earnIint}</em></span>
+                                            <span>还款日期：<em>{item.earnShdEarnDate ? item.earnShdEarnDate.split(' ')[0] : '--'}</em></span>
+                                            <span>应还利息：<em>￥{item.earnIint ? item.earnIint : '--'}</em></span>
                                         </div>
                                         <div className="contentLine">
-                                            <span>应还本金：<em>￥{item.earnCapital}</em></span>
-                                            <span>应付罚息：<em>￥{item.lateIint}</em></span>
+                                            <span>应还本金：<em>￥{item.earnCapital ? item.earnCapital : '--'}</em></span>
+                                            <span>应付罚息：<em>￥{item.lateIint ? item.lateIint : '--'}</em></span>
                                         </div>
                                     </div>
-                                    <div className="tag blue">{'还款中'}</div>
+                                    <div className="tag blue">{item.earnStatusName ? item.earnStatusName : '--'}</div>
                                 </div>
                             );
                         })
@@ -80,18 +88,14 @@ class RepayPlanPage extends Component {
 const mapStateToProps = state => {
     const { repayPlan } = state.toJS();
     return {
-        repayList: repayPlan.repayList,
-        repayTotal: repayPlan.repayTotal,
+        repayData: repayPlan.repayData,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        getRepayList: () => {
-            dispatch(getRepayList());
-        },
-        getRepayTotal: () => {
-            dispatch(getRepayTotal());
+        getRepayPlan: (proId) => {
+            dispatch(getRepayPlan(proId));
         }
     }
 }

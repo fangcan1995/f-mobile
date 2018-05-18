@@ -19,7 +19,7 @@ class CouponPage extends Component {
     }
 
     render() {
-        const { couponList, match } = this.props;
+        const { couponList, match, getCouponList } = this.props;
         let type = match.url === '/redpacket' ? 'rp' : 'cp';
         return (
             <div className="couponList">
@@ -28,7 +28,16 @@ class CouponPage extends Component {
                         return <RedCoupon type={type} data={item} key={item.id}/>
                     })
                 }
-                <Filter />
+                <Filter filterConfig={match.url} 
+                    result={
+                        result => {
+                            getCouponList(
+                                result.propTopIndex ? result.propTopIndex : 0,
+                                result.propBottomIndex ? result.propBottomIndex : ''
+                            )
+                        }
+                    }
+                />
             </div>
         );
     }
@@ -43,8 +52,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getCouponList: () => {
-            dispatch(getCouponList());
+        getCouponList: (status, month) => {
+            dispatch(getCouponList(status, month));
         }
     }
 }

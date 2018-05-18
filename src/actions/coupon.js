@@ -1,8 +1,9 @@
 import cFetch from '../libs/cFetch';
 
-let url = `http://172.16.7.3:9070/members/memberRateCoupons?access_token=3f022ea4-470d-44c3-85b3-8552ddfc0b41`;
 
-export const getCouponList = () => {
+
+export const getCouponList = (status = 0, month = '') => {
+    let url = `http://172.16.7.3:9070/members/memberRateCoupons?access_token=acffa56d-f1e1-46f8-8df2-7d82d3cb65cd&rcStatus=${status}&month=${month}`;
     return {
         type: 'GET_COUPON',
         async payload() {

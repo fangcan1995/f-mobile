@@ -19,19 +19,27 @@ class RedPacket extends Component {
     }
 
     render() {
-        console.log(this.props);
-        const { redpacketsList, match } = this.props;
+        const { redpacketsList, match, getRedpacket } = this.props;
         let type = match.url === '/redpacket' ? 'rp' : 'cp';
         return (
             <div className="couponList">
                 {
-                    redpacketsList.map((list) => {
+                    redpacketsList && redpacketsList.map((list) => {
                         return (
                             <RedCoupon data={list} key={list.id} type={type} />
                         )
                     })
                 }
-                <Filter />
+                <Filter filterConfig={match.url} 
+                    result={
+                        result => {
+                            getRedpacket(
+                                result.propTopIndex ? result.propTopIndex : 0,
+                                result.propBottomIndex ? result.propBottomIndex : ''
+                            )
+                        }
+                    }
+                />
             </div>
         );
     }
@@ -46,8 +54,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getRedpacket: () => {
-            dispatch(getRedpacket());
+        getRedpacket: (status, month) => {
+            dispatch(getRedpacket(status, month));
         }
     }
     

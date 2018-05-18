@@ -62,6 +62,7 @@
         height: unit(36px / (@baseWidth / @baseColumns), rem);
         font-size: unit(20px / (@baseWidth / @baseColumns), rem);
         text-align: center;
+        line-height: unit(36px / (@baseWidth / @baseColumns), rem);
         border: solid 1px transparent;
         border-radius: unit(5px / (@baseWidth / @baseColumns), rem);
         top: unit(28px / (@baseWidth / @baseColumns), rem);
@@ -70,6 +71,16 @@
         &.blue {
             color: #3296fa;
             border-color: #3296fa;
+        }
+
+        &.red {
+            color: #f9766c;
+            border-color: #f9766c;
+        }
+
+        &.green {
+            color: #49be51;
+            border-color: #49be51;
         }
     }
 }
