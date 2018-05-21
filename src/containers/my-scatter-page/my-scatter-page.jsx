@@ -24,9 +24,10 @@ class MyScatterPage extends Component {
         return (
             <div className="my-scatter">
                 {
-                    scatterList && scatterList.map((item, i) => {
+                    scatterList.length > 0 ? scatterList.map((item, i) => {
                         return <AgreementCard isFull={isFull} key={i} data={item}/>
                     })
+                    : '暂无数据'
                 }
                 <Filter filterConfig={match.url} 
                     result={

@@ -56,7 +56,7 @@ class RepayPlanPage extends Component {
                 </div>
                 <div className="listBlock">
                     {
-                        repayData.earnPlanDetailsDtos && repayData.earnPlanDetailsDtos.map((item, i) => {
+                        repayData.earnPlanDetailsDtos && repayData.earnPlanDetailsDtos.length > 0 ? repayData.earnPlanDetailsDtos.map((item, i) => {
                             return (
                                 <div className="listPart" key={item.earnIssue}>
                                     <div className="title">
@@ -76,6 +76,7 @@ class RepayPlanPage extends Component {
                                 </div>
                             );
                         })
+                        : '暂无数据'
                     }
 
                 </div>

@@ -24,9 +24,10 @@ class CouponPage extends Component {
         return (
             <div className="couponList">
                 {
-                    couponList.map(item => {
+                    couponList.length > 0 ? couponList.map(item => {
                         return <RedCoupon type={type} data={item} key={item.id}/>
                     })
+                    : '暂无数据'
                 }
                 <Filter filterConfig={match.url} 
                     result={

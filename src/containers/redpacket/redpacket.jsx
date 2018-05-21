@@ -24,11 +24,12 @@ class RedPacket extends Component {
         return (
             <div className="couponList">
                 {
-                    redpacketsList && redpacketsList.map((list) => {
+                    redpacketsList.length > 0 ? redpacketsList.map((list) => {
                         return (
                             <RedCoupon data={list} key={list.id} type={type} />
                         )
                     })
+                    : '暂无数据'
                 }
                 <Filter filterConfig={match.url} 
                     result={

@@ -25,9 +25,10 @@ class MyTransferPage extends Component {
         return (
             <div className="trade-history">
                 {
-                    transferList.map((item, i) => {
+                    transferList.length > 0 ? transferList.map((item, i) => {
                         return <TradeCard isTrade={false} key={i} data={item}/>
                     })
+                    : '暂无数据'
                 }
                 <Filter filterConfig={url}
                     result={
