@@ -68,7 +68,6 @@ class ChargePage extends Component {
                     <p>7. 每日的充值限额依据各银行限额为准，请注意您的银行卡充值限制，以免造成不便；</p>
                 </div>
                 <div className="withdrawButton">充值</div>
-                <Button onClick={this.successToast.bind(this)}>test</Button>
                 <div className="contactBlock">
                     <p>
                         如有问题可拨打客服热线
