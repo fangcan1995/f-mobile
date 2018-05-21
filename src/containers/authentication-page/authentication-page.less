@@ -1,0 +1,65 @@
+@import "../../assets/stylesheets/library";
+
+.authentication-body {
+  margin: 0 unit(30px / (@baseWidth / @baseColumns), rem);
+  font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+  .assessTitle {
+    font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+
+    color: #333;
+    text-align: center;
+    margin-top: unit(46px / (@baseWidth / @baseColumns), rem);
+  }
+  .assessConent {
+    margin-top: unit(28px / (@baseWidth / @baseColumns), rem);
+    color: #666;
+    line-height: unit(34px / (@baseWidth / @baseColumns), rem);
+    h3 {
+      font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+      color: #333;
+    }
+  }
+  .question{
+      margin-top: unit(30px / (@baseWidth / @baseColumns), rem);
+      dl{
+          background: #fff;
+          overflow: hidden;
+          border-radius: unit(15px / (@baseWidth / @baseColumns), rem);
+          padding: unit(37px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
+          margin-bottom: unit(20px / (@baseWidth / @baseColumns), rem);
+          dt{
+            padding-left: unit(30px / (@baseWidth / @baseColumns), rem); 
+            line-height:unit(60px / (@baseWidth / @baseColumns), rem);
+
+          }
+          dd{
+              ul{
+                  li{
+
+                    padding-left: unit(30px / (@baseWidth / @baseColumns), rem);
+                    line-height:unit(60px / (@baseWidth / @baseColumns), rem);
+                    
+                    &.liActive{
+                        border:1px solid #3296FA;
+                        background: #eef7ff;
+                        border-radius: unit(5px / (@baseWidth / @baseColumns), rem);
+                    }
+                  }
+              }
+          }
+      }
+      
+  }
+  .submitBtn{
+    .g-btn-bg();
+            border: 0;
+            width:unit(600px / (@baseWidth / @baseColumns), rem);
+            height:unit(80px / (@baseWidth / @baseColumns), rem);
+            margin-top: unit(10px / (@baseWidth / @baseColumns), rem);
+            margin-bottom: unit(30px / (@baseWidth / @baseColumns), rem);
+            font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+            margin-left: unit(45px / (@baseWidth / @baseColumns), rem);
+            color:#fff;
+            border-radius: unit(20px / (@baseWidth / @baseColumns), rem);
+  }
+}

@@ -34,6 +34,7 @@ import InvestmentRecords from './containers/investment-records/investment-record
 import My from './containers/my/my'
 import DynamicPage from './containers/dynamic-page/dynamic-page';
 import SubjectListPage from './containers/subjectList-page/subjectList-page';
+import RiskEvaluationResultPage from './containers/riskEvaluationResult-page/riskEvaluationResult-page';
 
 const userIsAuthenticated = connectedRouterRedirect({
     redirectPath: '/login',
@@ -61,7 +62,7 @@ export default (
             <Route exact path="/dynamic" component={DynamicPage} />
             <Route exact path="/subjectList" component={SubjectListPage} />
             <Route exact path="/discoverDetail/:id" component={DiscoverDetailPage} />
-
+            <Route exact path="/riskEvaluationResult" component={RiskEvaluationResultPage} />
             {/* add by ShadowCover */}
             <Route exact path="/personal" component={PersonalContainer} />
             <Route exact path="/redpacket" component={RedPacket} />
@@ -74,7 +75,7 @@ export default (
             <Route exact path="/my-scatter" component={MyScatterPage} />
             <Route exact path="/trade-history" component={TradeHistoryPage} />
             <Route exact path="/my-transfer" component={MyTransferPage} />
-            <Route exact path="/repay-plan" component={RepayPlanPage} />
+            <Route exact path="/repay-plan/:proId" component={RepayPlanPage} />
 
             {/* add by fangcan */}
             <Route path="/detail/:id" render={

@@ -36,8 +36,23 @@ export const loginUser = (params) => {
 };
 
 export const logoutUser = () => {
+  
 	return {
 		type: LOGOUT,
+    async payload() {
+      const token = cookie.getJSON('token') || {};
+      const { access_token } = token;
+      const params = `${URL}/uaa/oauth/logout?${parseJson2URL({ access_token })}`;
+      const res = await cFetch('' + params, { method: 'POST', body: params });
+      const { code, message: msg } = res;
+      if ( code == 0 ) {
+        cookie.remove('token');
+        cookie.remove('user');
+        return msg;
+      } else {
+        throw res;
+      }
+    }
 	}
 }
 //获取登陆图形验证码

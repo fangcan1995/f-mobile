@@ -14,7 +14,6 @@ const RedCoupon = ({ type, data }) => {
     let toUseDOM;
     let statusDOM;
     let status = type === 'rp' ? data.reStatus : data.rcStatus; 
-    console.log(status);
     switch (status) {
         case 0:
             toUseDOM = <div className="toUse"><Link to="/personal">点击立即激活</Link></div>;

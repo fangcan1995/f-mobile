@@ -1,1 +1,6 @@
 export const PERSONAL = 'personal/PERSONAL';
+export const CERTIFICATION = 'personal/CERTIFICATION';
+export const RISKEVALUATION = 'personal/RISKEVALUATION';
+export const SYNCRISKEVALUATION = 'personal/SYNCRISKEVALUATION';
+export const SUBMITRISKEVALUATION = 'personal/SUBMITRISKEVALUATION';
+export const RISKEVALUATIONRESULT = 'personal/RISKEVALUATIONRESULT';

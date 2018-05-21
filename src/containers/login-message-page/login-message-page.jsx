@@ -9,6 +9,7 @@ import bbhLogo from '../../assets/images/bbh-logo.png';
 import parseJson2URL from '../../libs/parseJson2URL'; 
 import {parseQueryString} from '../../libs/utils';
 import { Link } from 'react-router-dom';
+import  { Toast } from 'antd-mobile';
 let params = {
     client_id: 'member',
     client_secret: 'secret',
@@ -30,15 +31,15 @@ class LoginMessagePage extends Component {
     }
     handleSubmit(){
         if(!this.state.username){
-            alert('请输入手机号')
+            Toast.info('请输入手机号')
             return false;            
         }
         else if(!isTel(this.state.username)){
-            alert('请输入正确手机号')
+            Toast.info('请输入正确手机号')
             return false;
         }
         else if(!this.state.verify_code){
-            alert('请输入短信验证码')
+            Toast.info('请输入短信验证码')
             return false;
         }else{
             console.log(this.props)
@@ -56,7 +57,7 @@ class LoginMessagePage extends Component {
                 dispatch(authCode());
             })
             .catch(err=>{
-                alert(err.msg)
+                Toast.fail(err.msg,1)
             })
         }
     }
@@ -88,11 +89,11 @@ class LoginMessagePage extends Component {
     }
     getMessageCode(e){
         if(!this.state.username){
-            alert('请输入手机号')
+            Toast.info('请输入手机号')
             return false;            
         }
         else if(!isTel(this.state.username)){
-            alert('请输入正确手机号')
+            Toast.info('请输入正确手机号')
             return false;
         }else{
             let smsCodeData={
@@ -109,7 +110,7 @@ class LoginMessagePage extends Component {
                 this.setTime();
             })
             .catch(res=>{
-                alert(res.msg)
+                Toast.fail(res.msg,1)
             })
   
         }           

@@ -30,6 +30,7 @@ const config = {
                             polyfill: false,
                             regenerator: true
                         }],
+                        ["import", { libraryName: "antd-mobile", style: "css" }]
                     ]
                 },
             },

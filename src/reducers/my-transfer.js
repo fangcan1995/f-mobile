@@ -3,18 +3,18 @@ import { fromJS } from 'immutable';
 
 const initialState = fromJS({
     isFetching: false,
-    repayData: {}
+    tranferList: []
 });
 
 export default createReducer(initialState, {
-    ['GET_REPAYPLAN_PENDING']: (state, action) => state.merge({
+    ['GET_MYTRANSFER_PENDING']: (state, action) => state.merge({
         isFetching: true,
     }),
-    ['GET_REPAYPLAN_FULFILLED']: (state, action) => state.merge({
+    ['GET_MYTRANSFER_FULFILLED']: (state, action) => state.merge({
         isFetching: false,
-        repayData: action.payload
+        tranferList: action.payload
     }),
-    ['GET_REPAYPLAN_REJECTED']: (state, action) => state.merge({
+    ['GET_MYTRANSFER_REJECTED']: (state, action) => state.merge({
         isFetching: false,
         errorMessage: action.message
     }),

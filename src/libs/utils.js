@@ -246,6 +246,7 @@ const dataURLtoBlob = dataURL => {
   }
   return new Blob([u8arr], { type: mime });
 };
+
 const parseQueryString = url => {
     let obj = {},
         queryStr = url.substr(url.lastIndexOf('?') + 1, url.length),
@@ -258,6 +259,14 @@ const parseQueryString = url => {
     }
     return obj;
   }
+
+  //手机号加密
+  const mdPhone = number=>{
+
+    let mdNumber= number.replace(/^(\d{3})\d{4}(\d{4})$/, "$1****$2");
+    return mdNumber
+  }
+
 
 export {
   isNumber,
@@ -278,5 +287,6 @@ export {
   imageToDataURL,
   zipImage,
   dataURLtoBlob,
-  parseQueryString
+  parseQueryString,
+  mdPhone
 };
