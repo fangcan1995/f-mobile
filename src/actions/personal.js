@@ -1,10 +1,11 @@
-import { PERSONAL,CERTIFICATION,RISKEVALUATION,SYNCRISKEVALUATION,SUBMITRISKEVALUATION,RISKEVALUATIONRESULT } from "../actions-type/personal";
+import { PERSONAL,CERTIFICATION,RISKEVALUATION,SYNCRISKEVALUATION,SUBMITRISKEVALUATION,RISKEVALUATIONRESULT,FUIOUDATA } from "../actions-type/personal";
 import cFetch from "./../libs/cFetch";
 import { urls, token } from "../libs/utils";
 import parseJson2URL from "./../libs/parseJson2URL";
 import cookie from "js-cookie";
 let URL = "http://172.16.7.3:9070";
 let URL_LI = "http://172.16.1.225:9070";
+let URL_MA = "http://172.16.1.252:9070";
 
 
 //获取个人中心数据
@@ -147,3 +148,28 @@ export const riskEvaluationResult = () => {
     } 
   };
 };
+
+//获取前往富有接口的数据
+
+export const getFuiou = (type) => {
+  return {
+    type: FUIOUDATA,
+    async payload(){
+        let res= await cFetch(`${URL_MA}/payment/fuiou/account?appType=${type}`, {           
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            // credentials: 'include' 
+        });
+        console.log(res)
+        if ( res.code == 0 ) {
+          return res || {};
+        } else {
+          throw res;
+        }
+    } 
+  };
+};
+

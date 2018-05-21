@@ -6,6 +6,7 @@ import { dynamic } from '../../actions/dynamic';
 import "./helpCenter-page.less";
 import bbhLogo from "../../assets/images/bbh-logo.png";
 import { Link } from 'react-router-dom';
+import { PullToRefresh, ListView, Button } from 'antd-mobile';
 let ajaxData={
   pageNum:'1',
   pageSize:'5',

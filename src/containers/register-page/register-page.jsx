@@ -58,7 +58,6 @@ class RegisterPage extends Component {
             .then(res=>{
                 const { dispatch } = this.props;
                 dispatch(registerCode());
-                console.log(res)
                 this.setTime();
             })
             .catch(res=>{
@@ -137,7 +136,10 @@ class RegisterPage extends Component {
             const { dispatch } = this.props;
             dispatch(register(submitData))
             .then(res=>{
-                this.props.history.push('/login')
+                Toast.success('注册成功',1,()=>{
+                    this.props.history.push('/login')
+                })
+                
             })
             .catch(err=>{
                 Toast.fail(err.msg,1)
