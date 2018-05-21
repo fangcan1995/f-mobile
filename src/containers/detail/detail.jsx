@@ -7,7 +7,10 @@ import './detail.less'
 
 class Detail extends Component{
     state = {
-        percent: 75,
+        money: 1000,
+        sumMoney:0,
+        checked:true,
+        button:''
       };
       componentDidMount(){
 		const { getDetails } = this.props;
@@ -18,6 +21,46 @@ class Detail extends Component{
     }
     handleRecordsClick(e){
         this.props.history.push(`/investment-records/${e}`)
+    }
+
+    handleMinusClick(){
+        if(this.state.money<=0){
+            return 
+        }
+        this.setState({
+            money:this.state.money-100
+        })
+    }
+    handlePlusClick(){
+        if(this.state.money>=this.state.sumMoney){
+            return 
+        }
+        this.setState({
+            money:this.state.money+100
+        })
+    }
+    handleAllClick(){
+        this.setState({
+            money:this.state.sumMoney
+        })
+    }
+    handleAgreeClick(){
+        if(this.state.checked){
+            this.setState({
+                checked:!this.state.checked,
+                button:'active'
+            })
+        }else{
+            this.setState({
+                checked:!this.state.checked,
+                button:''
+            })
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        // this.setState({
+        //     sumMoney:nextProps.detail.sumMoney
+        // })
     }
     render(){
         const { auth , detail } = this.props;
@@ -56,16 +99,16 @@ class Detail extends Component{
                         <div className = 'main'>
                             <div className = 'card'>
                                 <p>账户余额：
-                                    <span className = 'left'>￥10000</span>
-                                    <span className = 'right'>全投</span>
+                                    <span className = 'left'>{this.state.sumMoney}</span>
+                                    <span className = 'right' onClick = {this.handleAllClick.bind(this)}>全投</span>
                                 </p>
                                 <div className className = 'money'>
-                                    <span className = 'minus'><i className = 'icon-minus'></i></span>
-                                    <div className = 'number'>1000</div>
-                                    <span className = 'plus'><i className = 'icon-plus'></i></span>
+                                    <span className = 'minus' onClick = {this.handleMinusClick.bind(this)}><i className = 'icon-minus'></i></span>
+                                    <div className = 'number'>{this.state.money}</div>
+                                    <span className = 'plus' onClick = {this.handlePlusClick.bind(this)}><i className = 'icon-plus'></i></span>
                                 </div>
                                 <div className = 'sum'>预计收益：
-                                    <span>￥100.10</span>
+                                    <span>￥0.00</span>
                                 </div>
                             </div>
                             <div className = 'list'>
@@ -106,11 +149,11 @@ class Detail extends Component{
                     <div className = 'footer'>
                         <div className = 'checkbox'>
                             <label className = 'tips'>
-                                <input type = 'checkbox'/>我已阅读并同意
+                                <input type = 'checkbox' onClick = {this.handleAgreeClick.bind(this)}/>我已阅读并同意
                                 <span className= 'agreement'><a href=''>《投资协议》</a>、<a href=''>《网络借贷风险和禁止性行为提示》</a></span>
                             </label>
                         </div>
-                        <div className = 'button'>立即投资</div>
+                        <div className = {`button ${this.state.button}` }>立即投资</div>
                     </div>
                 </div>
             </div>
