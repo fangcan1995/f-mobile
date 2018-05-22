@@ -7,7 +7,7 @@ import { isTel } from '../../libs/utils';
 import './retrievePassword-page.less';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString} from '../../libs/utils';
+import {parseQueryString,setBrowserTitle} from '../../libs/utils';
 import  { Toast } from 'antd-mobile';
 
 const params = {
@@ -125,7 +125,8 @@ class RetrievePasswordPage extends Component {
             })
         }
     }
-    componentDidMount() {       
+    componentDidMount() { 
+        setBrowserTitle('找回密码')      
         const { dispatch } = this.props;
         dispatch(retrievePasswordCode());
        

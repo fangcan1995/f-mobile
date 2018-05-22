@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
 import { personal,getFuiou } from '../../actions/personal';
 import { auth,logoutUser } from '../../actions/auth';
-import {mdPhone} from '../../libs/utils';
+import {mdPhone,setBrowserTitle} from '../../libs/utils';
 import  { Toast } from 'antd-mobile';
 import './personal-page.less';
 let ajaxData={
@@ -15,7 +15,7 @@ let ajaxData={
 }
 class PersonalContainer extends Component {
     componentDidMount(){
-        console.log(this.props.match.params.id)
+        setBrowserTitle('个人中心')
         if(this.props.match.params.id){
             
             let id=this.props.match.params.id.split('_')[1]

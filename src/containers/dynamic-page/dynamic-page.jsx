@@ -5,6 +5,7 @@ import Immutable from "immutable";
 import { dynamic } from "../../actions/dynamic";
 import "./dynamic-page.less";
 import { Link } from "react-router-dom";
+import {setBrowserTitle} from '../../libs/utils';
 let ajaxData = {
   pageNum: "1",
   pageSize: "5",
@@ -37,6 +38,7 @@ class DynamicPage extends Component {
     }
   }
   componentDidMount() {
+    setBrowserTitle('巴巴汇动态')
     this.getListData(2);
   }
   getListData(type) {
