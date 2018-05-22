@@ -19,6 +19,7 @@ import retrievePassword from './retrievePassword';
 import personal from './personal';
 import myTransfer from './my-transfer';
 import myScatter from './my-scatter';
+import myCharge from './charge';
 
 const rootReducer = combineReducers({
     auth,
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
     personal,
     detail,
     myTransfer,
-    myScatter
+    myScatter,
+    myCharge
 });
 export default rootReducer;

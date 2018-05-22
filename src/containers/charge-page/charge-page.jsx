@@ -5,7 +5,7 @@ import '../withdraw-page/withdraw-page.less';
 
 
 import { getMyInfo } from '../../actions/my';
-
+import { getCharge } from '../../actions/charge';
 import { Toast, Button } from 'antd-mobile';
 
 
@@ -16,29 +16,54 @@ class ChargePage extends Component {
         super(props);
         this.state = {
             chargeNum: 0..toFixed(2),
-            leftNum: 0..toFixed(2)
+            leftNum: 0..toFixed(2),
+            formHidden: {
+                InnerSeqNo: '',
+                action_url: '',
+                amt: '',
+                back_notify_url: '',
+                login_id: '',
+                mchnt_cd: '',
+                mchnt_txn_ssn: '',
+                page_notify_url: '',
+                signature: '',
+                url: '',
+            }
         }
-    }
-
-    successToast () {
-        Toast.success('Load success !!!', 1);
     }
 
     handleChange(e) {
         const { myInfo } = this.props;
         this.setState({
             chargeNum: e.target.value,
-            leftNum: (myInfo.availableBalance - parseFloat(e.target.value === '' ? 0 : e.target.value)).toFixed(2)
+            leftNum: (myInfo.availableBalance + parseFloat(e.target.value === '' ? 0 : e.target.value)).toFixed(2)
         });
     }
 
     componentDidMount() {
-        const { getMyInfo } = this.props;
-        getMyInfo();
+        const { dispatch } = this.props;
+        //dispatch(getMyInfo());
+    }
+
+    handleCharge() {
+        const { getCharge } = this.props;
+        getCharge(this.state.chargeNum)
+            .then(res => {
+                const { value } = res;
+                this.setState({
+                    formHidden: {
+                        ...this.state.formHidden,
+                        ...value
+                    }
+                });
+            }).then(res => {
+                this.form.submit();
+            });
     }
 
     render() {
         const { myInfo } = this.props;
+        const { formHidden } = this.state;
         return (
             <div className="withdraw">
                 <div className="area withdrawArea">
@@ -48,7 +73,7 @@ class ChargePage extends Component {
                                 placeholder="请输入充值金额"
                                 value={this.state.chargeNum === 0..toFixed(2) ? '' : this.state.chargeNum}
                                 onChange={this.handleChange.bind(this)}
-                                disabled={myInfo.availableBalance === undefined}
+                            //disabled={myInfo.availableBalance === undefined}
                             />
                             <span className="inputTip">手续费 {'0.00'} 元</span>
                         </label>
@@ -67,7 +92,7 @@ class ChargePage extends Component {
                     <p>6. 单笔充值如果超出银行卡支付限额，可以拆分金额多次充值；</p>
                     <p>7. 每日的充值限额依据各银行限额为准，请注意您的银行卡充值限制，以免造成不便；</p>
                 </div>
-                <div className="withdrawButton">充值</div>
+                <div className="withdrawButton" onClick={this.handleCharge.bind(this)}>充值</div>
                 <div className="contactBlock">
                     <p>
                         如有问题可拨打客服热线
@@ -77,6 +102,15 @@ class ChargePage extends Component {
                         <a>喵宝</a>
                     </p>
                 </div>
+                <form name="FuiouCash" id="FuiouCash" method="post" action={formHidden.url} ref={form => this.form = form} style={{display: 'none'}} >
+                    <input type="hidden" name="mchnt_cd" value={formHidden.mchnt_cd} />
+                    <input type="hidden" name="mchnt_txn_ssn" value={formHidden.mchnt_txn_ssn} />
+                    <input type="hidden" name="login_id" value={formHidden.login_id} />
+                    <input type="hidden" name="amt" value={formHidden.amt} />
+                    <input type="hidden" name="page_notify_url" value={formHidden.page_notify_url} />
+                    <input type="hidden" name="back_notify_url" value={formHidden.back_notify_url} />
+                    <input type="hidden" name="signature" value={formHidden.signature} />
+                </form>
             </div>
         );
     }
@@ -93,6 +127,9 @@ const mapDispatchToProps = dispatch => {
     return {
         getMyInfo: () => {
             dispatch(getMyInfo());
+        },
+        getCharge: (chargeNum) => {
+            return dispatch(getCharge(chargeNum));
         }
     }
 }

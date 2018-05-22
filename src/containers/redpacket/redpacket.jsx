@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import RedCoupon from '../../components/redCoupon/redCoupon';
 import Filter from '../../components/filter/filter';
+import NoItems from '../../components/no-items/no-items';
 import './RedPacket.less';
 
 import { getRedpacket } from '../../actions/redpacket';
@@ -29,7 +30,7 @@ class RedPacket extends Component {
                             <RedCoupon data={list} key={list.id} type={type} />
                         )
                     })
-                    : '暂无数据'
+                    : <NoItems />
                 }
                 <Filter filterConfig={match.url} 
                     result={

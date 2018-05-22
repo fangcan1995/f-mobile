@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import RedCoupon from '../../components/redCoupon/redCoupon';
 import Filter from '../../components/filter/filter';
+import NoItems from '../../components/no-items/no-items';
 import '../redpacket/redpacket.less';
 
 import { getCouponList } from '../../actions/coupon';
@@ -27,7 +28,7 @@ class CouponPage extends Component {
                     couponList.length > 0 ? couponList.map(item => {
                         return <RedCoupon type={type} data={item} key={item.id}/>
                     })
-                    : '暂无数据'
+                    : <NoItems />
                 }
                 <Filter filterConfig={match.url} 
                     result={
