@@ -57,6 +57,8 @@ class LoginMessagePage extends Component {
                 dispatch(authCode());
             })
             .catch(err=>{
+                const { dispatch } = this.props;
+                dispatch(authCode());  
                 Toast.fail(err.msg,1)
             })
         }

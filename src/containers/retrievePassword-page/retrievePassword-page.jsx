@@ -56,6 +56,9 @@ class RetrievePasswordPage extends Component {
                 this.setTime();
             })
             .catch(res=>{
+                const { dispatch } = this.props;
+                dispatch(retrievePasswordCode());    
+                
                 Toast.fail(res.msg,1)
             })
             

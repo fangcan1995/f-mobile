@@ -19,6 +19,7 @@ developmentConfig.devServer = {
     hot: true,
     inline: true,
     progress: true,
-    port: 9002,
+    host:'172.16.1.253',
+    // port: 9002,
 };
 module.exports = developmentConfig;

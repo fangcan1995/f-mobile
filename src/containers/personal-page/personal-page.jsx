@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component, Fragment }  from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
@@ -15,6 +15,29 @@ let ajaxData={
 }
 class PersonalContainer extends Component {
     componentDidMount(){
+        console.log(this.props.match.params.id)
+        if(this.props.match.params.id){
+            
+            let id=this.props.match.params.id.split('_')[1]
+            console.log(id)
+            switch(id)
+                {
+                case '0000':
+                    Toast.success('开户成功',1)
+                    this.props.history.push('/personal')
+                break;
+                case '9999':
+                    Toast.fail('开户失败',1)
+                    this.props.history.push('/personal')
+                break;
+                case '5343':
+                    Toast.fail('已经开户',1)
+                    this.props.history.push('/personal')
+                break;
+
+                }
+        }
+        
 		const { dispatch } = this.props;
         dispatch(personal(ajaxData));
     }
@@ -92,10 +115,21 @@ class PersonalContainer extends Component {
                     <dd>
                         <div className="leftTitle">实名认证</div>
                         <span className="rightAction">
-                            <Link to="/certification">
-                                <span className="icon-arrow"></span>
-                                <span className="actionText">{personalObj.isCertification==0?'未认证':'已认证'}</span>
-                            </Link>
+                            {
+                                personalObj.certificationStatus==0
+                                    ? (
+                                        <Link to="/certification">
+                                            <span className="icon-arrow"></span>
+                                            <span className="actionText">{'未认证'}</span>
+                                        </Link>
+                                    )
+                                    :(
+                                        <a href="javascript:void(0)"    >
+                                            <span className="icon-arrow"></span>
+                                            <span className="actionText">{'已认证'}</span>
+                                        </a>
+                                    )
+                            }
                         </span>
                     </dd>
                 </dl>
@@ -103,9 +137,9 @@ class PersonalContainer extends Component {
                     <dd>
                         <div className="leftTitle">风险评估</div>
                         <span className="rightAction">
-                            <Link to= { personalObj.riskLevel?"/riskEvaluationResult":'/authentication' }>
+                            <Link to= { personalObj.riskStatus =='1'?"/riskEvaluationResult":'/authentication' }>
                                 <span className="icon-arrow"></span>
-                                <span className="actionText">{personalObj.riskLevel==''?'未评估':'稳健性'}</span>
+                                <span className="actionText">{personalObj.riskStatus  =='0'?'未评估':'已评估'}</span>
                             </Link>
                         </span>
                     </dd>
@@ -113,7 +147,7 @@ class PersonalContainer extends Component {
                         <div className="leftTitle">银行开户</div>
                         <span className="rightAction" onClick={this.bindCard.bind(this)}>
                                 <span className="icon-arrow r"></span>
-                                <span className="actionText r">{personalObj.bankNo?'已开户':'未开户'}</span>
+                                <span className="actionText r">{personalObj.openAccountStatus=='0'?'未开户':'已开户'}</span>
                         </span>
                     </dd>
                 </dl>

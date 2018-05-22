@@ -61,6 +61,8 @@ class RegisterPage extends Component {
                 this.setTime();
             })
             .catch(res=>{
+                const { dispatch } = this.props;
+                dispatch(registerCode());
                 Toast.fail(res.msg,1)
             })           
         }           
