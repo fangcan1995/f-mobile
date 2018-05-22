@@ -6,6 +6,7 @@ import './../retrievePassword-page/retrievePassword-page.less';
 import { hex_md5 } from '../../libs/md5';
 import { changePassword } from '../../actions/changePassword'
 import  { Toast } from 'antd-mobile';
+import {setBrowserTitle } from '../../libs/utils';
 class ChangePasswordPage extends Component {
 	constructor(){
         super();
@@ -22,6 +23,9 @@ class ChangePasswordPage extends Component {
         }
         
     }
+    componentDidMount() {
+        setBrowserTitle('修改密码')
+      }
     handleChange (type, e) {
         console.log(type);
         this.setState({

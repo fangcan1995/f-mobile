@@ -64,7 +64,7 @@ export default (
             <Route exact path="/discoverDetail/:id" component={DiscoverDetailPage} />
             <Route exact path="/riskEvaluationResult" component={RiskEvaluationResultPage} />
             {/* add by ShadowCover */}
-            <Route exact path="/personal" component={PersonalContainer} />
+            <Route exact path="/personal/:id?" component={PersonalContainer} />
             <Route exact path="/redpacket" component={RedPacket} />
             <Route exact path="/coupon" component={CouponPage} />
             <Route exact path="/withdraw" component={WithdrawPage} />

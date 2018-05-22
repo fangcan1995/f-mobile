@@ -7,7 +7,7 @@ import './login-page.less';
 import { Link } from 'react-router-dom';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString} from '../../libs/utils';
+import {parseQueryString,setBrowserTitle} from '../../libs/utils';
 import bbhLogo from '../../assets/images/bbh-logo.png';
 import  { Toast } from 'antd-mobile';
 let params = {
@@ -72,7 +72,8 @@ class LoginPage extends Component {
             });
         }       
     }
-    componentDidMount() {       
+    componentDidMount() {
+        setBrowserTitle('登 录')       
         const { dispatch } = this.props;
         dispatch(authCode());
        
@@ -114,7 +115,7 @@ class LoginPage extends Component {
                     <li className='l'>
                          <Link to='/loginMessage'>
                             <i className='icon-wechat-border'></i><br />
-                            <span>微信登陆</span>
+                            <span>微信登录</span>
                         </Link>
                     </li>
                     <li className='l'>

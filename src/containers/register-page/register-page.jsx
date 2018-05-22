@@ -8,7 +8,7 @@ import './register-page.less';
 import { isTel } from '../../libs/utils';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString} from '../../libs/utils';
+import {parseQueryString,setBrowserTitle} from '../../libs/utils';
 import bbhLogo from '../../assets/images/bbh-logo.png';
 import  { Toast } from 'antd-mobile';
 let params = {
@@ -58,10 +58,11 @@ class RegisterPage extends Component {
             .then(res=>{
                 const { dispatch } = this.props;
                 dispatch(registerCode());
-                console.log(res)
                 this.setTime();
             })
             .catch(res=>{
+                const { dispatch } = this.props;
+                dispatch(registerCode());
                 Toast.fail(res.msg,1)
             })           
         }           
@@ -137,14 +138,18 @@ class RegisterPage extends Component {
             const { dispatch } = this.props;
             dispatch(register(submitData))
             .then(res=>{
-                this.props.history.push('/login')
+                Toast.success('注册成功',1,()=>{
+                    this.props.history.push('/login')
+                })
+                
             })
             .catch(err=>{
                 Toast.fail(err.msg,1)
             })
         }
     }
-    componentDidMount() {       
+    componentDidMount() {  
+        setBrowserTitle('注 册')     
         const { dispatch } = this.props;
         dispatch(registerCode());
        

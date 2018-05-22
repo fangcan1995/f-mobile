@@ -7,7 +7,7 @@ import { isTel } from '../../libs/utils';
 import './login-message-page.less';
 import bbhLogo from '../../assets/images/bbh-logo.png';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString} from '../../libs/utils';
+import {parseQueryString,setBrowserTitle} from '../../libs/utils';
 import { Link } from 'react-router-dom';
 import  { Toast } from 'antd-mobile';
 let params = {
@@ -57,6 +57,8 @@ class LoginMessagePage extends Component {
                 dispatch(authCode());
             })
             .catch(err=>{
+                const { dispatch } = this.props;
+                dispatch(authCode());  
                 Toast.fail(err.msg,1)
             })
         }
@@ -115,7 +117,8 @@ class LoginMessagePage extends Component {
   
         }           
     }
-    componentDidMount() {       
+    componentDidMount() {    
+        setBrowserTitle('登 录')   
         const { dispatch } = this.props;
         dispatch(authCode());      
     }

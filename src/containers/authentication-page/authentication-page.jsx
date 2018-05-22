@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import Immutable from "immutable";
 import { riskEvaluation, syncRiskEvaluation,submitCertification } from "../../actions/personal";
 import { Toast } from "antd-mobile";
-
+import {setBrowserTitle} from '../../libs/utils';
 import "./authentication-page.less";
 
 class AuthenticationPage extends Component {
@@ -18,6 +18,7 @@ class AuthenticationPage extends Component {
     dispatch(syncRiskEvaluation(personal.riskEvaluation));
   }
   componentDidMount() {
+    setBrowserTitle('风险评估')
     const { dispatch, personal } = this.props;
     dispatch(riskEvaluation(personal.riskEvaluation));
   }
