@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Immutable from "immutable";
-import { dynamic } from "../../actions/dynamic";
+import { dynamic,clearData } from "../../actions/dynamic";
 import "./dynamic-page.less";
 import { Link } from "react-router-dom";
 import { setBrowserTitle } from '../../libs/utils';
@@ -24,20 +24,23 @@ class DynamicPage extends Component {
         };
     }
     handleClick(type, e) {
-        if (type == 1) {
+        ajaxData.pageNum=1
+        const { dispatch } = this.props;
+        dispatch(clearData());
+        if (type == 1) {         
             this.setState({
                 borderClass: "one",
                 tabClassOne: "active",
                 tabClassTwo: ""
             });
-            this.getListData(2);
+            // this.getListData(2);
         } else {
             this.setState({
                 borderClass: "two",
                 tabClassOne: "",
                 tabClassTwo: "active"
             });
-            this.getListData(1);
+            // this.getListData(1);
         }
     }
     componentDidMount() {
@@ -48,10 +51,21 @@ class DynamicPage extends Component {
         const { dispatch } = this.props;
         dispatch(dynamic(type, ajaxData));
     }
+    getNewData(){
+      alert('上拉刷新')
+      if(this.state.borderClass=='one'){
+        ajaxData.pageNum++;
+        this.getListData(2,ajaxData)
+      }else{
+        ajaxData.pageNum++;
+        this.getListData(1,ajaxData)
+      }
+    }
     render() {
         const { dynamic } = this.props;
         console.log(this.props);
         let list = this.props.dynamic.dynamic.list;
+        console.log(list);
         return (
             <div className="dynamic-body">
                 <div className="main">
@@ -70,12 +84,12 @@ class DynamicPage extends Component {
                         </li>
                         <li className={`l border-li ${this.state.borderClass}`} />
                     </ul>
-                    {/* <div className="dynamic-content" id="active-content">
-                        {list.map(item => {
+                    <div className="dynamic-content" id="active-content">
+                        {/* {list.map(item => {
                             item.updateTime = item.updateTime.substring(0, 10);
                             return (
                                 <Link to={"/discoverDetail/" + item.id} key={item.id}>
-                                    <dl className="dynamic-list">
+                                    <dl className="dynamic-list" key={item.id}>
                                         <dt className="l">
                                             <img src={item.affIcon} alt="" />
                                         </dt>
@@ -94,31 +108,43 @@ class DynamicPage extends Component {
                                     </dl>
                                 </Link>
                             );
-                        })}
-                    </div> */}
-                    <PullToRefresh
+                        })} */}
+                        <PullToRefresh
                         ref={el => this.ptr = el}
                         style={{height: this.state.height, overflow: 'auto'}}
                         direction={'up'}
                         refreshing={this.state.refreshing}
-                        onRefresh={() => {
-                            let addArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-                            let newArray = [...this.state.demoData];
-                            this.setState({
-                                refreshing: true,
-                                demoData: newArray.concat(addArray)
-                            });
-                            setTimeout(() => {
-                                this.setState({refreshing: false});
-                            }, 1000)
-                        }}
-                    >
-                        {
-                            this.state.demoData.map((item, i) => {
-                                return <div key={i} style={{textAlign: 'center', padding: '20px'}}>{item}</div>
-                            })
+                        onRefresh={this.getNewData.bind(this)}
+                        >
+                        {   
+                             list.map(item => {
+                              item.updateTime = item.updateTime.substring(0, 10);
+                              return (
+                                  <Link to={"/discoverDetail/" + item.id} key={item.id}>
+                                      <dl className="dynamic-list">
+                                          <dt className="l">
+                                              <img src={item.affIcon} alt="" />
+                                          </dt>
+                                          <dd>
+                                              <h3>{item.title}</h3>
+                                              <p
+                                                  className="list-content"
+                                                  dangerouslySetInnerHTML={{ __html: item.affContent }}
+                                              />
+                                              <p className="time-p">
+                                                  <i className="icon-time" />&nbsp;&nbsp;&nbsp;发布时间：{
+                                                      item.updateTime
+                                                  }
+                                              </p>
+                                          </dd>
+                                      </dl>
+                                  </Link>
+                              );
+                          })
                         }
                     </PullToRefresh>
+                    </div>
+                    
                 </div>
             </div>
         );
