@@ -33,7 +33,10 @@
 			}
 		}
 		.dynamic-content{
-			margin-top: unit(50px / (@baseWidth / @baseColumns), rem);;
+			.onLoad{
+				text-align: center;
+			}
+			margin-top: unit(30px / (@baseWidth / @baseColumns), rem);;
 			margin-bottom:unit(60px / (@baseWidth / @baseColumns), rem);; 
 			.dynamic-list{
 				margin: unit(40px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
