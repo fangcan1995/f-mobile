@@ -15,7 +15,7 @@ export const personal = () => {
   return {
     type: PERSONAL,
     async payload() {
-      let res = await cFetch(`${URL_QIAN}/accounts/my/info?access_token=86a2b572-58a0-435e-a26f-29799c240061`, {
+      let res = await cFetch(`${URL}/accounts/my/info?access_token=86a2b572-58a0-435e-a26f-29799c240061`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -54,7 +54,7 @@ export const certification = (params) => {
   return {
     type: CERTIFICATION,
     async payload(){
-        let res= await cFetch(`${URL_LI}/members/auth?access_token=d1d95671-ff8f-4de5-af6f-f21ed4d0e25f`, {           
+        let res= await cFetch(`${URL}/members/auth?access_token=d1d95671-ff8f-4de5-af6f-f21ed4d0e25f`, {           
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
@@ -155,7 +155,7 @@ export const getFuiou = (type) => {
   return {
     type: FUIOUDATA,
     async payload(){
-        let res= await cFetch(`${URL_MA}/payment/fuiou/account?appType=${type}`, {           
+        let res= await cFetch(`${URL}/payment/fuiou/account?appType=${type}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'
