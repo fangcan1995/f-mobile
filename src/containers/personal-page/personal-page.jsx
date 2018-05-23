@@ -24,15 +24,15 @@ class PersonalContainer extends Component {
                 {
                 case '0000':
                     Toast.success('开户成功',1)
-                    this.props.history.push('/personal')
+                    this.props.history.push('/mobile/personal')
                 break;
                 case '9999':
                     Toast.fail('开户失败',1)
-                    this.props.history.push('/personal')
+                    this.props.history.push('/mobile/personal')
                 break;
                 case '5343':
                     Toast.fail('已经开户',1)
-                    this.props.history.push('/personal')
+                    this.props.history.push('/mobile/personal')
                 break;
 
                 }
@@ -46,7 +46,7 @@ class PersonalContainer extends Component {
         dispatch(logoutUser())
         .then(res=>{
             Toast.success('已登出',1,()=>{
-                this.props.history.push('/login')
+                this.props.history.push('/mobile/login')
             })
             
         })
@@ -118,7 +118,7 @@ class PersonalContainer extends Component {
                             {
                                 personalObj.certificationStatus==0
                                     ? (
-                                        <Link to="/certification">
+                                        <Link to="/mobile/certification">
                                             <span className="icon-arrow"></span>
                                             <span className="actionText">{'未认证'}</span>
                                         </Link>
@@ -137,7 +137,7 @@ class PersonalContainer extends Component {
                     <dd>
                         <div className="leftTitle">风险评估</div>
                         <span className="rightAction">
-                            <Link to= { personalObj.riskStatus =='1'?"/riskEvaluationResult":'/authentication' }>
+                            <Link to= { personalObj.riskStatus =='1'?"/mobile/riskEvaluationResult":'/mobile/authentication' }>
                                 <span className="icon-arrow"></span>
                                 <span className="actionText">{personalObj.riskStatus  =='0'?'未评估':'已评估'}</span>
                             </Link>
@@ -155,7 +155,7 @@ class PersonalContainer extends Component {
                     <dd>
                         <div className="leftTitle">修改密码</div>
                         <span className="rightAction">
-                            <Link to="/changePassword">
+                            <Link to="/mobile/changePassword">
                                 <span className="icon-arrow"></span>
                             </Link>
                         </span>

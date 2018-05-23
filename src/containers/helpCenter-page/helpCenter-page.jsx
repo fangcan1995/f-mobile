@@ -100,7 +100,7 @@ class HelpCenterPage extends Component {
                 item.updateTime = item.updateTime.substring(0, 10);
                 return (
                   <li key={item.id}>
-                    <Link to={'/discoverDetail/' + item.id }>
+                    <Link to={'/mobile/discoverDetail/' + item.id }>
                       <h3>
                         {item.title}
                       </h3>
