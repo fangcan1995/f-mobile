@@ -18,7 +18,7 @@ function check401(res) {
                     cookie.remove('token');
                     cookie.remove('userInfo');
                     let redirect=location.pathname
-                    location.href = '/login?redirect='+redirect;
+                    location.href = '/mobile/login?redirect='+redirect;
                 }
             }
         ]);
