@@ -23,3 +23,14 @@ export const dynamic = (id,ajaxData) => {
       } 
     };
   };
+
+  export const clearData=()=>{
+    return {
+      type: DYNAMIC,
+      payload() {
+          return {
+            list:''
+          }
+      }
+    };
+  }

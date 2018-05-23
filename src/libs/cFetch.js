@@ -4,6 +4,7 @@ import cookie from 'js-cookie';
 import StandardError from 'standard-error';
 import { API_CONFIG } from './../config/api';
 import { Toast, Modal } from 'antd-mobile';
+import { browserHistory } from 'react-router';
 
 const errorMessages = (res) => `${res.status} ${res.statusText}`;
 
@@ -16,7 +17,8 @@ function check401(res) {
                 onPress: () => {
                     cookie.remove('token');
                     cookie.remove('userInfo');
-                    location.href = '/login';
+                    let redirect=location.pathname
+                    location.href = '/login?redirect='+redirect;
                 }
             }
         ]);

@@ -31,6 +31,7 @@ import RepayPlanPage from './containers/repay-plan-page/repay-plan-page';
 import Detail from './containers/detail/detail'
 import ProjectDetail from './containers/projectDetail/projectDetail'
 import InvestmentRecords from './containers/investment-records/investment-records'
+import Rewards from './containers/rewards/rewards'
 import My from './containers/my/my'
 import DynamicPage from './containers/dynamic-page/dynamic-page';
 import SubjectListPage from './containers/subjectList-page/subjectList-page';
@@ -89,6 +90,7 @@ export default (
             <Route exact path="/my/:callback?" component={My} />
             <Route exact path='/projectDetail/:id' component = {ProjectDetail}/>
             <Route exact path='/investment-records/:id' component = {InvestmentRecords}/>
+            <Route exact path='/rewards/:id' component = { Rewards }/>
             <Redirect to = '/home' />
         </Switch>
     </App>

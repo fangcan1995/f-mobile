@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Immutable from "immutable";
-import { dynamic } from '../../actions/dynamic';
+import { dynamic,clearData } from '../../actions/dynamic';
 import "./helpCenter-page.less";
 import bbhLogo from "../../assets/images/bbh-logo.png";
 import { Link } from 'react-router-dom';
@@ -10,8 +10,8 @@ import { PullToRefresh, ListView, Button } from 'antd-mobile';
 import {setBrowserTitle} from '../../libs/utils';
 let ajaxData={
   pageNum:'1',
-  pageSize:'5',
-  number:'5',
+  pageSize:'10',
+  number:'10',
 
 }
 class HelpCenterPage extends Component {
@@ -20,10 +20,14 @@ class HelpCenterPage extends Component {
     this.state = {
       borderClass: "one",
       tabClassOne: "active",
-      tabClassTwo: ""
+      tabClassTwo: "",
+      height: document.documentElement.clientHeight,
     };
   }
   handleClick(type, e) {
+    ajaxData.pageNum = 1;
+    const { dispatch } = this.props;
+    dispatch(clearData());
     if (type == 1) {
       this.setState({
         borderClass: "one",
@@ -47,6 +51,16 @@ class HelpCenterPage extends Component {
   getListData(type){
     const { dispatch } = this.props;
     dispatch(dynamic(type,ajaxData));
+  }
+  getNewData() {
+    alert("上拉刷新");
+    if (this.state.borderClass == "one") {
+      ajaxData.pageNum++;
+      this.getListData(4, ajaxData);
+    } else {
+      ajaxData.pageNum++;
+      this.getListData(5, ajaxData);
+    }
   }
   render() {
     const { dynamic } = this.props;
@@ -72,7 +86,17 @@ class HelpCenterPage extends Component {
           </ul>
           <div className="dynamic-content">
             <ul className="dynamic-list" id="active-content">
-              {list.map(item => {
+              <PullToRefresh
+              ref={el => (this.ptr = el)}
+              style={{ height: this.state.height, overflow: "auto" }}
+              direction={"up"}
+              refreshing={this.state.refreshing}
+              onRefresh={this.getNewData.bind(this)}
+            >
+              {
+                (list)?
+                list.map(item => {
+                item.updateTime = item.updateTime.substring(0, 10);
                 return (
                   <li key={item.id}>
                     <Link to={'/discoverDetail/' + item.id }>
@@ -85,7 +109,9 @@ class HelpCenterPage extends Component {
                     </ Link>
                   </li>
                 );
-              })}
+              }):<div className='onLoad'>加载中...</div>
+              }
+            </PullToRefresh>
             </ul>
           </div>
         </div>
