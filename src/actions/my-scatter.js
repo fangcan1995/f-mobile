@@ -3,7 +3,7 @@ import cFetch from '../libs/cFetch';
 
 export const getMyScatter = (status = 0, month = '') => {
     console.log(status, month);
-    let url = `http://172.16.1.221:9070/members/investments/projects?status=${status}&month=${month}`;
+    let url = `http://172.16.7.3:9070/members/investments/projects?status=${status}&month=${month}`;
     return {
         type: 'GET_MYSCATTER',
         async payload() {

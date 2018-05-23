@@ -1,7 +1,7 @@
 import cFetch from '../libs/cFetch';
 
 export const getCharge = (chargeNum) => {
-    let url = `http://172.16.1.252:9070/payment/fuiou/deposit?transAmt=${chargeNum}&appType=${4}`;
+    let url = `http://172.16.7.3:9070/payment/fuiou/deposit?transAmt=${chargeNum}&appType=${4}`;
     return {
         type: 'GET_CHARGE',
         async payload() {
