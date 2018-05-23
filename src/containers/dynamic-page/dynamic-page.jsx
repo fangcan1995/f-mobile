@@ -44,6 +44,8 @@ class DynamicPage extends Component {
   }
   componentDidMount() {
     setBrowserTitle("巴巴汇动态");
+    const { dispatch } = this.props;
+    dispatch(clearData());
     this.getListData(2);
   }
   getListData(type) {
@@ -51,7 +53,6 @@ class DynamicPage extends Component {
     dispatch(dynamic(type, ajaxData));
   }
   getNewData() {
-    alert("上拉刷新");
     if (this.state.borderClass == "one") {
       ajaxData.pageNum++;
       this.getListData(2, ajaxData);
