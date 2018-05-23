@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './my-transfer-page.less';
 import TradeCard from '../../components/trade-card/trade-card';
 import Filter from '../../components/filter/filter';
+import NoItems from '../../components/no-items/no-items';
 
 import { getMyTransfer } from '../../actions/my-transfer';
 
@@ -28,7 +29,7 @@ class MyTransferPage extends Component {
                     transferList.length > 0 ? transferList.map((item, i) => {
                         return <TradeCard isTrade={false} key={i} data={item}/>
                     })
-                    : '暂无数据'
+                    : <NoItems />
                 }
                 <Filter filterConfig={url}
                     result={

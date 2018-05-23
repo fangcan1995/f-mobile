@@ -7,6 +7,7 @@ import './discover-page.less';
 import { Link } from 'react-router-dom';
 import FooterTab from '../../components/footer-tab/footer-tab';
 import bbhLogo from '../../assets/images/bbh-logo.png';
+import {setBrowserTitle} from '../../libs/utils';
 let ajaxData={
 	adType:'7',
 	putEnv:'2',
@@ -15,6 +16,7 @@ let ajaxData={
 
 class DiscoverPage extends Component {
 	componentDidMount(){
+		setBrowserTitle('发 现')
 		const { dispatch } = this.props;
         dispatch(discover(ajaxData));
 	}

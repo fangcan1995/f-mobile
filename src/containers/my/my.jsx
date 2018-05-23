@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Toast } from 'antd-mobile';
 
 import touxiang from '../../assets/images/home-list4.png';
 import './my.less'
@@ -15,13 +16,28 @@ class My extends Component {
     }
 
     componentDidMount() {
-        const { getMyInfo } = this.props;
+        const { getMyInfo, match, history } = this.props;
         getMyInfo();
+        if(match.params.callback) {
+            switch(match.params.callback) {
+                case 'pay_9999': 
+                    this.showToast('操作失败', 2.5);
+                    history.push('/my');
+                    break;
+                case 'pay_0000':
+                    this.showToast('操作成功', 2.5);
+                    history.push('/my');
+                    break;
+            }
+        }
+    }
+
+    showToast(text, time) {
+        Toast.info(text, time);
     }
 
     render() {
-        const { myInfo } = this.props;
-        console.log(!!(myInfo.availableBalance !== undefined));
+        const { myInfo, match } = this.props;
         return (
             <div id='my' className='footer-tab-body'>
                 <div className='footer-tab-content'>

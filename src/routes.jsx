@@ -65,7 +65,7 @@ export default (
             <Route exact path="/discoverDetail/:id" component={DiscoverDetailPage} />
             <Route exact path="/riskEvaluationResult" component={RiskEvaluationResultPage} />
             {/* add by ShadowCover */}
-            <Route exact path="/personal" component={PersonalContainer} />
+            <Route exact path="/personal/:id?" component={PersonalContainer} />
             <Route exact path="/redpacket" component={RedPacket} />
             <Route exact path="/coupon" component={CouponPage} />
             <Route exact path="/withdraw" component={WithdrawPage} />
@@ -76,7 +76,7 @@ export default (
             <Route exact path="/my-scatter" component={MyScatterPage} />
             <Route exact path="/trade-history" component={TradeHistoryPage} />
             <Route exact path="/my-transfer" component={MyTransferPage} />
-            <Route exact path="/repay-plan/:proId" component={RepayPlanPage} />
+            <Route exact path="/repay-plan/:proId?" component={RepayPlanPage} />
 
             {/* add by fangcan */}
             <Route path="/detail/:id" render={
@@ -87,7 +87,7 @@ export default (
                     );
                 }
             } />
-            <Route exact path="/my" component={My} />
+            <Route exact path="/my/:callback?" component={My} />
             <Route exact path='/projectDetail/:id' component = {ProjectDetail}/>
             <Route exact path='/investment-records/:id' component = {InvestmentRecords}/>
             <Route exact path='/rewards/:id' component = { Rewards }/>

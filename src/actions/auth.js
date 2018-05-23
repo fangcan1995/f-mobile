@@ -34,7 +34,7 @@ export const loginUser = (params) => {
     }
   };
 };
-
+//退出登陆
 export const logoutUser = () => {
   
 	return {

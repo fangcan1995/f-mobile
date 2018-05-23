@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import NoItems from '../../components/no-items/no-items';
 import './repay-plan-page.less';
 
 import { getRepayPlan } from '../../actions/repay-plan';
@@ -76,7 +77,7 @@ class RepayPlanPage extends Component {
                                 </div>
                             );
                         })
-                        : '暂无数据'
+                        : <NoItems />
                     }
 
                 </div>

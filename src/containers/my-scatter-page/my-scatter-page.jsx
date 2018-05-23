@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import AgreementCard from '../../components/agreement-card/agreement-card';
 import Filter from '../../components/filter/filter';
+import NoItems from '../../components/no-items/no-items';
 import './my-scatter-page.less';
 
 import { getMyScatter } from '../../actions/my-scatter';
@@ -27,7 +28,7 @@ class MyScatterPage extends Component {
                     scatterList.length > 0 ? scatterList.map((item, i) => {
                         return <AgreementCard isFull={isFull} key={i} data={item}/>
                     })
-                    : '暂无数据'
+                    : <NoItems />
                 }
                 <Filter filterConfig={match.url} 
                     result={

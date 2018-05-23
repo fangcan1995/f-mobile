@@ -7,7 +7,8 @@ import {
   RISKEVALUATION,
   SYNCRISKEVALUATION,
   SUBMITRISKEVALUATION,
-  RISKEVALUATIONRESULT
+  RISKEVALUATIONRESULT,
+  FUIOUDATA
 } from "../actions-type/personal";
 
 const initialState = fromJS({
@@ -22,6 +23,9 @@ const initialState = fromJS({
     data:{
       requireEval:''
     }
+  },
+  fuiouData:{
+    data:{}
   }
 });
 
@@ -114,5 +118,22 @@ export default createReducer(initialState, {
     state.merge({
       isFetching: false,
       errorMessage: action.message
-    })
+    }),
+
+  //提交风险评估数据
+  [`${FUIOUDATA}_PENDING`]: (state, action) =>
+    state.merge({
+      isFetching: true
+    }),
+  [`${FUIOUDATA}_FULFILLED`]: (state, action) =>
+    state.merge({
+      isFetching: false,
+      fuiouData: action.payload
+    }),
+
+  [`${FUIOUDATA}_REJECTED`]: (state, action) =>
+    state.merge({
+      isFetching: false,
+      errorMessage: action.message
+    })  
 });

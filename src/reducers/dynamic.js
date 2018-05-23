@@ -13,17 +13,25 @@ const initialState = fromJS({
 export default createReducer(initialState, {
 
 
-  //获取巴巴汇动态数据
+  //获取数据
   [`${DYNAMIC}_PENDING`]: (state, action) => state.merge({
     isFetching: true,
   }),
   [`${DYNAMIC}_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
-    dynamic:action.payload,
+    dynamic:{
+      list:[...state.toJS().dynamic.list,...action.payload.list]
+    }
   }),
 
   [`${DYNAMIC}_REJECTED`]: (state, action) => state.merge({
     isFetching: false,
     errorMessage: action.message
+  }),
+
+  //修改风险评估数据
+  [`${DYNAMIC}`]: (state, action) =>
+  state.mergeDeep({
+    dynamic: action.payload
   }),
 })

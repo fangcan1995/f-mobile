@@ -21,7 +21,7 @@
 					width: unit(100px / (@baseWidth / @baseColumns), rem);
 					position: absolute;
 					bottom:0;
-					transition: all 1s;
+					transition: all .5s;
 					//left:unit(280px / (@baseWidth / @baseColumns), rem);
 			   }
 			   &.border-li.one{
@@ -33,7 +33,10 @@
 			}
 		}
 		.dynamic-content{
-			margin-top: unit(60px / (@baseWidth / @baseColumns), rem);
+			.onLoad{
+				text-align: center;
+			}
+			//margin-top: unit(30px / (@baseWidth / @baseColumns), rem);
 			.dynamic-list{
 				margin-bottom: unit(60px / (@baseWidth / @baseColumns), rem);
 				li{
