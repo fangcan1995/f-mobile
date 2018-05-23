@@ -1,5 +1,6 @@
 import cFetch from '../libs/cFetch';
 import parseJson2URL from './../libs/parseJson2URL';
+let urls='http://172.16.7.3:9070/'
 
 // let token = 'fadf442a-e08b-4dd1-9928-e756fc313719'?access_token=${token}
 
@@ -9,7 +10,7 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_LIST',
       async payload() {
-        const res = await cFetch(`invest/projects/loan/page?${params}` , { method: 'GET' },false);
+        const res = await cFetch(`${urls}invest/projects/loan/page?${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -26,7 +27,7 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_TRANSFER_LIST',
       async payload() {
-        const res = await cFetch(`invest/transfer/loan/page?${params}` , { method: 'GET' },false);
+        const res = await cFetch(`${urls}invest/transfer/loan/page?${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -44,7 +45,7 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_PROJECT_INFO',
       async payload() {
-        const res = await cFetch(`invest/projects/info/${params}` , { method: 'GET' },false);
+        const res = await cFetch(`${urls}invest/projects/info/${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)

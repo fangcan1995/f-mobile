@@ -212,6 +212,9 @@ class SubjectListPage extends Component {
 		const { gettransferList } = this.props;
 		gettransferList(e)
 	}
+	handleDetailClick(e){
+		this.props.history.push(`/detail/${e}`)
+	}
 	render() {
 		const { auth, subjectList } = this.props;
 		console.log(this.state.list)
@@ -251,7 +254,7 @@ class SubjectListPage extends Component {
 						{
 							this.state.list.map(item=>{
 								return (
-									<li key = {item.id} >
+									<li key = {item.id} onClick = {this.handleDetailClick.bind(this,item.id)}>
 									{ 
 										item.statusString == '收益中'?<img src={earnings} alt=""/>:''
 									}
@@ -262,14 +265,23 @@ class SubjectListPage extends Component {
 										item.statusString == '提前还款'?<img src={finish} alt=""/>:''
 									}
 									{
+										item.statusString == '已流标'?<img src={finish} alt=""/>:''
+									}
+									{
 										item.statusString == '满标审核'?<img src={full} alt=""/>:''
+									}
+									{
+										item.statusString == '满标待审核'?<img src={full} alt=""/>:''
+									}
+									{
+										item.statusString == '已划转'?<img src={full} alt=""/>:''
 									}
 									{
 										item.statusString == '待满标划转'?<img src={full} alt=""/>:''
 									}
 									
 										<div className='title'>
-											<div className='subject-name l'>{item.project.name}</div>
+											<div className='subject-name l'>{item.project?item.project.name:item.transNo}</div>
 											<div className='tag-list r'>{item.refundWayString}</div>
 											<div className='tag-list r'>加息</div>
 										</div>
@@ -278,7 +290,7 @@ class SubjectListPage extends Component {
 													预计年化收益率&nbsp;<span className='number'>{item.annualRate }</span><span className='unit'>%</span>
 											</div>
 											<div className='deadline r'>
-													期限：&nbsp;<span className='number'>{item.loanExpiry}</span><span className='unit'>个月</span>
+													期限：&nbsp;<span className='number'>{item.loanExpiry?item.loanExpiry:item.transferPeriod}</span><span className='unit'>个月</span>
 											</div>
 										</div>
 										<div className='residue'>

@@ -7,7 +7,8 @@ const initialState = fromJS({
         filesList:[],
         loanCreditCountDto:{},
         mortgageCarHis:{},
-        projectInfoBaseInfoDto:{}
+        projectInfoBaseInfoDto:{},
+        mortgageHouseHis:{}       
     }
 });
 

@@ -310,7 +310,11 @@
             height:unit(100px / (@baseWidth / @baseColumns), rem); 
             line-height:unit(100px / (@baseWidth / @baseColumns), rem); 
             background:rgba(255,255,255,1);
-            border-top:2px solid #EEEEEE
+            border-top:2px solid #EEEEEE;
+            &.active{
+                color: #ffffff;
+                background: #3296FA;
+            }
         }
         
     }

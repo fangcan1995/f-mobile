@@ -20,7 +20,7 @@ class ProjectDetail extends Component{
     render(){
         const { auth , projectDetail } = this.props;
         console.log(projectDetail);
-        const { filesList, loanCreditCountDto, mortgageCarHis, projectInfoBaseInfoDto, projectInfoLoanInfoDto } = projectDetail.projectInfo;
+        const { filesList, loanCreditCountDto, mortgageCarHis, projectInfoBaseInfoDto, projectInfoLoanInfoDto, mortgageHouseHis } = projectDetail.projectInfo;
         return (
             <div id='project-detail'>
                 <div className='cantainer'>
@@ -55,13 +55,31 @@ class ProjectDetail extends Component{
                     </div>
                     <div className = 'mortgages-info content'>
                         <div className = 'head'>抵押物信息</div>
-                        <div className = 'text'><span>车辆品牌</span>{mortgageCarHis?mortgageCarHis.carBrand:''}</div>
-                        <div className = 'text'><span>车辆型号</span>{mortgageCarHis?mortgageCarHis.carModel:''}</div>
-                        <div className = 'text'><span>车架号</span>{mortgageCarHis?mortgageCarHis.viNumber:''}</div>
-                        <div className = 'text'><span>登记证件</span>{mortgageCarHis?mortgageCarHis.carRegNumber:''}</div>
-                        <div className = 'text'><span>行驶里程</span>{mortgageCarHis?mortgageCarHis.mileage:''}</div>
-                        <div className = 'text'><span>车龄</span>{mortgageCarHis?mortgageCarHis.carAge:''}</div>
-                        <div className = 'text'><span>评估价格</span>{mortgageCarHis?mortgageCarHis.pricePotential:''}</div>
+                        {
+                            mortgageHouseHis?
+                            <div>
+                                <div className = 'text'><span>房产地址</span>{mortgageHouseHis?mortgageHouseHis.carBrand:''}</div>
+                                <div className = 'text'><span>房产类型</span>{mortgageHouseHis?mortgageHouseHis.carModel:''}</div>
+                                <div className = 'text'><span>建筑面积</span>{mortgageHouseHis?mortgageHouseHis.carModel:''}平米</div>
+                                <div className = 'text'><span>房龄</span>{mortgageHouseHis?mortgageHouseHis.viNumber:''}年</div>
+                                <div className = 'text'><span>贷款年限</span>{mortgageHouseHis?mortgageHouseHis.carRegNumber:''}</div>
+                                <div className = 'text'><span>尚欠贷余额</span>{mortgageHouseHis?mortgageHouseHis.carModel:''}元</div>
+                                <div className = 'text'><span>土地所有证号</span>{mortgageHouseHis?mortgageHouseHis.mileage:''}</div>
+                                <div className = 'text'><span>房产权所有证号</span>{mortgageHouseHis?mortgageHouseHis.carAge:''}</div>
+                                <div className = 'text'><span>评估价格</span>{mortgageHouseHis?mortgageHouseHis.carModel:''}元</div>
+                                <div className = 'text'><span>抵押物描述</span>{mortgageHouseHis?mortgageHouseHis.pricePotential:''}</div>
+                            </div>:
+                            <div>
+                                <div className = 'text'><span>车辆品牌</span>{mortgageCarHis?mortgageCarHis.carBrand:''}</div>
+                                <div className = 'text'><span>车辆型号</span>{mortgageCarHis?mortgageCarHis.carModel:''}</div>
+                                <div className = 'text'><span>车架号</span>{mortgageCarHis?mortgageCarHis.viNumber:''}</div>
+                                <div className = 'text'><span>登记证件</span>{mortgageCarHis?mortgageCarHis.carRegNumber:''}</div>
+                                <div className = 'text'><span>行驶里程</span>{mortgageCarHis?mortgageCarHis.mileage:''}</div>
+                                <div className = 'text'><span>车龄</span>{mortgageCarHis?mortgageCarHis.carAge:''}</div>
+                                <div className = 'text'><span>评估价格</span>{mortgageCarHis?mortgageCarHis.pricePotential:''}</div>
+                            </div>                            
+                        }
+                        
                     </div>
                     <div className = 'relevant-info content'>
                         <div className = 'head'>相关资料</div>

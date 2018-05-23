@@ -31,10 +31,13 @@ import RepayPlanPage from './containers/repay-plan-page/repay-plan-page';
 import Detail from './containers/detail/detail'
 import ProjectDetail from './containers/projectDetail/projectDetail'
 import InvestmentRecords from './containers/investment-records/investment-records'
+import Rewards from './containers/rewards/rewards'
 import My from './containers/my/my'
 import DynamicPage from './containers/dynamic-page/dynamic-page';
 import SubjectListPage from './containers/subjectList-page/subjectList-page';
 import RiskEvaluationResultPage from './containers/riskEvaluationResult-page/riskEvaluationResult-page';
+
+
 
 const userIsAuthenticated = connectedRouterRedirect({
     redirectPath: '/login',
@@ -46,39 +49,39 @@ export default (
     <App>
         <Switch>
             {/* add by zhiqiang */}
-            <Route exact path="/home" component={HomePage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/loginMessage" component={LoginMessagePage} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/retrievePassword" component={RetrievePasswordPage} />
-            <Route exact path="/authentication" component={AuthenticationPage} />
-            <Route exact path="/bindPhone" component={BindPhonePage} />
-            <Route exact path="/certification" component={CertificationPage} />
-            <Route exact path="/changePassword" component={ChangePasswordPage} />
-            <Route exact path="/changePhone" component={ChangePhonePage} />
-            <Route exact path="/discover" component={DiscoverPage} />
-            <Route exact path="/helpCenter" component={HelpCenterPage} />
-            <Route exact path="/detail" component={Detail} />
-            <Route exact path="/dynamic" component={DynamicPage} />
-            <Route exact path="/subjectList" component={SubjectListPage} />
-            <Route exact path="/discoverDetail/:id" component={DiscoverDetailPage} />
-            <Route exact path="/riskEvaluationResult" component={RiskEvaluationResultPage} />
-            {/* add by ShadowCover */}
-            <Route exact path="/personal/:id?" component={PersonalContainer} />
-            <Route exact path="/redpacket" component={RedPacket} />
-            <Route exact path="/coupon" component={CouponPage} />
-            <Route exact path="/withdraw" component={WithdrawPage} />
-            <Route exact path="/transfer" component={TransferPage} />
-            <Route exact path="/charge" component={ChargePage} />
-            <Route exact path="/my-assets" component={MyAssetsPage} />
-            <Route exact path="/my-agreement" component={MyAgreementPage} />
-            <Route exact path="/my-scatter" component={MyScatterPage} />
-            <Route exact path="/trade-history" component={TradeHistoryPage} />
-            <Route exact path="/my-transfer" component={MyTransferPage} />
-            <Route exact path="/repay-plan/:proId?" component={RepayPlanPage} />
+            <Route exact path="/mobile/home" component={HomePage} />
+            <Route exact path="/mobile/login" component={LoginPage} />
+            <Route exact path="/mobile/loginMessage" component={LoginMessagePage} />
+            <Route exact path="/mobile/register" component={RegisterPage} />
+            <Route exact path="/mobile/retrievePassword" component={RetrievePasswordPage} />
+            <Route exact path="/mobile/authentication" component={AuthenticationPage} />
+            <Route exact path="/mobile/bindPhone" component={BindPhonePage} />
+            <Route exact path="/mobile/certification" component={CertificationPage} />
+            <Route exact path="/mobile/changePassword" component={ChangePasswordPage} />
+            <Route exact path="/mobile/changePhone" component={ChangePhonePage} />
+            <Route exact path="/mobile/discover" component={DiscoverPage} />
+            <Route exact path="/mobile/helpCenter" component={HelpCenterPage} />
+            <Route exact path="/mobile/detail" component={Detail} />
+            <Route exact path="/mobile/dynamic" component={DynamicPage} />
+            <Route exact path="/mobile/subjectList" component={SubjectListPage} />
+            <Route exact path="/mobile/discoverDetail/:id" component={DiscoverDetailPage} />
+            <Route exact path="/mobile/riskEvaluationResult" component={RiskEvaluationResultPage} />
+            {/* add by ShadowCo/mobilever */}
+            <Route exact path="/mobile/personal/:id?" component={PersonalContainer} />
+            <Route exact path="/mobile/redpacket" component={RedPacket} />
+            <Route exact path="/mobile/coupon" component={CouponPage} />
+            <Route exact path="/mobile/withdraw" component={WithdrawPage} />
+            <Route exact path="/mobile/transfer" component={TransferPage} />
+            <Route exact path="/mobile/charge" component={ChargePage} />
+            <Route exact path="/mobile/my-assets" component={MyAssetsPage} />
+            <Route exact path="/mobile/my-agreement" component={MyAgreementPage} />
+            <Route exact path="/mobile/my-scatter" component={MyScatterPage} />
+            <Route exact path="/mobile/trade-history" component={TradeHistoryPage} />
+            <Route exact path="/mobile/my-transfer" component={MyTransferPage} />
+            <Route exact path="/mobile/repay-plan/:proId?" component={RepayPlanPage} />
 
             {/* add by fangcan */}
-            <Route path="/detail/:id" render={
+            <Route path="/mobile/detail/:id" render={
                 ( props ) => {
                     const {match} = props
                     return (
@@ -86,10 +89,11 @@ export default (
                     );
                 }
             } />
-            <Route exact path="/my/:callback?" component={My} />
-            <Route exact path='/projectDetail/:id' component = {ProjectDetail}/>
-            <Route exact path='/investment-records/:id' component = {InvestmentRecords}/>
-            <Redirect to = '/home' />
+            <Route exact path="/mobile/my/:callback?" component={My} />
+            <Route exact path='/mobile/projectDetail/:id' component = {ProjectDetail}/>
+            <Route exact path='/mobile/investment-records/:id' component = {InvestmentRecords}/>
+            <Route exact path='/mobile/rewards/:id' component = { Rewards }/>
+            <Redirect to = '/mobile/home' />
         </Switch>
     </App>
 );
