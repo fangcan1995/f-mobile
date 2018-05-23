@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Toast } from 'antd-mobile';
+import { isWeiXin, setBrowserTitle } from '../../libs/utils';
 
 import touxiang from '../../assets/images/home-list4.png';
 import './my.less'
@@ -16,6 +17,8 @@ class My extends Component {
     }
 
     componentDidMount() {
+        console.log(isWeiXin());
+        setBrowserTitle('我的');
         const { getMyInfo, match, history } = this.props;
         getMyInfo();
         if(match.params.callback) {
