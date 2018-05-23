@@ -46,6 +46,8 @@ class HelpCenterPage extends Component {
   }
   componentDidMount(){
     setBrowserTitle('帮助中心')
+    const { dispatch } = this.props;
+    dispatch(clearData());
 		this.getListData(4)
   }
   getListData(type){
@@ -53,7 +55,6 @@ class HelpCenterPage extends Component {
     dispatch(dynamic(type,ajaxData));
   }
   getNewData() {
-    alert("上拉刷新");
     if (this.state.borderClass == "one") {
       ajaxData.pageNum++;
       this.getListData(4, ajaxData);
@@ -99,7 +100,7 @@ class HelpCenterPage extends Component {
                 item.updateTime = item.updateTime.substring(0, 10);
                 return (
                   <li key={item.id}>
-                    <Link to={'/discoverDetail/' + item.id }>
+                    <Link to={'/mobile/discoverDetail/' + item.id }>
                       <h3>
                         {item.title}
                       </h3>

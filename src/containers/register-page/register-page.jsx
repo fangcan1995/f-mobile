@@ -139,7 +139,7 @@ class RegisterPage extends Component {
             dispatch(register(submitData))
             .then(res=>{
                 Toast.success('注册成功',1,()=>{
-                    this.props.history.push('/login')
+                    this.props.history.push('/mobile/login')
                 })
                 
             })
@@ -193,7 +193,7 @@ class RegisterPage extends Component {
                 </form>   
                 <div className='agreement'>
                     <p>注册即表示您已同意<span>《用户注册及服务协议》</span></p>
-                    <p>已有账号？<Link to='/login'><span>请登陆</span></Link></p>
+                    <p>已有账号？<Link to='/mobile/login'><span>请登陆</span></Link></p>
                 </div>         
             </div>
 			)

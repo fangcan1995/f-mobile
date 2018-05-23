@@ -118,7 +118,7 @@ class RetrievePasswordPage extends Component {
             const { dispatch } = this.props;
             dispatch(retrievePassword(submitData))
             .then(res=>{
-                this.props.history.push('/login')
+                this.props.history.push('/mobile/login')
             })
             .catch(err=>{
                 Toast.fail(err.msg,1)
