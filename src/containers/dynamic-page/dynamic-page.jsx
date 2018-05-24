@@ -44,11 +44,13 @@ class DynamicPage extends Component {
   }
   componentDidMount() {
     setBrowserTitle("巴巴汇动态");
+    ajaxData.pageNum=1;
     const { dispatch } = this.props;
     dispatch(clearData());
     this.getListData(2);
   }
   getListData(type) {
+    
     const { dispatch } = this.props;
     dispatch(dynamic(type, ajaxData));
   }
