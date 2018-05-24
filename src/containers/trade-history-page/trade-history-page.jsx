@@ -1,21 +1,59 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import './trade-history-page.less';
 import TradeCard from '../../components/trade-card/trade-card';
 import Filter from '../../components/filter/filter';
+import NoItems from '../../components/no-items/no-items';
+
+import { getTradeList } from '../../actions/trade-history';
 
 
 class TradeHistoryPage extends Component {
+
+    componentDidMount () {
+        const { getTradeList } = this.props;
+        getTradeList();
+    }
+
     render () {
+        const { match, tradeList } = this.props;
+        let isTrade = match.url === '/mobile/trade-history' ? true : false;
         return (
             <div className="trade-history">
-                <TradeCard isTrade={true} />
-                <TradeCard isTrade={true} />
-                <TradeCard isTrade={true} />
-                <Filter />
+                {
+                    tradeList.length > 0 
+                        ? tradeList.map(item => {
+                            return {/* <TradeCard isTrade={isTrade} data={} url={match.url}/> */}
+                        })
+                        : <NoItems />
+                }
+                {/* <TradeCard isTrade={isTrade} data={} />*/}
+                {/* <Filter /> */}
             </div>
         );
     }
 }
+
+
+const mapStateToProps = state => {
+    const { tradeHistory } = state.toJS();
+    return {
+        tradeList: tradeHistory.tradeList
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getTradeList: () => {
+            dispatch(getTradeList());
+        }
+    }
+}
+
+TradeHistoryPage = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TradeHistoryPage);
 
 export default TradeHistoryPage;

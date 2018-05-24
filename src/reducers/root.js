@@ -21,6 +21,7 @@ import myTransfer from './my-transfer';
 import myScatter from './my-scatter';
 import rewards from './rewards';
 import myCharge from './charge';
+import tradeHistory from './trade-history';
 
 const rootReducer = combineReducers({
     auth,
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
     myTransfer,
     myScatter,
     rewards,
-    myCharge
+    myCharge,
+    tradeHistory
 });
 export default rootReducer;
