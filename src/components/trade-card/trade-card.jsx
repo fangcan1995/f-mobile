@@ -3,10 +3,10 @@ import React from 'react';
 
 import './trade-card.less';
 
-const TradeCard = ({ isTrade, data }) => {
+const TradeCard = ({ isTrade, data, match }) => {
     const fullClass =  isTrade ? 'full' : '';
     let tagColor = null;
-    switch(data.transStatusName) {
+    /* switch(data.transStatusName) {
         case '已转出':
             tagColor = 'green';
             break;
@@ -17,7 +17,7 @@ const TradeCard = ({ isTrade, data }) => {
             tagColor = 'blue';
             break;
 
-    }
+    } */
     return (
         <div className={`trade-card ${fullClass}`}>
             <div className="title">{data.proName}</div>

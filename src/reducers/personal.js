@@ -20,9 +20,6 @@ const initialState = fromJS({
   },
   riskEvaluationResult: {},
   getRiskEvaluationResult:{
-    data:{
-      requireEval:''
-    }
   },
   fuiouData:{
     data:{}
@@ -103,7 +100,7 @@ export default createReducer(initialState, {
       errorMessage: action.message
     }),
 
-  //提交风险评估数据
+  //获取风险评估数据
   [`${RISKEVALUATIONRESULT}_PENDING`]: (state, action) =>
     state.merge({
       isFetching: true
@@ -120,7 +117,7 @@ export default createReducer(initialState, {
       errorMessage: action.message
     }),
 
-  //提交风险评估数据
+  //获取富有数据
   [`${FUIOUDATA}_PENDING`]: (state, action) =>
     state.merge({
       isFetching: true

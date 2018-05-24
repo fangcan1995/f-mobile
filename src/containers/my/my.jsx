@@ -41,6 +41,7 @@ class My extends Component {
 
     render() {
         const { myInfo, match } = this.props;
+        console.log(myInfo)
         return (
             <div id='my' className='footer-tab-body'>
                 <div className='footer-tab-content'>
@@ -57,7 +58,7 @@ class My extends Component {
                             <div className='money'>
                                 {
                                     myInfo.availableBalance !== undefined
-                                        ? (myInfo.availableBalance + myInfo.freezingAmount + myInfo.investAmount).toFixed(2)
+                                        ? (parseFloat(myInfo.availableBalance) + parseFloat(myInfo.freezingAmount) + parseFloat(myInfo.investAmount)).toFixed(2)
                                         : 0..toFixed(2)
 
                                 }
@@ -67,7 +68,7 @@ class My extends Component {
                                 <div className='yesterday'>
                                     {
                                         myInfo.dayIncome !== undefined
-                                            ? myInfo.dayIncome.toFixed(2)
+                                            ? parseFloat(myInfo.dayIncome).toFixed(2)
                                             : 0..toFixed(2)
                                     }
                                     <p>昨日收益（元）</p>
@@ -75,7 +76,7 @@ class My extends Component {
                                 <div className='sum'>
                                     {
                                         myInfo.monthsIncome !== undefined
-                                            ? myInfo.monthsIncome.toFixed(2)
+                                            ? parseFloat(myInfo.monthsIncome).toFixed(2)
                                             : 0..toFixed(2)
                                     }
                                     <p>累计收益（元）</p>
@@ -91,7 +92,7 @@ class My extends Component {
                                 <span>
                                     {
                                         myInfo.memberRedInfo && myInfo.memberRedInfo.amountSum !== undefined 
-                                            ? myInfo.memberRedInfo.amountSum.toFixed(2)
+                                            ? parseFloat(myInfo.memberRedInfo.amountSum).toFixed(2)
                                             : 0..toFixed(2)
                                     }
                                 </span>
@@ -119,7 +120,7 @@ class My extends Component {
                             <span>￥
                                 {
                                     myInfo.accountBalance !== undefined 
-                                        ? myInfo.accountBalance.toFixed(2)
+                                        ? parseFloat(myInfo.accountBalance).toFixed(2)
                                         : 0..toFixed(2)
                                 }
                             </span>
