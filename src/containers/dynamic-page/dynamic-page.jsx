@@ -53,12 +53,15 @@ class DynamicPage extends Component {
     dispatch(dynamic(type, ajaxData));
   }
   getNewData() {
-    if (this.state.borderClass == "one") {
-      ajaxData.pageNum++;
-      this.getListData(2, ajaxData);
+    ajaxData.pageNum++;
+    if (this.state.borderClass == "one") {     
+      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
+        this.getListData(2, ajaxData);
+      }      
     } else {
-      ajaxData.pageNum++;
-      this.getListData(1, ajaxData);
+      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
+        this.getListData(1, ajaxData);
+      }
     }
   }
   render() {

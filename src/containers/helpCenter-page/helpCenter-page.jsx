@@ -55,12 +55,15 @@ class HelpCenterPage extends Component {
     dispatch(dynamic(type,ajaxData));
   }
   getNewData() {
+    ajaxData.pageNum++;
     if (this.state.borderClass == "one") {
-      ajaxData.pageNum++;
-      this.getListData(4, ajaxData);
+      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
+        this.getListData(4, ajaxData);
+      }     
     } else {
-      ajaxData.pageNum++;
-      this.getListData(5, ajaxData);
+      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
+        this.getListData(5, ajaxData);
+      }
     }
   }
   render() {
