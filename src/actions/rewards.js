@@ -1,5 +1,5 @@
 import cFetch from '../libs/cFetch';
-let urls='http://172.16.7.3:9070/';
+let urls='http://172.16.1.221:9070/';
 import parseJson2URL from './../libs/parseJson2URL';
 
 
@@ -9,7 +9,7 @@ export const  getrewardsList = (params) => {
     return {
       type: 'rewards/GET_REWARDS_LIST',
       async payload() {
-        const res = await cFetch(`${urls}members/memberRedEnvelopes/list?${params}` , { method: 'GET' },true);
+        const res = await cFetch(`${urls}members/memberRewards/list?${params}` , { method: 'GET' },true);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -95,6 +95,22 @@ export const  getrewardsList = (params) => {
     console.log(cd)
     return {
       type: 'rewards/SET_REWARDS',
+      payload: cd,
+    }
+  }
+
+  export const setRedEnvelopeId = cd => {
+    console.log(cd)
+    return {
+      type: 'rewards/SET_RED_ID',
+      payload: cd,
+    }
+  }
+
+  export const setRateCouponId = cd => {
+    console.log(cd)
+    return {
+      type: 'rewards/SET_RATE_ID',
       payload: cd,
     }
   }

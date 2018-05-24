@@ -5,8 +5,9 @@ const initialState = fromJS({
     isFetching: false,
     projectDetails:{},
     myInfo:{},
-    money:'',
-    invest:''
+    money:0,
+    invest:'',
+    profit:0.00
 });
 
 export default createReducer(initialState, {
@@ -42,6 +43,13 @@ export default createReducer(initialState, {
     money: action.payload
   }),
 
+  // 保存预期投资利润
+
+  ['detail/SET_PROFIT']:(state, action) => state.merge({
+    isFetching: false,
+    profit: action.payload
+  }),
+
   //提交投资
 
   [`detail/POST_INVEST_PENDING`]: (state, action) => state.merge({
@@ -53,6 +61,6 @@ export default createReducer(initialState, {
   }),
   [`detail/POST_INVEST_REJECTED`]: (state, action) => state.merge({
     isFetching: false,
-    errorMessage: action.message
+    errorMessage: action.msg
   }),
 })

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { getDetails, getMyInfo, setMoney, postInvest } from '../../actions/detail';
+import { getDetails, getMyInfo, setMoney, postInvest, setProfit } from '../../actions/detail';
 import { connect } from 'react-redux';
 import { loginUser , authCode} from '../../actions/auth';
 import { bindActionCreators } from 'redux';
-import {  Modal } from 'antd-mobile';
+import { Modal, Toast } from 'antd-mobile';
+import { hex_md5 } from '../../libs/md5'
 import './detail.less'
 
 class Detail extends Component{
@@ -12,16 +13,31 @@ class Detail extends Component{
         sumMoney:0,
         checked:false,
         button:'',
-        profit:'0.00',
-        reward:'选择系统奖励'
+        profit:0.00,
+        reward:'选择系统奖励',
+        modal1: false,
+        minInvestAmount:0,
+        minInvestAmount2:0
       };
+      
       componentDidMount(){
-		const { getDetails, getMyInfo, authCode } = this.props;
-        getDetails(this.props.match.params.id);
+		const { getDetails, getMyInfo, authCode, setMoney, setProfit } = this.props;
+        getDetails(this.props.match.params.id).then(res=>{
+            console.log(res);
+            this.setState({
+                minInvestAmount:res.value.minInvestAmount,
+                minInvestAmount2:res.value.minInvestAmount,
+            })
+            setMoney(res.value.minInvestAmount)
+            setProfit(res.value.minInvestAmount*(res.value.annualRate/12*res.value.loanExpiry)*0.01)
+        });
         if(this.props.auth.isAuthenticated){
             getMyInfo()
         }
         authCode()
+        this.setState({
+            money:this.state.minInvestAmount
+        })
     }
     handleProjectClick(e){
         this.props.history.push(`/projectDetail/${e}`)
@@ -31,34 +47,62 @@ class Detail extends Component{
     }
 
     handleMinusClick(){
-        const { detail, setMoney } = this.props;
-        if(this.state.money<=0){
+        const { detail, setMoney, setProfit } = this.props;
+        if(this.state.money<=this.state.minInvestAmount2){
+            Modal.alert(`投资金额不能小于起投金额${this.state.minInvestAmount2}`,'请重新输入有效金额', [
+                {
+                    text: '确认',
+                    onPress: () => {
+                        setMoney(this.state.minInvestAmount)
+                        setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
+                        this.props.history.push('/detail')
+                    }
+                }
+            ]);
             return 
         }
         this.setState({
             money:this.state.money-100,
-            profit:(this.state.money-100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)/100     
+            minInvestAmount:this.state.minInvestAmount-100,
+            profit:(this.state.money-100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01     
         })
-        setMoney(this.state.money-100)
+        setMoney(this.state.money-100);
+        setProfit((this.state.money-100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
     }
     handlePlusClick(){
-        const { detail, setMoney } = this.props;
-        if(this.state.money>=this.state.sumMoney){
+        const { detail, setMoney, setProfit } = this.props;
+        if(this.state.money>=this.state.sumMoney||this.state.money>=this.props.detail.projectDetails.surplusAmount||this.state.money>=this.props.detail.projectDetails.maxInvestAmount){
+            Modal.alert(`投资金额超过可用余额或超过最大可投金额`,'请重新输入有效金额', [
+                {
+                    text: '确认',
+                    onPress: () => {
+                        setMoney(this.state.minInvestAmount)
+                        setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
+                        this.props.history.push('/detail')
+                    }
+                }
+            ]);
+            
             return 
         }
         this.setState({
-            money:this.state.money+100,            
-            profit:(this.state.money+100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)/100    
+            money:this.state.money+100,    
+            minInvestAmount:this.state.minInvestAmount+100,        
+            profit:(this.state.money+100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01    
         })
+        console.log(this.state.money)
         setMoney(this.state.money+100)
+        setProfit((this.state.money+100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
     }
     handleAllClick(){
-        const { detail, setMoney } = this.props;
+        const { detail, setMoney, setProfit } = this.props;
         this.setState({
             money:this.state.sumMoney,
-            profit:(this.state.sumMoney)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)/100 
+            minInvestAmount:this.state.sumMoney,
+            profit:(this.state.sumMoney)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 
         })
         setMoney(this.state.sumMoney)
+        setProfit((this.state.sumMoney)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
     }
     handleAgreeClick(){
         if(this.state.checked){
@@ -73,30 +117,113 @@ class Detail extends Component{
             })
         }
     }
+    
     handlePostClick(){
-        const {detail, postInvest, auth} = this.props;
+        const {detail, postInvest, auth, rewards, setMoney, setProfit} = this.props;
+        const prompt = Modal.prompt;
         if(!this.state.checked){
             console.log('false')
             return
         }
-        const cred = {
+        if(this.state.money<this.state.minInvestAmount){
+            console.log(22222222)
+            Modal.alert(`投资金额不能小于${this.state.minInvestAmount}元`,'请重新输入有效金额', [
+                {
+                    text: '确认',
+                    onPress: () => {
+                        setMoney(this.state.minInvestAmount)
+                        setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
+                        this.props.history.push('/detail')
+                    }
+                }
+            ]);
+            
+            return 
+        }
+        if(this.state,money>detail.projectDetails.maxInvestAmount||this.state.money>detail.projectDetails.surplusAmount){
+            const minmoney = detail.projectDetails.maxInvestAmount<detail.projectDetails.surplusAmount?detail.projectDetails.maxInvestAmount:detail.projectDetails.surplusAmount;
+            const massage = detail.projectDetails.maxInvestAmount<detail.projectDetails.surplusAmount?'投资额度超过单笔':''
+            Toast.fail(massage,1)
+        }
+        let cred = {
             validationCode:auth.loginCode,
             projectId:detail.projectDetails.id,
             investAmt:this.state.money,
+            redEnvelopeId:rewards.redEnvelopeId,
+            rateCouponId:rewards.rateCouponId,
+            validationCode:auth.loginCode.imageCode,
+            investWay:rewards.investWay,
         }
-        if(detail.projectDetails.noviceStatus==1){
+        if(detail.projectDetails.noviceLoan==1){
             if(detail.myInfo.noviceStatus==1){
-                if(detail.myInfo.trueName){//是否实名认证
-                    if(detail.myInfo.riskStatus==0){//是否进行风险评估
-                        if(detail.myInfo.openAccountStatus){//是否开户
-                            postInvest()
+                if(1){//是否实名认证detail.myInfo.trueName
+                    if(1){//是否进行风险评估detail.myInfo.riskStatus==0
+                        if(1){//是否开户detail.myInfo.openAccountStatus
+                            console.log(prompt)
+                            prompt(
+                                '交易密码',
+                                '请输入交易密码',
+                                [
+                                  { text: '取消' },
+                                  { text: '确认', onPress: password => {
+                                    console.log(`密码为:${password}`)
+                                    password = hex_md5(password)
+                                    cred = {
+                                        password,
+                                        ...cred
+                                    }
+                                    postInvest(cred).then(res=>{
+                                        console.log('wwwwwww')
+                                    }).catch(err=>{
+                                        console.log('wwwwwww2')
+                                        Toast.fail(err.msg,1)
+                                    })
+                                    }
+                                  },
+                                ],
+                                'secure-text',
+                              )
+                            
+                        }else{
+                            Modal.alert('您还未开户','去开户', [
+                                {
+                                    text: '确认',
+                                    onPress: () => {
+                                        console.log(1111)
+                                        this.props.history.push('/personal')
+                                    }
+                                }
+                            ]); 
+                            return 
                         }
+                    }else{
+                        Modal.alert('您还未进行风险评估','请进行评估', [
+                            {
+                                text: '确认',
+                                onPress: () => {
+                                    console.log(1111)
+                                    this.props.history.push('/authentication')
+                                }
+                            }
+                        ]); 
+                        return 
                     }
+                }else{
+                    Modal.alert('您还未进行实名认证','请实名认证', [
+                        {
+                            text: '确认',
+                            onPress: () => {
+                                console.log(1111)
+                                this.props.history.push('/certification')
+                            }
+                        }
+                    ]); 
+                    return 
                 }
             }else{
-                Modal.alert('您不是新手，无法投资新手标','请重新选择其他标的' [
+                Modal.alert('您不是新手，无法投资新手标','请重新选择其他标的', [
                     {
-                        text: 'OK',
+                        text: '确认',
                         onPress: () => {
                             this.props.history.push('/subjectList')
                         }
@@ -104,7 +231,7 @@ class Detail extends Component{
                 ]);
             }
         }
-    }
+    };
     handleLoginClick(){
         this.props.history.push('/login')
     }
@@ -116,6 +243,8 @@ class Detail extends Component{
         console.log(nextProps)
         this.setState({
             sumMoney:nextProps.detail.myInfo.availableBalance,
+            money:nextProps.detail.money,
+            profit:nextProps.detail.profit,
         })
     }
     render(){
@@ -160,7 +289,7 @@ class Detail extends Component{
                                 </p>
                                 <div className className = 'money'>
                                     <span className = 'minus' onClick = {this.handleMinusClick.bind(this)}><i className = 'icon-minus'></i></span>
-                                    <div className = 'number'>{this.state.money}</div>
+                                    <div className = 'number'>{this.state.minInvestAmount}</div>
                                     <span className = 'plus' onClick = {this.handlePlusClick.bind(this)}><i className = 'icon-plus'></i></span>
                                 </div>
                                 <div className = 'sum'>参考收益：
@@ -242,6 +371,7 @@ function select(state) {
     setMoney,
     postInvest,
     authCode,
+    setProfit
   }, dispatch)
   
   export default connect(select, mapDispatchToProps)(Detail);

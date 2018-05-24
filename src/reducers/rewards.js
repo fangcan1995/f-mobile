@@ -4,7 +4,10 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
     isFetching: false,
     rewardsList:[],
-    reward:'选择系统奖励'
+    reward:'选择系统奖励',
+    redEnvelopeId:'',
+    rateCouponId:'',
+    investWay:'app'
 });
 
 export default createReducer(initialState, {
@@ -22,10 +25,26 @@ export default createReducer(initialState, {
     errorMessage: action.message
   }),
 
-  //选择红包或额加息券
+  //选择红包或加息券
 
   [`rewards/SET_REWARDS`]: (state, action) => state.merge({
     isFetching: false,
     reward: action.payload
+  }),
+
+   //选择红包
+
+   [`rewards/SET_RED_ID`]: (state, action) => state.merge({
+    isFetching: false,
+    redEnvelopeId: action.payload,
+    rateCouponId:''
+  }),
+
+   //选择加息券
+
+   [`rewards/SET_RATE_ID`]: (state, action) => state.merge({
+    isFetching: false,
+    rateCouponId: action.payload,
+    redEnvelopeId:''
   }),
 })

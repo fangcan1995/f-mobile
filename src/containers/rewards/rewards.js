@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getrewardsList, setRewards } from '../../actions/rewards';
+import { getrewardsList, setRewards, setRedEnvelopeId, setRateCouponId } from '../../actions/rewards';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import { loginUser } from '../../actions/auth';
@@ -8,16 +8,18 @@ import './rewards.less'
 
 class Rewards extends Component{
     //选择红包
-    handleUseEnvelopesClick(e,w){
+    handleUseEnvelopesClick(e,w,q){
         console.log(e,w)
-        const { setRewards } =this.props;
+        const { setRewards, setRedEnvelopeId } =this.props;
         setRewards(e+'元'+w)
+        setRedEnvelopeId(q)
         this.props.history.goBack()
     }
     // 选择加息券
-    handleUseVoucherClick(e){
-        const { setRewards } =this.props;
+    handleUseVoucherClick(e,w){
+        const { setRewards, setRateCouponId } =this.props;
         setRewards(e+'%加息券')
+        setRateCouponId(w)
         console.log(e)
         this.props.history.goBack()
     }
@@ -54,7 +56,7 @@ class Rewards extends Component{
                                 <div className="intro">{item.reTypeName}</div>
                                 {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} */}
                                 <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
-                                <div className="toUse"><a onClick = { this.handleUseEnvelopesClick.bind(this,item.reAmount,item.reTypeName)} >点击立即使用</a></div>
+                                <div className="toUse"><a onClick = { this.handleUseEnvelopesClick.bind(this,item.reAmount,item.reTypeName,item.id)} >点击立即使用</a></div>
                             </div>
                             :
                             <div className={`couponBaseStyle coupon`} key ={item.id+item.reTypeName}>
@@ -70,7 +72,7 @@ class Rewards extends Component{
                                 <div className="intro">加息券</div>
                                 {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} */}
                                 <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
-                                <div className="toUse"><a onClick = { this.handleUseVoucherClick.bind(this,item.rcAmount)}>点击立即使用</a></div>
+                                <div className="toUse"><a onClick = { this.handleUseVoucherClick.bind(this,item.rcAmount,item.id)}>点击立即使用</a></div>
                             </div>
                         )
                     })
@@ -96,7 +98,9 @@ function select(state) {
   bindActionCreators({
     loginUser,
     getrewardsList,
-    setRewards
+    setRewards,
+    setRedEnvelopeId,
+    setRateCouponId,
   }, dispatch)
   
   export default connect(select, mapDispatchToProps)(Rewards);

@@ -18,7 +18,7 @@ export const  getDetails = (params) => {
       }
     }
   }
-
+  // 获取个人信息
   export const  getMyInfo = (params) => {
     console.log('aaa22211113333')
     return {
@@ -72,7 +72,7 @@ export const  getDetails = (params) => {
       }
     }
   }
-
+  // 设置投资金额
   export const setMoney = cd => {
     console.log(cd)
     return {
@@ -81,24 +81,15 @@ export const  getDetails = (params) => {
     }
   }
 
+// 保存投资预期利润
+export const setProfit = cd => {
+  console.log(cd)
+  return {
+    type: 'detail/SET_PROFIT',
+    payload: cd,
+  }
+}
   //提交投资
-
-  // export const  postInvest = (params) => {
-  //   console.log('aaa222111111')
-  //   return {
-  //     type: 'detail/GET_DETAILS',
-  //     async payload() {
-  //       const res = await cFetch(`${urls}invest/projects/loan/${params}` , { method: 'POST' },true);
-  //       const { code, data } = res;
-  //       if ( code == 0 ) {
-  //           console.log(data)
-  //         return data || {};
-  //       } else {
-  //         throw res;
-  //       }
-  //     }
-  //   }
-  // }
 
   export const postInvest = (params) => {
     return {
