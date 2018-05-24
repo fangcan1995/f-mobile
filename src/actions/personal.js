@@ -150,7 +150,7 @@ export const getFuiou = (type) => {
   return {
     type: FUIOUDATA,
     async payload(){
-        let res= await cFetch(`payment/fuiou/account?appType=${type}`, {           
+        let res= await cFetch(`app/payment/fuiou/account?appType=${type}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'

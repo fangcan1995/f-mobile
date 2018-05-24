@@ -8,7 +8,7 @@ export const discoverDeail = (id) => {
   return {
     type: DISCOVERDETAIL,
     async payload(){
-        let res= await cFetch(`discovery/afficheInfo/${id}`, {           
+        let res= await cFetch(`app/discovery/afficheInfo/${id}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'

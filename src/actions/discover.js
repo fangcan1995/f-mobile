@@ -10,7 +10,7 @@ export const discover = (ajaxData) => {
   return {
     type: DISCOVER,
     async payload(){
-        let res= await cFetch(`discovery/adverts?${ajaxData}`, {           
+        let res= await cFetch(`app/discovery/adverts?${ajaxData}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'

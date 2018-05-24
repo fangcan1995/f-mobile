@@ -8,7 +8,7 @@ export const dynamic = (id,ajaxData) => {
     return {
       type: DYNAMIC,
       async payload(){
-          let res= await cFetch(`discovery/affiches/${id}?${ajaxData}`, {           
+          let res= await cFetch(`app/discovery/affiches/${id}?${ajaxData}`, {           
               method: 'GET', 
               headers: {
                   'Content-Type': 'application/json'
