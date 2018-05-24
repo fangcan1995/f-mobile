@@ -10,7 +10,7 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_LIST',
       async payload() {
-        const res = await cFetch(`${urls}invest/projects/loan/page?${params}` , { method: 'GET' },false);
+        const res = await cFetch(`app/invest/projects/loan/page?${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -27,7 +27,7 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_TRANSFER_LIST',
       async payload() {
-        const res = await cFetch(`${urls}invest/transfer/loan/page?${params}` , { method: 'GET' },false);
+        const res = await cFetch(`app/invest/transfer/loan/page?${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -45,7 +45,7 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_PROJECT_INFO',
       async payload() {
-        const res = await cFetch(`${urls}invest/projects/info/${params}` , { method: 'GET' },false);
+        const res = await cFetch(`app/invest/projects/info/${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)

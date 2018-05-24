@@ -9,7 +9,7 @@ export const  getrewardsList = (params) => {
     return {
       type: 'rewards/GET_REWARDS_LIST',
       async payload() {
-        const res = await cFetch(`${urls}members/memberRewards/list?${params}` , { method: 'GET' },true);
+        const res = await cFetch(`app/members/memberRewards/list?${params}` , { method: 'GET' },true);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)

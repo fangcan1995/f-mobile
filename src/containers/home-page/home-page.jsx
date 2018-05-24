@@ -32,7 +32,7 @@ class HomePage extends Component {
 	}
 
 	handleDetailClick (e) {
-		this.props.history.push(`/detail/${e}`)
+		this.props.history.push(`/mobile/detail/${e}`)
 	}
 	handleAdClick (e) {
 		window.location.href=e
