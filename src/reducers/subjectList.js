@@ -3,8 +3,14 @@ import { fromJS } from 'immutable';
 
 const initialState = fromJS({
     isFetching: false,
-    list:[],
-    transferList:[],
+    projectList:{
+      list:[],
+      pages:''
+    },
+    transferList:{
+      list:[],
+      pages:''
+    },
     projectInfo:{}
 });
 
@@ -15,7 +21,10 @@ export default createReducer(initialState, {
   }),
   [`subject/GET_LIST_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
-    list: action.payload
+    projectList: {
+      list:[...state.toJS().projectList.list,...action.payload.list],
+      pages:action.payload.pages
+    }
   }),
   [`subject/GET_LIST_REJECTED`]: (state, action) => state.merge({
     isFetching: false,
@@ -27,7 +36,10 @@ export default createReducer(initialState, {
   }),
   [`subject/GET_TRANSFER_LIST_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
-    transferList: action.payload
+    transferList: {
+      list:[...state.toJS().transferList.list,...action.payload.list],
+      pages:action.payload.pa
+    }
   }),
   [`subject/GET_TRANSFER_LIST_REJECTED`]: (state, action) => state.merge({
     isFetching: false,

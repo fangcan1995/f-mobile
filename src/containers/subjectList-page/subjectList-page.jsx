@@ -9,6 +9,13 @@ import FooterTab from '../../components/footer-tab/footer-tab';
 import earnings from '../../assets/images/earnings.png';
 import finish from '../../assets/images/finish.png';
 import full from '../../assets/images/full.png';
+import { PullToRefresh } from "antd-mobile";
+
+let cred ={
+	sortBy:null,
+	pageNum:1,
+	pageSize:5
+}
 class SubjectListPage extends Component {
 	constructor() {
 		super();
@@ -33,7 +40,7 @@ class SubjectListPage extends Component {
 			tabClassTwo: ""
 		  });
 		  this.setState({
-			  list:subjectList.list
+			  list:subjectList.projectList.list
 		  })
 		} else {
 		  this.setState({
@@ -42,7 +49,7 @@ class SubjectListPage extends Component {
 			tabClassTwo: "active"
 		  });
 		  this.setState({
-			list:subjectList.transferList
+			list:subjectList.transferList.list
 		})
 		}
 	  }
@@ -59,16 +66,25 @@ class SubjectListPage extends Component {
 		  console.log(this.state)
 		  if(this.state.tabClassOne){
 			  console.log(11111111111)
-			this.getsubjectList()
+			  cred ={
+					sortBy:null,
+					pageNum:1,
+					pageSize:5
+				}
+			this.getsubjectList(cred)
 			this.setState({
-				list:subjectList.list
+				list:subjectList.projectList.list
 			})
 		  }else{
 			console.log(222222222222222)
-			console.log(subjectList.transferList)
-			this.gettransferList()
+			cred ={
+				sortBy:null,
+				pageNum:1,
+				pageSize:5
+			}
+			this.gettransferList(cred)
 			this.setState({
-				list:subjectList.transferList
+				list:subjectList.transferList.list
 			})  
 		  }
 		  
@@ -89,41 +105,52 @@ class SubjectListPage extends Component {
 		  });
 		  if(this.state.tabClassOne){
 				if(this.state.arrow==1){
-					const cred = {
-								sortBy:'-annualRate'
-							}
+					cred ={
+						sortBy:'-annualRate',
+						pageNum:1,
+						pageSize:5
+					}
 					this.getsubjectList(cred)
 					this.setState({
-							list:subjectList.list,
+							list:subjectList.projectList.list,
 							otherArrow:0,
 					})
 					}else{
-					const cred = {
-								sortBy:'annualRate'
-							}
+						// cred.sortBy = 
+						cred ={
+							sortBy:'annualRate',
+							pageNum:1,
+							pageSize:5
+						}
 					this.getsubjectList(cred)
 					this.setState({
-							list:subjectList.list,
+							list:subjectList.projectList.list,
 							otherArrow:0,
 					})
 				}
 		  	}else{
 				if(this.state.arrow==1){
-					const cred = {
-								sortBy:'-annualRate'
-							}
+					// cred.sortBy = 
+					cred ={
+						sortBy:'-annualRate',
+						pageNum:1,
+						pageSize:5
+					}
 					this.gettransferList(cred)
 					this.setState({
-							list:subjectList.transferList,
+							list:subjectList.transferList.list,
 							otherArrow:0,
 					})
 					}else{
-					const cred = {
-								sortBy:'annualRate'
-							}
+						// cred.sortBy = 
+						cred ={
+							sortBy:'annualRate',
+							pageNum:1,
+							pageSize:5
+						}
 					this.gettransferList(cred)
 					this.setState({
-							list:subjectList.transferList,
+							list:subjectList.transferList.list,
 							otherArrow:0,
 					})
 				}
@@ -140,41 +167,53 @@ class SubjectListPage extends Component {
 			}
 			if(this.state.tabClassOne){
 				if(this.state.otherArrow==1){
-					const cred = {
-						sortBy:'-loanExpiry'
+					// cred.sortBy = 
+					cred ={
+						sortBy:'-loanExpiry',
+						pageNum:1,
+						pageSize:5
 					}
 					this.getsubjectList(cred)
 					this.setState({
-						list:subjectList.list,
+						list:subjectList.projectList.list,
 						arrow:0,
 					})
 				}else{
-					const cred = {
-						sortBy:'loanExpiry'
+					// cred.sortBy = 
+					cred ={
+						sortBy:'loanExpiry',
+						pageNum:1,
+						pageSize:5
 					}
 					this.getsubjectList(cred)
 					this.setState({
-						list:subjectList.list,
+						list:subjectList.projectList.list,
 						arrow:0,
 					})
 				}
 			}else{
 				if(this.state.otherArrow==1){
-					const cred = {
-						sortBy:'-loanExpiry'
+					// cred.sortBy = 
+					cred ={
+						sortBy:'-loanExpiry',
+						pageNum:1,
+						pageSize:5
 					}
 					this.gettransferList(cred)
 					this.setState({
-						list:subjectList.transferList,
+						list:subjectList.transferList.list,
 						arrow:0,
 					})
 				}else{
-					const cred = {
-						sortBy:'loanExpiry'
+					cred.sortBy = 
+					cred ={
+						sortBy:'loanExpiry',
+						pageNum:1,
+						pageSize:5
 					}
 					this.gettransferList(cred)
 					this.setState({
-						list:subjectList.transferList,
+						list:subjectList.transferList.list,
 						arrow:0,
 					})
 				}
@@ -187,19 +226,19 @@ class SubjectListPage extends Component {
 		}
 	}
 	componentDidMount () {	
-		this.getsubjectList()
-		this.gettransferList()
+		this.getsubjectList(cred)
+		this.gettransferList(cred)
 	}
 	componentWillReceiveProps (nextProps) {
 		console.log(nextProps)
 		const { subjectList } = nextProps;
 		if(this.state.tabClassOne){
 			this.setState({
-				list:subjectList.list
+				list:subjectList.projectList.list
 			})
 		}else{
 			this.setState({
-				list:subjectList.transferList
+				list:subjectList.transferList.list
 			})
 		}
 		
@@ -214,6 +253,20 @@ class SubjectListPage extends Component {
 	}
 	handleDetailClick(e){
 		this.props.history.push(`/mobile/detail/${e}`)
+	}
+	getNewData(){
+		cred.pageNum++;
+		if (this.state.borderClass == "one"){
+			console.log('aaaa',this.props)
+			if(cred.pageNum<=this.props.subjectList.projectList.pages){
+				console.log('aaaabb')
+				this.getsubjectList(cred)
+			}
+		}else{
+			if(cred.pageNum<=this.props.subjectList.transferList.pages){
+				this.gettransferList(cred)
+			}
+		}
 	}
 	render() {
 		const { auth, subjectList } = this.props;
@@ -251,7 +304,15 @@ class SubjectListPage extends Component {
 						</li>
 					</ul>
 					<ul className='content-list'>
+						<PullToRefresh
+						ref={el => (this.ptr = el)}
+						style={{ height: this.state.height, overflow: "auto" }}
+						direction={"up"}
+						refreshing={this.state.refreshing}
+						onRefresh={this.getNewData.bind(this)}
+						>
 						{
+							this.state.list?
 							this.state.list.map(item=>{
 								return (
 									<li key = {item.id} onClick = {this.handleDetailClick.bind(this,item.id)}>
@@ -306,7 +367,9 @@ class SubjectListPage extends Component {
 									</li>
 								)
 							})
+							:<div className='onLoad'>加载中...</div>
 						}
+						</PullToRefresh>
 					</ul>
 				</div>
 				<div className='footer-tab-parent'>
