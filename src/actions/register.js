@@ -3,15 +3,12 @@ import cFetch from './../libs/cFetch';
 import {urls,token} from '../libs/utils';
 import parseJson2URL from './../libs/parseJson2URL';
 import cookie from 'js-cookie';
-let URL ='http://172.16.7.3:8020';
-let access_token='?access_token=fadf442a-e08b-4dd1-9928-e756fc313719'
-
 
 export const register = (params) => {
   return {
     type: REGISTER,
     async payload(){
-        let res= await cFetch(`${URL}/uaa/register${params}`, {           
+        let res= await cFetch(`uaa/register${params}`, {           
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
@@ -34,7 +31,7 @@ export const registerCode = () => {
     return {
         type: REGISTERCODE,
         async payload(){
-            let res= await cFetch(`${URL}/uaa/code/image/string`, {           
+            let res= await cFetch(`uaa/code/image/string`, {           
                 method: 'GET', 
                 headers: {
                     'Content-Type': 'application/json'
@@ -60,7 +57,7 @@ export const smsRegisterCode = (params) => {
     return {
       type: SMSREGISTERCODE,
       async payload(){
-          let res= await cFetch(`${URL}/uaa/code/sms/register?${params}`, {           
+          let res= await cFetch(`uaa/code/sms/register?${params}`, {           
               credentials: 'include'
           },false);
           const { code, data } = res;

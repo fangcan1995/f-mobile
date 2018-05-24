@@ -11,9 +11,9 @@ const AgreementCard = ({ isFull, data }) => {
             actionDOM = isFull
                 ? (
                     <div className="cardAction">
-                        <div className="actionButton active"><Link to="/transfer">转让</Link></div>
-                        <div className="actionButton active"><Link to={`/repay-plan/${data.investId}`}>回款计划</Link></div>
-                        <div className="actionButton active"><Link to="/">项目合同</Link></div>
+                        <div className="actionButton active"><Link to="/mobile/transfer">转让</Link></div>
+                        <div className="actionButton active"><Link to={`/mobile/repay-plan/${data.investId}`}>回款计划</Link></div>
+                        <div className="actionButton active"><Link to="/mobile">项目合同</Link></div>
                     </div>
                 )
                 : actionDOM;
@@ -23,7 +23,7 @@ const AgreementCard = ({ isFull, data }) => {
                 ? (
                     <div className="cardAction">
                         <div className="actionButton">转让</div>
-                        <div className="actionButton active"><Link to={`/repay-plan/${data.investId}`}>回款计划</Link></div>
+                        <div className="actionButton active"><Link to={`/mobile/repay-plan/${data.investId}`}>回款计划</Link></div>
                         <div className="actionButton">项目合同</div>
                     </div>
                 )
@@ -34,8 +34,8 @@ const AgreementCard = ({ isFull, data }) => {
                 ? (
                     <div className="cardAction">
                         <div className="actionButton">转让</div>
-                        <div className="actionButton active"><Link to={`/repay-plan/${data.investId}`}>回款计划</Link></div>
-                        <div className="actionButton active"><Link to="/">项目合同</Link></div>
+                        <div className="actionButton active"><Link to={`/mobile/repay-plan/${data.investId}`}>回款计划</Link></div>
+                        <div className="actionButton active"><Link to="/mobile">项目合同</Link></div>
                     </div>
                 )
                 : actionDOM;

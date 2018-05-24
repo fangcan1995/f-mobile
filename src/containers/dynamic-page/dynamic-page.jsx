@@ -44,6 +44,8 @@ class DynamicPage extends Component {
   }
   componentDidMount() {
     setBrowserTitle("巴巴汇动态");
+    const { dispatch } = this.props;
+    dispatch(clearData());
     this.getListData(2);
   }
   getListData(type) {
@@ -51,13 +53,15 @@ class DynamicPage extends Component {
     dispatch(dynamic(type, ajaxData));
   }
   getNewData() {
-    alert("上拉刷新");
-    if (this.state.borderClass == "one") {
-      ajaxData.pageNum++;
-      this.getListData(2, ajaxData);
+    ajaxData.pageNum++;
+    if (this.state.borderClass == "one") {     
+      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
+        this.getListData(2, ajaxData);
+      }      
     } else {
-      ajaxData.pageNum++;
-      this.getListData(1, ajaxData);
+      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
+        this.getListData(1, ajaxData);
+      }
     }
   }
   render() {
@@ -96,7 +100,7 @@ class DynamicPage extends Component {
                 list.map(item => {
                 item.updateTime = item.updateTime.substring(0, 10);
                 return (
-                  <Link to={"/discoverDetail/" + item.id} key={item.id}>
+                  <Link to={"/mobile/discoverDetail/" + item.id} key={item.id}>
                     <dl className="dynamic-list">
                       <dt className="l">
                         <img src={item.affIcon} alt="" />

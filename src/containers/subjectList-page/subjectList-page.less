@@ -52,16 +52,18 @@
 				padding: unit(12px / (@baseWidth / @baseColumns), rem) 0;
 				font-size: unit(24px / (@baseWidth / @baseColumns), rem);
 				position: relative;
+				
 				&.active{
 					background:#EAEAEA;
 				}
 				.icon-up-arrow{
 					position: absolute;
 					display: inline-block;
-					font-size: unit(18px / (@baseWidth / @baseColumns), rem);
+					font-size: unit(32px / (@baseWidth / @baseColumns), rem);
 					top:unit(5px / (@baseWidth / @baseColumns), rem);
 					//right:unit(47px / (@baseWidth / @baseColumns), rem);
 					color: #6e7277;
+					transform:scale(0.5);
 					&.active{
 						color:#3296FA;
 					}
@@ -69,10 +71,12 @@
 				.icon-down-arrow{
 					position: absolute;
 					display: inline-block;
-					font-size: unit(18px / (@baseWidth / @baseColumns), rem);
-					top:unit(24px / (@baseWidth / @baseColumns), rem);
+					font-size: unit(32px / (@baseWidth / @baseColumns), rem);
+					top:unit(20px / (@baseWidth / @baseColumns), rem);
+					transform:scale(0.5);
 					//right:unit(47px / (@baseWidth / @baseColumns), rem);
 					color: #6e7277;
+					transform:scale(0.875)
 					&.active{
 						color:#3296FA;
 					}

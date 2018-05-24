@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Toast } from 'antd-mobile';
+import { isWeiXin, setBrowserTitle } from '../../libs/utils';
 
 import touxiang from '../../assets/images/home-list4.png';
 import './my.less'
@@ -16,17 +17,19 @@ class My extends Component {
     }
 
     componentDidMount() {
+        console.log(isWeiXin());
+        setBrowserTitle('我的');
         const { getMyInfo, match, history } = this.props;
         getMyInfo();
         if(match.params.callback) {
             switch(match.params.callback) {
                 case 'pay_9999': 
                     this.showToast('操作失败', 2.5);
-                    history.push('/my');
+                    history.push('/mobile/my');
                     break;
                 case 'pay_0000':
                     this.showToast('操作成功', 2.5);
-                    history.push('/my');
+                    history.push('/mobile/my');
                     break;
             }
         }
@@ -46,11 +49,11 @@ class My extends Component {
                             <span><i className='icon-message'></i></span>
                         </div>
                         <div className='base-info'>
-                            <Link to='/personal'>
+                            <Link to='/mobile/personal'>
                                 <img src={touxiang} /><div className='tital'><span className='name'>{myInfo.userName}</span><span className='greet'>您好，</span></div>
                             </Link>
                         </div>
-                        <Link to="/my-assets">
+                        <Link to="/mobile/my-assets">
                             <div className='money'>
                                 {
                                     myInfo.availableBalance !== undefined
@@ -81,7 +84,7 @@ class My extends Component {
                         </Link>
                     </div>
                     <div className='my-card'>
-                        <Link to="/redpacket">
+                        <Link to="/mobile/redpacket">
                             <div className='left'>
                                 <i className='icon-redpacket'></i>
                                 红包
@@ -95,7 +98,7 @@ class My extends Component {
                                 元
                             </div>
                         </Link>
-                        <Link to="/coupon">
+                        <Link to="/mobile/coupon">
                             <div className='right'>
                                 <i className='icon-coupon'></i>
                                 加息券
@@ -122,29 +125,29 @@ class My extends Component {
                             </span>
                         </div>
                         <div className='buttom'>
-                            <Link to="/charge"><div className='left'>充值</div></Link>
-                            <Link to="/withdraw"><div className='right'>提现</div></Link>
+                            <Link to="/mobile/charge"><div className='left'>充值</div></Link>
+                            <Link to="/mobile/withdraw"><div className='right'>提现</div></Link>
                         </div>
                         <div className='list'>
                             <div className='list-item'>
                                 <i className='icon-about'></i><span>超级合伙人</span><i className='icon-arrow right'></i>
                             </div>
-                            <Link to="/my-scatter">
+                            <Link to="/mobile/my-scatter">
                                 <div className='list-item'>
                                     <i className='icon-scatter'></i><span>我的散标</span><i className='icon-arrow right'></i>
                                 </div>
                             </Link>
-                            <Link to="/my-agreement">
+                            <Link to="/mobile/my-agreement">
                                 <div className='list-item'>
                                     <i className='icon-agreement'></i><span>我的合同</span><i className='icon-arrow right'></i>
                                 </div>
                             </Link>
-                            <Link to="/my-transfer">
+                            <Link to="/mobile/my-transfer">
                                 <div className='list-item'>
                                     <i className='icon-transfer'></i><span>我的转让</span><i className='icon-arrow right'></i>
                                 </div>
                             </Link>
-                            <Link to="/trade-history">
+                            <Link to="/mobile/trade-history">
                                 <div className='list-item'>
                                     <i className='icon-invest-history'></i><span>交易记录</span><i className='icon-arrow right'></i>
                                 </div>

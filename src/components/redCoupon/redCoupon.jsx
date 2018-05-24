@@ -16,7 +16,7 @@ const RedCoupon = ({ type, data }) => {
     let status = type === 'rp' ? data.reStatus : data.rcStatus; 
     switch (status) {
         case 0:
-            toUseDOM = <div className="toUse"><Link to="/personal">点击立即激活</Link></div>;
+            toUseDOM = <div className="toUse"><Link to="/mobile/personal">点击立即激活</Link></div>;
             statusDOM = <div className="status inactive"></div>;
             colorClass = type === 'rp' ? 'redpacket' : 'coupon';
             break;
@@ -31,7 +31,7 @@ const RedCoupon = ({ type, data }) => {
             colorClass = 'fail'
             break;
         default:
-            toUseDOM = <div className="toUse"><Link to="/subjectList">点击立即使用</Link></div>;
+            toUseDOM = <div className="toUse"><Link to="/mobile/subjectList">点击立即使用</Link></div>;
             statusDOM = <div className="status"></div>;
             colorClass = type === 'rp' ? 'redpacket' : 'coupon';
             break;

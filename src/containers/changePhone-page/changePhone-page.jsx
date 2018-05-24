@@ -24,7 +24,7 @@ class ChangePhonePage extends Component {
                </div>
                
                <div className='word'>为了您的账户安全，若手机更换修改绑定手机号码</div>
-               <Link to="/bindPhone"><button className='login-submit'>修改绑定手机号</button></Link>
+               <Link to="/mobile/bindPhone"><button className='login-submit'>修改绑定手机号</button></Link>
             </div>
 			)
 	}

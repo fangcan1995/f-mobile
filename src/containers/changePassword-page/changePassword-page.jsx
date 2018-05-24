@@ -73,7 +73,7 @@ class ChangePasswordPage extends Component {
             dispatch(changePassword(appInfo))
             .then(res=>{
                 Toast.success('修改密码成功',1,()=>{
-                    this.props.history.push('/login')
+                    this.props.history.push('/mobile/login')
                 })
                 
             })

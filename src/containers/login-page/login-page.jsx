@@ -113,13 +113,13 @@ class LoginPage extends Component {
                 </div>
                 <ul className='login-way'>
                     <li className='l'>
-                         <Link to='/loginMessage'>
+                         <Link to='/mobile/loginMessage'>
                             <i className='icon-wechat-border'></i><br />
                             <span>微信登录</span>
                         </Link>
                     </li>
                     <li className='l'>
-                        <Link to='/loginMessage'>
+                        <Link to='/mobile/loginMessage'>
                             <i className='icon-message-special'></i><br />
                             <span>短信登录</span>
                         </Link>   
@@ -127,12 +127,12 @@ class LoginPage extends Component {
                 </ul>
                 <div className='todo-other'>
                     <div className='l li'>
-                        <Link to='/retrievePassword'>
+                        <Link to='/mobile/retrievePassword'>
                             忘记密码
                         </Link>
                     </div>
                     <div className='l li'>
-                        <Link to='/register'>
+                        <Link to='/mobile/register'>
                             注册账号
                         </Link>    
                     </div>

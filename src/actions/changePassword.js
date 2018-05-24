@@ -2,7 +2,7 @@ import { CHANGEPASSWORD } from '../actions-type/auth';
 import cFetch from './../libs/cFetch';
 import {urls,token} from '../libs/utils';
 import parseJson2URL from './../libs/parseJson2URL';
-let URL ='http://172.16.7.3:8020';
+
 
 export const changePassword = (params) => {
   params=parseJson2URL(params);
@@ -10,7 +10,7 @@ export const changePassword = (params) => {
   return {
       type: 'mySettings/password/FETCH',
       async payload() {
-          const res = await cFetch(`${URL}/uaa/oauth/password?${params}`, {
+          const res = await cFetch(`uaa/oauth/password?${params}`, {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json'

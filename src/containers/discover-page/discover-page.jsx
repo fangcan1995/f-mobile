@@ -37,7 +37,7 @@ class DiscoverPage extends Component {
 								</Link>
 							</div>
 							<div className='li'>
-								<Link to="/dynamic">
+								<Link to="/mobile/dynamic">
 									<i className="icon-activity"></i>
 									<div className='list-label'>巴巴汇动态</div>
 								</Link>
@@ -49,7 +49,7 @@ class DiscoverPage extends Component {
 								</a>
 							</div>
 							<div className='li'>
-								<Link to="/helpCenter">
+								<Link to="/mobile/helpCenter">
 									<i className="icon-help"></i>
 									<div className='list-label'>帮助中心</div>
 								</Link>
