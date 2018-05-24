@@ -3,11 +3,6 @@ import cFetch from "./../libs/cFetch";
 import { urls, token } from "../libs/utils";
 import parseJson2URL from "./../libs/parseJson2URL";
 import cookie from "js-cookie";
-let URL = "http://172.16.7.3:9070";
-let URL_LI = "http://172.16.1.225:9070";
-let URL_MA = "http://172.16.1.252:9070";
-let URL_QIAN = "http://172.16.1.221:9070";
-
 
 //获取个人中心数据
 export const personal = () => {
@@ -15,7 +10,7 @@ export const personal = () => {
   return {
     type: PERSONAL,
     async payload() {
-      let res = await cFetch(`${URL}/accounts/my/info?access_token=86a2b572-58a0-435e-a26f-29799c240061`, {
+      let res = await cFetch(`accounts/my/info?access_token=86a2b572-58a0-435e-a26f-29799c240061`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -54,7 +49,7 @@ export const certification = (params) => {
   return {
     type: CERTIFICATION,
     async payload(){
-        let res= await cFetch(`${URL}/members/auth?access_token=d1d95671-ff8f-4de5-af6f-f21ed4d0e25f`, {           
+        let res= await cFetch(`members/auth?access_token=d1d95671-ff8f-4de5-af6f-f21ed4d0e25f`, {           
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
@@ -77,7 +72,7 @@ export const riskEvaluation = () => {
   return {
     type: RISKEVALUATION,
     async payload(){
-        let res= await cFetch(`${URL}/members/riskEvaluation`, {           
+        let res= await cFetch(`members/riskEvaluation`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'
@@ -110,7 +105,7 @@ export const submitCertification = (params) => {
   return {
     type: SUBMITRISKEVALUATION,
     async payload(){
-        let res= await cFetch(`${URL}/members/riskEvaluation`, {           
+        let res= await cFetch(`members/riskEvaluation`, {           
             method: 'PUT', 
             headers: {
                 'Content-Type': 'application/json'
@@ -131,7 +126,7 @@ export const riskEvaluationResult = () => {
   return {
     type: RISKEVALUATIONRESULT,
     async payload(){
-        let res= await cFetch(`${URL}/members/riskEvaluation/result`, {           
+        let res= await cFetch(`members/riskEvaluation/result`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'
@@ -155,7 +150,7 @@ export const getFuiou = (type) => {
   return {
     type: FUIOUDATA,
     async payload(){
-        let res= await cFetch(`${URL}/payment/fuiou/account?appType=${type}`, {           
+        let res= await cFetch(`payment/fuiou/account?appType=${type}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'

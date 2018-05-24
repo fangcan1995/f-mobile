@@ -2,13 +2,13 @@ import { DISCOVERDETAIL } from '../actions-type/discover';
 import cFetch from './../libs/cFetch';
 import {urls,token} from '../libs/utils';
 import parseJson2URL from './../libs/parseJson2URL';
-let URL ='http://172.16.7.3:9070';
+
 
 export const discoverDeail = (id) => {
   return {
     type: DISCOVERDETAIL,
     async payload(){
-        let res= await cFetch(`${URL}/discovery/afficheInfo/${id}`, {           
+        let res= await cFetch(`discovery/afficheInfo/${id}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'

@@ -3,15 +3,13 @@ import cFetch from './../libs/cFetch';
 import {urls,token} from '../libs/utils';
 import parseJson2URL from './../libs/parseJson2URL';
 import cookie from 'js-cookie';
-let URL ='http://172.16.7.3:8020';
-let access_token='?access_token=fadf442a-e08b-4dd1-9928-e756fc313719'
 
 
 export const retrievePassword = (params) => {
   return {
     type: RETRIEVEPSD,
     async payload(){
-        let res= await cFetch(`${URL}/uaa/oauth/forget/password?${params}`, {           
+        let res= await cFetch(`uaa/oauth/forget/password?${params}`, {           
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
@@ -25,7 +23,6 @@ export const retrievePassword = (params) => {
         } else {
           throw res;
         }
-
     } 
   };
 };
@@ -35,7 +32,7 @@ export const retrievePasswordCode = () => {
     return {
         type: RETRIEVEPSDCODE,
         async payload(){
-            let res= await cFetch(`${URL}/uaa/code/image/string`, {           
+            let res= await cFetch(`uaa/code/image/string`, {           
                 method: 'GET', 
                 headers: {
                     'Content-Type': 'application/json'
@@ -60,7 +57,7 @@ export const smsRetrievePasswordCode = (params) => {
     return {
       type: SMSRETRIEVEPSDCODE,
       async payload(){
-          let res= await cFetch(`${URL}/uaa/code/sms/forget/password?${params}`, {           
+          let res= await cFetch(`uaa/code/sms/forget/password?${params}`, {           
               credentials: 'include'
           },false);
           const { code, data } = res;
