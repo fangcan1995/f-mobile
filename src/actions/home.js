@@ -7,7 +7,7 @@ export const  getAdverts = () => {
     return {
       type: 'homePage/GET_ADVERTS',
       async payload() {
-        const res = await cFetch(`${urls}homes/adverts` , { method: 'GET' },false);
+        const res = await cFetch(`app/homes/adverts` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -24,7 +24,7 @@ export const  getAdverts = () => {
     return {
       type: 'homePage/GET_PROJECT',
       async payload() {
-        const res = await cFetch(`${urls}homes/projects` , { method: 'GET' },false);
+        const res = await cFetch(`app/homes/projects` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)

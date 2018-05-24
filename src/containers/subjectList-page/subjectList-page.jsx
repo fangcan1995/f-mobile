@@ -213,7 +213,7 @@ class SubjectListPage extends Component {
 		gettransferList(e)
 	}
 	handleDetailClick(e){
-		this.props.history.push(`/detail/${e}`)
+		this.props.history.push(`/mobile/detail/${e}`)
 	}
 	render() {
 		const { auth, subjectList } = this.props;

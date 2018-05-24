@@ -40,25 +40,16 @@ class Detail extends Component{
         })
     }
     handleProjectClick(e){
-        this.props.history.push(`/projectDetail/${e}`)
+        this.props.history.push(`/mobile/projectDetail/${e}`)
     }
     handleRecordsClick(e){
-        this.props.history.push(`/investment-records/${e}`)
+        this.props.history.push(`/mobile/investment-records/${e}`)
     }
 
     handleMinusClick(){
         const { detail, setMoney, setProfit } = this.props;
         if(this.state.money<=this.state.minInvestAmount2){
-            Modal.alert(`投资金额不能小于起投金额${this.state.minInvestAmount2}`,'请重新输入有效金额', [
-                {
-                    text: '确认',
-                    onPress: () => {
-                        setMoney(this.state.minInvestAmount)
-                        setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
-                        this.props.history.push('/detail')
-                    }
-                }
-            ]);
+            Toast.fail(`投资金额不能小于起投金额${this.state.minInvestAmount2}`,1)
             return 
         }
         this.setState({
@@ -72,17 +63,17 @@ class Detail extends Component{
     handlePlusClick(){
         const { detail, setMoney, setProfit } = this.props;
         if(this.state.money>=this.state.sumMoney||this.state.money>=this.props.detail.projectDetails.surplusAmount||this.state.money>=this.props.detail.projectDetails.maxInvestAmount){
-            Modal.alert(`投资金额超过可用余额或超过最大可投金额`,'请重新输入有效金额', [
-                {
-                    text: '确认',
-                    onPress: () => {
-                        setMoney(this.state.minInvestAmount)
-                        setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
-                        this.props.history.push('/detail')
-                    }
-                }
-            ]);
-            
+            // Modal.alert(`投资金额超过可用余额或超过最大可投金额`,'请重新输入有效金额', [
+            //     {
+            //         text: '确认',
+            //         onPress: () => {
+            //             setMoney(this.state.minInvestAmount)
+            //             setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
+            //             this.props.history.push('/mobile/detail')
+            //         }
+            //     }
+            // ]);
+            Toast.fail(`投资金额不能超过可用余额或最大可投金额`,1)
             return 
         }
         this.setState({
@@ -133,17 +124,17 @@ class Detail extends Component{
                     onPress: () => {
                         setMoney(this.state.minInvestAmount)
                         setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
-                        this.props.history.push('/detail')
+                        this.props.history.push('/mobile/detail')
                     }
                 }
             ]);
             
             return 
         }
-        if(this.state,money>detail.projectDetails.maxInvestAmount||this.state.money>detail.projectDetails.surplusAmount){
+        if(this.state.money>detail.projectDetails.maxInvestAmount||this.state.money>detail.projectDetails.surplusAmount){
             const minmoney = detail.projectDetails.maxInvestAmount<detail.projectDetails.surplusAmount?detail.projectDetails.maxInvestAmount:detail.projectDetails.surplusAmount;
-            const massage = detail.projectDetails.maxInvestAmount<detail.projectDetails.surplusAmount?'投资额度超过单笔':''
-            Toast.fail(massage,1)
+            const massage = detail.projectDetails.maxInvestAmount<detail.projectDetails.surplusAmount?'投资额度超过单笔最大额度':'投资额度超过标的剩余可投金额'
+            Toast.fail(massage+minmoney,1)
         }
         let cred = {
             validationCode:auth.loginCode,
@@ -190,7 +181,7 @@ class Detail extends Component{
                                     text: '确认',
                                     onPress: () => {
                                         console.log(1111)
-                                        this.props.history.push('/personal')
+                                        this.props.history.push('/mobile/personal')
                                     }
                                 }
                             ]); 
@@ -202,7 +193,7 @@ class Detail extends Component{
                                 text: '确认',
                                 onPress: () => {
                                     console.log(1111)
-                                    this.props.history.push('/authentication')
+                                    this.props.history.push('/mobile/authentication')
                                 }
                             }
                         ]); 
@@ -214,7 +205,7 @@ class Detail extends Component{
                             text: '确认',
                             onPress: () => {
                                 console.log(1111)
-                                this.props.history.push('/certification')
+                                this.props.history.push('/mobile/certification')
                             }
                         }
                     ]); 
@@ -225,19 +216,84 @@ class Detail extends Component{
                     {
                         text: '确认',
                         onPress: () => {
-                            this.props.history.push('/subjectList')
+                            this.props.history.push('/mobile/subjectList')
                         }
                     }
                 ]);
             }
+        }else{
+            if(1){//是否实名认证detail.myInfo.trueName
+                if(1){//是否进行风险评估detail.myInfo.riskStatus==0
+                    if(1){//是否开户detail.myInfo.openAccountStatus
+                        console.log(prompt)
+                        prompt(
+                            '交易密码',
+                            '请输入交易密码',
+                            [
+                              { text: '取消' },
+                              { text: '确认', onPress: password => {
+                                console.log(`密码为:${password}`)
+                                password = hex_md5(password)
+                                cred = {
+                                    password,
+                                    ...cred
+                                }
+                                postInvest(cred).then(res=>{
+                                    console.log('wwwwwww')
+                                }).catch(err=>{
+                                    console.log('wwwwwww2')
+                                    Toast.fail(err.msg,1)
+                                })
+                                }
+                              },
+                            ],
+                            'secure-text',
+                          )
+                        
+                    }else{
+                        Modal.alert('您还未开户','去开户', [
+                            {
+                                text: '确认',
+                                onPress: () => {
+                                    console.log(1111)
+                                    this.props.history.push('/mobile/personal')
+                                }
+                            }
+                        ]); 
+                        return 
+                    }
+                }else{
+                    Modal.alert('您还未进行风险评估','请进行评估', [
+                        {
+                            text: '确认',
+                            onPress: () => {
+                                console.log(1111)
+                                this.props.history.push('/mobile/authentication')
+                            }
+                        }
+                    ]); 
+                    return 
+                }
+            }else{
+                Modal.alert('您还未进行实名认证','请实名认证', [
+                    {
+                        text: '确认',
+                        onPress: () => {
+                            console.log(1111)
+                            this.props.history.push('/mobile/certification')
+                        }
+                    }
+                ]); 
+                return 
+            }
         }
     };
     handleLoginClick(){
-        this.props.history.push('/login')
+        this.props.history.push('/mobile/login')
     }
 
     handleSelectClick(e){
-        this.props.history.push(`/rewards/${e}`)
+        this.props.history.push(`/mobile/rewards/${e}`)
     }
     componentWillReceiveProps(nextProps){
         console.log(nextProps)

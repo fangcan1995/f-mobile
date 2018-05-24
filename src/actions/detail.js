@@ -7,7 +7,7 @@ export const  getDetails = (params) => {
     return {
       type: 'detail/GET_DETAILS',
       async payload() {
-        const res = await cFetch(`${urls}invest/projects/loan/${params}` , { method: 'GET' },false);
+        const res = await cFetch(`app/invest/projects/loan/${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -24,7 +24,7 @@ export const  getDetails = (params) => {
     return {
       type: 'detail/GET_MY_INFO',
       async payload() {
-        const res = await cFetch(`${urls}accounts/my/info` , { method: 'GET' },true);
+        const res = await cFetch(`app/accounts/my/info` , { method: 'GET' },true);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -95,7 +95,7 @@ export const setProfit = cd => {
     return {
       type: 'detail/POST_INVEST',
       async payload(){
-          let res= await cFetch(`${urls}invest/invest`, {           
+          let res= await cFetch(`app/invest/invest`, {           
               method: 'POST', 
               headers: {
                   'Content-Type': 'application/json'
