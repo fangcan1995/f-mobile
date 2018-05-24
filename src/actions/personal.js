@@ -136,7 +136,7 @@ export const riskEvaluationResult = () => {
         });
         console.log(res)
         if ( res.code == 0 ) {
-          return res || {};
+          return res.data || {};
         } else {
           throw res;
         }
