@@ -21,7 +21,7 @@ class CouponPage extends Component {
 
     render() {
         const { couponList, match, getCouponList } = this.props;
-        let type = match.url === '/redpacket' ? 'rp' : 'cp';
+        let type = match.url === '/mobile/redpacket' ? 'rp' : 'cp';
         return (
             <div className="couponList">
                 {

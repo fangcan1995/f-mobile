@@ -21,7 +21,7 @@ class MyScatterPage extends Component {
 
     render() {
         const { scatterList, match, getMyScatter } = this.props;
-        const isFull = match.url === '/my-scatter' ? true : false;
+        const isFull = match.url === '/mobile/my-scatter' ? true : false;
         return (
             <div className="my-scatter">
                 {
