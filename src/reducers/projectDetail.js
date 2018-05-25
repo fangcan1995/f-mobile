@@ -3,6 +3,7 @@ import { fromJS } from 'immutable';
 
 const initialState = fromJS({
     isFetching: false,
+    errorMessage:null,
     projectInfo:{
         filesList:[],
         loanCreditCountDto:{},
@@ -20,10 +21,11 @@ export default createReducer(initialState, {
     }),
     [`project/GET_PROJECT_INFO_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
-    projectInfo: action.payload
+    projectInfo: action.payload,
+    errorMessage:null
     }),
     [`project/GET_PROJECT_INFO_REJECTED`]: (state, action) => state.merge({
     isFetching: false,
-    errorMessage: action.message
+    errorMessage: action.payload.message
     }),
 })

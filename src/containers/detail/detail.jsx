@@ -138,9 +138,9 @@ class Detail extends Component{
         }
         if(detail.projectDetails.noviceLoan==1){
             if(detail.myInfo.noviceStatus==1){
-                if(1){//是否实名认证detail.myInfo.trueName
-                    if(1){//是否进行风险评估detail.myInfo.riskStatus==0
-                        if(1){//是否开户detail.myInfo.openAccountStatus
+                if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
+                    if(detail.myInfo.riskStatus==0){//是否进行风险评估detail.myInfo.riskStatus==0
+                        if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
                             console.log(prompt)
                             prompt(
                                 '交易密码',
@@ -148,7 +148,6 @@ class Detail extends Component{
                                 [
                                   { text: '取消' },
                                   { text: '确认', onPress: password => {
-                                    console.log(`密码为:${password}`)
                                     password = hex_md5(password)
                                     cred = {
                                         password,
@@ -215,9 +214,9 @@ class Detail extends Component{
                 ]);
             }
         }else{
-            if(1){//是否实名认证detail.myInfo.trueName
-                if(1){//是否进行风险评估detail.myInfo.riskStatus==0
-                    if(1){//是否开户detail.myInfo.openAccountStatus
+            if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
+                if(detail.myInfo.riskStatus==0){//是否进行风险评估detail.myInfo.riskStatus==0
+                    if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
                         console.log(prompt)
                         prompt(
                             '交易密码',

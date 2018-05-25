@@ -13,8 +13,8 @@ import { PullToRefresh } from "antd-mobile";
 
 let cred ={
 	sortBy:null,
-	pageNum:1,
-	pageSize:5
+	pageSize:5,
+	pageNum:1
 }
 class SubjectListPage extends Component {
 	constructor() {
@@ -225,23 +225,37 @@ class SubjectListPage extends Component {
 			});
 		}
 	}
-	componentDidMount () {	
+	componentDidMount () {
+		cred.pageNum=1	
 		this.getsubjectList(cred)
 		this.gettransferList(cred)
 	}
 	componentWillReceiveProps (nextProps) {
 		console.log(nextProps)
 		const { subjectList } = nextProps;
-		if(this.state.tabClassOne){
-			this.setState({
-				list:subjectList.projectList.list
-			})
+		console.log(cred.pageNum)
+		if(cred.pageNum==1){
+			
+			if(this.state.tabClassOne){
+				this.setState({
+					list:subjectList.projectList.list
+				})
+			}else{
+				this.setState({
+					list:subjectList.transferList.list
+				})
+			}	
 		}else{
-			this.setState({
-				list:subjectList.transferList.list
-			})
+			if(this.state.tabClassOne){
+				this.setState({
+					list:[...this.state.list,...subjectList.projectList.list]
+				})
+			}else{
+				this.setState({
+					list:[...this.state.list,...subjectList.transferList.list]
+				})
+			}		
 		}
-		
 	}
 	getsubjectList(e){
 		const { getsubjectList } = this.props;
@@ -256,6 +270,7 @@ class SubjectListPage extends Component {
 	}
 	getNewData(){
 		cred.pageNum++;
+		console.log(cred.pageNum,this.props)
 		if (this.state.borderClass == "one"){
 			console.log('aaaa',this.props)
 			if(cred.pageNum<=this.props.subjectList.projectList.pages){

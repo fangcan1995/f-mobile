@@ -3,6 +3,7 @@ import { getInvestRecords } from '../../actions/investmentRecord';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/auth';
 import { bindActionCreators } from 'redux';
+import NoItem from '../../components/no-items/no-items'
 import './investment-records.less'
 
 class investmentRecords extends Component{
@@ -19,19 +20,25 @@ class investmentRecords extends Component{
         console.log(investmentRecord)
         return (
             <div id='investment-records'>
-                <div className = 'content'>
-                    {
-                        investmentRecord.records.map(item=>{
-                            return (
-                                <div className = 'records-list' key = {item.investTime}>
-                                    <div className = 'name'>{item.investor}<span className = 'r'>-{item.investAmt}</span></div>
-                                    <div className = 'invest-way'>{item.investWayString}<span className = 'r'>{item.investTime}</span></div>
-                                </div>
-                            )
-                        })
-                    }
+                {
+                    investmentRecord.records.length?
+                    <div className = 'content'>
+                        {
+                            investmentRecord.records.map(item=>{
+                                return (
+                                    <div className = 'records-list' key = {item.investTime}>
+                                        <div className = 'name'>{item.investor}<span className = 'r'>-{item.investAmt}</span></div>
+                                        <div className = 'invest-way'>{item.investWayString}<span className = 'r'>{item.investTime}</span></div>
+                                    </div>
+                                )
+                            })
+                        }
 
-                </div>
+                    </div>
+                    :
+                    <NoItem></NoItem>
+                }
+                
             </div>
         )
     }

@@ -7,7 +7,7 @@ const initialState = fromJS({
     reward:'选择系统奖励',
     redEnvelopeId:'',
     rateCouponId:'',
-    investWay:'app'
+    investWay:'4'
 });
 
 export default createReducer(initialState, {
