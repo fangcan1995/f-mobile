@@ -40,7 +40,7 @@ class CertificationPage extends Component {
             dispatch(certification(ajaxData))
             .then(res=>{
                 Toast.success('认证成功',1,()=>{
-                    this.props.history.goBack()
+                    this.props.history.push('/mobile/personal')
                 })               
             })
             .catch(err=>{

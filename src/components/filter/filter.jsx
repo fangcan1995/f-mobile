@@ -150,7 +150,59 @@ const filterOptions = {
                 val: '十二个月'
             },
         ]
-    }
+    },
+    tradeHistory: {
+        propsTopName: '交易类型',
+        propsBottomName: '时间范围',
+        propsTop: [
+            {
+                index: 1,
+                val: '充值'
+            },
+            {
+                index: 2,
+                val: '提现'
+            },
+            {
+                index: 3,
+                val: '投资'
+            },
+            {
+                index: 4,
+                val: '回款'
+            },
+            {
+                index: 5,
+                val: '资费'
+            },
+            {
+                index: 6,
+                val: '奖励'
+            },
+        ],
+        propsBottom: [
+            {
+                index: 1,
+                val: '一个月'
+            },
+            {
+                index: 3,
+                val: '三个月'
+            },
+            {
+                index: 6,
+                val: '六个月'
+            },
+            {
+                index: 12,
+                val: '一年'
+            },
+            {
+                index: 24,
+                val: '两年'
+            },
+        ]
+    },
 }
 
 
@@ -161,17 +213,20 @@ class Filter extends Component {
         const { filterConfig } = this.props;
         let showOption;
         switch (filterConfig) {
-            case '/my-transfer':
+            case '/mobile/my-transfer':
                 showOption = filterOptions['myTransfer'];
                 break;
-            case '/my-scatter':
+            case '/mobile/my-scatter':
                 showOption = filterOptions['myScatter'];
                 break;
-            case '/redpacket':
+            case '/mobile/redpacket':
                 showOption = filterOptions['redpacket'];
                 break;
-            case '/coupon':
-                showOption = filterOptions['redpacket'];
+            case '/mobile/coupon':
+                showOption = filterOptions['coupon'];
+                break;
+            case '/mobile/trade-history':
+                showOption = filterOptions['tradeHistory'];
                 break;
         }
         this.state = {

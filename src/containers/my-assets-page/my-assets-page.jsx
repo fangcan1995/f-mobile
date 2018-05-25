@@ -38,7 +38,8 @@ class MyAssetsPage extends Component {
 
     render() {
         const { myInfo } = this.props;
-        console.log(myInfo.availableBalance !== undefined);
+        let total = parseFloat(myInfo.availableBalance) + parseFloat(myInfo.freezingAmount) + parseFloat(myInfo.investAmount);
+        let isMax = total >= 100000 ? parseFloat(total.toString(10).slice(0, total.toString(10).length - 4)) : total;
         const options = {
             tooltip: {
                 trigger: 'item',
@@ -63,21 +64,21 @@ class MyAssetsPage extends Component {
                     },
                     data: [
                         { 
-                            value: myInfo.availableBalance !== undefined ? myInfo.availableBalance.toFixed(2) : 0..toFixed, 
+                            value: myInfo.availableBalance !== undefined ? parseFloat(myInfo.availableBalance).toFixed(2) : 0..toFixed, 
                             name: '账户余额', 
                             itemStyle: {
                                 color: '#3298fa'
                             }
                         },
                         { 
-                            value: myInfo.investAmount !== undefined ? myInfo.investAmount.toFixed(2) : 0..toFixed, 
+                            value: myInfo.investAmount !== undefined ? parseFloat(myInfo.investAmount).toFixed(2) : 0..toFixed, 
                             name: '已投金额', 
                             itemStyle: {
                                 color: '#71d1f5'
                             }
                         },
                         { 
-                            value: myInfo.freezingAmount !== undefined ? myInfo.freezingAmount.toFixed(2) : 0..toFixed, 
+                            value: myInfo.freezingAmount !== undefined ? parseFloat(myInfo.freezingAmount).toFixed(2) : 0..toFixed, 
                             name: '冻结金额', 
                             itemStyle: {
                                 color: '#c5d4ff'
@@ -100,12 +101,12 @@ class MyAssetsPage extends Component {
                 <div className="chartArea" style={this.state.style}>
                     <div className="totalNum">
                         {
-                            myInfo.availableBalance !== undefined
-                                ? (myInfo.availableBalance + myInfo.freezingAmount + myInfo.investAmount).toFixed(2)
+                            myInfo.availableBalance !== undefined 
+                                ? isMax.toFixed(2) || total.toFixed(2)
                                 : 0..toFixed(2)
                         }
                     </div>
-                    <div className="totalLabel">资产总额(元)</div>
+                    <div className="totalLabel">资产总额({isMax ? '万元' : '元'})</div>
                 </div>
                 <div className="chartInfo">
                     <div className="infoLine">
@@ -113,21 +114,21 @@ class MyAssetsPage extends Component {
                             <div className="color colorAccount"></div>
                             账户余额
                         </div>
-                        <div className="val">￥{myInfo.availableBalance !== undefined ? myInfo.availableBalance.toFixed(2) : 0..toFixed(2)}</div>
+                        <div className="val">￥{myInfo.availableBalance !== undefined ? parseFloat(myInfo.availableBalance).toFixed(2) : 0..toFixed(2)}</div>
                     </div>
                     <div className="infoLine">
                         <div className="title">
                             <div className="color colorAlready"></div>
                             已投金额
                         </div>
-                        <div className="val">￥{myInfo.investAmount !== undefined ? myInfo.investAmount.toFixed(2) : 0..toFixed(2)}</div>
+                        <div className="val">￥{myInfo.investAmount !== undefined ? parseFloat(myInfo.investAmount).toFixed(2) : 0..toFixed(2)}</div>
                     </div>
                     <div className="infoLine">
                         <div className="title">
                             <div className="color colorFreeze"></div>
                             冻结金额
                         </div>
-                        <div className="val">￥{myInfo.freezingAmount !== undefined ? myInfo.freezingAmount.toFixed(2) : 0..toFixed(2)}</div>
+                        <div className="val">￥{myInfo.freezingAmount !== undefined ? parseFloat(myInfo.freezingAmount).toFixed(2) : 0..toFixed(2)}</div>
                     </div>
                 </div>
                 <div className="chartAction">

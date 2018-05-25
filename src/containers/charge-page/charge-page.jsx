@@ -36,13 +36,13 @@ class ChargePage extends Component {
         const { myInfo } = this.props;
         this.setState({
             chargeNum: e.target.value,
-            leftNum: (myInfo.availableBalance + parseFloat(e.target.value === '' ? 0 : e.target.value)).toFixed(2)
+            leftNum: (parseFloat(myInfo.availableBalance) + parseFloat(e.target.value === '' ? 0 : e.target.value)).toFixed(2)
         });
     }
 
     componentDidMount() {
-        const { dispatch } = this.props;
-        //dispatch(getMyInfo());
+        const { getMyInfo } = this.props;
+        getMyInfo();
     }
 
     handleCharge() {
@@ -73,13 +73,13 @@ class ChargePage extends Component {
                                 placeholder="请输入充值金额"
                                 value={this.state.chargeNum === 0..toFixed(2) ? '' : this.state.chargeNum}
                                 onChange={this.handleChange.bind(this)}
-                            //disabled={myInfo.availableBalance === undefined}
+                                disabled={myInfo.availableBalance === undefined}
                             />
                             <span className="inputTip">手续费 {'0.00'} 元</span>
                         </label>
                     </div>
                     <div className="canuse">
-                        <span>可用余额 {myInfo.availableBalance !== undefined ? myInfo.availableBalance.toFixed(2) : 0..toFixed(2)} 元</span>
+                        <span>可用余额 {myInfo.availableBalance !== undefined ? parseFloat(myInfo.availableBalance).toFixed(2) : 0..toFixed(2)} 元</span>
                         <span>充值后余额 {this.state.leftNum} 元</span>
                     </div>
                 </div>

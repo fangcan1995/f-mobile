@@ -9,7 +9,6 @@ export const getCharge = (chargeNum) => {
             })
             const { code, data } = res;
             if(code == 0) {
-                //console.log(data);
                 return data;
             }
             else {
