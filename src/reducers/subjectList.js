@@ -22,7 +22,7 @@ export default createReducer(initialState, {
   [`subject/GET_LIST_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
     projectList: {
-      list:[...state.toJS().projectList.list,...action.payload.list],
+      list:action.payload.list,
       pages:action.payload.pages
     }
   }),
@@ -37,8 +37,8 @@ export default createReducer(initialState, {
   [`subject/GET_TRANSFER_LIST_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
     transferList: {
-      list:[...state.toJS().transferList.list,...action.payload.list],
-      pages:action.payload.pa
+      list:action.payload.list,
+      pages:action.payload.pages
     }
   }),
   [`subject/GET_TRANSFER_LIST_REJECTED`]: (state, action) => state.merge({
