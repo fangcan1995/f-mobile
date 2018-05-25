@@ -3,10 +3,11 @@ import { fromJS } from 'immutable';
 
 const initialState = fromJS({
     isFetching: false,
+    isPosting:false,
     projectDetails:{},
     myInfo:{},
     money:0,
-    invest:'',
+    postResult:{},
     profit:0.00
 });
 
@@ -53,14 +54,19 @@ export default createReducer(initialState, {
   //提交投资
 
   [`detail/POST_INVEST_PENDING`]: (state, action) => state.merge({
-    isFetching: true,
+    isPosting: true,
   }),
-  [`detail/POST_INVEST_FULFILLED`]: (state, action) => state.merge({
-    isFetching: false,
-    invest: action.payload
-  }),
+  [`detail/POST_INVEST_FULFILLED`]: (state, action) =>{
+    console.log(action)
+    return (
+      state.merge({
+        isPosting: false,
+        postResult: action.payload
+      })
+    )
+  } ,
   [`detail/POST_INVEST_REJECTED`]: (state, action) => state.merge({
-    isFetching: false,
-    errorMessage: action.msg
+    isPosting: false,
+    errorMessage: action.msg,
   }),
 })

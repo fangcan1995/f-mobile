@@ -14,7 +14,7 @@ export const  getsubjectList = (params) => {
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
-          return data.list || {};
+          return data || {};
         } else {
           throw res;
         }
@@ -31,7 +31,7 @@ export const  getsubjectList = (params) => {
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
-          return data.list || {};
+          return data || {};
         } else {
           throw res;
         }
