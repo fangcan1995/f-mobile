@@ -24,12 +24,20 @@ class TradeHistoryPage extends Component {
                 {
                     tradeList.length > 0 
                         ? tradeList.map(item => {
-                            return {/* <TradeCard isTrade={isTrade} data={} url={match.url}/> */}
+                            return  <TradeCard isTrade={isTrade} data={item} key={item.outSeqNo}/>
                         })
                         : <NoItems />
                 }
-                {/* <TradeCard isTrade={isTrade} data={} />*/}
-                {/* <Filter /> */}
+                <Filter filterConfig={match.url} 
+                    result={
+                        result => {
+                            console.log(
+                                result.propTopIndex ? result.propTopIndex : 0,
+                                result.propBottomIndex ? result.propBottomIndex : ''
+                            );
+                        }
+                    }
+                />
             </div>
         );
     }

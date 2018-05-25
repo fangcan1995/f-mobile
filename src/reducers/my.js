@@ -3,7 +3,8 @@ import { fromJS } from 'immutable';
 
 const initialState = fromJS({
     isFetching: false,
-    myInfo: {}
+    myInfo: {},
+    myCertification: {}
 });
 
 export default createReducer(initialState, {
@@ -15,6 +16,18 @@ export default createReducer(initialState, {
         myInfo: action.payload
     }),
     ['GET_MYINFO_REJECTED']: (state, action) => state.merge({
+        isFetching: false,
+        errorMessage: action.message
+    }),
+
+    ['GET_MYCERTIFICATION_PENDING']: (state, action) => state.merge({
+        isFetching: true,
+    }),
+    ['GET_MYCERTIFICATION_FULFILLED']: (state, action) => state.merge({
+        isFetching: false,
+        myCertification: action.payload
+    }),
+    ['GET_MYCERTIFICATION_REJECTED']: (state, action) => state.merge({
         isFetching: false,
         errorMessage: action.message
     }),

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Toast } from 'antd-mobile';
+import cookie from 'js-cookie';
 import { isWeiXin, setBrowserTitle } from '../../libs/utils';
 
 import touxiang from '../../assets/images/home-list4.png';
@@ -16,21 +17,26 @@ class My extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        console.log(isWeiXin());
-        setBrowserTitle('我的');
+    componentDidMount() { 
         const { getMyInfo, match, history } = this.props;
-        getMyInfo();
-        if(match.params.callback) {
-            switch(match.params.callback) {
-                case 'pay_9999': 
-                    this.showToast('操作失败', 2.5);
-                    history.push('/mobile/my');
-                    break;
-                case 'pay_0000':
-                    this.showToast('操作成功', 2.5);
-                    history.push('/mobile/my');
-                    break;
+        setBrowserTitle('我的');
+        const { token_type, access_token } = cookie.getJSON('token') || {};
+        if(!(token_type && access_token)) {
+            history.push(`/mobile/login?redirect=/mobile/my`);
+        }
+        else {
+            getMyInfo();
+            if(match.params.callback) {
+                switch(match.params.callback) {
+                    case 'pay_9999': 
+                        this.showToast('操作失败', 2.5);
+                        history.push('/mobile/my');
+                        break;
+                    case 'pay_0000':
+                        this.showToast('操作成功', 2.5);
+                        history.push('/mobile/my');
+                        break;
+                }
             }
         }
     }
