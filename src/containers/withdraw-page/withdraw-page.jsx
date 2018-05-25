@@ -38,12 +38,14 @@ class WithdrawPage extends Component {
     componentDidUpdate() {
         const { myCertification, myInfo, history } = this.props;
         if(myCertification.idNumberStatus === '1') {
-            Toast.info('您还没有实名认证！', 2.5);
-            history.push('/mobile/personal');
+            Toast.info('您还没有实名认证！', 2.5, () => {
+                history.push('/mobile/personal');
+            });
         }
         else if(myCertification.bankNoStatus === '1'){
-            Toast.info('您还没有开户！', 2.5);
-            history.push('/mobile/personal');
+            Toast.info('您还没有开户！', 2.5, () => {
+                history.push('/mobile/personal');
+            });
         }
     }
 

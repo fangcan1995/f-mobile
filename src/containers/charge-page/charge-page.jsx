@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import '../withdraw-page/withdraw-page.less';
 
 
-import { getMyInfo } from '../../actions/my';
+import { getMyInfo, getMyCertification } from '../../actions/my';
 import { getCharge } from '../../actions/charge';
 import { Toast, Button } from 'antd-mobile';
 
@@ -41,8 +41,24 @@ class ChargePage extends Component {
     }
 
     componentDidMount() {
-        const { getMyInfo } = this.props;
+        const { getMyInfo, getMyCertification } = this.props;
         getMyInfo();
+        getMyCertification();
+    }
+
+    componentDidUpdate() {
+        console.log(this.props)
+        const { myCertification, history } = this.props;
+        if(myCertification.idNumberStatus === '1') {
+            Toast.info('您还没有实名认证！', 2.5, () => {
+                history.push('/mobile/personal');
+            });
+        }
+        else if(myCertification.bankNoStatus === '1'){
+            Toast.info('您还没有开户！', 2.5, () => {
+                history.push('/mobile/personal');
+            });
+        }
     }
 
     handleCharge() {
@@ -119,7 +135,8 @@ class ChargePage extends Component {
 const mapStateToProps = state => {
     const { my } = state.toJS();
     return {
-        myInfo: my.myInfo
+        myInfo: my.myInfo,
+        myCertification: my.myCertification,
     }
 }
 
@@ -127,6 +144,9 @@ const mapDispatchToProps = dispatch => {
     return {
         getMyInfo: () => {
             dispatch(getMyInfo());
+        },
+        getMyCertification: () => {
+            dispatch(getMyCertification());
         },
         getCharge: (chargeNum) => {
             return dispatch(getCharge(chargeNum));
