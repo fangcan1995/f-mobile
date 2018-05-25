@@ -56,7 +56,7 @@ export const certification = (params) => {
             },
             body:JSON.stringify(params),
             // credentials: 'include' 
-        },false);
+        });
         if ( res.code == 0 ) {
             console.log(res.data)
           return res || {};
@@ -136,7 +136,7 @@ export const riskEvaluationResult = () => {
         });
         console.log(res)
         if ( res.code == 0 ) {
-          return res || {};
+          return res.data || {};
         } else {
           throw res;
         }

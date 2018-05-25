@@ -15,15 +15,32 @@ class RiskEvaluationResultPage extends Component {
 	render() {
     const { personal } = this.props;
     console.log(personal)
-    let ristObj=personal.getRiskEvaluationResult.data.requireEval
+    let objData=personal.getRiskEvaluationResult;
+    console.log(objData)
 		return (
             <div className='riskEvaluationResult-body'>
                <div className='lable'>
                    风险评估结果：
                </div>
-               <div className='phone-number'>{ristObj}</div>
-               {/* <div className='word'>为了您的账户安全，若手机更换修改绑定手机号码</div> */}
-               <Link to="/authentication"><button className='login-submit'>重新评估</button></Link>
+               <ul>
+                 <li>
+                    <label>评测等级：</label>
+                    <span>{objData.riskLevel}</span>
+                  </li>
+                  <li>
+                    <label>获得称号：</label>
+                      <span>{objData.name}</span>             
+                  </li>
+                  <li>
+                    <label>投资最大额度：</label>
+                    <span>{objData.investTotal}</span>
+                  </li>
+                  <li>
+                    <label>剩余可投金额：</label>
+                    <span>{objData.surplusInvestTotal}</span>
+                  </li>
+               </ul>
+               <Link to="/mobile/authentication"><button className='login-submit'>重新评估</button></Link>
             </div>
 			)
 	}

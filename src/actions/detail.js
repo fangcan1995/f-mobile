@@ -1,6 +1,6 @@
 import cFetch from '../libs/cFetch';
 let urls='http://172.16.7.3:9070/'
-
+import { Toast } from 'antd-mobile';
 
 export const  getDetails = (params) => {
     console.log('aaa222111111')
@@ -24,7 +24,7 @@ export const  getDetails = (params) => {
     return {
       type: 'detail/GET_MY_INFO',
       async payload() {
-        const res = await cFetch(`app/accounts/my/info` , { method: 'GET' },true);
+        const res = await cFetch(`accounts/my/info?access_token=765f5644-5e10-459a-aabd-4b5a3719496e` , { method: 'GET' },true,'http://172.16.1.221:9070/');
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
@@ -91,23 +91,46 @@ export const setProfit = cd => {
 }
   //提交投资
 
-  export const postInvest = (params) => {
+  export const postInvest = (params,times) => {
+    console.log(params);
     return {
       type: 'detail/POST_INVEST',
       async payload(){
-          let res= await cFetch(`app/invest/invest`, {           
+          return await cFetch(`app/invest/invest`, {           
               method: 'POST', 
               headers: {
                   'Content-Type': 'application/json'
               },
               body:JSON.stringify(params),
-          },true);
-          if ( res.code == 0 ) {
-              console.log(res.data)
-            return res || {};
-          } else {
-            throw res;
-          }
+          },true).then(res=>{
+             if ( res.code == 0 ) {
+                  console.log(res.data)
+                  Toast.success(res.message,1)
+                return res || {};
+              } else {
+                console.log(res)
+                throw res;
+              }
+          })
+          .catch(err=>{
+            console.log(err)
+            err.msg=101;
+            let type=``;
+            console.log('返回第'+(times+1)+'次请求的结果');
+            if((times+1)===5){
+              err.msg=102;
+              Toast.fail(err.message,1)
+            }
+            // Toast.loading(err.message,1)
+            return {
+                code:err.code,
+                type:type,
+                message:err.message||``,
+                userCode:err.msg,
+                times:times+1
+            }
+          });
+          
       } 
     };
   };

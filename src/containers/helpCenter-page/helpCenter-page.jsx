@@ -45,7 +45,8 @@ class HelpCenterPage extends Component {
     }
   }
   componentDidMount(){
-    setBrowserTitle('帮助中心')
+    setBrowserTitle('帮助中心');
+    ajaxData.pageNum=1;
     const { dispatch } = this.props;
     dispatch(clearData());
 		this.getListData(4)

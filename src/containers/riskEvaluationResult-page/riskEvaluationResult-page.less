@@ -4,7 +4,27 @@
         margin-top: unit(46px / (@baseWidth / @baseColumns), rem);
         margin-left: unit(75px / (@baseWidth / @baseColumns), rem);
         font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+        color:#000;
+    }
+    ul{
+        margin-left:unit(75px / (@baseWidth / @baseColumns), rem); 
+        margin-top: unit(30px / (@baseWidth / @baseColumns), rem);
+        font-size: unit(24px / (@baseWidth / @baseColumns), rem);
         color:#979AA7;
+        li{
+            margin-bottom: unit(20px / (@baseWidth / @baseColumns), rem);
+            overflow: hidden;
+            .reasult-box{
+                overflow: hidden;
+                margin-left:unit(275px / (@baseWidth / @baseColumns), rem);  
+            }
+            label{
+                text-align: right;
+                display: inline-block;
+                width:unit(200px / (@baseWidth / @baseColumns), rem); 
+            }
+        }
+
     }
     .phone-number{
         margin-left: unit(75px / (@baseWidth / @baseColumns), rem);

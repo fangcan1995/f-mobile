@@ -7,6 +7,7 @@ import { Modal, Toast } from 'antd-mobile';
 import { hex_md5 } from '../../libs/md5'
 import './detail.less'
 
+let cred = {}
 class Detail extends Component{
     state = {
         money: 0,
@@ -28,8 +29,8 @@ class Detail extends Component{
                 minInvestAmount:res.value.minInvestAmount,
                 minInvestAmount2:res.value.minInvestAmount,
             })
-            setMoney(res.value.minInvestAmount)
-            setProfit(res.value.minInvestAmount*(res.value.annualRate/12*res.value.loanExpiry)*0.01)
+            // setMoney(res.value.minInvestAmount)
+            // setProfit(res.value.minInvestAmount*(res.value.annualRate/12*res.value.loanExpiry)*0.01)
         });
         if(this.props.auth.isAuthenticated){
             getMyInfo()
@@ -54,7 +55,7 @@ class Detail extends Component{
         }
         this.setState({
             money:this.state.money-100,
-            minInvestAmount:this.state.minInvestAmount-100,
+            // minInvestAmount:this.state.minInvestAmount-100,
             profit:(this.state.money-100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01     
         })
         setMoney(this.state.money-100);
@@ -63,22 +64,12 @@ class Detail extends Component{
     handlePlusClick(){
         const { detail, setMoney, setProfit } = this.props;
         if(this.state.money>=this.state.sumMoney||this.state.money>=this.props.detail.projectDetails.surplusAmount||this.state.money>=this.props.detail.projectDetails.maxInvestAmount){
-            // Modal.alert(`投资金额超过可用余额或超过最大可投金额`,'请重新输入有效金额', [
-            //     {
-            //         text: '确认',
-            //         onPress: () => {
-            //             setMoney(this.state.minInvestAmount)
-            //             setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
-            //             this.props.history.push('/mobile/detail')
-            //         }
-            //     }
-            // ]);
             Toast.fail(`投资金额不能超过可用余额或最大可投金额`,1)
             return 
         }
         this.setState({
             money:this.state.money+100,    
-            minInvestAmount:this.state.minInvestAmount+100,        
+            // minInvestAmount:this.state.minInvestAmount+100,        
             profit:(this.state.money+100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01    
         })
         console.log(this.state.money)
@@ -89,7 +80,7 @@ class Detail extends Component{
         const { detail, setMoney, setProfit } = this.props;
         this.setState({
             money:this.state.sumMoney,
-            minInvestAmount:this.state.sumMoney,
+            // minInvestAmount:this.state.sumMoney,
             profit:(this.state.sumMoney)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 
         })
         setMoney(this.state.sumMoney)
@@ -124,7 +115,7 @@ class Detail extends Component{
                     onPress: () => {
                         setMoney(this.state.minInvestAmount)
                         setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
-                        this.props.history.push('/mobile/detail')
+                        // this.props.history.push('/mobile/detail')
                     }
                 }
             ]);
@@ -136,7 +127,7 @@ class Detail extends Component{
             const massage = detail.projectDetails.maxInvestAmount<detail.projectDetails.surplusAmount?'投资额度超过单笔最大额度':'投资额度超过标的剩余可投金额'
             Toast.fail(massage+minmoney,1)
         }
-        let cred = {
+        cred = {
             validationCode:auth.loginCode,
             projectId:detail.projectDetails.id,
             investAmt:this.state.money,
@@ -163,8 +154,10 @@ class Detail extends Component{
                                         password,
                                         ...cred
                                     }
-                                    postInvest(cred).then(res=>{
+                                    postInvest(cred,0)
+                                    .then(res=>{
                                         console.log('wwwwwww')
+                                        Toast.loading('请稍等',1)
                                     }).catch(err=>{
                                         console.log('wwwwwww2')
                                         Toast.fail(err.msg,1)
@@ -238,10 +231,12 @@ class Detail extends Component{
                                     password,
                                     ...cred
                                 }
-                                postInvest(cred).then(res=>{
+                                postInvest(cred,0)
+                                .then(res=>{
                                     console.log('wwwwwww')
+                                    Toast.loading('请稍等',1)
                                 }).catch(err=>{
-                                    console.log('wwwwwww2')
+                                    console.log(err)
                                     Toast.fail(err.msg,1)
                                 })
                                 }
@@ -288,6 +283,15 @@ class Detail extends Component{
             }
         }
     };
+
+    componentDidUpdate(){
+        const { detail, postInvest } = this.props;
+        let {postResult,isPosting}=detail;
+        if(postResult.userCode===101 && postResult.times<5 && !isPosting){
+            console.log('在这里发第'+(postResult.times+1)+'次请求');
+            postInvest(cred,postResult.times)
+        }
+    }
     handleLoginClick(){
         this.props.history.push('/mobile/login')
     }
@@ -345,7 +349,7 @@ class Detail extends Component{
                                 </p>
                                 <div className className = 'money'>
                                     <span className = 'minus' onClick = {this.handleMinusClick.bind(this)}><i className = 'icon-minus'></i></span>
-                                    <div className = 'number'>{this.state.minInvestAmount}</div>
+                                    <div className = 'number'>{this.state.money}</div>
                                     <span className = 'plus' onClick = {this.handlePlusClick.bind(this)}><i className = 'icon-plus'></i></span>
                                 </div>
                                 <div className = 'sum'>参考收益：
