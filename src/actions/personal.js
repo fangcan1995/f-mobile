@@ -56,7 +56,7 @@ export const certification = (params) => {
             },
             body:JSON.stringify(params),
             // credentials: 'include' 
-        },false);
+        });
         if ( res.code == 0 ) {
             console.log(res.data)
           return res || {};

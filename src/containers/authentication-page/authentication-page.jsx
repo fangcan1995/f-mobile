@@ -52,14 +52,13 @@ class AuthenticationPage extends Component {
       dispatch(submitCertification(submitData))
       .then(res=>{
         Toast.success(res.value.message,1,()=>{
-          this.props.history.goBack()
+          this.props.history.push('/mobile/personal')
         });
       })
       .catch(err=>{
         Toast.fail(err.msg,1)
       })
     }
-    console.log(submitData)
   }
   render() {
     const { personal } = this.props;
