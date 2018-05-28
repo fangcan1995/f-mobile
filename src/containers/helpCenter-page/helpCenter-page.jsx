@@ -21,6 +21,7 @@ class HelpCenterPage extends Component {
       borderClass: "one",
       tabClassOne: "active",
       tabClassTwo: "",
+      refreshing: false,
       height: document.documentElement.clientHeight,
     };
   }
@@ -49,21 +50,53 @@ class HelpCenterPage extends Component {
     ajaxData.pageNum=1;
     const { dispatch } = this.props;
     dispatch(clearData());
-		this.getListData(4)
+    this.getListData(4);
+    const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
+		setTimeout(() => this.setState({
+      height: hei,
+    }), 0);
   }
   getListData(type){
     const { dispatch } = this.props;
-    dispatch(dynamic(type,ajaxData));
+    return dispatch(dynamic(type,ajaxData));
   }
   getNewData() {
     ajaxData.pageNum++;
     if (this.state.borderClass == "one") {
       if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
-        this.getListData(4, ajaxData);
+        this.getListData(4, ajaxData)
+        .then(res=>{
+          this.setState({
+            refreshing:false
+          })   
+        })
+        .catch(err=>{
+          this.setState({
+            refreshing:false
+          }) 
+        }) 
+      }else{
+        this.setState({
+          refreshing:false
+        }) 
       }     
     } else {
       if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
-        this.getListData(5, ajaxData);
+        this.getListData(5, ajaxData)
+        .then(res=>{
+          this.setState({
+            refreshing:false
+          })   
+        })
+        .catch(err=>{
+          this.setState({
+            refreshing:false
+          }) 
+        }) 
+      }else{
+        this.setState({
+          refreshing:false
+        }) 
       }
     }
   }
