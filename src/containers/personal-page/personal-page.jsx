@@ -63,7 +63,7 @@ class PersonalContainer extends Component {
          
         })
         .catch(err=>{
-            Toast.fail(err.msg,1)
+            Toast.fail(err.message,1)
         })
     }
     render () {

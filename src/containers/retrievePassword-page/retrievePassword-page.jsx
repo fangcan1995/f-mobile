@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { retrievePassword,retrievePasswordCode,smsRetrievePasswordCode } from '../../actions/retrievePassword';
-import { isTel } from '../../libs/utils';
+import { isTel,istruePsd } from '../../libs/utils';
 import './retrievePassword-page.less';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
@@ -59,7 +59,7 @@ class RetrievePasswordPage extends Component {
                 const { dispatch } = this.props;
                 dispatch(retrievePasswordCode());    
                 
-                Toast.fail(res.msg,1)
+                Toast.fail(res.message,1)
             })
             
             
@@ -105,6 +105,14 @@ class RetrievePasswordPage extends Component {
             Toast.info('请输入短信验证码')
             return false
         }
+        else if(!this.state.password){
+            Toast.info('请输入新密码')
+            return false
+        }
+        else if(!istruePsd(this.state.password)){
+            Toast.info('密码长度为6-16位，必须包含数字、字母、符号')
+            return false
+        }
         else{
             console.log(this.props)
             let submitData = {...{image_code:this.props.retrievePassword.retrievePasswordCode.imageCode},...params};
@@ -121,7 +129,7 @@ class RetrievePasswordPage extends Component {
                 this.props.history.push('/mobile/login')
             })
             .catch(err=>{
-                Toast.fail(err.msg,1)
+                Toast.fail(err.message,1)
             })
         }
     }

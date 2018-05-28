@@ -16,7 +16,7 @@ export const retrievePassword = (params) => {
             },
             body:params,
             credentials: 'include' 
-        });
+        },false);
         if ( res.code == 0 ) {
             console.log(res.data)
           return res.data || [];
@@ -38,7 +38,7 @@ export const retrievePasswordCode = () => {
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include'
-            });
+            },false);
             console.log(res)
             if(res.imageCode){
                 console.log(res)

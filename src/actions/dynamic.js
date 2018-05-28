@@ -13,7 +13,7 @@ export const dynamic = (id,ajaxData) => {
               headers: {
                   'Content-Type': 'application/json'
               },
-          });
+          },false);
           if ( res.code == 0 ) {
             return res.data || {};
           } else {

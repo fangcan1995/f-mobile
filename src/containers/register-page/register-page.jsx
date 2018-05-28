@@ -64,7 +64,7 @@ class RegisterPage extends Component {
             .catch(res=>{
                 const { dispatch } = this.props;
                 dispatch(registerCode());
-                Toast.fail(res.msg,1)
+                Toast.fail(res.message,1)
             })           
         }           
     }
@@ -151,7 +151,7 @@ class RegisterPage extends Component {
             .catch(err=>{
                 const { dispatch } = this.props;
                 dispatch(registerCode());
-                Toast.fail(err.msg,1)
+                Toast.fail(err.message,1)
             })
         }
     }
