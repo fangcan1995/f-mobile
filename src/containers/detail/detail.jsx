@@ -74,6 +74,17 @@ class Detail extends Component{
             ]); 
             return 
         }
+        if(detail.projectDetails.surplusAmount==0){
+            Modal.alert(`该标的已经投满`,'请重新选择其他标的', [
+                {
+                    text: '确认',
+                    onPress: () => {
+                        this.props.history.push('/mobile/subjectList')
+                    }
+                }
+            ]);
+            return  
+        }
         if(this.state.money>=this.state.sumMoney||this.state.money>=this.props.detail.projectDetails.surplusAmount||this.state.money>=this.props.detail.projectDetails.maxInvestAmount){
             Toast.fail(`投资金额不能超过可用余额或最大可投金额以及标的剩余可投金额`,1)
             return 
