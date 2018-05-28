@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Immutable from "immutable";
@@ -19,6 +20,7 @@ class DynamicPage extends Component {
       borderClass: "one",
       tabClassOne: "active",
       tabClassTwo: "",
+      refreshing: false,
       height: document.documentElement.clientHeight,
     };
   }
@@ -48,21 +50,59 @@ class DynamicPage extends Component {
     const { dispatch } = this.props;
     dispatch(clearData());
     this.getListData(2);
+    const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
+		setTimeout(() => this.setState({
+      height: hei,
+    }), 0);
   }
   getListData(type) {
     
     const { dispatch } = this.props;
-    dispatch(dynamic(type, ajaxData));
+    return dispatch(dynamic(type, ajaxData));
   }
   getNewData() {
     ajaxData.pageNum++;
     if (this.state.borderClass == "one") {     
-      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
-        this.getListData(2, ajaxData);
+      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){  
+        this.setState({
+          refreshing:true
+        })      
+        this.getListData(2, ajaxData)
+        .then(res=>{
+          this.setState({
+            refreshing:false
+          })   
+        })
+        .catch(err=>{
+          this.setState({
+            refreshing:false
+          }) 
+        })       
+      }else{
+        this.setState({
+          refreshing:false
+        }) 
       }      
     } else {
+       this.setState({
+          refreshing:true
+        })   
       if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
-        this.getListData(1, ajaxData);
+        this.getListData(1, ajaxData)
+        .then(res=>{
+          this.setState({
+            refreshing:false
+          })  
+        })
+        .catch(err=>{
+          this.setState({
+            refreshing:false
+          })
+        })
+      }else{
+        this.setState({
+          refreshing:false
+        })
       }
     }
   }
