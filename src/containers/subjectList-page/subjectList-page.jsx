@@ -44,9 +44,14 @@ class SubjectListPage extends Component {
 			tabClassOne: "active",
 			tabClassTwo: ""
 		  });
+		  const { subjectList } = this.props;
+		  this.getsubjectList(cred)
 		  this.setState({
 			  list:subjectList.projectList.list
 		  })
+		//   this.setState({
+		// 	  list:subjectList.projectList.list
+		//   })
 		} else {
 		  this.setState({
 			borderClass: "two",
@@ -290,7 +295,11 @@ class SubjectListPage extends Component {
 					console.log(res)
 					this.setState({
 						list:[...this.state.list,...res.value.list],
-						refreshing:false
+						
+					})
+				}).then(()=>{
+					this.setState({
+						// refreshing:false
 					})
 				}).catch(()=>{
 					this.setState({
