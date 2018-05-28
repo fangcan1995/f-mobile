@@ -9,6 +9,13 @@ const isTel = val => {
   var reg = /^1[3|4|5|7|8]\d{9}$/;
   return reg.test(val);
 };
+
+const istruePsd = val => {
+  var reg = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*?_., ]).*$/;
+  return reg.test(val);
+};
+
+
 const isIdCard = val => {
   var reg = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/;
   return reg.test(val);
@@ -272,6 +279,7 @@ export {
   isNumber,
   isTel,
   isIdCard,
+  istruePsd,
   trim,
   isArray,
   preloadImage,

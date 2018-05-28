@@ -6,7 +6,7 @@ import './../retrievePassword-page/retrievePassword-page.less';
 import { hex_md5 } from '../../libs/md5';
 import { changePassword } from '../../actions/changePassword'
 import  { Toast } from 'antd-mobile';
-import {setBrowserTitle } from '../../libs/utils';
+import {setBrowserTitle,istruePsd } from '../../libs/utils';
 class ChangePasswordPage extends Component {
 	constructor(){
         super();
@@ -53,10 +53,15 @@ class ChangePasswordPage extends Component {
         else if(!this.state.newPassword){
             Toast.info('请输入新密码')
             return false
-        }else if(!this.state.confirmPassword){
+        }
+        else if(!istruePsd(this.state.newPassword)){
+            Toast.info('密码长度为6-16位，必须包含数字、字母、符号');
+            return false;
+        }
+        else if(!this.state.confirmPassword){
             Toast.info('请输入确认密码')
             return false
-        }
+        }      
         else if(this.state.newPassword != this.state.confirmPassword){
             Toast.info('两次输入密码不一致')
             return false

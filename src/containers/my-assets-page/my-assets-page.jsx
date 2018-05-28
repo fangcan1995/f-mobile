@@ -132,8 +132,8 @@ class MyAssetsPage extends Component {
                     </div>
                 </div>
                 <div className="chartAction">
-                    <Link to="/subjectList"><button>投资</button></Link>
-                    <Link to="/charge"><button className="charge">充值</button></Link>
+                    <Link to="/mobile/subjectList"><button>投资</button></Link>
+                    <Link to="/mobile/charge"><button className="charge">充值</button></Link>
                 </div>
             </div>
         );

@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 import { register,registerCode,smsRegisterCode } from '../../actions/register';
 import { Link } from 'react-router-dom';
 import './register-page.less';
-import { isTel } from '../../libs/utils';
+import { isTel,istruePsd } from '../../libs/utils';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
 import {parseQueryString,setBrowserTitle} from '../../libs/utils';
@@ -45,7 +45,8 @@ class RegisterPage extends Component {
         else if(!isTel(this.state.username)){
             Toast.info('请输入正确手机号')
             return false;
-        }else{
+        }
+        else{
             console.log(this.props)
             let smsRegisterCodeData={
                 username:this.state.username,
@@ -123,6 +124,10 @@ class RegisterPage extends Component {
         else if(!this.state.register_code){
             Toast.info('请输入短信验证码')
             return false
+        }
+        else if(!istruePsd(this.state.password)){
+            Toast.info('密码长度为6-16位，必须包含数字、字母、符号');
+            return false;
         }
         else{
             console.log(this.props)

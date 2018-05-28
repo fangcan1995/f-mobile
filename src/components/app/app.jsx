@@ -121,14 +121,11 @@ class App extends Component {
 
     componentDidMount() {
         const { location } = this.props;
-        console.log(location.pathname);
-        console.log('/mobile/detail'.indexOf(location.pathname));
         this.changeTitle(location.pathname);
     }
 
     componentDidUpdate() {
         const { location } = this.props;
-        console.log(location.pathname);
         this.changeTitle(location.pathname);
     }
 

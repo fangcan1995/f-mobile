@@ -10,7 +10,7 @@ import './my.less'
 import FooterTab from '../../components/footer-tab/footer-tab';
 import './my.less';
 
-import { getMyInfo } from '../../actions/my';
+import { getMyInfo, getMyCertification } from '../../actions/my';
 
 class My extends Component {
     constructor(props) {
@@ -18,13 +18,13 @@ class My extends Component {
     }
 
     componentDidMount() { 
-        const { getMyInfo, match, history } = this.props;
-        setBrowserTitle('我的');
+        const { getMyInfo, match, history, getMyCertification } = this.props;
         const { token_type, access_token } = cookie.getJSON('token') || {};
         if(!(token_type && access_token)) {
             history.push(`/mobile/login?redirect=/mobile/my`);
         }
         else {
+            getMyCertification();
             getMyInfo();
             if(match.params.callback) {
                 switch(match.params.callback) {
@@ -41,13 +41,35 @@ class My extends Component {
         }
     }
 
-    showToast(text, time) {
-        Toast.info(text, time);
+    showToast(text, time, callback) {
+        Toast.info(text, time, callback);
+    }
+
+    handleAction (to) {
+        const { myCertification, history } = this.props;
+        if(myCertification.idNumberStatus === '1') {
+            this.showToast('请先进行实名认证！', 2.5, () => {
+                history.push('/mobile/personal');
+            });
+        }
+        else if(myCertification.bankNoStatus === '1') {
+            this.showToast('请先进行开户操作！', 2.5, () => {
+                history.push('/mobile/personal');
+            });
+        }
+        else {
+            if(to === 'charge') {
+                history.push('/mobile/charge');
+            }
+            else {
+                history.push('/mobile/withdraw');
+            }
+            
+        }
     }
 
     render() {
-        const { myInfo, match } = this.props;
-        console.log(myInfo)
+        const { myInfo, match, myCertification } = this.props;
         return (
             <div id='my' className='footer-tab-body'>
                 <div className='footer-tab-content'>
@@ -132,8 +154,8 @@ class My extends Component {
                             </span>
                         </div>
                         <div className='buttom'>
-                            <Link to="/mobile/charge"><div className='left'>充值</div></Link>
-                            <Link to="/mobile/withdraw"><div className='right'>提现</div></Link>
+                            <div className='left' onClick={this.handleAction.bind(this, 'charge')}>充值</div>
+                            <div className='right' onClick={this.handleAction.bind(this, 'withdraw')}>提现</div>
                         </div>
                         <div className='list'>
                             <div className='list-item'>
@@ -182,7 +204,8 @@ class My extends Component {
 const mapStateToProps = state => {
     const { my } = state.toJS();
     return {
-        myInfo: my.myInfo
+        myInfo: my.myInfo,
+        myCertification: my.myCertification
     }
 }
 
@@ -190,6 +213,9 @@ const mapDispatchToProps = dispatch => {
     return {
         getMyInfo: () => {
             dispatch(getMyInfo());
+        },
+        getMyCertification: () => {
+            dispatch(getMyCertification());
         }
     }
 }

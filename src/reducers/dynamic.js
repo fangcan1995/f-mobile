@@ -21,7 +21,8 @@ export default createReducer(initialState, {
   [`${DYNAMIC}_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
     dynamic:{
-      list:[...state.toJS().dynamic.list,...action.payload.list],
+      // list:[...state.toJS().dynamic.list,...action.payload.list],
+      list:[...state.toJS().dynamic.list].concat(action.payload.list),
       pages:action.payload.pages
     }
   }),
