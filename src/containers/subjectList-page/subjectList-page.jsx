@@ -288,7 +288,7 @@ class SubjectListPage extends Component {
 		console.log(this.state.list)
 		return (
             <div className="subjectList-body footer-tab-body">
-				<div className="main footer-tab-content">
+				<div className="main footer-tab-content subList">
 					<ul className="tab-title">
 						<li
 						className={`l tabClass ${this.state.tabClassOne}`}
