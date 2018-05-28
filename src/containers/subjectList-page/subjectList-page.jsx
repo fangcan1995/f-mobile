@@ -255,24 +255,24 @@ class SubjectListPage extends Component {
 				})
 			}	
 		}else{
-			if(this.state.tabClassOne){
-				this.setState({
-					list:[...this.state.list,...subjectList.projectList.list]
-				})
-			}else{
-				this.setState({
-					list:[...this.state.list,...subjectList.transferList.list]
-				})
-			}		
+			// if(this.state.tabClassOne){
+			// 	this.setState({
+			// 		list:[...this.state.list,...subjectList.projectList.list]
+			// 	})
+			// }else{
+			// 	this.setState({
+			// 		list:[...this.state.list,...subjectList.transferList.list]
+			// 	})
+			// }		
 		}
 	}
 	getsubjectList(e){
 		const { getsubjectList } = this.props;
-		getsubjectList(e)
+		return getsubjectList(e)
 	}
 	gettransferList(e){
 		const { gettransferList } = this.props;
-		gettransferList(e)
+		return gettransferList(e)
 	}
 	handleDetailClick(e){
 		this.props.history.push(`/mobile/detail/${e}`)
@@ -280,12 +280,23 @@ class SubjectListPage extends Component {
 	getNewData(){
 		cred.pageNum++;
 		console.log(cred.pageNum,this.props)
+		const { subjectList } = this.props;
 		if (this.state.borderClass == "one"){
 			console.log('aaaa',this.props)
 			if(cred.pageNum<=this.props.subjectList.projectList.pages){
 				console.log('aaaabb')
 				this.setState({ refreshing: true });
-				this.getsubjectList(cred)
+				this.getsubjectList(cred).then(res=>{
+					console.log(res)
+					this.setState({
+						list:[...this.state.list,...res.value.list],
+						refreshing:false
+					})
+				}).catch(()=>{
+					this.setState({
+						refreshing:false
+					})
+				})
 			}else{
 				this.setState({
 					down:true,
@@ -296,9 +307,26 @@ class SubjectListPage extends Component {
 		}else{
 			if(cred.pageNum<=this.props.subjectList.transferList.pages){
 				this.setState({ refreshing: true });
-				this.gettransferList(cred)
+				this.gettransferList(cred).then(res=>{
+					console.log(res)
+					this.setState({
+						list:[...this.state.list,...res.value.list],
+						refreshing:false
+					})
+				}).catch(()=>{
+					this.setState({
+						refreshing:false
+					})
+				})
+			}else{
+				this.setState({
+					down:true,
+					refreshing:false
+				})
+				return
 			}
 		}
+		
 	}
 	render() {
 		const { auth, subjectList } = this.props;
