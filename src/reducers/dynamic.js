@@ -27,6 +27,7 @@ export default createReducer(initialState, {
     }
   }),
 
+
   [`${DYNAMIC}_REJECTED`]: (state, action) => state.merge({
     isFetching: false,
     errorMessage: action.message
