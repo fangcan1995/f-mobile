@@ -18,7 +18,7 @@ class My extends Component {
     }
 
     componentDidMount() { 
-        const { getMyInfo, match, history, getMyCertification } = this.props;
+        const { getMyInfo, match, history, getMyCertification, location } = this.props;
         const { token_type, access_token } = cookie.getJSON('token') || {};
         if(!(token_type && access_token)) {
             history.push(`/mobile/login?redirect=/mobile/my`);
@@ -69,7 +69,7 @@ class My extends Component {
     }
 
     render() {
-        const { myInfo, match, myCertification } = this.props;
+        const { myInfo, match, myCertification, location } = this.props;
         return (
             <div id='my' className='footer-tab-body'>
                 <div className='footer-tab-content'>
