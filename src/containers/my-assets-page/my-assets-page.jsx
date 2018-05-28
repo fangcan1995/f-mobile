@@ -39,7 +39,7 @@ class MyAssetsPage extends Component {
     render() {
         const { myInfo } = this.props;
         let total = parseFloat(myInfo.availableBalance) + parseFloat(myInfo.freezingAmount) + parseFloat(myInfo.investAmount);
-        let isMax = total >= 100000 ? parseFloat(total.toString(10).slice(0, total.toString(10).length - 4)) : total;
+        let isMax = total >= 100000 ? parseFloat(total) / 10000 : total;
         const options = {
             tooltip: {
                 trigger: 'item',
