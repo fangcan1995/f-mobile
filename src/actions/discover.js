@@ -15,7 +15,7 @@ export const discover = (ajaxData) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-        });
+        },false);
         if ( res.code == 0 ) {
             console.log(res.data)
           return res.data || [];
