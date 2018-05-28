@@ -1,6 +1,11 @@
 @import '../../assets/stylesheets/library';
 
 .subjectList-body{
+	.subList{
+		height: 549px;
+		overflow: hidden;
+		display: flex;
+		flex-flow: column;}
     .main{
 		ul.tab-title{
 			font-size: unit(50px / (@baseWidth / @baseColumns), rem);
@@ -83,11 +88,13 @@
 			}
 		}
 		ul.content-list{
+			flex: 1;
+			overflow-y: auto;
 			margin-left: unit(30px / (@baseWidth / @baseColumns), rem);
 			margin-right: unit(30px / (@baseWidth / @baseColumns), rem);
 			margin-top: unit(20px / (@baseWidth / @baseColumns), rem);
 			font-size:unit(24px / (@baseWidth / @baseColumns), rem);
-			overflow: hidden;
+			// overflow: hidden;
 			li{
 				margin-top: unit(20px / (@baseWidth / @baseColumns), rem);
 				background: #fff;
