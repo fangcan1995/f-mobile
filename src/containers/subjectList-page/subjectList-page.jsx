@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
 import { loginUser } from '../../actions/auth';
 import { getsubjectList, gettransferList } from "../../actions/subjectList";
@@ -17,8 +18,8 @@ let cred ={
 	pageNum:1
 }
 class SubjectListPage extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 		  borderClass: "one",
 		  tabClassOne: "active",
@@ -28,7 +29,11 @@ class SubjectListPage extends Component {
 		  liClassThr:'',
 		  list:[],
 		  arrow:0,
-		  otherArrow:0
+		  otherArrow:0,
+		  refreshing: false,
+		  height: document.documentElement.clientHeight,
+		  distanceToRefresh:25,
+		  down:false,
 		};
 	  }
 	  handleClick(type) {
@@ -228,7 +233,11 @@ class SubjectListPage extends Component {
 	componentDidMount () {
 		cred.pageNum=1	
 		this.getsubjectList(cred)
-		this.gettransferList(cred)
+		this.gettransferList(cred);
+		const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
+		setTimeout(() => this.setState({
+			height: hei,
+		  }), 0);
 	}
 	componentWillReceiveProps (nextProps) {
 		console.log(nextProps)
@@ -275,10 +284,18 @@ class SubjectListPage extends Component {
 			console.log('aaaa',this.props)
 			if(cred.pageNum<=this.props.subjectList.projectList.pages){
 				console.log('aaaabb')
+				this.setState({ refreshing: true });
 				this.getsubjectList(cred)
+			}else{
+				this.setState({
+					down:true,
+					refreshing:false
+				})
+				return
 			}
 		}else{
 			if(cred.pageNum<=this.props.subjectList.transferList.pages){
+				this.setState({ refreshing: true });
 				this.gettransferList(cred)
 			}
 		}
@@ -323,6 +340,8 @@ class SubjectListPage extends Component {
 						ref={el => (this.ptr = el)}
 						style={{ height: this.state.height, overflow: "auto" }}
 						direction={"up"}
+						indicator={this.state.down ? {deactivate: '没有更多数据了'} : { deactivate: '上拉加载更多' }}
+						distanceToRefresh={this.state.distanceToRefresh}
 						refreshing={this.state.refreshing}
 						onRefresh={this.getNewData.bind(this)}
 						>
