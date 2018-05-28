@@ -11,6 +11,7 @@ export const  getDetails = (params) => {
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
+            // data.surplusAmount=500
           return data || {};
         } else {
           throw res;
@@ -28,44 +29,44 @@ export const  getDetails = (params) => {
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
-            let mok = {             
-                accountBalance:0,
-                availableBalance:10000,
-                customServicePhone
-                :
-                "400-024-0909",
-                freezingAmount
-                :
-                0,
-                investAmount
-                :
-                0,
-                memberCoupon
-                :
-                {number: 0, rateSum: 0},
-                memberIdentity
-                :
-                1,
-                memberIdentityString
-                :
-                "超级合伙人",
-                memberRedInfo
-                :
-                {number: 0, amountSum: 0},
-                noviceStatus
-                :
-                1,
-                openAccountStatus
-                :
-                0,
-                riskStatus
-                :
-                "1",
-                userName
-                :
-                "15666666666"
-                            }
-          return mok || {};
+            // let mok = {             
+            //     accountBalance:0,
+            //     availableBalance:10000,
+            //     customServicePhone
+            //     :
+            //     "400-024-0909",
+            //     freezingAmount
+            //     :
+            //     0,
+            //     investAmount
+            //     :
+            //     0,
+            //     memberCoupon
+            //     :
+            //     {number: 0, rateSum: 0},
+            //     memberIdentity
+            //     :
+            //     1,
+            //     memberIdentityString
+            //     :
+            //     "超级合伙人",
+            //     memberRedInfo
+            //     :
+            //     {number: 0, amountSum: 0},
+            //     noviceStatus
+            //     :
+            //     1,
+            //     openAccountStatus
+            //     :
+            //     0,
+            //     riskStatus
+            //     :
+            //     "1",
+            //     userName
+            //     :
+            //     "15666666666"
+            //                 }
+          return data || {};
         } else {
           throw res;
         }
@@ -96,15 +97,15 @@ export const setProfit = cd => {
     return {
       type: 'detail/POST_INVEST',
       async payload(){
-          return await cFetch(`app/invest/invest`, {           
+          return await cFetch(`invest/invest`, {           
               method: 'POST', 
               headers: {
                   'Content-Type': 'application/json'
               },
               body:JSON.stringify(params),
-          },true).then(res=>{
+          },true,'http://172.16.1.228:9090/').then(res=>{
              if ( res.code == 0 ) {
-                  console.log(res.data)
+                  console.log(res)
                   Toast.success(res.message,1)
                 return res || {};
               } else {
