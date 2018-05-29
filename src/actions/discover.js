@@ -6,7 +6,6 @@ import cookie from 'js-cookie';
 
 export const discover = (ajaxData) => {
   ajaxData= parseJson2URL(ajaxData)
-  console.log(ajaxData)
   return {
     type: DISCOVER,
     async payload(){
@@ -17,7 +16,6 @@ export const discover = (ajaxData) => {
             },
         },false);
         if ( res.code == 0 ) {
-            console.log(res.data)
           return res.data || [];
         } else {
           throw res;

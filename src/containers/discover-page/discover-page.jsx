@@ -22,10 +22,9 @@ class DiscoverPage extends Component {
 	}
 	render() {
 		const { discover } = this.props;
-		console.log(this.props)
 		let list =this.props.discover.discover
 		return (
-            <div className="discover-body footer-tab-body">
+            <div className="discover-body">
 				<div className='footer-tab-content'>
 					<div className='header'>
 						<div className='title'>发现</div>
@@ -86,7 +85,7 @@ class DiscoverPage extends Component {
 					</ul>  
 				</div>
 				<div className='footer-tab-parent'>
-					<FooterTab></FooterTab>
+					{/* <FooterTab></FooterTab> */}
 				</div>	        
 	        </div>
 			)

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ReactDOM from 'react-dom';
 import { bindActionCreators } from "redux";
 import Immutable from "immutable";
 import { dynamic,clearData } from '../../actions/dynamic';
@@ -102,7 +103,6 @@ class HelpCenterPage extends Component {
   }
   render() {
     const { dynamic } = this.props;
-    console.log(this.props)
     let list = this.props.dynamic.dynamic.list;
     return (
       <div className="helpCenter-body">

@@ -19,7 +19,6 @@ class CertificationPage extends Component {
         setBrowserTitle('实名认证')
       }
     handleSubmit(){
-        console.log(this.props)
         if(!this.state.tureName){
             Toast.info('请输入真实姓名')
             return false
@@ -52,7 +51,6 @@ class CertificationPage extends Component {
     }
 
     handleChange (type, e) {
-        console.log(type);
         this.setState({
             [type]: e.target.value
         });

@@ -1,8 +1,17 @@
 @import '../../assets/stylesheets/library';
 
 .myAssets {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     position: relative;
     overflow: hidden;
+
+    .myAssetsContent {
+        overflow-y: auto;
+        flex: 1;
+    }
+
     .chartArea {
         text-align: center;
         position: absolute;
@@ -66,8 +75,6 @@
         width: 100%;
         height: unit(99px / (@baseWidth / @baseColumns), rem);
         border-top: solid 1px #eee;
-        position: fixed;
-        bottom: 0;
 
         a {
             display: block;

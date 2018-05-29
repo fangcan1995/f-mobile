@@ -6,7 +6,7 @@ export const getWithdraw = (withdrawNum) => {
         async payload() {
             let res =  await cFetch(`app/payment/fuiou/cash?transAmt=${withdrawNum}&appType=${4}`, {
                 method: 'GET'
-            })
+            });
             const { code, data } = res;
             if(code == 0) {
                 return data;

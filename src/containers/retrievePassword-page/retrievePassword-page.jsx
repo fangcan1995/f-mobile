@@ -41,7 +41,6 @@ class RetrievePasswordPage extends Component {
             Toast.info('请输入正确手机号')
             return false;
         }else{
-            console.log(this.props)
             let smsRetrievePasswordData={
                 username:this.state.username,
                 image_code: this.props.retrievePassword.retrievePasswordCode.imageCode,
@@ -52,7 +51,6 @@ class RetrievePasswordPage extends Component {
             .then(res=>{
                 const { dispatch } = this.props;
                 dispatch(retrievePasswordCode());
-                console.log(res)
                 this.setTime();
             })
             .catch(res=>{
@@ -92,7 +90,6 @@ class RetrievePasswordPage extends Component {
         this.mounted = false;
     }
     handleSubmit(){
-        console.log(this.props)
         if(!this.state.username){
             Toast.info('请输入手机号')
             return false
@@ -114,15 +111,12 @@ class RetrievePasswordPage extends Component {
             return false
         }
         else{
-            console.log(this.props)
             let submitData = {...{image_code:this.props.retrievePassword.retrievePasswordCode.imageCode},...params};
             submitData.username=this.state.username;
             submitData.password=hex_md5(this.state.password);
             submitData.forget_password_code=this.state.forget_password_code;
             submitData.forget_password_token=this.props.retrievePassword.smsRetrievePasswordCode.token
-            console.log(submitData)
             submitData=`?${parseJson2URL(submitData)}`
-            console.log(submitData)
             const { dispatch } = this.props;
             dispatch(retrievePassword(submitData))
             .then(res=>{

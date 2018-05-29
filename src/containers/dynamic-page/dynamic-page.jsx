@@ -108,9 +108,7 @@ class DynamicPage extends Component {
   }
   render() {
     const { dynamic } = this.props;
-    console.log(this.props);
     let list = this.props.dynamic.dynamic.list;
-    console.log(list);
     return (
       <div className="dynamic-body">
         <div className="main">

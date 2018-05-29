@@ -18,7 +18,6 @@ export const retrievePassword = (params) => {
             credentials: 'include' 
         },false);
         if ( res.code == 0 ) {
-            console.log(res.data)
           return res.data || [];
         } else {
           throw res;
@@ -39,9 +38,7 @@ export const retrievePasswordCode = () => {
                 },
                 credentials: 'include'
             },false);
-            console.log(res)
             if(res.imageCode){
-                console.log(res)
                 return res || {};
             }else{
                 throw res;

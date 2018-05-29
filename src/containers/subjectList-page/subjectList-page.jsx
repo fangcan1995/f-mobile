@@ -351,7 +351,7 @@ class SubjectListPage extends Component {
 		const { auth, subjectList } = this.props;
 		console.log(this.state.list)
 		return (
-            <div className="subjectList-body footer-tab-body">
+            <div className="subjectList-body">
 				<div className="main footer-tab-content subList">
 					<ul className="tab-title">
 						<li
@@ -465,7 +465,7 @@ class SubjectListPage extends Component {
 					</ul>
 				</div>
 				<div className='footer-tab-parent'>
-					<FooterTab></FooterTab>
+					{/* <FooterTab></FooterTab> */}
 				</div>
 	        </div>
 			)

@@ -15,7 +15,6 @@ export const discoverDeail = (id) => {
             },
         },false);
         if ( res.code == 0 ) {
-            console.log(res.data)
           return res.data || {};
         } else {
           throw res;
