@@ -146,14 +146,14 @@ export const getFuiou = (type) => {
   return {
     type: FUIOUDATA,
     async payload(){
-        let res= await cFetch(`/payment/fuiou/account?appType=${type}`, {           
+        let res= await cFetch(`app/payment/fuiou/account?appType=${type}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'
             },
 
             // credentials: 'include' 
-        }, true, 'http://172.16.1.252:9070');
+        });
         if ( res.code == 0 ) {
           return res || {};
         } else {
