@@ -27,7 +27,6 @@ class ChangePasswordPage extends Component {
         setBrowserTitle('修改密码')
       }
     handleChange (type, e) {
-        console.log(type);
         this.setState({
             [type]: e.target.value
         });
@@ -67,7 +66,6 @@ class ChangePasswordPage extends Component {
             return false
         }
         else{
-            console.log(this.props)
             let appInfo={
                 type:`member`,
                 username:this.props.auth.userInfo.userName,

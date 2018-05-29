@@ -47,7 +47,6 @@ class RegisterPage extends Component {
             return false;
         }
         else{
-            console.log(this.props)
             let smsRegisterCodeData={
                 username:this.state.username,
                 image_code: this.props.register.registerCode.imageCode,
@@ -108,7 +107,6 @@ class RegisterPage extends Component {
         }       
     }
     handleSubmit(){
-        console.log(this.props)
         if(!this.state.username){
             Toast.info('请输入手机号')
             return false
@@ -130,16 +128,13 @@ class RegisterPage extends Component {
             return false;
         }
         else{
-            console.log(this.props)
             let submitData = {...{image_code:this.props.register.registerCode.imageCode},...params};
             submitData.username=this.state.username;
             submitData.password=hex_md5(this.state.password);
             submitData.register_code=this.state.register_code;
             submitData.invite_code=this.state.invite_code;
             submitData.register_token=this.props.register.smsRegisterCode.token
-            console.log(submitData)
             submitData=`?${parseJson2URL(submitData)}`
-            console.log(submitData)
             const { dispatch } = this.props;
             dispatch(register(submitData))
             .then(res=>{

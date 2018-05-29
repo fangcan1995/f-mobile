@@ -31,7 +31,6 @@ export default createReducer(initialState, {
     isFetching: true,
   }),
   [`${DYNAMIC}_FULFILLED`]: (state, action) =>{
-    console.log(action.payload)
     return (
       state.merge({
       isFetching: false,

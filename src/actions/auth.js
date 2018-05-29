@@ -64,9 +64,7 @@ export const authCode = () => {
             },
              credentials: 'include'
         });
-        console.log(res)
         if(res.imageCode){
-            console.log(res)
             return res || {};
         }else{
             throw res;

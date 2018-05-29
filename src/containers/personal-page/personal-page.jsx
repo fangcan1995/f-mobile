@@ -19,7 +19,6 @@ class PersonalContainer extends Component {
         if(this.props.match.params.id){
             
             let id=this.props.match.params.id.split('_')[1]
-            console.log(id)
             switch(id)
                 {
                 case '0000':

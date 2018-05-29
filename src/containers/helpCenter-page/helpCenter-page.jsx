@@ -103,7 +103,6 @@ class HelpCenterPage extends Component {
   }
   render() {
     const { dynamic } = this.props;
-    console.log(this.props)
     let list = this.props.dynamic.dynamic.list;
     return (
       <div className="helpCenter-body">

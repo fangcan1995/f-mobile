@@ -22,7 +22,6 @@ class DiscoverPage extends Component {
 	}
 	render() {
 		const { discover } = this.props;
-		console.log(this.props)
 		let list =this.props.discover.discover
 		return (
             <div className="discover-body">

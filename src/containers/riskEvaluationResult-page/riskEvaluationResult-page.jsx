@@ -14,9 +14,7 @@ class RiskEvaluationResultPage extends Component {
     }
 	render() {
     const { personal } = this.props;
-    console.log(personal)
     let objData=personal.getRiskEvaluationResult;
-    console.log(objData)
 		return (
             <div className='riskEvaluationResult-body'>
                <div className='lable'>
