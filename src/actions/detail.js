@@ -25,10 +25,11 @@ export const  getDetails = (params) => {
     return {
       type: 'detail/GET_MY_INFO',
       async payload() {
-        const res = await cFetch(`accounts/my/info?access_token=765f5644-5e10-459a-aabd-4b5a3719496e` , { method: 'GET' },true,'http://172.16.1.221:9070/');
+        const res = await cFetch(`app/accounts/my/info?access_token=765f5644-5e10-459a-aabd-4b5a3719496e` , { method: 'GET' },true,);
         const { code, data } = res;
         if ( code == 0 ) {
             console.log(data)
+            //'http://172.16.1.221:9070/'
             // let mok = {             
             //     accountBalance:0,
             //     availableBalance:10000,
@@ -97,13 +98,14 @@ export const setProfit = cd => {
     return {
       type: 'detail/POST_INVEST',
       async payload(){
-          return await cFetch(`invest/invest`, {           
+          return await cFetch(`app/invest/invest`, {           
               method: 'POST', 
               headers: {
                   'Content-Type': 'application/json'
               },
               body:JSON.stringify(params),
-          },true,'http://172.16.1.228:9090/').then(res=>{
+          },true).then(res=>{
+            //'http://172.16.1.228:9090/'
              if ( res.code == 0 ) {
                   console.log(res)
                   Toast.success(res.message,1)

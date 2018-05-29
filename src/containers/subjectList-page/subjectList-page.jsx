@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
+import InfiniteScroll from 'react-infinite-scroller';
 import { loginUser } from '../../actions/auth';
 import { getsubjectList, gettransferList } from "../../actions/subjectList";
 import './subjectList-page.less';
@@ -34,6 +35,7 @@ class SubjectListPage extends Component {
 		  height: document.documentElement.clientHeight,
 		  distanceToRefresh:25,
 		  down:false,
+		  hasMore:true,
 		};
 	  }
 	  handleClick(type) {
@@ -45,6 +47,8 @@ class SubjectListPage extends Component {
 			tabClassTwo: ""
 		  });
 		  const { subjectList } = this.props;
+		  cred.pageNum=1
+		  cred.pageSize=5
 		  this.getsubjectList(cred)
 		  this.setState({
 			  list:subjectList.projectList.list
@@ -284,51 +288,58 @@ class SubjectListPage extends Component {
 	}
 	getNewData(){
 		cred.pageNum++;
+		this.setState({ refreshing: true });
 		console.log(cred.pageNum,this.props)
 		const { subjectList } = this.props;
 		if (this.state.borderClass == "one"){
 			console.log('aaaa',this.props)
 			if(cred.pageNum<=this.props.subjectList.projectList.pages){
 				console.log('aaaabb')
-				this.setState({ refreshing: true });
+				
 				this.getsubjectList(cred).then(res=>{
 					console.log(res)
 					this.setState({
 						list:[...this.state.list,...res.value.list],
+						// height:this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop
+						// hasMore: false
 					})
 				}).then(()=>{
 					this.setState({
-						refreshing:false
+						// refreshing:false
+						// hasMore: false
 					})
 				}).catch(()=>{
 					this.setState({
-						refreshing:false
+						// hasMore: false
 					})
 				})
 			}else{
 				this.setState({
 					down:true,
+					hasMore: false,
 					refreshing:false
 				})
 				return
 			}
 		}else{
 			if(cred.pageNum<=this.props.subjectList.transferList.pages){
-				this.setState({ refreshing: true });
+				// this.setState({ refreshing: true });
 				this.gettransferList(cred).then(res=>{
 					console.log(res)
 					this.setState({
 						list:[...this.state.list,...res.value.list],
-						refreshing:false
+						hasMore: false
 					})
 				}).catch(()=>{
 					this.setState({
+						hasMore: false,
 						refreshing:false
 					})
 				})
 			}else{
 				this.setState({
 					down:true,
+					hasMore: false,
 					refreshing:false
 				})
 				return
@@ -381,8 +392,18 @@ class SubjectListPage extends Component {
 						refreshing={this.state.refreshing}
 						onRefresh={this.getNewData.bind(this)}
 						>
+						{/* <InfiniteScroll
+							pageStart={0}
+							loadMore={this.getNewData.bind(this)}
+							hasMore={this.state.hasMore}
+							initialLoad = {false}
+							// useCapture = {true}
+							threshold = {250}
+							useWindow ={false}
+							loader={<div className="loader" key={0}>Loading ...</div>}
+						> */}
 						{
-							this.state.list?
+							this.state.list.length?
 							this.state.list.map(item=>{
 								return (
 									<li key = {item.id} onClick = {this.handleDetailClick.bind(this,item.id)}>
@@ -439,6 +460,7 @@ class SubjectListPage extends Component {
 							})
 							:<div className='onLoad'>加载中...</div>
 						}
+						{/* </InfiniteScroll> */}
 						</PullToRefresh>
 					</ul>
 				</div>
