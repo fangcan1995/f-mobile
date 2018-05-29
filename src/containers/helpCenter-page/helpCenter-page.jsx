@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ReactDOM from 'react-dom';
 import { bindActionCreators } from "redux";
 import Immutable from "immutable";
 import { dynamic,clearData } from '../../actions/dynamic';
