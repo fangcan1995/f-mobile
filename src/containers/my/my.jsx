@@ -158,24 +158,24 @@ class My extends Component {
                             <div className='right' onClick={this.handleAction.bind(this, 'withdraw')}>提现</div>
                         </div>
                         <div className='list'>
-                            <div className='list-item'>
+                            {/* <div className='list-item'>
                                 <i className='icon-about'></i><span>超级合伙人</span><i className='icon-arrow right'></i>
-                            </div>
+                            </div> */}
                             <Link to="/mobile/my-scatter">
                                 <div className='list-item'>
                                     <i className='icon-scatter'></i><span>我的散标</span><i className='icon-arrow right'></i>
                                 </div>
                             </Link>
-                            <Link to="/mobile/my-agreement">
+                            {/* <Link to="/mobile/my-agreement">
                                 <div className='list-item'>
                                     <i className='icon-agreement'></i><span>我的合同</span><i className='icon-arrow right'></i>
                                 </div>
-                            </Link>
-                            <Link to="/mobile/my-transfer">
+                            </Link> */}
+                            {/* <Link to="/mobile/my-transfer">
                                 <div className='list-item'>
                                     <i className='icon-transfer'></i><span>我的转让</span><i className='icon-arrow right'></i>
                                 </div>
-                            </Link>
+                            </Link> */}
                             <Link to="/mobile/trade-history">
                                 <div className='list-item'>
                                     <i className='icon-invest-history'></i><span>交易记录</span><i className='icon-arrow right'></i>
