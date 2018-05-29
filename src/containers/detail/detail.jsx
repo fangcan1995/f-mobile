@@ -100,6 +100,9 @@ class Detail extends Component{
     }
     handleAllClick(){
         const { detail, setMoney, setProfit } = this.props;
+        if(!this.state.sumMoney){
+
+        }
         this.setState({
             money:this.state.sumMoney,
             // minInvestAmount:this.state.sumMoney,
@@ -385,7 +388,7 @@ class Detail extends Component{
     componentWillReceiveProps(nextProps){
         console.log(nextProps)
         this.setState({
-            sumMoney:nextProps.detail.myInfo.availableBalance,
+            sumMoney:nextProps.detail.myInfo.availableBalance||0,
             money:nextProps.detail.money,
             profit:nextProps.detail.profit,
         })
