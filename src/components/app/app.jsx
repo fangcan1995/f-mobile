@@ -136,9 +136,10 @@ class App extends Component {
         return (
             <div id="app">
                 <div id="content">{this.props.children}</div>
-                <div className='footer-tab-parent'>
+                <FooterTab></FooterTab>
+                {/* <div className='footer-tab-parent'>
                     <FooterTab></FooterTab>
-                </div>
+                </div> */}
             </div>
         );
     }
