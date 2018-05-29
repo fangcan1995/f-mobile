@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import FooterTab from '../footer-tab/footer-tab';
+
+import './app.less';
 
 import { isWeiXin, setBrowserTitle } from '../../libs/utils';
 
@@ -132,7 +135,10 @@ class App extends Component {
     render() {
         return (
             <div id="app">
-                {this.props.children}
+                <div id="content">{this.props.children}</div>
+                <div className='footer-tab-parent'>
+                    <FooterTab></FooterTab>
+                </div>
             </div>
         );
     }

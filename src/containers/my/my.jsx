@@ -71,7 +71,7 @@ class My extends Component {
     render() {
         const { myInfo, match, myCertification, location } = this.props;
         return (
-            <div id='my' className='footer-tab-body'>
+            <div id='my'>
                 <div className='footer-tab-content'>
                     <div className='my-nav'>
                         <div className='my'>我的
@@ -194,7 +194,7 @@ class My extends Component {
                     </div>
                 </div>    
                 <div className='footer-tab-parent'>
-					<FooterTab></FooterTab>
+					{/* <FooterTab></FooterTab> */}
 				</div>
             </div>
         )

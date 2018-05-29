@@ -65,7 +65,7 @@ class HomePage extends Component {
 			}; 
 			 
 		return (
-			<div className="home-page home-body footer-tab-body" id="home-page">
+			<div className="home-page home-body" id="home-page">
 				<div className='home-content footer-tab-content'>
 				<div className='page-title'>
 						首页
@@ -166,7 +166,7 @@ class HomePage extends Component {
 				</div>
 				</div>
 				<div className='footer-tab-parent'>
-					<FooterTab></FooterTab>
+					{/* <FooterTab></FooterTab> */}
 				</div>
 
 			</div>
