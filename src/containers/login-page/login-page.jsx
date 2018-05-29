@@ -38,7 +38,6 @@ class LoginPage extends Component {
             submitData.username=this.state.username;
             submitData.password=hex_md5(this.state.password);
             submitData=`?${parseJson2URL(submitData)}`
-            console.log(submitData)
             const { dispatch } = this.props;
             dispatch(loginUser(submitData))
             .then(res=>{
@@ -54,7 +53,6 @@ class LoginPage extends Component {
     }
 
     handleChange (type, e) {
-        console.log(type);
         this.setState({
             [type]: e.target.value
         });

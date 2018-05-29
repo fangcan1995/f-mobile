@@ -42,7 +42,6 @@ class LoginMessagePage extends Component {
             Toast.info('请输入短信验证码')
             return false;
         }else{
-            console.log(this.props)
             let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
             submitData.username=this.state.username;
             submitData.verify_code=this.state.verify_code;

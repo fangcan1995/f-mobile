@@ -25,7 +25,6 @@ class AuthenticationPage extends Component {
   handleSubmit(){
     let isSubmit=true;
     const { personal } = this.props;
-    console.log(personal)
     let array=[];
     personal.riskEvaluation.data.map(item=>{
       if(!item.answer){

@@ -17,7 +17,6 @@ export const personal = () => {
         }
       });
       if (res.code == 0) {
-        console.log(res.data);
         // let mock = {
         //   isCertification: "1", //是否实名认证（0：未实名；1：已实名）
         //   openAccountStatus: "1", //是否开户（0：未开户；1：已开户）
@@ -58,7 +57,6 @@ export const certification = (params) => {
             // credentials: 'include' 
         });
         if ( res.code == 0 ) {
-            console.log(res.data)
           return res || {};
         } else {
           throw res;
@@ -91,7 +89,6 @@ export const riskEvaluation = () => {
 
 //修改评估问题
 export const syncRiskEvaluation = (params) => {
-  console.log(params)
   return {
     type: SYNCRISKEVALUATION,
     payload() {
@@ -134,7 +131,6 @@ export const riskEvaluationResult = () => {
 
             // credentials: 'include' 
         });
-        console.log(res)
         if ( res.code == 0 ) {
           return res.data || {};
         } else {
@@ -158,7 +154,6 @@ export const getFuiou = (type) => {
 
             // credentials: 'include' 
         });
-        console.log(res)
         if ( res.code == 0 ) {
           return res || {};
         } else {

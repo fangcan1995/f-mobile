@@ -15,7 +15,6 @@ class DiscoverDetailPage extends Component {
 	}
 	render() {
 		const { discoverDeail } = this.props;
-		console.log(this.props)
 		let obj = this.props.discoverDeail.discoverDeail;
 		return (
             <div className="discoverDetail-body">

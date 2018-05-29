@@ -17,7 +17,6 @@ export const register = (params) => {
             credentials: 'include' 
         },false);
         if ( res.code == 0 ) {
-            console.log(res.data)
           return res.data || [];
         } else {
           throw res;
@@ -38,9 +37,7 @@ export const registerCode = () => {
                 },
                 credentials: 'include'
             });
-            console.log(res)
             if(res.imageCode){
-                console.log(res)
                 return res || {};
             }else{
                 throw res;
