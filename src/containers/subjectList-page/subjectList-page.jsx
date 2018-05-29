@@ -295,11 +295,10 @@ class SubjectListPage extends Component {
 					console.log(res)
 					this.setState({
 						list:[...this.state.list,...res.value.list],
-						
 					})
 				}).then(()=>{
 					this.setState({
-						// refreshing:false
+						refreshing:false
 					})
 				}).catch(()=>{
 					this.setState({
@@ -378,7 +377,7 @@ class SubjectListPage extends Component {
 						style={{ height: this.state.height, overflow: "auto" }}
 						direction={"up"}
 						indicator={this.state.down ? {deactivate: '没有更多数据了'} : { deactivate: '上拉加载更多' }}
-						distanceToRefresh={this.state.distanceToRefresh}
+						// distanceToRefresh={this.state.distanceToRefresh}
 						refreshing={this.state.refreshing}
 						onRefresh={this.getNewData.bind(this)}
 						>
