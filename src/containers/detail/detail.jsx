@@ -27,18 +27,14 @@ class Detail extends Component{
             Toast.loading('loading')
         }
         getDetails(this.props.match.params.id).then(res=>{
-            console.log(res);
             this.setState({
                 minInvestAmount:res.value.minInvestAmount,
                 minInvestAmount2:res.value.minInvestAmount,
             })
-            // setMoney(res.value.minInvestAmount)
-            // setProfit(res.value.minInvestAmount*(res.value.annualRate/12*res.value.loanExpiry)*0.01)
         });
         if(this.props.auth.isAuthenticated){
             getMyInfo()
         }
-        // authCode()
         this.setState({
             money:this.state.minInvestAmount
         })
@@ -58,7 +54,6 @@ class Detail extends Component{
         }
         this.setState({
             money:this.state.money-100,
-            // minInvestAmount:this.state.minInvestAmount-100,
             profit:(this.state.money-100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01     
         })
         setMoney(this.state.money-100);
@@ -93,8 +88,7 @@ class Detail extends Component{
             return 
         }
         this.setState({
-            money:this.state.money+100,    
-            // minInvestAmount:this.state.minInvestAmount+100,        
+            money:this.state.money+100,          
             profit:(this.state.money+100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01    
         })
         console.log(this.state.money)
@@ -108,7 +102,6 @@ class Detail extends Component{
         }
         this.setState({
             money:this.state.sumMoney,
-            // minInvestAmount:this.state.sumMoney,
             profit:(this.state.sumMoney)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 
         })
         setMoney(this.state.sumMoney)
@@ -132,75 +125,82 @@ class Detail extends Component{
         const prompt = Modal.prompt;
         if(detail.projectDetails.noviceLoan==1){
             if(detail.myInfo.noviceStatus==1){
-                if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
-                    if(detail.myInfo.riskStatus){//是否进行风险评估detail.myInfo.riskStatus==0
-                        if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
-                            console.log(prompt)
-                            prompt(
-                                '交易密码',
-                                '请输入交易密码',
-                                [
-                                  { text: '取消' },
-                                  { text: '确认', onPress: password => {
-                                    let tradePassword = hex_md5(password)
-                                    cred = {
-                                        tradePassword,
-                                        ...cred
+                if(detail.myInfo.tradepasswordStatus){//是否实设置交易密码detail.myInfo.tradepasswordStatus
+                    if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
+                        if(detail.myInfo.riskStatus){//是否进行风险评估detail.myInfo.riskStatus==0
+                            if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
+                                prompt(
+                                    '交易密码',
+                                    '请输入交易密码',
+                                    [
+                                    { text: '取消' },
+                                    { text: '确认', onPress: password => {
+                                        let tradePassword = hex_md5(password)
+                                        cred = {
+                                            tradePassword,
+                                            ...cred
+                                        }
+                                        Toast.loading('请稍等',5)
+                                        postInvest(cred,0)
+                                        .then(res=>{
+                                            const { getDetails, getMyInfo } = this.props;
+                                            getDetails(this.props.match.params.id)
+                                            getMyInfo()
+                                        }).catch(err=>{
+                                            Toast.fail(err.msg,1)
+                                        })
+                                        }
+                                    },
+                                    ],
+                                    'secure-text',
+                                )
+                                
+                            }else{
+                                Modal.alert('您还未开户','去开户', [
+                                    {
+                                        text: '确认',
+                                        onPress: () => {
+                                            console.log(1111)
+                                            this.props.history.push('/mobile/personal')
+                                        }
                                     }
-                                    Toast.loading('请稍等',5)
-                                    postInvest(cred,0)
-                                    .then(res=>{
-                                        console.log('wwwwwww')
-                                        // Toast.loading('请稍等',1)
-                                        const { getDetails, getMyInfo } = this.props;
-                                        getDetails(this.props.match.params.id)
-                                        getMyInfo()
-                                    }).catch(err=>{
-                                        console.log('wwwwwww2')
-                                        Toast.fail(err.msg,1)
-                                    })
-                                    }
-                                  },
-                                ],
-                                'secure-text',
-                              )
-                            
+                                ]); 
+                                return 
+                            }
                         }else{
-                            Modal.alert('您还未开户','去开户', [
+                            Modal.alert('您还未进行风险评估','请进行评估', [
                                 {
                                     text: '确认',
                                     onPress: () => {
-                                        console.log(1111)
-                                        this.props.history.push('/mobile/personal')
+                                        this.props.history.push('/mobile/authentication')
                                     }
                                 }
                             ]); 
                             return 
                         }
                     }else{
-                        Modal.alert('您还未进行风险评估','请进行评估', [
+                        Modal.alert('您还未进行实名认证','请实名认证', [
                             {
                                 text: '确认',
                                 onPress: () => {
-                                    console.log(1111)
-                                    this.props.history.push('/mobile/authentication')
+                                    this.props.history.push('/mobile/certification')
                                 }
                             }
                         ]); 
                         return 
                     }
                 }else{
-                    Modal.alert('您还未进行实名认证','请实名认证', [
+                    Modal.alert(`您还未设置交易密码`,'去设置交易密码', [
                         {
                             text: '确认',
                             onPress: () => {
-                                console.log(1111)
-                                this.props.history.push('/mobile/certification')
+                                this.props.history.push('/mobile/tradePassword')
                             }
                         }
-                    ]); 
+                    ]);
                     return 
                 }
+                    
             }else{
                 Modal.alert('您不是新手，无法投资新手标','请重新选择其他标的', [
                     {
@@ -215,7 +215,6 @@ class Detail extends Component{
             if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
                 if(detail.myInfo.riskStatus){//是否进行风险评估detail.myInfo.riskStatus==0
                     if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
-                        console.log(prompt)
                         prompt(
                             '交易密码',
                             '请输入交易密码',
@@ -230,14 +229,11 @@ class Detail extends Component{
                                 Toast.loading('请稍等',5)
                                 postInvest(cred,0)
                                 .then(res=>{
-                                    console.log('wwwwwww')
                                     const { getDetails, getMyInfo } = this.props;
                                     getDetails(this.props.match.params.id)
                                     getMyInfo()
                                 }).catch(err=>{
                                     console.log(err)
-                                    // Toast.fail(err.msg,1)
-                                    // Toast.loading('请稍等',1)
                                 })
                                 }
                               },
@@ -250,7 +246,6 @@ class Detail extends Component{
                             {
                                 text: '确认',
                                 onPress: () => {
-                                    console.log(1111)
                                     this.props.history.push('/mobile/personal')
                                 }
                             }
@@ -262,7 +257,6 @@ class Detail extends Component{
                         {
                             text: '确认',
                             onPress: () => {
-                                console.log(1111)
                                 this.props.history.push('/mobile/authentication')
                             }
                         }
@@ -274,7 +268,6 @@ class Detail extends Component{
                     {
                         text: '确认',
                         onPress: () => {
-                            console.log(1111)
                             this.props.history.push('/mobile/certification')
                         }
                     }
@@ -299,16 +292,14 @@ class Detail extends Component{
             transfer:false,
         }
         if(!this.state.checked){
-            console.log('false')
             return
         }
+        
         if(detail.projectDetails.surplusAmount==0){
             Modal.alert(`该标的已经投满`,'请重新选择其他标的', [
                 {
                     text: '确认',
                     onPress: () => {
-                        // setMoney(this.state.minInvestAmount)
-                        // setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
                         this.props.history.push('/mobile/subjectList')
                     }
                 }
@@ -321,14 +312,12 @@ class Detail extends Component{
         }
         if(this.state.money<this.state.minInvestAmount){
             
-            console.log(22222222)
             Modal.alert(`投资金额不能小于${this.state.minInvestAmount}元`,'请重新输入有效金额', [
                 {
                     text: '确认',
                     onPress: () => {
                         setMoney(this.state.minInvestAmount)
                         setProfit((this.state.minInvestAmount)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
-                        // this.props.history.push('/mobile/detail')
                     }
                 }
             ]);
@@ -338,24 +327,18 @@ class Detail extends Component{
         if(this.state.money>detail.projectDetails.maxInvestAmount||this.state.money>detail.projectDetails.surplusAmount){
             const minmoney = detail.projectDetails.maxInvestAmount<detail.projectDetails.surplusAmount?detail.projectDetails.maxInvestAmount:detail.projectDetails.surplusAmount;
             const massage = detail.projectDetails.maxInvestAmount<detail.projectDetails.surplusAmount?'投资额度超过单笔最大额度':'投资额度超过标的剩余可投金额'
-            // Toast.fail(massage+minmoney,1)
             Modal.alert(`${massage+minmoney}`,'请重新输入有效金额', [
                 {
                     text: '确认',
                     onPress: () => {
                         setMoney(minmoney)
                         setProfit(minmoney*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
-                        // this.props.history.push('/mobile/detail')
                     }
                 }
             ]);
             return
         }
         
-        // if(this.state.money>=this.state.sumMoney||this.state.money>=this.props.detail.projectDetails.surplusAmount||this.state.money>=this.props.detail.projectDetails.maxInvestAmount){
-        //     Toast.fail(`投资金额不能超过可用余额或最大可投金额以及标的剩余可投金额`,1)
-        //     return 
-        // }
         if(restMoney<detail.projectDetails.minInvestAmount){
             Modal.alert(`投资后剩余金额不能小于起投金额${detail.projectDetails.minInvestAmount}`,`请投满剩余金额${detail.projectDetails.surplusAmount}或留出最少投资金额${detail.projectDetails.minInvestAmount}`, [
                 {
@@ -363,8 +346,6 @@ class Detail extends Component{
                     onPress: () => {
                         setMoney(detail.projectDetails.surplusAmount)
                         setProfit(detail.projectDetails.surplusAmount*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
-                        // this.props.history.push('/mobile/detail')
-                        
                     }
                 }
             ]);
@@ -395,7 +376,6 @@ class Detail extends Component{
         this.props.history.push(`/mobile/rewards/${e}`)
     }
     componentWillReceiveProps(nextProps){
-        console.log(nextProps)
         this.setState({
             sumMoney:nextProps.detail.myInfo.availableBalance||0,
             money:nextProps.detail.money,
@@ -404,7 +384,6 @@ class Detail extends Component{
     }
     render(){
         const { auth , detail } = this.props;
-        console.log(detail,this.props);
         return (
             <div id='detail'>
                 <div className = 'warpper'>

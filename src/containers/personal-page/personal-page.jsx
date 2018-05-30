@@ -65,6 +65,18 @@ class PersonalContainer extends Component {
             Toast.fail(err.message,1)
         })
     }
+    tradePassword(){
+        this.props.history.push('/mobile/tradePassword')
+    }
+    componentWillReceiveProps(nextProps){
+        console.log(nextProps)
+        const getPersonal = nextProps.personal.getPersonal;
+        if(getPersonal){
+            Toast.loading('loading...',0)
+        }else{
+            Toast.hide()
+        }
+    }
     render () {
         const { personal,auth } = this.props;
         let personalObj=this.props.personal.personal;
@@ -149,6 +161,13 @@ class PersonalContainer extends Component {
                                 <span className="actionText r">{personalObj.openAccountStatus=='0'?'未开户':'已开户'}</span>
                         </span>
                     </dd>
+                    <dd>
+                        <div className="leftTitle">交易密码</div>
+                        <span className="rightAction" onClick={this.tradePassword.bind(this)}>
+                                <span className="icon-arrow r"></span>
+                                <span className="actionText r">{personalObj.tradepasswordStatus=='0'?'未设置':'修改'}</span>
+                        </span>
+                    </dd>
                 </dl>
                 <dl>
                     <dd>
@@ -159,6 +178,14 @@ class PersonalContainer extends Component {
                             </Link>
                         </span>
                     </dd>
+                    {/* <dd>
+                        <div className="leftTitle">设置交易密码</div>
+                        <span className="rightAction">
+                            <Link to="/mobile/tradePassword">
+                                <span className="icon-arrow"></span>
+                            </Link>
+                        </span>
+                    </dd> */}
                 </dl>
                 <div className="loginOut" onClick={this.logout.bind(this)}>退出登录</div>
             </div>
