@@ -2,7 +2,15 @@
 
 
 .withdraw {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: unit(20px / (@baseWidth / @baseColumns), rem) 0;
+    box-sizing: border-box;
+
+    .withdrawContent {
+        flex: 1;
+    }
 
     .area {
         background: #fff;
@@ -124,11 +132,8 @@
     font-size: unit(24px / (@baseWidth / @baseColumns), rem);
     color: #979aa7;
     text-align: center;
-    position: fixed;
-    right: 0; left: 0;
-    bottom: unit(40px / (@baseWidth / @baseColumns), rem);;
 
-    p {
+    p { 
         line-height: unit(50px / (@baseWidth / @baseColumns), rem);
     }
 

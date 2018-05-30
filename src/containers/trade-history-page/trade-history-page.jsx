@@ -17,7 +17,7 @@ class TradeHistoryPage extends Component {
     }
 
     render () {
-        const { match, tradeList } = this.props;
+        const { match, tradeList, getTradeList } = this.props;
         let isTrade = match.url === '/mobile/trade-history' ? true : false;
         return (
             <div className="trade-history">
@@ -35,6 +35,7 @@ class TradeHistoryPage extends Component {
                                 result.propTopIndex ? result.propTopIndex : 0,
                                 result.propBottomIndex ? result.propBottomIndex : ''
                             );
+                            getTradeList(result.propBottomIndex ? result.propBottomIndex : '');
                         }
                     }
                 />
@@ -53,8 +54,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getTradeList: () => {
-            dispatch(getTradeList());
+        getTradeList: (month) => {
+            dispatch(getTradeList(month));
         }
     }
 }

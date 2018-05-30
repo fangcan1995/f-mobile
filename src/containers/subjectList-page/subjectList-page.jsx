@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
-import InfiniteScroll from 'react-infinite-scroller';
 import { loginUser } from '../../actions/auth';
 import { getsubjectList, gettransferList } from "../../actions/subjectList";
 import './subjectList-page.less';

@@ -1,4 +1,5 @@
 import cFetch from '../libs/cFetch';
+import { Toast } from 'antd-mobile';
 
 
 export const getMyInfo = () => {
@@ -7,6 +8,8 @@ export const getMyInfo = () => {
         async payload() {
             let res = await cFetch('app/accounts/my/info', {
                 method: 'GET',
+            }).catch(err => {
+                Toast.fail(err.message, 2.5)
             });
             const { code, data } = res;
             if (code == 0) {
@@ -25,6 +28,8 @@ export const getMyCertification = () => {
         async payload() {
             let res = await cFetch(`app/members/certification`, {
                 method: 'GET'
+            }).catch(err => {
+                Toast.fail(err.message, 2.5)
             });
             const { code, data } = res;
             if(code == 0) {

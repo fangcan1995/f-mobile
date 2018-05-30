@@ -1,4 +1,5 @@
 import cFetch from '../libs/cFetch';
+import { Toast } from 'antd-mobile';
 
 export const getRepayPlan = (proId) => {
     return {
@@ -6,6 +7,8 @@ export const getRepayPlan = (proId) => {
         async payload() {
             let res = await cFetch(`app/members/investments/receiving/${proId}`, {
                 method: 'GET'
+            }).catch(err => {
+                Toast.fail(err.message, 2.5)
             });
             const { code, data } = res;
             if (code == 0) {
