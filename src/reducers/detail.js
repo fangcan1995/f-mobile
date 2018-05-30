@@ -4,6 +4,7 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
     isFetching: false,
     isPosting:false,
+    isGetInfo:false,
     projectDetails:{},
     myInfo:{},
     money:0,
@@ -27,13 +28,16 @@ export default createReducer(initialState, {
   //获取账户信息
   [`detail/GET_MY_INFO_PENDING`]: (state, action) => state.merge({
     isFetching: true,
+    isGetInfo:true,
   }),
   [`detail/GET_MY_INFO_FULFILLED`]: (state, action) => state.merge({
     isFetching: false,
+    isGetInfo:false,
     myInfo: action.payload
   }),
   [`detail/GET_MY_INFO_REJECTED`]: (state, action) => state.merge({
     isFetching: false,
+    isGetInfo:false,
     errorMessage: action.message
   }),
 
