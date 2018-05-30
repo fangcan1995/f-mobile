@@ -5,7 +5,6 @@ import './redCoupon.less';
 
 
 const RedCoupon = ({ type, data }) => {
-    //console.log(data);
 
     data = data ? data : {};
     // rp 红包 cp 加息券 fail 失效

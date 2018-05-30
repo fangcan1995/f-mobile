@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Toast } from 'antd-mobile';
 
 import './trade-history-page.less';
 import TradeCard from '../../components/trade-card/trade-card';
@@ -14,6 +15,11 @@ class TradeHistoryPage extends Component {
     componentDidMount () {
         const { getTradeList } = this.props;
         getTradeList();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     render () {
@@ -48,6 +54,7 @@ class TradeHistoryPage extends Component {
 const mapStateToProps = state => {
     const { tradeHistory } = state.toJS();
     return {
+        isFetching: tradeHistory.isFetching,
         tradeList: tradeHistory.tradeList
     }
 };

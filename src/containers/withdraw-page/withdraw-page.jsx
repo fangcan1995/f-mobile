@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Toast } from 'antd-mobile';
+import { Toast, Modal } from 'antd-mobile';
+import { hex_md5 } from '../../libs/md5'
 
 import './withdraw-page.less';
 
-import { getMyInfo, getMyCertification } from '../../actions/my';
+import { getMyInfo, getMyCertification, getMyAll } from '../../actions/my';
 import { getWithdraw } from '../../actions/withdraw';
 
+
+const prompt = Modal.prompt;
 
 class WithdrawPage extends Component {
 
@@ -30,9 +33,13 @@ class WithdrawPage extends Component {
     }
 
     componentDidMount() {
-        const { getMyCertification, getMyInfo } = this.props;
-        getMyInfo();
-        getMyCertification();
+        const { getMyCertification, getMyInfo, getMyAll } = this.props;
+        getMyAll();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     componentDidUpdate() {
@@ -59,17 +66,28 @@ class WithdrawPage extends Component {
             Toast.info('请输入合法的金额！', 2.5);
         }
         else {
-            getWithdraw(this.state.withdrawNum)
-                .then(res => {
-                    this.setState({
-                        formHidden: {
-                            ...this.state.formHidden,
-                            ...res.value
-                        }
-                    });
-                }).then(res => {
-                    this.form.submit();
-                });
+            prompt('交易密码', '请输入交易密码', [
+                {
+                    text: '取消',
+                },
+                {
+                    text: '确定',
+                    onPress: (value) => {
+                        let tradePwd = hex_md5(value);
+                        getWithdraw(this.state.withdrawNum, tradePwd)
+                            .then(res => {
+                                this.setState({
+                                    formHidden: {
+                                        ...this.state.formHidden,
+                                        ...res.value
+                                    }
+                                });
+                            }).then(res => {
+                                this.form.submit();
+                            });
+                    }
+                }
+            ], 'secure-text');
         }
 
 
@@ -77,7 +95,7 @@ class WithdrawPage extends Component {
 
     handleChange(e) {
         const { myInfo } = this.props;
-        if(parseFloat(this.state.withdrawNum) > myInfo.availableBalance) {
+        if (parseFloat(this.state.withdrawNum) > myInfo.availableBalance) {
             Toast.info('提现数额过大!', 2.5);
             this.setState({
                 withdrawNum: myInfo.availableBalance
@@ -168,6 +186,7 @@ class WithdrawPage extends Component {
 const mapStateToProps = state => {
     const { my } = state.toJS();
     return {
+        isFetching: my.isFetching,
         myCertification: my.myCertification,
         myInfo: my.myInfo
     }
@@ -181,8 +200,11 @@ const mapDispatchToProps = dispatch => {
         getMyCertification: () => {
             dispatch(getMyCertification());
         },
-        getWithdraw: (withdrawNum) => {
-            return dispatch(getWithdraw(withdrawNum));
+        getMyAll: () => {
+            dispatch(getMyAll());
+        },
+        getWithdraw: (withdrawNum, tradePwd) => {
+            return dispatch(getWithdraw(withdrawNum, tradePwd));
         }
     }
 };

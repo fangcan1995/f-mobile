@@ -37,6 +37,7 @@ import DynamicPage from './containers/dynamic-page/dynamic-page';
 import SubjectListPage from './containers/subjectList-page/subjectList-page';
 import RiskEvaluationResultPage from './containers/riskEvaluationResult-page/riskEvaluationResult-page';
 import TradePassword from './containers/tradePassword/tradePassword';
+import ProtocolPage from './containers/protocol-page/protocol-page';
 
 
 
@@ -67,6 +68,7 @@ export default (
             <Route exact path="/mobile/subjectList" component={SubjectListPage} />
             <Route exact path="/mobile/discoverDetail/:id" component={DiscoverDetailPage} />
             <Route exact path="/mobile/riskEvaluationResult" component={RiskEvaluationResultPage} />
+            <Route exact path="/mobile/protocol/:id?" component={ProtocolPage} />
             {/* add by ShadowCo/mobilever */}
             <Route exact path="/mobile/personal/:id?" component={PersonalContainer} />
             <Route exact path="/mobile/redpacket" component={RedPacket} />

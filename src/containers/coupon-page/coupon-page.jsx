@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';  
+import { Toast } from 'antd-mobile';
 
 import RedCoupon from '../../components/redCoupon/redCoupon';
 import Filter from '../../components/filter/filter';
@@ -17,6 +18,11 @@ class CouponPage extends Component {
     componentDidMount() {
         const { getCouponList } = this.props;
         getCouponList();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     render() {
@@ -48,6 +54,7 @@ class CouponPage extends Component {
 const mapStateToProps = state => {
     const { coupon } = state.toJS();
     return {
+        isFetching: coupon.isFetching,
         couponList: coupon.couponList
     }
 }

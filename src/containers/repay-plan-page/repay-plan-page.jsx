@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Toast } from 'antd-mobile';
 
 import NoItems from '../../components/no-items/no-items';
 import './repay-plan-page.less';
@@ -16,6 +17,11 @@ class RepayPlanPage extends Component {
     componentDidMount() {
         const { getRepayPlan, match } = this.props;
         getRepayPlan(match.params.proId);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     render() {
@@ -90,6 +96,7 @@ class RepayPlanPage extends Component {
 const mapStateToProps = state => {
     const { repayPlan } = state.toJS();
     return {
+        isFetching: repayPlan.isFetching,
         repayData: repayPlan.repayData,
     }
 }

@@ -24,6 +24,7 @@ import myCharge from './charge';
 import tradeHistory from './trade-history';
 import myWithdraw from './withdraw';
 import tradePassword from './tradePassword'
+import protocol from './protocol';
 
 const rootReducer = combineReducers({
     auth,
@@ -53,5 +54,6 @@ const rootReducer = combineReducers({
     myCharge,
     tradeHistory,
     tradePassword,
+    protocol
 });
 export default rootReducer;

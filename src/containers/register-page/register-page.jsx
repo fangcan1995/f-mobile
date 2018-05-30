@@ -194,7 +194,7 @@ class RegisterPage extends Component {
                     
                 </form>   
                 <div className='agreement'>
-                    <p>注册即表示您已同意<span>《用户注册及服务协议》</span></p>
+                    <p>注册即表示您已同意<Link to='/mobile/protocol/6'><span>《用户注册及服务协议》</span></Link></p>
                     <p>已有账号？<Link to='/mobile/login'><span>请登陆</span></Link></p>
                 </div>         
             </div>

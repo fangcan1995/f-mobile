@@ -10,7 +10,7 @@ import './my.less'
 import FooterTab from '../../components/footer-tab/footer-tab';
 import './my.less';
 
-import { getMyInfo, getMyCertification } from '../../actions/my';
+import { getMyInfo, getMyCertification, getMyAll } from '../../actions/my';
 
 class My extends Component {
     constructor(props) {
@@ -18,14 +18,13 @@ class My extends Component {
     }
 
     componentDidMount() { 
-        const { getMyInfo, match, history, getMyCertification, location } = this.props;
+        const { getMyInfo, match, history, getMyCertification, location, getMyAll } = this.props;
         const { token_type, access_token } = cookie.getJSON('token') || {};
         if(!(token_type && access_token)) {
             history.push(`/mobile/login?redirect=/mobile/my`);
         }
         else {
-            getMyCertification();
-            getMyInfo();
+            getMyAll();
             if(match.params.callback) {
                 switch(match.params.callback) {
                     case 'pay_9999': 
@@ -39,6 +38,11 @@ class My extends Component {
                 }
             }
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     showToast(text, time, callback) {
@@ -75,7 +79,7 @@ class My extends Component {
                 <div className='footer-tab-content'>
                     <div className='my-nav'>
                         <div className='my'>我的
-                            <span><i className='icon-message'></i></span>
+                            {/* <span><i className='icon-message'></i></span> */}
                         </div>
                         <div className='base-info'>
                             <Link to='/mobile/personal'>
@@ -204,6 +208,7 @@ class My extends Component {
 const mapStateToProps = state => {
     const { my } = state.toJS();
     return {
+        isFetching: my.isFetching,
         myInfo: my.myInfo,
         myCertification: my.myCertification
     }
@@ -216,7 +221,10 @@ const mapDispatchToProps = dispatch => {
         },
         getMyCertification: () => {
             dispatch(getMyCertification());
-        }
+        },
+        getMyAll: () => {
+            dispatch(getMyAll());
+        },
     }
 }
 

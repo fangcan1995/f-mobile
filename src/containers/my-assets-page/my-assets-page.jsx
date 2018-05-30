@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Toast, Modal } from 'antd-mobile';
 
 import ReactEcharts from "echarts-for-react";
 
@@ -34,6 +35,11 @@ class MyAssetsPage extends Component {
                 transform: `translate(-50%, -50%)`
             }
         })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     render() {
@@ -145,6 +151,7 @@ class MyAssetsPage extends Component {
 const mapStateToProps = state => {
     const { my } = state.toJS();
     return {
+        isFetching: my.isFetching,
         myInfo: my.myInfo
     }
 }

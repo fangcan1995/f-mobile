@@ -41,3 +41,17 @@ export const getMyCertification = () => {
         }
     }
 }
+
+export const getMyAll = () => {
+    return {
+        type: 'GET_MYALL',
+        async payload() {
+            let myAll = Promise.all([getMyInfo().payload(), getMyCertification().payload()]);
+            return myAll.then(res => {
+                return res;
+            }).catch(err => {
+                Toast.fail(err.message, 2.5)
+            });
+        }
+    }
+}
