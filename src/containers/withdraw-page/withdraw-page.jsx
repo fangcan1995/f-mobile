@@ -61,7 +61,6 @@ class WithdrawPage extends Component {
         else {
             getWithdraw(this.state.withdrawNum)
                 .then(res => {
-                    console.log(res);
                     this.setState({
                         formHidden: {
                             ...this.state.formHidden,
@@ -77,9 +76,18 @@ class WithdrawPage extends Component {
     }
 
     handleChange(e) {
-        this.setState({
-            withdrawNum: e.target.value,
-        });
+        const { myInfo } = this.props;
+        if(parseFloat(this.state.withdrawNum) > myInfo.availableBalance) {
+            Toast.info('提现数额过大!', 2.5);
+            this.setState({
+                withdrawNum: myInfo.availableBalance
+            })
+        }
+        else {
+            this.setState({
+                withdrawNum: e.target.value,
+            });
+        }
     }
 
     withdrawAll() {

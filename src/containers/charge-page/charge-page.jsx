@@ -34,10 +34,19 @@ class ChargePage extends Component {
 
     handleChange(e) {
         const { myInfo } = this.props;
-        this.setState({
-            chargeNum: e.target.value,
-            leftNum: (parseFloat(myInfo.availableBalance) + parseFloat(e.target.value === '' ? 0 : e.target.value)).toFixed(2)
-        });
+        if(parseFloat(this.state.chargeNum) > 10000000) {
+            Toast.info('充值数额过大!', 2.5);
+            this.setState({
+                chargeNum: 10000000
+            })
+        }
+        else {
+            this.setState({
+                chargeNum: e.target.value,
+                leftNum: (parseFloat(myInfo.availableBalance) + parseFloat(e.target.value === '' ? 0 : e.target.value)).toFixed(2)
+            });
+        }
+        
     }
 
     componentDidMount() {
@@ -47,7 +56,6 @@ class ChargePage extends Component {
     }
 
     componentDidUpdate() {
-        console.log(this.props)
         const { myCertification, history } = this.props;
         if(myCertification.idNumberStatus === '1') {
             Toast.info('您还没有实名认证！', 2.5, () => {
