@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getDetails, getMyInfo, setMoney, postInvest, setProfit } from '../../actions/detail';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { loginUser , authCode} from '../../actions/auth';
 import { bindActionCreators } from 'redux';
 import { Modal, Toast } from 'antd-mobile';
@@ -493,7 +494,7 @@ class Detail extends Component{
                             <div className = 'checkbox'>
                                 <label className = 'tips'>
                                     <input type = 'checkbox' onClick = {this.handleAgreeClick.bind(this)}/>我已阅读并同意
-                                    <span className= 'agreement'><a href=''>《投资协议》</a>、<a href=''>《网络借贷风险和禁止性行为提示》</a></span>
+                                    <span className= 'agreement'><Link to='/mobile/protocol/4'>《投资协议》</Link>、<Link to='/mobile/protocol/3'>《网络借贷风险和禁止性行为提示》</Link></span>
                                 </label>
                             </div>
                             <div className = {`button ${this.state.button}` } onClick = {this.handlePostClick.bind(this)}>立即投资</div>
