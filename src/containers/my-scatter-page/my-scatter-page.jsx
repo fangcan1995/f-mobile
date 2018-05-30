@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Toast } from 'antd-mobile';
 
 import AgreementCard from '../../components/agreement-card/agreement-card';
 import Filter from '../../components/filter/filter';
@@ -17,6 +18,11 @@ class MyScatterPage extends Component {
     componentDidMount() {
         const { getMyScatter } = this.props;
         getMyScatter();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     render() {
@@ -48,6 +54,7 @@ class MyScatterPage extends Component {
 const mapStateToProps = state => {
     const { myScatter } = state.toJS();
     return {
+        isFetching: myScatter.isFetching,
         scatterList: myScatter.scatterList
     }
 };

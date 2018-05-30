@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
+import { Toast } from 'antd-mobile';
 
 import './my-transfer-page.less';
 import TradeCard from '../../components/trade-card/trade-card';
@@ -18,6 +19,11 @@ class MyTransferPage extends Component {
     componentDidMount() {
         const { getMyTransfer } = this.props;
         getMyTransfer();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     render () {
@@ -49,6 +55,7 @@ class MyTransferPage extends Component {
 const mapStateToProps = state => {
     const { myTransfer } = state.toJS();
     return {
+        isFetching: myTransfer.isFetching,
         transferList: myTransfer.tranferList
     };
 }

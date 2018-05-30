@@ -11,7 +11,7 @@ export const getRedpacket = (status = 0, month = '') => {
                 method: 'GET',
             }).catch(err => {
                 Toast.fail(err.message, 2.5)
-            });;
+            });
             const { code, data } = res;
             if (code == 0) {
                 return data.list || [];

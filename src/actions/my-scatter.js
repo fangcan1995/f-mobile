@@ -3,7 +3,6 @@ import { Toast } from 'antd-mobile';
 
 
 export const getMyScatter = (status = 0, month = '') => {
-    console.log(status, month);
     return {
         type: 'GET_MYSCATTER',
         async payload() {

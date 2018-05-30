@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import '../withdraw-page/withdraw-page.less';
 
 
-import { getMyInfo, getMyCertification } from '../../actions/my';
+import { getMyInfo, getMyCertification, getMyAll } from '../../actions/my';
 import { getCharge } from '../../actions/charge';
 import { Toast, Button } from 'antd-mobile';
 
@@ -50,9 +50,13 @@ class ChargePage extends Component {
     }
 
     componentDidMount() {
-        const { getMyInfo, getMyCertification } = this.props;
-        getMyInfo();
-        getMyCertification();
+        const { getMyInfo, getMyCertification, getMyAll } = this.props;
+        getMyAll();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        Toast.loading('Loading', 0);
+        nextProps.isFetching === false && Toast.hide();
     }
 
     componentDidUpdate() {
@@ -149,6 +153,7 @@ class ChargePage extends Component {
 const mapStateToProps = state => {
     const { my } = state.toJS();
     return {
+        isFetching: my.isFetching,
         myInfo: my.myInfo,
         myCertification: my.myCertification,
     }
@@ -161,6 +166,9 @@ const mapDispatchToProps = dispatch => {
         },
         getMyCertification: () => {
             dispatch(getMyCertification());
+        },
+        getMyAll: () => {
+            dispatch(getMyAll());
         },
         getCharge: (chargeNum) => {
             return dispatch(getCharge(chargeNum));
