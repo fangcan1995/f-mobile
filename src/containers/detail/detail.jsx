@@ -22,7 +22,10 @@ class Detail extends Component{
       };
       
       componentDidMount(){
-		const { getDetails, getMyInfo, authCode, setMoney, setProfit } = this.props;
+        const { getDetails, getMyInfo, authCode, setMoney, setProfit } = this.props;
+        if(this.props.detail.isFetching){
+            Toast.loading('loading')
+        }
         getDetails(this.props.match.params.id).then(res=>{
             console.log(res);
             this.setState({
@@ -35,7 +38,7 @@ class Detail extends Component{
         if(this.props.auth.isAuthenticated){
             getMyInfo()
         }
-        authCode()
+        // authCode()
         this.setState({
             money:this.state.minInvestAmount
         })
@@ -373,6 +376,12 @@ class Detail extends Component{
     componentDidUpdate(){
         const { detail, postInvest } = this.props;
         let {postResult,isPosting}=detail;
+        if(detail.isGetInfo){
+            Toast.loading('loading...',0)
+        }else{
+            Toast.hide()
+        }
+        
         if(postResult.userCode===101 && postResult.times<5 && !isPosting){
             console.log('在这里发第'+(postResult.times+1)+'次请求');
             postInvest(cred,postResult.times)
