@@ -36,6 +36,7 @@ import My from './containers/my/my'
 import DynamicPage from './containers/dynamic-page/dynamic-page';
 import SubjectListPage from './containers/subjectList-page/subjectList-page';
 import RiskEvaluationResultPage from './containers/riskEvaluationResult-page/riskEvaluationResult-page';
+import TradePassword from './containers/tradePassword/tradePassword';
 import ProtocolPage from './containers/protocol-page/protocol-page';
 
 
@@ -95,6 +96,7 @@ export default (
             <Route exact path='/mobile/projectDetail/:id' component = {ProjectDetail}/>
             <Route exact path='/mobile/investment-records/:id' component = {InvestmentRecords}/>
             <Route exact path='/mobile/rewards/:id' component = { Rewards }/>
+            <Route exact path='/mobile/tradePassword' component = { TradePassword }/>
             <Redirect to = '/mobile/home' />
         </Switch>
     </App>

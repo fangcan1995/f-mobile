@@ -20,7 +20,6 @@ class ProjectDetail extends Component{
 
     render(){
         const { auth , projectDetail } = this.props;
-        console.log(projectDetail);
         const { filesList, loanCreditCountDto, mortgageCarHis, projectInfoBaseInfoDto, projectInfoLoanInfoDto, mortgageHouseHis } = projectDetail.projectInfo;
         return (
            

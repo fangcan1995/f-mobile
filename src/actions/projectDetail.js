@@ -3,7 +3,6 @@ import cFetch from '../libs/cFetch';
 let urls='http://172.16.7.3:9070/'
 
   export const  getProjectInfo = (params) => {
-    console.log('a3444444')
     // params = parseJson2URL(params) 
     return {
       type: 'project/GET_PROJECT_INFO',
@@ -11,7 +10,6 @@ let urls='http://172.16.7.3:9070/'
         const res = await cFetch(`app/invest/projects/info/${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
-            console.log(data)
           return data || {};
         } else {
           throw res;

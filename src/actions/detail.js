@@ -3,14 +3,12 @@ let urls='http://172.16.7.3:9070/'
 import { Toast } from 'antd-mobile';
 
 export const  getDetails = (params) => {
-    console.log('aaa222111111')
     return {
       type: 'detail/GET_DETAILS',
       async payload() {
         const res = await cFetch(`app/invest/projects/loan/${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
-            console.log(data)
             // data.surplusAmount=500
           return data || {};
         } else {
@@ -21,14 +19,12 @@ export const  getDetails = (params) => {
   }
   // 获取个人信息
   export const  getMyInfo = (params) => {
-    console.log('aaa22211113333')
     return {
       type: 'detail/GET_MY_INFO',
       async payload() {
-        const res = await cFetch(`app/accounts/my/info?access_token=765f5644-5e10-459a-aabd-4b5a3719496e` , { method: 'GET' },true,);
+        const res = await cFetch(`accounts/my/info?access_token=765f5644-5e10-459a-aabd-4b5a3719496e` , { method: 'GET' },true,'http://172.16.1.221:9070/');
         const { code, data } = res;
         if ( code == 0 ) {
-            console.log(data)
             //'http://172.16.1.221:9070/'
             // let mok = {             
             //     accountBalance:0,
@@ -76,7 +72,6 @@ export const  getDetails = (params) => {
   }
   // 设置投资金额
   export const setMoney = cd => {
-    console.log(cd)
     return {
       type: 'detail/SET_MONEY',
       payload: cd,
@@ -85,7 +80,6 @@ export const  getDetails = (params) => {
 
 // 保存投资预期利润
 export const setProfit = cd => {
-  console.log(cd)
   return {
     type: 'detail/SET_PROFIT',
     payload: cd,
@@ -94,7 +88,6 @@ export const setProfit = cd => {
   //提交投资
 
   export const postInvest = (params,times) => {
-    console.log(params);
     return {
       type: 'detail/POST_INVEST',
       async payload(){
@@ -107,16 +100,13 @@ export const setProfit = cd => {
           },true).then(res=>{
             //'http://172.16.1.228:9090/'
              if ( res.code == 0 ) {
-                  console.log(res)
                   Toast.success(res.message,1)
                 return res || {};
               } else {
-                console.log(res)
                 throw res;
               }
           })
           .catch(err=>{
-            console.log(err)
             err.msg=101;
             let type=``;
             console.log('返回第'+(times+1)+'次请求的结果');

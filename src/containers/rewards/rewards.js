@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import { loginUser } from '../../actions/auth';
 import { bindActionCreators } from 'redux';
+import NoItem from '../../components/no-items/no-items'
 import './rewards.less'
 
 class Rewards extends Component{
     //选择红包
     handleUseEnvelopesClick(e,w,q){
-        console.log(e,w)
         const { setRewards, setRedEnvelopeId } =this.props;
         setRewards(e+'元'+w)
         setRedEnvelopeId(q)
@@ -20,25 +20,23 @@ class Rewards extends Component{
         const { setRewards, setRateCouponId } =this.props;
         setRewards(e+'%加息券')
         setRateCouponId(w)
-        console.log(e)
         this.props.history.goBack()
     }
     componentDidMount(){
         const { getrewardsList } = this.props;
-        console.log(this.props)
         const cred = {
             projectId:this.props.match.params.id,
-            useMinAmount:this.props.detail.money
+            investAmount:this.props.detail.money
         }
         getrewardsList(cred)
     }
     render(){
         const { rewards } =this.props;
-        console.log(rewards)
         return (
             <div id='rewards'>
                 <div className = 'warpper'>
-                {
+                {   
+                    rewards.rewardsList.length?
                     rewards.rewardsList.map(item=>{
                         return (
                             item.reTypeName?
@@ -76,6 +74,8 @@ class Rewards extends Component{
                             </div>
                         )
                     })
+                    :
+                    <NoItem/>
                 }
                     
                     
