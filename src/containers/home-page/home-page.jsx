@@ -6,6 +6,7 @@ import ReactSwipe from 'react-swipe';
 import ReactSwiper from 'reactjs-swiper';
 import { loginUser } from '../../actions/auth';
 import { getAdverts, getProject } from '../../actions/home';
+import { isWeiXin } from '../../libs/utils';
 import './home-page.less';
 import FooterTab from '../../components/footer-tab/footer-tab';
 import homeList1 from './../../assets/images/home-list1.png';
@@ -67,9 +68,13 @@ class HomePage extends Component {
 		return (
 			<div className="home-page home-body" id="home-page">
 				<div className='home-content footer-tab-content'>
-				<div className='page-title'>
-						首页
-				</div>
+				{
+                    !isWeiXin() ? 
+                        <div className='page-title'>
+						    首页
+                        </div>
+                        : null
+                }
 				<div className='banner'>
 					<ReactSwipe swipeOptions={swiperOptions} showPagination className="swiper" key={home.adverts.carouselList.length}>
 						{
