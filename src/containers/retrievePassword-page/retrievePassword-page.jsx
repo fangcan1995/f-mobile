@@ -120,7 +120,10 @@ class RetrievePasswordPage extends Component {
             const { dispatch } = this.props;
             dispatch(retrievePassword(submitData))
             .then(res=>{
-                this.props.history.push('/mobile/login')
+                Toast.success('设置密码成功',1,()=>{
+                    this.props.history.push('/mobile/login')
+                })
+                
             })
             .catch(err=>{
                 Toast.fail(err.message,1)
