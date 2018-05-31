@@ -16,13 +16,8 @@ import homeList4 from './../../assets/images/home-list4.png';
 import newPerson from './../../assets/images/new-person.png';
 class HomePage extends Component {
 	
-	handleClick = (e) => {
-		const { loginUser } = this.props;
-		loginUser({ accout: 'aaa', password: 'aaa' })
-	}
-	handleLeftSwipe = (e)=> {
-		console.log(e);
-	  }
+	
+	
 	componentDidMount () {
 		const { getAdverts, getProject } = this.props;
 		getAdverts()
@@ -40,7 +35,6 @@ class HomePage extends Component {
 	}
 	render() {
 		const { auth ,home } = this.props;
-		console.log(this.props)
 		// const items = [{
 		// 	image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci1.jpg',
 		// 	title: '图片1',

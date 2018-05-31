@@ -13,6 +13,7 @@ import {
 
 const initialState = fromJS({
   isFetching: false,
+  getPersonal:false,
   personal: {},
   certification: {},
   riskEvaluation: {
@@ -30,17 +31,20 @@ export default createReducer(initialState, {
   //获取发现首页数据
   [`${PERSONAL}_PENDING`]: (state, action) =>
     state.merge({
-      isFetching: true
+      isFetching: true,
+      getPersonal:true,
     }),
   [`${PERSONAL}_FULFILLED`]: (state, action) =>
     state.merge({
       isFetching: false,
+      getPersonal:false,
       personal: action.payload
     }),
 
   [`${PERSONAL}_REJECTED`]: (state, action) =>
     state.merge({
       isFetching: false,
+      getPersonal:false,
       errorMessage: action.message
     }),
 

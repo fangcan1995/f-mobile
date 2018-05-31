@@ -23,6 +23,7 @@ import rewards from './rewards';
 import myCharge from './charge';
 import tradeHistory from './trade-history';
 import myWithdraw from './withdraw';
+import tradePassword from './tradePassword'
 import protocol from './protocol';
 
 const rootReducer = combineReducers({
@@ -52,6 +53,7 @@ const rootReducer = combineReducers({
     rewards,
     myCharge,
     tradeHistory,
+    tradePassword,
     protocol
 });
 export default rootReducer;

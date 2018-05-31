@@ -43,7 +43,8 @@ class SubjectListPage extends Component {
 		  this.setState({
 			borderClass: "one",
 			tabClassOne: "active",
-			tabClassTwo: ""
+			tabClassTwo: "",
+			hasMore:true,
 		  });
 		  const { subjectList } = this.props;
 		  cred.pageNum=1
@@ -52,14 +53,12 @@ class SubjectListPage extends Component {
 		  this.setState({
 			  list:subjectList.projectList.list
 		  })
-		//   this.setState({
-		// 	  list:subjectList.projectList.list
-		//   })
 		} else {
 		  this.setState({
 			borderClass: "two",
 			tabClassOne: "",
-			tabClassTwo: "active"
+			tabClassTwo: "active",
+			hasMore:true,
 		  });
 		  this.setState({
 			list:subjectList.transferList.list
@@ -74,11 +73,10 @@ class SubjectListPage extends Component {
 			liClassTwo: '',
 			liClassThr:'',
 			arrow:0,
-			otherArrow:0
+			otherArrow:0,
+			hasMore:true,
 		  });
-		  console.log(this.state)
 		  if(this.state.tabClassOne){
-			  console.log(11111111111)
 			  cred ={
 					sortBy:null,
 					pageNum:1,
@@ -89,7 +87,6 @@ class SubjectListPage extends Component {
 				list:subjectList.projectList.list
 			})
 		  }else{
-			console.log(222222222222222)
 			cred ={
 				sortBy:null,
 				pageNum:1,
@@ -115,6 +112,7 @@ class SubjectListPage extends Component {
 			liClassOne: '',
 			liClassTwo: 'active',
 			liClassThr:'',
+			hasMore:true,
 		  });
 		  if(this.state.tabClassOne){
 				if(this.state.arrow==1){
@@ -235,6 +233,7 @@ class SubjectListPage extends Component {
 				liClassOne: '',
 				liClassTwo: '',
 				liClassThr:'active',
+				hasMore:true,
 			});
 		}
 	}
@@ -248,9 +247,7 @@ class SubjectListPage extends Component {
 		  }), 0);
 	}
 	componentWillReceiveProps (nextProps) {
-		console.log(nextProps)
 		const { subjectList } = nextProps;
-		console.log(cred.pageNum)
 		if(cred.pageNum==1){
 			
 			if(this.state.tabClassOne){
@@ -263,15 +260,6 @@ class SubjectListPage extends Component {
 				})
 			}	
 		}else{
-			// if(this.state.tabClassOne){
-			// 	this.setState({
-			// 		list:[...this.state.list,...subjectList.projectList.list]
-			// 	})
-			// }else{
-			// 	this.setState({
-			// 		list:[...this.state.list,...subjectList.transferList.list]
-			// 	})
-			// }		
 		}
 	}
 	getsubjectList(e){
@@ -288,18 +276,12 @@ class SubjectListPage extends Component {
 	getNewData(){
 		cred.pageNum++;
 		this.setState({ refreshing: true });
-		console.log(cred.pageNum,this.props)
 		const { subjectList } = this.props;
 		if (this.state.borderClass == "one"){
-			console.log('aaaa',this.props)
 			if(cred.pageNum<=this.props.subjectList.projectList.pages){
-				console.log('aaaabb')
-				
 				this.getsubjectList(cred).then(res=>{
-					console.log(res)
 					this.setState({
 						list:[...this.state.list,...res.value.list],
-						// height:this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop
 						// hasMore: false
 					})
 				}).then(()=>{
@@ -309,7 +291,7 @@ class SubjectListPage extends Component {
 					})
 				}).catch(()=>{
 					this.setState({
-						// hasMore: false
+						hasMore: false
 					})
 				})
 			}else{
@@ -327,7 +309,7 @@ class SubjectListPage extends Component {
 					console.log(res)
 					this.setState({
 						list:[...this.state.list,...res.value.list],
-						hasMore: false
+						// hasMore: false
 					})
 				}).catch(()=>{
 					this.setState({
@@ -348,7 +330,6 @@ class SubjectListPage extends Component {
 	}
 	render() {
 		const { auth, subjectList } = this.props;
-		console.log(this.state.list)
 		return (
             <div className="subjectList-body">
 				<div className="main footer-tab-content subList">
@@ -391,16 +372,7 @@ class SubjectListPage extends Component {
 						refreshing={this.state.refreshing}
 						onRefresh={this.getNewData.bind(this)}
 						>
-						{/* <InfiniteScroll
-							pageStart={0}
-							loadMore={this.getNewData.bind(this)}
-							hasMore={this.state.hasMore}
-							initialLoad = {false}
-							// useCapture = {true}
-							threshold = {250}
-							useWindow ={false}
-							loader={<div className="loader" key={0}>Loading ...</div>}
-						> */}
+						
 						{
 							this.state.list.length?
 							this.state.list.map(item=>{
@@ -459,7 +431,9 @@ class SubjectListPage extends Component {
 							})
 							:<div className='onLoad'>加载中...</div>
 						}
-						{/* </InfiniteScroll> */}
+						{
+							this.state.hasMore?<div></div>:<div>已经到底部了^-^```</div>
+						}
 						</PullToRefresh>
 					</ul>
 				</div>
