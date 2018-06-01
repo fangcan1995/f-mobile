@@ -114,7 +114,7 @@ class HomePage extends Component {
 												</div>
 												<div className='yield'>
 													<div className='money l'>
-															预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>{item.annualRate}</span><span className='unit'>%</span>
+															预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>{item.annualRate}{item.raiseRate?`+${item.raiseRate}`:''}</span><span className='unit'>%</span>
 													</div>
 													<div className='deadline r'>
 															期限&nbsp;&nbsp;&nbsp;<span className='number'>{item.loanExpiry}</span><span className='unit'>个月</span>
@@ -144,7 +144,7 @@ class HomePage extends Component {
 												</div>
 												<div className='yield'>
 													<div className='money l'>
-															预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>{item.annualRate}</span><span className='unit'>%</span>
+															预计年化收益率&nbsp;&nbsp;&nbsp;<span className='number'>{item.annualRate}{item.raiseRate?`+${item.raiseRate}`:''}</span><span className='unit'>%</span>
 													</div>
 													<div className='deadline r'>
 															期限&nbsp;&nbsp;&nbsp;<span className='number'>{item.loanExpiry}</span><span className='unit'>个月</span>

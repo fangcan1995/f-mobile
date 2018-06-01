@@ -391,9 +391,12 @@ class Detail extends Component{
                     <div className = 'content'>
                         <div className = 'nav'>
                             <div className = 'nav-tital'>
-                                {detail.projectDetails.annualRate}%<br/><span>预计年化收益率</span>
+                                {detail.projectDetails.annualRate}{detail.projectDetails.raiseRate?`+${detail.projectDetails.raiseRate}`:''}%<br/><span>预计年化收益率</span>
                             </div>
-                            <div className = 'plus'>加息</div>
+                            {
+                                detail.projectDetails.raiseRate?<div className = 'plus'>加息</div>:''
+                            }
+                            
                             <div className = 'clear'></div>
                             <ul className = 'show-massage'>
                                 <li>{detail.projectDetails.surplusAmount}
