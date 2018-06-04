@@ -54,6 +54,9 @@ class TradePassword extends Component {
         }       
     }
     handleSubmit(){
+        const { personal } = this.props;
+        const { history, location } = this.props;
+        const { redirect } = parseQueryString(location.search);
         if(!this.state.trade_password_code){
             Toast.info('请输入短信验证码',1)
             return false
@@ -90,7 +93,8 @@ class TradePassword extends Component {
             dispatch(setTradePassword(appInfo))
             .then(res=>{
                 Toast.success(res.value.postResult.message,1,()=>{
-                    this.props.history.push('/mobile/personal')
+                    // this.props.history.push('/mobile/personal')
+                    history.push(redirect ? decodeURIComponent(redirect) : '/mobile/personal')
                 })
                 
             })

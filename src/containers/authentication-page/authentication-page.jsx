@@ -25,6 +25,9 @@ class AuthenticationPage extends Component {
   handleSubmit(){
     let isSubmit=true;
     const { personal } = this.props;
+    const { history, location } = this.props;
+    const { redirect } = parseQueryString(location.search);
+    
     let array=[];
     personal.riskEvaluation.data.map(item=>{
       if(!item.answer){
@@ -51,7 +54,8 @@ class AuthenticationPage extends Component {
       dispatch(submitCertification(submitData))
       .then(res=>{
         Toast.success(res.value.message,1,()=>{
-          this.props.history.push('/mobile/personal')
+          // this.props.history.push('/mobile/personal')
+          history.push(redirect ? decodeURIComponent(redirect) : '/mobile/personal')
         });
       })
       .catch(err=>{
