@@ -7,6 +7,7 @@ import { certification } from '../../actions/personal';
 import { isIdCard,setBrowserTitle } from '../../libs/utils';
 import './../retrievePassword-page/retrievePassword-page.less';
 import  { Toast } from 'antd-mobile';
+import parseQueryString from '../../libs/parseQueryString'
 class CertificationPage extends Component {
 	constructor(){
         super();

@@ -7,6 +7,7 @@ import { riskEvaluation, syncRiskEvaluation,submitCertification } from "../../ac
 import { Toast } from "antd-mobile";
 import {setBrowserTitle} from '../../libs/utils';
 import "./authentication-page.less";
+import parseQueryString from '../../libs/parseQueryString'
 
 class AuthenticationPage extends Component {
   constructor(props) {

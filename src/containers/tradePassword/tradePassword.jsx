@@ -8,6 +8,7 @@ import { setTradePassword,getTradePassCode } from '../../actions/tradePassword'
 import { loginUser,authCode,smsCode } from '../../actions/auth';
 import  { Toast } from 'antd-mobile';
 import {setBrowserTitle,istruePsd } from '../../libs/utils';
+import parseQueryString from '../../libs/parseQueryString'
 class TradePassword extends Component {
 	constructor(){
         super();
