@@ -22,7 +22,7 @@ export const  getDetails = (params) => {
     return {
       type: 'detail/GET_MY_INFO',
       async payload() {
-        const res = await cFetch(`accounts/my/info?access_token=765f5644-5e10-459a-aabd-4b5a3719496e` , { method: 'GET' },true,'http://172.16.1.221:9070/');
+        const res = await cFetch(`app/accounts/my/info?access_token=765f5644-5e10-459a-aabd-4b5a3719496e` , { method: 'GET' },true);
         const { code, data } = res;
         if ( code == 0 ) {
             //'http://172.16.1.221:9070/'
