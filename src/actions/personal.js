@@ -15,7 +15,7 @@ export const personal = () => {
         headers: {
           "Content-Type": "application/json"
         }
-      },true,'http://172.16.1.221:9070/');
+      });
       if (res.code == 0) {
         // let mock = {
         //   isCertification: "1", //是否实名认证（0：未实名；1：已实名）
