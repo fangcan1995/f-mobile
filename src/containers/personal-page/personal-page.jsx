@@ -54,16 +54,25 @@ class PersonalContainer extends Component {
         })
     }
     bindCard(){
-        const { dispatch } = this.props;
-        dispatch(getFuiou(4))
-        .then(res=>{
-            document.getElementById('webReg').action=res.value.data.url;
-            document.getElementById('webReg').submit();
-         
-        })
-        .catch(err=>{
-            Toast.fail(err.message,1)
-        })
+
+        const { dispatch,personal } = this.props;
+        console.log(personal)
+        if(personal.personal.certificationStatus==0){
+            Toast.fail('请进行实名认证',1)
+        }else if(personal.personal.tradepasswordStatus){
+            Toast.fail('请设置交易密码',1)
+        }else{
+            dispatch(getFuiou(4))
+            .then(res=>{
+                document.getElementById('webReg').action=res.value.data.url;
+                document.getElementById('webReg').submit();
+            
+            })
+            .catch(err=>{
+                Toast.fail(err.message,1)
+            })
+        }
+        
     }
     tradePassword(){
         this.props.history.push('/mobile/tradePassword')
