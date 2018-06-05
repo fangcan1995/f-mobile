@@ -10,7 +10,7 @@ export const personal = () => {
   return {
     type: PERSONAL,
     async payload() {
-      let res = await cFetch(`accounts/my/info`, {
+      let res = await cFetch(`app/accounts/my/info`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
