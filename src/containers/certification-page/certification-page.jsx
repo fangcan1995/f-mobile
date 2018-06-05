@@ -7,6 +7,7 @@ import { certification } from '../../actions/personal';
 import { isIdCard,setBrowserTitle } from '../../libs/utils';
 import './../retrievePassword-page/retrievePassword-page.less';
 import  { Toast } from 'antd-mobile';
+import parseQueryString from '../../libs/parseQueryString'
 class CertificationPage extends Component {
 	constructor(){
         super();
@@ -19,6 +20,9 @@ class CertificationPage extends Component {
         setBrowserTitle('实名认证')
       }
     handleSubmit(){
+        const { personal } = this.props;
+        const { history, location } = this.props;
+        const { redirect } = parseQueryString(location.search);
         if(!this.state.tureName){
             Toast.info('请输入真实姓名')
             return false
@@ -39,7 +43,8 @@ class CertificationPage extends Component {
             dispatch(certification(ajaxData))
             .then(res=>{
                 Toast.success('认证成功',1,()=>{
-                    this.props.history.push('/mobile/personal')
+                    // this.props.history.push('/mobile/personal')
+                    history.push(redirect ? decodeURIComponent(redirect) : '/mobile/personal')
                 })               
             })
             .catch(err=>{

@@ -7,6 +7,7 @@ import { riskEvaluation, syncRiskEvaluation,submitCertification } from "../../ac
 import { Toast } from "antd-mobile";
 import {setBrowserTitle} from '../../libs/utils';
 import "./authentication-page.less";
+import parseQueryString from '../../libs/parseQueryString'
 
 class AuthenticationPage extends Component {
   constructor(props) {
@@ -25,6 +26,9 @@ class AuthenticationPage extends Component {
   handleSubmit(){
     let isSubmit=true;
     const { personal } = this.props;
+    const { history, location } = this.props;
+    const { redirect } = parseQueryString(location.search);
+    
     let array=[];
     personal.riskEvaluation.data.map(item=>{
       if(!item.answer){
@@ -51,7 +55,8 @@ class AuthenticationPage extends Component {
       dispatch(submitCertification(submitData))
       .then(res=>{
         Toast.success(res.value.message,1,()=>{
-          this.props.history.push('/mobile/personal')
+          // this.props.history.push('/mobile/personal')
+          history.push(redirect ? decodeURIComponent(redirect) : '/mobile/personal')
         });
       })
       .catch(err=>{

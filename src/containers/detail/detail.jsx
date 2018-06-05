@@ -126,9 +126,9 @@ class Detail extends Component{
         const prompt = Modal.prompt;
         if(detail.projectDetails.noviceLoan==1){
             if(detail.myInfo.noviceStatus==1){
-                if(detail.myInfo.tradepasswordStatus){//是否实设置交易密码detail.myInfo.tradepasswordStatus
+                if(detail.myInfo.tradepasswordStatus=='1'){//是否实设置交易密码detail.myInfo.tradepasswordStatus
                     if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
-                        if(detail.myInfo.riskStatus){//是否进行风险评估detail.myInfo.riskStatus==0
+                        if(detail.myInfo.riskStatus=='1'){//是否进行风险评估detail.myInfo.riskStatus==0
                             if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
                                 prompt(
                                     '交易密码',
@@ -162,7 +162,7 @@ class Detail extends Component{
                                         text: '确认',
                                         onPress: () => {
                                             console.log(1111)
-                                            this.props.history.push('/mobile/personal')
+                                            this.props.history.push(`/mobile/personal?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                                         }
                                     }
                                 ]); 
@@ -173,7 +173,7 @@ class Detail extends Component{
                                 {
                                     text: '确认',
                                     onPress: () => {
-                                        this.props.history.push('/mobile/authentication')
+                                        this.props.history.push(`/mobile/authentication?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                                     }
                                 }
                             ]); 
@@ -184,7 +184,7 @@ class Detail extends Component{
                             {
                                 text: '确认',
                                 onPress: () => {
-                                    this.props.history.push('/mobile/certification')
+                                    this.props.history.push(`/mobile/certification?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                                 }
                             }
                         ]); 
@@ -195,7 +195,7 @@ class Detail extends Component{
                         {
                             text: '确认',
                             onPress: () => {
-                                this.props.history.push('/mobile/tradePassword')
+                                this.props.history.push(`/mobile/tradePassword?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                             }
                         }
                     ]);
@@ -213,66 +213,80 @@ class Detail extends Component{
                 ]);
             }
         }else{
-            if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
-                if(detail.myInfo.riskStatus){//是否进行风险评估detail.myInfo.riskStatus==0
-                    if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
-                        prompt(
-                            '交易密码',
-                            '请输入交易密码',
-                            [
-                              { text: '取消' },
-                              { text: '确认', onPress: password => {
-                                let tradePassword = hex_md5(password)
-                                cred = {
-                                    tradePassword,
-                                    ...cred
+            console.log(detail)
+            if(detail.myInfo.tradepasswordStatus=='1'){//是否实设置交易密码detail.myInfo.tradepasswordStatus
+                if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
+                    if(detail.myInfo.riskStatus=='0'){//是否进行风险评估detail.myInfo.riskStatus==0
+                        if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
+                            prompt(
+                                '交易密码',
+                                '请输入交易密码',
+                                [
+                                { text: '取消' },
+                                { text: '确认', onPress: password => {
+                                    let tradePassword = hex_md5(password)
+                                    cred = {
+                                        tradePassword,
+                                        ...cred
+                                    }
+                                    Toast.loading('请稍等',5)
+                                    postInvest(cred,0)
+                                    .then(res=>{
+                                        const { getDetails, getMyInfo } = this.props;
+                                        getDetails(this.props.match.params.id)
+                                        getMyInfo()
+                                    }).catch(err=>{
+                                        console.log(err)
+                                    })
+                                    }
+                                },
+                                ],
+                                'secure-text',
+                            )
+                            return 
+                        }else{
+                            Modal.alert('您还未开户','去开户', [
+                                {
+                                    text: '确认',
+                                    onPress: () => {
+                                        this.props.history.push(`/mobile/personal?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
+                                    }
                                 }
-                                Toast.loading('请稍等',5)
-                                postInvest(cred,0)
-                                .then(res=>{
-                                    const { getDetails, getMyInfo } = this.props;
-                                    getDetails(this.props.match.params.id)
-                                    getMyInfo()
-                                }).catch(err=>{
-                                    console.log(err)
-                                })
-                                }
-                              },
-                            ],
-                            'secure-text',
-                          )
-                        return 
+                            ]); 
+                            return 
+                        }
                     }else{
-                        Modal.alert('您还未开户','去开户', [
+                        Modal.alert('您还未进行风险评估','请进行评估', [
                             {
                                 text: '确认',
                                 onPress: () => {
-                                    this.props.history.push('/mobile/personal')
+                                    console.log(detail)
+                                    this.props.history.push(`/mobile/authentication?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                                 }
                             }
                         ]); 
                         return 
                     }
                 }else{
-                    Modal.alert('您还未进行风险评估','请进行评估', [
+                    Modal.alert('您还未进行实名认证','请实名认证', [
                         {
                             text: '确认',
                             onPress: () => {
-                                this.props.history.push('/mobile/authentication')
+                                this.props.history.push(`/mobile/certification?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                             }
                         }
                     ]); 
                     return 
                 }
             }else{
-                Modal.alert('您还未进行实名认证','请实名认证', [
+                Modal.alert(`您还未设置交易密码`,'去设置交易密码', [
                     {
                         text: '确认',
                         onPress: () => {
-                            this.props.history.push('/mobile/certification')
+                            this.props.history.push(`/mobile/tradePassword?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                         }
                     }
-                ]); 
+                ]);
                 return 
             }
         }
@@ -391,9 +405,12 @@ class Detail extends Component{
                     <div className = 'content'>
                         <div className = 'nav'>
                             <div className = 'nav-tital'>
-                                {detail.projectDetails.annualRate}%<br/><span>预计年化收益率</span>
+                                {detail.projectDetails.annualRate}{detail.projectDetails.raiseRate?`+${detail.projectDetails.raiseRate}`:''}%<br/><span>预计年化收益率</span>
                             </div>
-                            <div className = 'plus'>加息</div>
+                            {
+                                detail.projectDetails.raiseRate?<div className = 'plus'>加息</div>:''
+                            }
+                            
                             <div className = 'clear'></div>
                             <ul className = 'show-massage'>
                                 <li>{detail.projectDetails.surplusAmount}
