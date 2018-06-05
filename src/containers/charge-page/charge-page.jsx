@@ -75,7 +75,7 @@ class ChargePage extends Component {
 
     handleCharge() {
         const { getCharge } = this.props;
-        if(isNaN(parseFloat(this.state.chargeNum))) {
+        if(isNaN(parseFloat(this.state.chargeNum)) || this.state.chargeNum === '0.00') {
             Toast.info('请输入合法的金额！', 2.5);
         }
         else {
@@ -89,7 +89,7 @@ class ChargePage extends Component {
                     }
                 });
             }).then(res => {
-                this.form.submit();
+                //this.form.submit();
             });
         }
         
