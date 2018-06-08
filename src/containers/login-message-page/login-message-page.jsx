@@ -42,7 +42,8 @@ class LoginMessagePage extends Component {
             Toast.info('请输入短信验证码')
             return false;
         }else{
-            let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
+            let submitData = {...{image_code:this.props.auth.loginCode.image_code},...params};
+            submitData.image_token=this.props.auth.loginCode.image_token
             submitData.username=this.state.username;
             submitData.verify_code=this.state.verify_code;
             submitData.verify_token=this.props.auth.smsLoginCode.token;
@@ -99,8 +100,9 @@ class LoginMessagePage extends Component {
         }else{
             let smsCodeData={
                 username:this.state.username,
-                image_code: this.props.auth.loginCode.imageCode,
+                image_code: this.props.auth.loginCode.image_code,
                 send_terminal: 'iPhone',
+                image_token:this.props.auth.loginCode.image_token,
 
             }
             const { dispatch } = this.props;

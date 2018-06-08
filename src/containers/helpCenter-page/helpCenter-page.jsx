@@ -147,7 +147,7 @@ class HelpCenterPage extends Component {
                     </ Link>
                   </li>
                 );
-              }):<div className='onLoad'>加载中...</div>
+              }):''
               }
             </PullToRefresh>
             </ul>

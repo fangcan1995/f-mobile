@@ -49,8 +49,9 @@ class RegisterPage extends Component {
         else{
             let smsRegisterCodeData={
                 username:this.state.username,
-                image_code: this.props.register.registerCode.imageCode,
+                image_code: this.props.register.registerCode.image_code,
                 send_terminal: 'iPhone',
+                image_token:this.props.register.registerCode.image_token,
 
             }
             const { dispatch } = this.props;
@@ -128,7 +129,8 @@ class RegisterPage extends Component {
             return false;
         }
         else{
-            let submitData = {...{image_code:this.props.register.registerCode.imageCode},...params};
+            let submitData = {...{image_code:this.props.register.registerCode.image_code},...params};
+            submitData.image_token=this.props.register.registerCode.image_token
             submitData.username=this.state.username;
             submitData.password=hex_md5(this.state.password);
             submitData.register_code=this.state.register_code;

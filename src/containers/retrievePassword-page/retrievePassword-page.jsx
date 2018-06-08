@@ -43,8 +43,9 @@ class RetrievePasswordPage extends Component {
         }else{
             let smsRetrievePasswordData={
                 username:this.state.username,
-                image_code: this.props.retrievePassword.retrievePasswordCode.imageCode,
+                image_code: this.props.retrievePassword.retrievePasswordCode.image_code,
                 send_terminal: 'iPhone',
+                image_token:this.props.retrievePassword.retrievePasswordCode.image_token,
             }
             const { dispatch } = this.props;
             dispatch(smsRetrievePasswordCode(smsRetrievePasswordData))
@@ -111,7 +112,8 @@ class RetrievePasswordPage extends Component {
             return false
         }
         else{
-            let submitData = {...{image_code:this.props.retrievePassword.retrievePasswordCode.imageCode},...params};
+            let submitData = {...{image_code:this.props.retrievePassword.retrievePasswordCode.image_code},...params};
+            submitData.image_token=this.props.retrievePassword.retrievePasswordCode.image_token
             submitData.username=this.state.username;
             submitData.password=hex_md5(this.state.password);
             submitData.forget_password_code=this.state.forget_password_code;

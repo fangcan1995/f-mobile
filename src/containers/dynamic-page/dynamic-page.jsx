@@ -160,7 +160,7 @@ class DynamicPage extends Component {
                     </dl>
                   </Link>
                 );
-              }):<div className='onLoad'>加载中...</div>
+              }):''
               }
             </PullToRefresh>
           </div>
