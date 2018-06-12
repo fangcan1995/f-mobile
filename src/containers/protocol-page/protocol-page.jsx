@@ -5,11 +5,9 @@ import Immutable from 'immutable';
 import { protocol } from '../../actions/protocol';
 import './protocol-page.less';
 import { Link } from 'react-router-dom';
-import {setBrowserTitle} from '../../libs/utils';
 
 class ProtocolPage extends Component {
 	componentDidMount(){
-		setBrowserTitle('协 议')
 		const { dispatch } = this.props;
 		dispatch(protocol(this.props.match.params.id));
 	}

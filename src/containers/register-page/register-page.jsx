@@ -8,7 +8,7 @@ import './register-page.less';
 import { isTel,istruePsd } from '../../libs/utils';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString,setBrowserTitle} from '../../libs/utils';
+import {parseQueryString} from '../../libs/utils';
 import bbhLogo from '../../assets/images/bbh-logo.png';
 import  { Toast } from 'antd-mobile';
 let params = {
@@ -152,8 +152,7 @@ class RegisterPage extends Component {
             })
         }
     }
-    componentDidMount() {  
-        setBrowserTitle('注 册')     
+    componentDidMount() {      
         const { dispatch } = this.props;
         dispatch(registerCode());
        

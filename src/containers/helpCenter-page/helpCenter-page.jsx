@@ -8,7 +8,6 @@ import "./helpCenter-page.less";
 import bbhLogo from "../../assets/images/bbh-logo.png";
 import { Link } from 'react-router-dom';
 import { PullToRefresh, ListView, Button } from 'antd-mobile';
-import {setBrowserTitle} from '../../libs/utils';
 let ajaxData={
   pageNum:'1',
   pageSize:'10',
@@ -47,7 +46,6 @@ class HelpCenterPage extends Component {
     }
   }
   componentDidMount(){
-    setBrowserTitle('帮助中心');
     ajaxData.pageNum=1;
     const { dispatch } = this.props;
     dispatch(clearData());

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Toast } from 'antd-mobile';
 import cookie from 'js-cookie';
-import { isWeiXin, setBrowserTitle } from '../../libs/utils';
+import { isWeiXin } from '../../libs/utils';
 
 import touxiang from '../../assets/images/home-list4.png';
 import './my.less'

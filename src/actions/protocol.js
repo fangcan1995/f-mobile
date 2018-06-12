@@ -13,7 +13,7 @@ export const protocol = (id) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-        },false,'http://172.16.1.252:9070/');
+        });
         if ( res.code == 0 ) {
           return res.data || {};
         } else {

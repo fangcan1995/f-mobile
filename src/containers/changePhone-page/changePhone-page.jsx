@@ -5,12 +5,9 @@ import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { loginUser } from '../../actions/auth';
 import './changePhone-page.less';
-import {mdPhone,setBrowserTitle} from '../../libs/utils';
+import {mdPhone} from '../../libs/utils';
 import changePhone from '../../assets/images/change-phone.png'
 class ChangePhonePage extends Component {
-  componentDidMount() {
-    setBrowserTitle('修改手机')
-  }
 	render() {
 		const { auth } = this.props;
 		return (

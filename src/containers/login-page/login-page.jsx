@@ -7,7 +7,7 @@ import './login-page.less';
 import { Link } from 'react-router-dom';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString,setBrowserTitle} from '../../libs/utils';
+import {parseQueryString} from '../../libs/utils';
 import bbhLogo from '../../assets/images/bbh-logo.png';
 import  { Toast } from 'antd-mobile';
 let params = {
@@ -73,8 +73,7 @@ class LoginPage extends Component {
             });
         }       
     }
-    componentDidMount() {
-        setBrowserTitle('登 录')       
+    componentDidMount() {     
         const { dispatch } = this.props;
         dispatch(authCode());
        

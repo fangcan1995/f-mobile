@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { retrievePasswordUser } from '../../actions/auth';
-import { isTel,setBrowserTitle } from '../../libs/utils';
+import { isTel } from '../../libs/utils';
 import  { Toast } from 'antd-mobile';
 import './../retrievePassword-page/retrievePassword-page.less';
 class BindPhonePage extends Component {
@@ -20,9 +20,6 @@ class BindPhonePage extends Component {
             [type]: e.target.value
         });
     }
-    componentDidMount() {
-        setBrowserTitle('绑定手机')
-      }
     getMessageCode(e){
         if(!this.state.username){
             Toast.info('请输入手机号')

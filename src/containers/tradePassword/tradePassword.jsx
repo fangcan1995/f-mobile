@@ -7,7 +7,7 @@ import { hex_md5 } from '../../libs/md5';
 import { setTradePassword,getTradePassCode } from '../../actions/tradePassword'
 import { loginUser,authCode,smsCode } from '../../actions/auth';
 import  { Toast } from 'antd-mobile';
-import {setBrowserTitle,istruePsd } from '../../libs/utils';
+import {istruePsd } from '../../libs/utils';
 import parseQueryString from '../../libs/parseQueryString'
 class TradePassword extends Component {
 	constructor(){
@@ -29,7 +29,6 @@ class TradePassword extends Component {
         
     }
     componentDidMount() {
-        setBrowserTitle('交易密码')
         const {dispatch} = this.props;
         dispatch(authCode())
         this.setState({

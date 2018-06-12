@@ -26,6 +26,9 @@ class App extends Component {
             case url.indexOf('/mobile/home') === 0:
                 setBrowserTitle('首页');
                 break;
+            case url.indexOf('/mobile/register') === 0:
+                setBrowserTitle('注册');
+                break;    
             case url.indexOf('/mobile/login') === 0:
                 setBrowserTitle('登录');
                 break;
@@ -119,6 +122,12 @@ class App extends Component {
             case url.indexOf('/mobile/rewards') === 0:
                 setBrowserTitle('系统奖励');
                 break;
+            case url.indexOf('/mobile/protocol') === 0:
+                setBrowserTitle('协议');
+                break;  
+            case url.indexOf('/mobile/tradePassword') === 0:
+                setBrowserTitle('设置交易密码');
+                break;       
         }
     }
 
