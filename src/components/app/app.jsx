@@ -62,7 +62,7 @@ class App extends Component {
             case url.indexOf('/mobile/subjectList') === 0:
                 setBrowserTitle('投资列表');
                 break;
-            case url.indexOf('/mobile/discoverDetail') === 0:
+            case url.indexOf('/mobile/discDetail') === 0:
                 setBrowserTitle('详情');
                 break;
             case url.indexOf('/mobile/riskEvaluationResult') === 0:

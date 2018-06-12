@@ -66,7 +66,7 @@ export default (
             <Route exact path="/mobile/detail" component={Detail} />
             <Route exact path="/mobile/dynamic" component={DynamicPage} />
             <Route exact path="/mobile/subjectList" component={SubjectListPage} />
-            <Route exact path="/mobile/discoverDetail/:id" component={DiscoverDetailPage} />
+            <Route exact path="/mobile/discDetail/:id" component={DiscoverDetailPage} />
             <Route exact path="/mobile/riskEvaluationResult" component={RiskEvaluationResultPage} />
             <Route exact path="/mobile/protocol/:id?" component={ProtocolPage} />
             {/* add by ShadowCo/mobilever */}

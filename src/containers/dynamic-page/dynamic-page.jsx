@@ -138,7 +138,7 @@ class DynamicPage extends Component {
                 list.map(item => {
                 item.updateTime = item.updateTime.substring(0, 10);
                 return (
-                  <Link to={"/mobile/discoverDetail/" + item.id} key={item.id}>
+                  <Link to={"/mobile/discDetail/" + item.id} key={item.id}>
                     <dl className="dynamic-list">
                       <dt className="l">
                         <img src={item.affIcon} alt="" />

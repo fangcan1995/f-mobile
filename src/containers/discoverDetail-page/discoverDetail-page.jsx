@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 class DiscoverDetailPage extends Component {
 	componentDidMount(){
 		const { dispatch } = this.props;
-        dispatch(discoverDeail(this.props.match.params.id));
+    dispatch(discoverDeail(this.props.match.params.id));
 	}
 	render() {
 		const { discoverDeail } = this.props;
