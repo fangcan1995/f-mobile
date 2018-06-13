@@ -8,7 +8,7 @@ export const protocol = (id) => {
   return {
     type: PROTOCOL,
     async payload(){
-        let res= await cFetch(`information/subjects/${id}`, {           
+        let res= await cFetch(`app/information/subjects/${id}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'
