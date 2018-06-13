@@ -6,6 +6,8 @@ import { API_CONFIG } from './../config/api';
 import { Toast, Modal } from 'antd-mobile';
 import { browserHistory } from 'react-router';
 
+import { _getCookie, _setCookie } from '../libs/utils';
+
 const errorMessages = (res) => `${res.status} ${res.statusText}`;
 
 function check401(res) {
@@ -80,6 +82,10 @@ function checkStatus(res) {
 }
 
 function jsonParse(res) {
+    
+    console.log(res.headers.keys);
+
+    
     return res.json();
 }
 

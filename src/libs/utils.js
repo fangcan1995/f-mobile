@@ -296,5 +296,7 @@ export {
   zipImage,
   dataURLtoBlob,
   parseQueryString,
-  mdPhone
+  mdPhone, 
+  _getCookie,
+  _setCookie
 };
