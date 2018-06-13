@@ -6,7 +6,6 @@ import Immutable from "immutable";
 import { dynamic, clearData } from "../../actions/dynamic";
 import "./dynamic-page.less";
 import { Link } from "react-router-dom";
-import { setBrowserTitle } from "../../libs/utils";
 import { PullToRefresh } from "antd-mobile";
 let ajaxData = {
   pageNum: "1",
@@ -45,7 +44,6 @@ class DynamicPage extends Component {
     }
   }
   componentDidMount() {
-    setBrowserTitle("巴巴汇动态");
     ajaxData.pageNum=1;
     const { dispatch } = this.props;
     dispatch(clearData());
@@ -140,7 +138,7 @@ class DynamicPage extends Component {
                 list.map(item => {
                 item.updateTime = item.updateTime.substring(0, 10);
                 return (
-                  <Link to={"/mobile/discoverDetail/" + item.id} key={item.id}>
+                  <Link to={"/mobile/discDetail/" + item.id} key={item.id}>
                     <dl className="dynamic-list">
                       <dt className="l">
                         <img src={item.affIcon} alt="" />
@@ -160,7 +158,7 @@ class DynamicPage extends Component {
                     </dl>
                   </Link>
                 );
-              }):<div className='onLoad'>加载中...</div>
+              }):''
               }
             </PullToRefresh>
           </div>

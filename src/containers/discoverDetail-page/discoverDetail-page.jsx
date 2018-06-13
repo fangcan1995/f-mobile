@@ -5,13 +5,11 @@ import Immutable from 'immutable';
 import { discoverDeail } from '../../actions/discoverDetail';
 import './discoverDetail-page.less';
 import { Link } from 'react-router-dom';
-import {setBrowserTitle} from '../../libs/utils';
 
 class DiscoverDetailPage extends Component {
 	componentDidMount(){
-		setBrowserTitle('详 情')
 		const { dispatch } = this.props;
-        dispatch(discoverDeail(this.props.match.params.id));
+    dispatch(discoverDeail(this.props.match.params.id));
 	}
 	render() {
 		const { discoverDeail } = this.props;

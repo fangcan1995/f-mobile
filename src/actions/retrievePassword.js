@@ -31,14 +31,14 @@ export const retrievePasswordCode = () => {
     return {
         type: RETRIEVEPSDCODE,
         async payload(){
-            let res= await cFetch(`uaa/code/image/string`, {           
+            let res= await cFetch(`uaa/code/image/string?send_terminal=iPhone`, {           
                 method: 'GET', 
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include'
             },false);
-            if(res.imageCode){
+            if(res.image_code){
                 return res || {};
             }else{
                 throw res;

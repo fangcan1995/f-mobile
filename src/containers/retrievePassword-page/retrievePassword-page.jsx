@@ -7,7 +7,7 @@ import { isTel,istruePsd } from '../../libs/utils';
 import './retrievePassword-page.less';
 import { hex_md5 } from '../../libs/md5';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString,setBrowserTitle} from '../../libs/utils';
+import {parseQueryString} from '../../libs/utils';
 import  { Toast } from 'antd-mobile';
 
 const params = {
@@ -43,8 +43,9 @@ class RetrievePasswordPage extends Component {
         }else{
             let smsRetrievePasswordData={
                 username:this.state.username,
-                image_code: this.props.retrievePassword.retrievePasswordCode.imageCode,
+                image_code: this.props.retrievePassword.retrievePasswordCode.image_code,
                 send_terminal: 'iPhone',
+                image_token:this.props.retrievePassword.retrievePasswordCode.image_token,
             }
             const { dispatch } = this.props;
             dispatch(smsRetrievePasswordCode(smsRetrievePasswordData))
@@ -111,7 +112,8 @@ class RetrievePasswordPage extends Component {
             return false
         }
         else{
-            let submitData = {...{image_code:this.props.retrievePassword.retrievePasswordCode.imageCode},...params};
+            let submitData = {...{image_code:this.props.retrievePassword.retrievePasswordCode.image_code},...params};
+            submitData.image_token=this.props.retrievePassword.retrievePasswordCode.image_token
             submitData.username=this.state.username;
             submitData.password=hex_md5(this.state.password);
             submitData.forget_password_code=this.state.forget_password_code;
@@ -130,8 +132,7 @@ class RetrievePasswordPage extends Component {
             })
         }
     }
-    componentDidMount() { 
-        setBrowserTitle('找回密码')      
+    componentDidMount() {  
         const { dispatch } = this.props;
         dispatch(retrievePasswordCode());
        

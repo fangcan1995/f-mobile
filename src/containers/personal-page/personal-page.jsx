@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
 import { personal,getFuiou } from '../../actions/personal';
 import { auth,logoutUser } from '../../actions/auth';
-import {mdPhone,setBrowserTitle} from '../../libs/utils';
+import {mdPhone} from '../../libs/utils';
 import  { Toast } from 'antd-mobile';
 import './personal-page.less';
 let ajaxData={
@@ -15,7 +15,6 @@ let ajaxData={
 }
 class PersonalContainer extends Component {
     componentDidMount(){
-        setBrowserTitle('个人中心')
         if(this.props.match.params.id){
             
             let id=this.props.match.params.id.split('_')[1]
@@ -54,16 +53,25 @@ class PersonalContainer extends Component {
         })
     }
     bindCard(){
-        const { dispatch } = this.props;
-        dispatch(getFuiou(4))
-        .then(res=>{
-            document.getElementById('webReg').action=res.value.data.url;
-            document.getElementById('webReg').submit();
-         
-        })
-        .catch(err=>{
-            Toast.fail(err.message,1)
-        })
+
+        const { dispatch,personal } = this.props;
+        console.log(personal)
+        if(personal.personal.certificationStatus==0){
+            Toast.fail('请进行实名认证',1)
+        }else if(personal.personal.tradepasswordStatus){
+            Toast.fail('请设置交易密码',1)
+        }else{
+            dispatch(getFuiou(4))
+            .then(res=>{
+                document.getElementById('webReg').action=res.value.data.url;
+                document.getElementById('webReg').submit();
+            
+            })
+            .catch(err=>{
+                Toast.fail(err.message,1)
+            })
+        }
+        
     }
     tradePassword(){
         this.props.history.push('/mobile/tradePassword')

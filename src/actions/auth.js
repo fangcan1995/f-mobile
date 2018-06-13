@@ -83,19 +83,18 @@ export const logoutUser = () => {
     }
 }
 //获取登陆图形验证码
-/* export const authCode = () => {
+export const authCode = () => {
   return {
     type: LOGINCODE,
     async payload(){
-        let res = await cFetch(`uaa/code/image/string`, {           
+        let res= await cFetch(`uaa/code/image/string?send_terminal=iPhone`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'include'
-        }, false, 'http://172.16.1.234:8060/');
-        console.log(res);
-        if(res.imageCode){
+             credentials: 'include'
+        });
+        if(res.image_code){
             return res || {};
         }else{
             throw res;
@@ -103,36 +102,7 @@ export const logoutUser = () => {
 
     } 
   };
-}; */
-
-export const authCode = () => {
-    return {
-        type: LOGINCODE,
-        async payload() {
-            let res = await fetch('http://172.16.1.234:8060/uaa/code/image/string', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include'
-            });
-            console.log(res.headers.get('content-type'));
-            return res.json().then(res => {
-                console.log(res)
-                if (res.imageCode) {
-                    return res || {};
-                } else {
-                    throw res;
-                }
-            });
-            /* if(res.json().imageCode){
-                return res || {};
-            }else{
-                throw res;
-            } */
-        }
-    }
-}
+};
 
 //获取短信验证码
 

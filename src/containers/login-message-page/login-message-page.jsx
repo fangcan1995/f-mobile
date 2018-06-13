@@ -7,7 +7,7 @@ import { isTel } from '../../libs/utils';
 import './login-message-page.less';
 import bbhLogo from '../../assets/images/bbh-logo.png';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString,setBrowserTitle} from '../../libs/utils';
+import {parseQueryString} from '../../libs/utils';
 import { Link } from 'react-router-dom';
 import  { Toast } from 'antd-mobile';
 import DragValidator from '../../components/drag-validator/drag-validator';
@@ -43,7 +43,8 @@ class LoginMessagePage extends Component {
             Toast.info('请输入短信验证码')
             return false;
         }else{
-            let submitData = {...{image_code:this.props.auth.loginCode.imageCode},...params};
+            let submitData = {...{image_code:this.props.auth.loginCode.image_code},...params};
+            submitData.image_token=this.props.auth.loginCode.image_token
             submitData.username=this.state.username;
             submitData.verify_code=this.state.verify_code;
             submitData.verify_token=this.props.auth.smsLoginCode.token;
@@ -101,8 +102,9 @@ class LoginMessagePage extends Component {
             console.log(this.props);
             let smsCodeData={
                 username:this.state.username,
-                image_code: this.props.auth.loginCode.imageCode,
+                image_code: this.props.auth.loginCode.image_code,
                 send_terminal: 'iPhone',
+                image_token:this.props.auth.loginCode.image_token,
 
             }
             const { dispatch } = this.props;
@@ -119,7 +121,6 @@ class LoginMessagePage extends Component {
         }           
     }
     componentDidMount() {    
-        setBrowserTitle('登 录')   
         const { dispatch } = this.props;
         dispatch(authCode());      
     }

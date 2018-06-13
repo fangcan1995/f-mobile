@@ -8,12 +8,12 @@ export const protocol = (id) => {
   return {
     type: PROTOCOL,
     async payload(){
-        let res= await cFetch(`information/subjects/${id}`, {           
+        let res= await cFetch(`app/information/subjects/${id}`, {           
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'
             },
-        },false,'http://172.16.1.252:9070/');
+        });
         if ( res.code == 0 ) {
           return res.data || {};
         } else {

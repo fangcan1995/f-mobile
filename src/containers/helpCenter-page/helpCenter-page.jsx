@@ -8,7 +8,6 @@ import "./helpCenter-page.less";
 import bbhLogo from "../../assets/images/bbh-logo.png";
 import { Link } from 'react-router-dom';
 import { PullToRefresh, ListView, Button } from 'antd-mobile';
-import {setBrowserTitle} from '../../libs/utils';
 let ajaxData={
   pageNum:'1',
   pageSize:'10',
@@ -47,7 +46,6 @@ class HelpCenterPage extends Component {
     }
   }
   componentDidMount(){
-    setBrowserTitle('帮助中心');
     ajaxData.pageNum=1;
     const { dispatch } = this.props;
     dispatch(clearData());
@@ -137,7 +135,7 @@ class HelpCenterPage extends Component {
                 item.updateTime = item.updateTime.substring(0, 10);
                 return (
                   <li key={item.id}>
-                    <Link to={'/mobile/discoverDetail/' + item.id }>
+                    <Link to={'/mobile/discDetail/' + item.id }>
                       <h3>
                         {item.title}
                       </h3>
@@ -147,7 +145,7 @@ class HelpCenterPage extends Component {
                     </ Link>
                   </li>
                 );
-              }):<div className='onLoad'>加载中...</div>
+              }):''
               }
             </PullToRefresh>
             </ul>
