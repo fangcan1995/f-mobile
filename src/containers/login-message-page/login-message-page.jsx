@@ -152,7 +152,7 @@ class LoginMessagePage extends Component {
                     </div> 
                     
                 </form>
-                <DragValidator></DragValidator>
+                {/* <DragValidator></DragValidator> */}
             </div>
 			)
 	}
