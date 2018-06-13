@@ -89,7 +89,7 @@ class ChargePage extends Component {
                     }
                 });
             }).then(res => {
-                //this.form.submit();
+                this.form.submit();
             });
         }
         

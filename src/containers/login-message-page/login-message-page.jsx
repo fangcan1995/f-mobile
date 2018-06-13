@@ -10,6 +10,7 @@ import parseJson2URL from '../../libs/parseJson2URL';
 import {parseQueryString} from '../../libs/utils';
 import { Link } from 'react-router-dom';
 import  { Toast } from 'antd-mobile';
+import DragValidator from '../../components/drag-validator/drag-validator';
 let params = {
     client_id: 'member',
     client_secret: 'secret',
@@ -98,6 +99,7 @@ class LoginMessagePage extends Component {
             Toast.info('请输入正确手机号')
             return false;
         }else{
+            console.log(this.props);
             let smsCodeData={
                 username:this.state.username,
                 image_code: this.props.auth.loginCode.image_code,
@@ -150,6 +152,7 @@ class LoginMessagePage extends Component {
                     </div> 
                     
                 </form>
+                {/* <DragValidator></DragValidator> */}
             </div>
 			)
 	}

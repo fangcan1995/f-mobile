@@ -1,0 +1,30 @@
+@import '../../assets/stylesheets/library';
+
+.Validator {
+    width: unit(640px / (@baseWidth / @baseColumns), rem);
+    height: unit(60px / (@baseWidth / @baseColumns), rem);
+    font-size: unit(24px / (@baseWidth / @baseColumns), rem);
+    border: solid 1px #ddd;
+    margin: unit(40px / (@baseWidth / @baseColumns), rem) auto;
+
+    .validatorBlock {
+        display: flex;
+        width: 100%;
+        height: inherit;
+        background: #f1f1f1;
+
+        
+        .validatorProcess {
+            height: inherit;
+            background: #2f80ed ;
+        }
+
+        .validatorSlider {
+            width: unit(60px / (@baseWidth / @baseColumns), rem);
+            height: inherit;
+            text-align: center;
+            line-height: unit(60px / (@baseWidth / @baseColumns), rem);
+            background: #fff;
+        }
+    }
+}

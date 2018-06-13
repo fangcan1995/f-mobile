@@ -83,7 +83,7 @@ const config = {
             name: 'vendor',
         }),
         new HtmlWebpackPlugin({
-            title: 'BBH-CLIENT',
+            title: '巴巴汇金服',
             filename: path.join(BUILD_PATH, '/index.html'),
             template: path.join(SRC_PATH, '/index.html'),
             inject: true,
