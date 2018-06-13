@@ -24,7 +24,7 @@ export const loginUser = (params) => {
                 }),
                 body: params,
                 credentials: 'include'
-            }, false, 'http://172.16.1.234:8060/');
+            });
             console.log(token.headers);
             const {
                 token_type,
@@ -113,7 +113,7 @@ export const smsCode = (params) => {
         async payload() {
             let res = await cFetch(`uaa/code/sms/login?${params}`, {
                 credentials: 'include'
-            }, false, 'http://172.16.1.234:8060/');
+            });
             const {
                 code,
                 data
