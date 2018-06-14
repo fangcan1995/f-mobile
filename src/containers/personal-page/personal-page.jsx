@@ -58,7 +58,7 @@ class PersonalContainer extends Component {
         console.log(personal)
         if(personal.personal.certificationStatus==0){
             Toast.fail('请进行实名认证',1)
-        }else if(personal.personal.tradepasswordStatus){
+        }else if(personal.personal.tradepasswordStatus==0){
             Toast.fail('请设置交易密码',1)
         }else{
             dispatch(getFuiou(4))

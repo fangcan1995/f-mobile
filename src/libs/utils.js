@@ -14,6 +14,10 @@ const istruePsd = val => {
   var reg = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*?_., ]).*$/;
   return reg.test(val);
 };
+// const istruePsd = val => {
+//   var reg = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Za-z])(?=.*[\u0000-\u00FF]).*$/;
+//   return reg.test(val);
+// };
 
 
 const isIdCard = val => {
