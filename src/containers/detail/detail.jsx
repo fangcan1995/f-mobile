@@ -128,7 +128,7 @@ class Detail extends Component{
             if(detail.myInfo.noviceStatus==1){
                 if(detail.myInfo.tradepasswordStatus=='1'){//是否实设置交易密码detail.myInfo.tradepasswordStatus
                     if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
-                        if(detail.myInfo.riskStatus=='1'){//是否进行风险评估detail.myInfo.riskStatus==0
+                        if(detail.myInfo.riskStatus=='1'){//是否进行风险评估detail.myInfo.riskStatus==1
                             if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
                                 prompt(
                                     '交易密码',
@@ -216,7 +216,7 @@ class Detail extends Component{
             console.log(detail)
             if(detail.myInfo.tradepasswordStatus=='1'){//是否实设置交易密码detail.myInfo.tradepasswordStatus
                 if(detail.myInfo.trueName){//是否实名认证detail.myInfo.trueName
-                    if(detail.myInfo.riskStatus=='0'){//是否进行风险评估detail.myInfo.riskStatus==0
+                    if(detail.myInfo.riskStatus=='1'){//是否进行风险评估detail.myInfo.riskStatus==1
                         if(detail.myInfo.openAccountStatus){//是否开户detail.myInfo.openAccountStatus
                             prompt(
                                 '交易密码',
