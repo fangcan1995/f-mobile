@@ -29,6 +29,7 @@ class ChangePasswordPage extends Component {
         });
     }
     changeType(name,type,e){
+        e.stopPropagation();
         if(this.state[name]=='icon-show-password'){
             this.setState({
                 [name]: 'icon-hide-password',

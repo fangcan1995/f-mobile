@@ -91,6 +91,7 @@ class LoginMessagePage extends Component {
         this.mounted = false;
     }
     getMessageCode(e){
+        e.stopPropagation();
         if(!this.state.username){
             Toast.info('请输入手机号')
             return false;            

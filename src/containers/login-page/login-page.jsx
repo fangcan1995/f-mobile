@@ -61,6 +61,7 @@ class LoginPage extends Component {
         });
     }
     changeType(e){
+        e.stopPropagation();
         if(this.state.passwordName=='icon-show-password'){
             this.setState({
                 passwordName: 'icon-hide-password',

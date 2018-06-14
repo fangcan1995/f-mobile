@@ -37,7 +37,7 @@ class RegisterPage extends Component {
         });
     }
     getMessageCode(e){
-
+        e.stopPropagation();
         if(!this.state.username){
             Toast.info('请输入手机号')
             return false;            
@@ -66,7 +66,8 @@ class RegisterPage extends Component {
                 dispatch(registerCode());
                 Toast.fail(res.message,1)
             })           
-        }           
+        }
+                   
     }
     setTime(){
         let time=180;
@@ -95,6 +96,7 @@ class RegisterPage extends Component {
         this.mounted = false;
     }
     changeType(e){
+        e.stopPropagation();
         if(this.state.passwordName=='icon-show-password'){
             this.setState({
                 passwordName: 'icon-hide-password',
