@@ -58,7 +58,7 @@ class AuthenticationPage extends Component {
         });
       })
       .catch(err=>{
-        Toast.fail(err.message,1)
+        Toast.fail(err.message)
       })
     }
   }

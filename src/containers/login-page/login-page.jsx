@@ -50,7 +50,7 @@ class LoginPage extends Component {
                 dispatch(authCode());
             })
             .catch(err=>{
-                Toast.fail(err.message,1)
+                Toast.fail(err.message)
             })
         }
     }
