@@ -59,7 +59,8 @@ class TradePassword extends Component {
     }
   }
   handleSubmit() {
-    const { personal } = this.props;
+    const { personal, tradePassword } = this.props;
+    console.log(tradePassword)
     const { history, location } = this.props;
     const { redirect } = parseQueryString(location.search);
     if (!this.state.trade_password_code) {
@@ -86,9 +87,10 @@ class TradePassword extends Component {
         username: this.props.auth.userInfo.userName,
         trade_password: hex_md5(this.state.newPassword),
         trade_password_code: this.state.trade_password_code,
-        trade_password_token: this.state.trade_password_token
+        trade_password_token: tradePassword.trade_password_token.token
       };
       const { dispatch } = this.props;
+      console.log(appInfo)
       dispatch(setTradePassword(appInfo))
         .then(res => {
           Toast.success(res.value.postResult.message, 1, () => {
@@ -99,7 +101,7 @@ class TradePassword extends Component {
           });
         })
         .catch(err => {
-          Toast.fail(err.message, 1);
+          Toast.fail(err.message);
         });
     }
   }
@@ -141,13 +143,14 @@ class TradePassword extends Component {
       .then(res => {
         const { dispatch } = this.props;
         dispatch(authCode());
-        this.setState({
-          trade_password_token: res.value.token
-        });
+        console.log(res)
+        // this.setState({
+        //   trade_password_token: res.value.token
+        // });
         this.setTime();
       })
       .catch(res => {
-        Toast.fail(res.message, 1);
+        Toast.fail(res.message);
       });
   }
   render() {
@@ -226,12 +229,13 @@ class TradePassword extends Component {
 }
 
 function select(state) {
-  const { auth, changePassword, personal, detail } = state.toJS();
+  const { auth, changePassword, personal, detail, tradePassword } = state.toJS();
   return {
     changePassword,
     auth,
     personal,
-    detail
+    detail,
+    tradePassword
   };
 }
 

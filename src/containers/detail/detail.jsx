@@ -29,12 +29,17 @@ class Detail extends Component{
         }
         getDetails(this.props.match.params.id).then(res=>{
             this.setState({
-                minInvestAmount:res.value.minInvestAmount,
+                money:res.value.minInvestAmount,
                 minInvestAmount2:res.value.minInvestAmount,
             })
         });
         if(this.props.auth.isAuthenticated){
-            getMyInfo()
+            getMyInfo().then(res=>{
+                console.log(res)
+                this.setState({
+                    sumMoney:res.value.availableBalance
+                })
+            })
         }
         this.setState({
             money:this.state.minInvestAmount
@@ -49,19 +54,21 @@ class Detail extends Component{
 
     handleMinusClick(){
         const { detail, setMoney, setProfit } = this.props;
+        const rate = detail.projectDetails.raiseRate?detail.projectDetails.annualRate+detail.projectDetails.raiseRate:detail.projectDetails.annualRate
         if(this.state.money<=this.state.minInvestAmount2){
             Toast.fail(`投资金额不能小于起投金额${this.state.minInvestAmount2}`,1)
             return 
         }
         this.setState({
             money:this.state.money-100,
-            profit:(this.state.money-100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01     
+            profit:(this.state.money-100)*(rate/12*detail.projectDetails.loanExpiry)*0.01     
         })
         setMoney(this.state.money-100);
-        setProfit((this.state.money-100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
+        setProfit((this.state.money-100)*(rate/12*detail.projectDetails.loanExpiry)*0.01 )
     }
     handlePlusClick(){
         const { detail, setMoney, setProfit } = this.props;
+        const rate = detail.projectDetails.raiseRate?detail.projectDetails.annualRate+detail.projectDetails.raiseRate:detail.projectDetails.annualRate
         if(detail.myInfo.availableBalance <=0){
             Modal.alert('您的可用余额不足','去充值', [
                 {
@@ -90,23 +97,24 @@ class Detail extends Component{
         }
         this.setState({
             money:this.state.money+100,          
-            profit:(this.state.money+100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01    
+            profit:(this.state.money+100)*(rate/12*detail.projectDetails.loanExpiry)*0.01    
         })
         console.log(this.state.money)
         setMoney(this.state.money+100)
-        setProfit((this.state.money+100)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
+        setProfit((this.state.money+100)*(rate/12*detail.projectDetails.loanExpiry)*0.01 )
     }
     handleAllClick(){
         const { detail, setMoney, setProfit } = this.props;
+        const rate = detail.projectDetails.raiseRate?detail.projectDetails.annualRate+detail.projectDetails.raiseRate:detail.projectDetails.annualRate
         if(!this.state.sumMoney){
 
         }
         this.setState({
             money:this.state.sumMoney,
-            profit:(this.state.sumMoney)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 
+            profit:(this.state.sumMoney)*(rate/12*detail.projectDetails.loanExpiry)*0.01 
         })
         setMoney(this.state.sumMoney)
-        setProfit((this.state.sumMoney)*(detail.projectDetails.annualRate/12*detail.projectDetails.loanExpiry)*0.01 )
+        setProfit((this.state.sumMoney)*(rate/12*detail.projectDetails.loanExpiry)*0.01 )
     }
     handleAgreeClick(){
         if(this.state.checked){
@@ -390,13 +398,13 @@ class Detail extends Component{
     handleSelectClick(e){
         this.props.history.push(`/mobile/rewards/${e}`)
     }
-    componentWillReceiveProps(nextProps){
-        this.setState({
-            sumMoney:nextProps.detail.myInfo.availableBalance||0,
-            money:nextProps.detail.money,
-            profit:nextProps.detail.profit,
-        })
-    }
+    // componentWillReceiveProps(nextProps){
+    //     this.setState({
+    //         sumMoney:nextProps.detail.myInfo.availableBalance||0,
+    //         money:nextProps.detail.money,
+    //         profit:nextProps.detail.profit,
+    //     })
+    // }
     render(){
         const { auth , detail } = this.props;
         return (
@@ -478,7 +486,7 @@ class Detail extends Component{
                                 </div>
                                 <div className = 'i-list-item' >
                                     <i className = 'icon-danger-control icon'></i>
-                                    <p>风险提示</p>
+                                    <p><Link to='/mobile/protocol/16'>风险提示</Link></p>
                                 </div>
                             </div>
                         </div>
