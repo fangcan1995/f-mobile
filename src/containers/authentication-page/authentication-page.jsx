@@ -44,7 +44,7 @@ class AuthenticationPage extends Component {
       sortBy:'',
       pageNum:'1',
       pageSize:'1000',
-      riskResultId:'',
+      riskResultId:this.props.match.params.id ? this.props.match.params.id : '',
       questionAndAnswerDtoList:array,
 
     }
@@ -58,7 +58,7 @@ class AuthenticationPage extends Component {
         });
       })
       .catch(err=>{
-        Toast.fail(err.message,1)
+        Toast.fail(err.message)
       })
     }
   }

@@ -38,7 +38,7 @@ class RiskEvaluationResultPage extends Component {
                     <span>{objData.surplusInvestTotal}</span>
                   </li>
                </ul>
-               <Link to="/mobile/authentication"><button className='login-submit'>重新评估</button></Link>
+               <Link to={"/mobile/authentication/"+objData.riskResultId}><button className='login-submit'>重新评估</button></Link>
             </div>
 			)
 	}

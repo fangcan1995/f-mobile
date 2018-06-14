@@ -58,7 +58,7 @@ class RetrievePasswordPage extends Component {
                 const { dispatch } = this.props;
                 dispatch(retrievePasswordCode());    
                 
-                Toast.fail(res.message,1)
+                Toast.fail(res.message)
             })
             
             

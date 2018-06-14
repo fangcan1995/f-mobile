@@ -56,7 +56,7 @@ export default (
             <Route exact path="/mobile/loginMessage" component={LoginMessagePage} />
             <Route exact path="/mobile/register" component={RegisterPage} />
             <Route exact path="/mobile/retrievePassword" component={RetrievePasswordPage} />
-            <Route exact path="/mobile/authentication" component={AuthenticationPage} />
+            <Route exact path="/mobile/authentication/:id?" component={AuthenticationPage} />
             <Route exact path="/mobile/bindPhone" component={BindPhonePage} />
             <Route exact path="/mobile/certification" component={CertificationPage} />
             <Route exact path="/mobile/changePassword" component={ChangePasswordPage} />

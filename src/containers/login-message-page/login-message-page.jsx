@@ -60,7 +60,7 @@ class LoginMessagePage extends Component {
             .catch(err=>{
                 const { dispatch } = this.props;
                 dispatch(authCode());  
-                Toast.fail(err.message,1)
+                Toast.fail(err.message)
             })
         }
     }
@@ -116,7 +116,7 @@ class LoginMessagePage extends Component {
                 this.setTime();
             })
             .catch(res=>{
-                Toast.fail(res.message,1)
+                Toast.fail(res.message)
             })
   
         }           
