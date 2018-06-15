@@ -11,13 +11,15 @@ const isTel = val => {
 };
 
 const istruePsd = val => {
-  var reg = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*?_., ]).*$/;
+  var reg = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*?_.,]).*$/;
+  var onlyReg=/^[a-zA-Z0-9!@#$%^&*?_.,]*$/
+  return reg.test(val) && onlyReg.test(val);
+};
+
+const tradePasswordRegExp = val => {
+  var reg= /^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,16}$/
   return reg.test(val);
 };
-// const istruePsd = val => {
-//   var reg = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Za-z])(?=.*[\u0000-\u00FF]).*$/;
-//   return reg.test(val);
-// };
 
 
 const isIdCard = val => {
@@ -284,6 +286,7 @@ export {
   isTel,
   isIdCard,
   istruePsd,
+  tradePasswordRegExp,
   trim,
   isArray,
   preloadImage,

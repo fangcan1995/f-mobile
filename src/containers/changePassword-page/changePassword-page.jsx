@@ -52,7 +52,7 @@ class ChangePasswordPage extends Component {
             return false
         }
         else if(!istruePsd(this.state.newPassword)){
-            Toast.info('密码长度为6-16位，必须包含数字、字母、符号');
+            Toast.info('密码长度为6-16位，必须包含数字、字母、英文符号');
             return false;
         }
         else if(!this.state.confirmPassword){

@@ -10,7 +10,7 @@ import {
 } from "../../actions/tradePassword";
 import { loginUser, authCode, smsCode } from "../../actions/auth";
 import { Toast } from "antd-mobile";
-import { istruePsd } from "../../libs/utils";
+import { tradePasswordRegExp } from "../../libs/utils";
 import parseQueryString from "../../libs/parseQueryString";
 class TradePassword extends Component {
   constructor() {
@@ -68,8 +68,8 @@ class TradePassword extends Component {
     } else if (!this.state.newPassword) {
       Toast.info("请输入新密码", 1);
       return false;
-    } else if (!istruePsd(this.state.newPassword)) {
-      Toast.info("密码长度为6-16位，必须包含数字、字母、符号", 1);
+    } else if (!tradePasswordRegExp(this.state.newPassword)) {
+      Toast.info("密码长度为6-16位，数字、字母、英文符号");
       return false;
     } else if (!this.state.confirmPassword) {
       Toast.info("请输入确认密码", 1);

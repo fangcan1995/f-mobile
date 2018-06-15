@@ -303,7 +303,7 @@ class Detail extends Component{
             rateCouponId:rewards.rateCouponId,
             validationCode:auth.loginCode.imageCode,
             investWay:rewards.investWay,
-            ifTransfer:false,
+            isTransfer:false,
             transfer:false,
         }
         if(!this.state.checked){
