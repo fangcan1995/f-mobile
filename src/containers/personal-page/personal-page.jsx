@@ -1,95 +1,94 @@
-import React, { Component, Fragment }  from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
-import { personal,getFuiou } from '../../actions/personal';
-import { auth,logoutUser } from '../../actions/auth';
-import {mdPhone} from '../../libs/utils';
-import  { Toast } from 'antd-mobile';
+import { personal, getFuiou } from '../../actions/personal';
+import { auth, logoutUser } from '../../actions/auth';
+import { mdPhone } from '../../libs/utils';
+import { Toast } from 'antd-mobile';
 import './personal-page.less';
-let ajaxData={
-	adType:'7',
-	putEnv:'2',
-    number:''
+let ajaxData = {
+    adType: '7',
+    putEnv: '2',
+    number: ''
 }
 class PersonalContainer extends Component {
-    componentDidMount(){
-        if(this.props.match.params.id){
-            
-            let id=this.props.match.params.id.split('_')[1]
-            switch(id)
-                {
-                case '0000':
-                    Toast.success('开户成功',1)
-                    this.props.history.push('/mobile/personal')
-                break;
-                case '9999':
-                    Toast.fail('开户失败',1)
-                    this.props.history.push('/mobile/personal')
-                break;
-                case '5343':
-                    Toast.fail('已经开户',1)
-                    this.props.history.push('/mobile/personal')
-                break;
+    componentDidMount() {
+        if (this.props.match.params.id) {
 
-                }
+            let id = this.props.match.params.id.split('_')[1]
+            switch (id) {
+                case '0000':
+                    Toast.success('开户成功', 1)
+                    this.props.history.push('/mobile/personal')
+                    break;
+                case '9999':
+                    Toast.fail('开户失败', 1)
+                    this.props.history.push('/mobile/personal')
+                    break;
+                case '5343':
+                    Toast.fail('已经开户', 1)
+                    this.props.history.push('/mobile/personal')
+                    break;
+
+            }
         }
-        
-		const { dispatch } = this.props;
+
+        const { dispatch } = this.props;
         dispatch(personal(ajaxData));
     }
-    logout(){
+    logout() {
         const { dispatch } = this.props;
         dispatch(logoutUser())
-        .then(res=>{
-            Toast.success('已登出',1,()=>{
-                this.props.history.push('/mobile/login')
-            })
-            
-        })
-        .catch(res=>{
-            Toast.fail('登出失败',1)
-        })
-    }
-    bindCard(){
+            .then(res => {
+                Toast.success('已登出', 1, () => {
+                    this.props.history.push('/mobile/login')
+                })
 
-        const { dispatch,personal } = this.props;
-        console.log(personal)
-        if(personal.personal.certificationStatus==0){
-            Toast.fail('请进行实名认证',1)
-        }else if(personal.personal.tradepasswordStatus==0){
-            Toast.fail('请设置交易密码',1)
-        }else{
-            dispatch(getFuiou(4))
-            .then(res=>{
-                document.getElementById('webReg').action=res.value.data.url;
-                document.getElementById('webReg').submit();
-            
             })
-            .catch(err=>{
-                Toast.fail(err.message,1)
+            .catch(res => {
+                Toast.fail('登出失败', 1)
             })
-        }
-        
     }
-    tradePassword(){
+    bindCard() {
+
+        const { dispatch, personal } = this.props;
+        console.log(personal)
+        if (personal.personal.certificationStatus == 0) {
+            Toast.fail('请进行实名认证', 1)
+        } else if (personal.personal.tradepasswordStatus == 0) {
+            Toast.fail('请设置交易密码', 1)
+        } else {
+            dispatch(getFuiou(4))
+                .then(res => {
+                    document.getElementById('webReg').action = res.value.data.url;
+                    document.getElementById('webReg').submit();
+
+                })
+                .catch(err => {
+                    Toast.fail(err.message, 1)
+                })
+        }
+
+    }
+    tradePassword() {
         this.props.history.push('/mobile/tradePassword')
     }
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         console.log(nextProps)
         const getPersonal = nextProps.personal.getPersonal;
-        if(getPersonal){
-            Toast.loading('loading...',0)
-        }else{
+        if (getPersonal) {
+            Toast.loading('loading...', 0)
+        } else {
             Toast.hide()
         }
     }
-    render () {
-        const { personal,auth } = this.props;
-        let personalObj=this.props.personal.personal;
-        personalObj.userName=this.props.auth.userInfo.userName;
-        let toOthersInfo=personal.fuiouData.data;
+    render() {
+        const { personal, auth } = this.props;
+        let personalObj = this.props.personal.personal;
+        personalObj.userName = this.props.auth.userInfo.userName;
+        let toOthersInfo = personal.fuiouData.data;
         return (
             <div className="personalPage">
                 <form name="webReg" id="webReg" method="post">
@@ -112,13 +111,15 @@ class PersonalContainer extends Component {
                 </form>
                 <dl>
                     <dd>
-                        <div className="leftTitle">头像设置</div>
-                        <span className="rightAction">
-                            <Link to="/">
-                                <span className="icon-arrow"></span>
-                                <img className="personIcon" src={personalObj.photo} />
-                            </Link>
-                        </span>
+                        <Link to="/">
+                            <div className="leftTitle">头像设置</div>
+                            <span className="rightAction">
+                                <span>
+                                    <span className="icon-arrow"></span>
+                                    <img className="personIcon" src={personalObj.photo} />
+                                </span>
+                            </span>
+                        </Link>
                     </dd>
                 </dl>
                 <dl>
@@ -132,59 +133,79 @@ class PersonalContainer extends Component {
                         </span>
                     </dd> */}
                     <dd>
-                        <div className="leftTitle">实名认证</div>
-                        <span className="rightAction">
-                            {
-                                personalObj.certificationStatus==0
-                                    ? (
-                                        <Link to="/mobile/certification">
-                                            <span className="icon-arrow"></span>
-                                            <span className="actionText">{'未认证'}</span>
-                                        </Link>
-                                    )
-                                    :(
-                                        <a href="javascript:void(0)"    >
-                                            <span className="icon-arrow"></span>
-                                            <span className="actionText">{'已认证'}</span>
-                                        </a>
-                                    )
-                            }
-                        </span>
+                        {
+                            personalObj.certificationStatus == 0
+                                ? (
+                                    <Link to={"/mobile/certification"}>
+                                        <div className="leftTitle">实名认证</div>
+                                        <span className="rightAction">
+                                            {
+                                                <span>
+                                                    <span className="icon-arrow"></span>
+                                                    <span className="actionText">{'未认证'}</span>
+                                                </span>
+                                            }
+                                        </span>
+                                    </Link>
+                                ): (
+                                    <a href="javascript:void(0)">
+                                        <div className="leftTitle">实名认证</div>
+                                        <span className="rightAction">
+                                            {
+                                                <span>
+                                                    <span className="icon-arrow"></span>
+                                                    <span className="actionText">{'已认证'}</span>
+                                                </span>
+                                            }
+                                        </span>
+                                    </a>
+                                )
+                        }
+
+
                     </dd>
                 </dl>
                 <dl>
                     <dd>
-                        <div className="leftTitle">风险评估</div>
-                        <span className="rightAction">
-                            <Link to= { personalObj.riskStatus =='1'?"/mobile/riskEvaluationResult":'/mobile/authentication' }>
-                                <span className="icon-arrow"></span>
-                                <span className="actionText">{personalObj.riskStatus  =='0'?'未评估':'已评估'}</span>
-                            </Link>
-                        </span>
+                        <Link to={personalObj.riskStatus == '1' ? "/mobile/riskEvaluationResult" : '/mobile/authentication'}>
+                            <div className="leftTitle">风险评估</div>
+                            <span className="rightAction">
+                                <span>
+                                    <span className="icon-arrow"></span>
+                                    <span className="actionText">{personalObj.riskStatus == '0' ? '未评估' : '已评估'}</span>
+                                </span>
+                            </span>
+                        </Link>
                     </dd>
                     <dd>
-                        <div className="leftTitle">银行开户</div>
-                        <span className="rightAction" onClick={this.bindCard.bind(this)}>
+                        <a onClick={this.bindCard.bind(this)}>
+                            <div className="leftTitle">银行开户</div>
+                            <span className="rightAction" >
                                 <span className="icon-arrow r"></span>
-                                <span className="actionText r">{personalObj.openAccountStatus=='0'?'未开户':'已开户'}</span>
-                        </span>
+                                <span className="actionText r">{personalObj.openAccountStatus == '0' ? '未开户' : '已开户'}</span>
+                            </span>
+                        </a>
                     </dd>
                     <dd>
-                        <div className="leftTitle">交易密码</div>
-                        <span className="rightAction" onClick={this.tradePassword.bind(this)}>
+                        <a onClick={this.tradePassword.bind(this)}>
+                            <div className="leftTitle">交易密码</div>
+                            <span className="rightAction">
                                 <span className="icon-arrow r"></span>
-                                <span className="actionText r">{personalObj.tradepasswordStatus=='0'?'未设置':'修改'}</span>
-                        </span>
+                                <span className="actionText r">{personalObj.tradepasswordStatus == '0' ? '未设置' : '修改'}</span>
+                            </span>
+                        </a>
                     </dd>
                 </dl>
                 <dl>
                     <dd>
-                        <div className="leftTitle">修改密码</div>
-                        <span className="rightAction">
-                            <Link to="/mobile/changePassword">
-                                <span className="icon-arrow"></span>
-                            </Link>
-                        </span>
+                        <Link to="/mobile/changePassword">
+                            <div className="leftTitle">修改密码</div>
+                            <span className="rightAction">
+                                <span>
+                                    <span className="icon-arrow"></span>
+                                </span>
+                            </span>
+                        </Link>
                     </dd>
                     {/* <dd>
                         <div className="leftTitle">设置交易密码</div>
@@ -201,13 +222,13 @@ class PersonalContainer extends Component {
     }
 }
 function select(state) {
-    const { personal,auth } = state.toJS();
+    const { personal, auth } = state.toJS();
     return {
         personal,
         auth
     };
-  }
-  
+}
+
 export default connect(select)(PersonalContainer);
 
 //export default PersonalContainer;
