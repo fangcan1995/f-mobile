@@ -169,7 +169,6 @@ class Detail extends Component{
                                     {
                                         text: '确认',
                                         onPress: () => {
-                                            console.log(1111)
                                             this.props.history.push(`/mobile/personal?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                                         }
                                     }
@@ -239,10 +238,13 @@ class Detail extends Component{
                                     }
                                     Toast.loading('请稍等',5)
                                     postInvest(cred,0)
-                                    .then(res=>{
-                                        const { getDetails, getMyInfo } = this.props;
-                                        getDetails(this.props.match.params.id)
-                                        getMyInfo()
+                                    .then(res=>{ 
+                                        Toast.info(res.value.message,2,()=>{
+                                            const { getDetails, getMyInfo } = this.props;
+                                            getDetails(this.props.match.params.id)
+                                            getMyInfo()
+                                        })
+                                        
                                     }).catch(err=>{
                                         console.log(err)
                                     })
