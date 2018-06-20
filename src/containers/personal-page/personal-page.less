@@ -26,23 +26,36 @@ a {
             font-size: unit(30px / (@baseWidth / @baseColumns), rem);
             background: #fff;
 
-            > .leftTitle {
-                padding-left: unit(30px / (@baseWidth / @baseColumns), rem);
-            }
-            > .rightAction {
-                min-width: unit(80px / (@baseWidth / @baseColumns), rem);
-                font-size: unit(24px / (@baseWidth / @baseColumns), rem);
-                line-height: unit(50px / (@baseWidth / @baseColumns), rem);
-                padding-right: unit(30px / (@baseWidth / @baseColumns), rem);
-                > a > * {
-                    float: right;
+            > a {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                height: unit(100px / (@baseWidth / @baseColumns), rem);
+                font-size: unit(30px / (@baseWidth / @baseColumns), rem);
+                background: #fff;
+
+                > .leftTitle {
+                    padding-left: unit(30px / (@baseWidth / @baseColumns), rem);
                 }
-                
-                .icon-arrow {
-                    height: unit(50px / (@baseWidth / @baseColumns), rem);
+
+                > .rightAction {
+                    min-width: unit(80px / (@baseWidth / @baseColumns), rem);
+                    font-size: unit(24px / (@baseWidth / @baseColumns), rem);
                     line-height: unit(50px / (@baseWidth / @baseColumns), rem);
+                    padding-right: unit(30px / (@baseWidth / @baseColumns), rem);
+                    > span > * {
+                        float: right;
+                    }
+                    
+                    .icon-arrow {
+                        height: unit(50px / (@baseWidth / @baseColumns), rem);
+                        line-height: unit(50px / (@baseWidth / @baseColumns), rem);
+                    }
                 }
             }
+
+            
             .actionText {
                 color: #979aa7;
                 margin-right: unit(30px / (@baseWidth / @baseColumns), rem);

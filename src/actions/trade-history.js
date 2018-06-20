@@ -3,7 +3,7 @@ import { Toast } from 'antd-mobile';
 
 
 export const getTradeList = (month='') => {
-    let url = `app/payment/fuiou/tradeRecords?month=${month}`;
+    let url = `app/payment/fuiou/tradeRecords?month=${month}&sortBy=-createTime`;
     return {
         type: 'GET_TRADELIST',
         async payload() {
