@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import FooterTab from '../footer-tab/footer-tab';
 
 import './app.less';
-
+import orientation from './../../assets/images/orientation.jpg';
 import { isWeiXin, setBrowserTitle } from '../../libs/utils';
 
 /* export default withRouter((props) => {
@@ -19,6 +19,9 @@ import { isWeiXin, setBrowserTitle } from '../../libs/utils';
 class App extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            showContent:true
+        }
     }
 
     changeTitle(url) {
@@ -134,6 +137,21 @@ class App extends Component {
     componentDidMount() {
         const { location } = this.props;
         this.changeTitle(location.pathname);
+        this.orientationChange();
+    }
+    orientationChange(){
+        window.addEventListener('orientationchange',()=>{  
+            //这里可以根据orientation做相应的处理  
+            if(window.orientation==0||window.orientation==180){
+                this.setState({
+                    showContent:true
+                })               
+            }else{
+                this.setState({
+                    showContent:false
+                })               
+            }
+        },false); 
     }
 
     componentDidUpdate() {
@@ -142,10 +160,24 @@ class App extends Component {
     }
 
     render() {
+        console.log()
         return (
             <div id="app">
-                <div id="content">{this.props.children}</div>
-                <FooterTab></FooterTab>
+                {
+                    this.state.showContent?
+                    (
+                        <div>
+                            <div id="content">{this.props.children}</div>
+                            <FooterTab></FooterTab>
+                        </div>                                           
+                    )
+                    :(
+                    <img className='orientationBox' src={orientation} alt=""/>
+                    )
+                    
+                }
+                
+                
                 {/* <div className='footer-tab-parent'>
                     <FooterTab></FooterTab>
                 </div> */}
