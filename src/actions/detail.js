@@ -91,13 +91,13 @@ export const setProfit = cd => {
     return {
       type: 'detail/POST_INVEST',
       async payload(){
-          return await cFetch(`app/invest/invest`, {           
+          return await cFetch(`invest/invest`, {           
               method: 'POST', 
               headers: {
                   'Content-Type': 'application/json'
               },
               body:JSON.stringify(params),
-          },true).then(res=>{
+          },true,'http://172.16.1.221:9070/').then(res=>{
             //'http://172.16.1.228:9090/'
              if ( res.code == 0 ) {
                   Toast.success(res.message,1)
