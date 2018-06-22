@@ -416,6 +416,7 @@ class Detail extends Component{
     render(){
         const { auth , detail } = this.props;
         const rate = detail.projectDetails.raiseRate?detail.projectDetails.annualRate+detail.projectDetails.raiseRate:detail.projectDetails.annualRate
+        const maxInvestAmount = detail.projectDetails.surplusAmount<detail.projectDetails.maxInvestAmount?detail.projectDetails.surplusAmount:detail.projectDetails.maxInvestAmount
         console.log(detail)
         return (
             <div id='detail'>
@@ -467,7 +468,7 @@ class Detail extends Component{
                                     // returnAmount:investInfo.returnAmount,
                                     money:this.state.money,
                                     min:detail.projectDetails.minInvestAmount,
-                                    max:detail.projectDetails.maxInvestAmount,
+                                    max:maxInvestAmount,
                                     step:100,
                                     surplusAmount:detail.projectDetails.surplusAmount,
                                     callback:(obj)=>{
