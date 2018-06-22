@@ -417,6 +417,7 @@ class Detail extends Component{
         const { auth , detail } = this.props;
         const rate = detail.projectDetails.raiseRate?detail.projectDetails.annualRate+detail.projectDetails.raiseRate:detail.projectDetails.annualRate
         const maxInvestAmount = detail.projectDetails.surplusAmount<detail.projectDetails.maxInvestAmount?detail.projectDetails.surplusAmount:detail.projectDetails.maxInvestAmount
+        const minInvestAmount = detail.projectDetails.surplusAmount<detail.projectDetails.minInvestAmount?detail.projectDetails.surplusAmount:detail.projectDetails.minInvestAmount
         console.log(detail)
         return (
             <div id='detail'>
@@ -467,9 +468,9 @@ class Detail extends Component{
                                     defaultValue:detail.projectDetails.minInvestAmount, //默认金额
                                     // returnAmount:investInfo.returnAmount,
                                     money:this.state.money,
-                                    min:detail.projectDetails.minInvestAmount,
+                                    min:minInvestAmount,
                                     max:maxInvestAmount,
-                                    step:100,
+                                    step:detail.projectDetails.minInvestAmount,
                                     surplusAmount:detail.projectDetails.surplusAmount,
                                     callback:(obj)=>{
                                         this.setState({
