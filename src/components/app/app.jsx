@@ -166,7 +166,7 @@ class App extends Component {
                 {
                     this.state.showContent?
                     (
-                        <div>
+                        <div className='all-content'>
                             <div id="content">{this.props.children}</div>
                             <FooterTab></FooterTab>
                         </div>                                           
