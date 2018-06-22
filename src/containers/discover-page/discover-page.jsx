@@ -20,7 +20,8 @@ class DiscoverPage extends Component {
 	}
 	render() {
 		const { discover } = this.props;
-		let list =this.props.discover.discover
+		let list =this.props.discover.discover;
+		let num=Math.random() * 100;
 		return (
             <div className="discover-body">
 				<div className='footer-tab-content'>
@@ -40,7 +41,7 @@ class DiscoverPage extends Component {
 								</Link>
 							</div>
 							<div className='li'>
-								<a href="https://www.baba88.com/a/app/more/companyIntroduce">
+								<a href={"https://www.baba88.com/a/app/more/companyIntroduce?num="+num}>
 									<i className="icon-about"></i>
 									<div className='list-label'>关于巴巴汇</div>
 								</a>
@@ -52,7 +53,7 @@ class DiscoverPage extends Component {
 								</Link>
 							</div>
 							<div className='li'>
-								<a href="https://www.sobot.com/chat/h5/index.html?sysNum=5c3913e80fbf4388aa19109113c92fa4&groupId=86b3b620fb034e62863b9c115d99c737&source=2">
+								<a href={"https://www.sobot.com/chat/h5/index.html?sysNum=5c3913e80fbf4388aa19109113c92fa4&groupId=86b3b620fb034e62863b9c115d99c737&source=2&num="+num}>
 									<i className="icon-contact"></i>
 									<div className='list-label'>联系客服</div>
 								</a>

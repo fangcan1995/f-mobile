@@ -128,7 +128,7 @@
             padding: unit(50px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);           
             .card{
                 width:unit(690px / (@baseWidth / @baseColumns), rem);
-                height:unit(226px / (@baseWidth / @baseColumns), rem); 
+                // height:unit(226px / (@baseWidth / @baseColumns), rem); 
                 padding: unit(27px / (@baseWidth / @baseColumns), rem) unit(30px / (@baseWidth / @baseColumns), rem);
                 background:rgba(255,255,255,1);
                 border-radius: unit(10px / (@baseWidth / @baseColumns), rem); 
@@ -168,6 +168,13 @@
                         border-right:1px solid #EAEAEA;
                         margin: 0 unit(54px / (@baseWidth / @baseColumns), rem);
                         line-height:unit(38px / (@baseWidth / @baseColumns), rem);
+                        input{
+                            width:unit(450px / (@baseWidth / @baseColumns), rem);
+                            height:unit(40px / (@baseWidth / @baseColumns), rem); 
+                            text-align: center;
+                            border: 0;
+                            color:rgba(255,51,102,1);
+                        }
                     }
                     span{
                         display: inline-block;
@@ -196,11 +203,19 @@
                     // width:unit(219px / (@baseWidth / @baseColumns), rem);
                     height:unit(23px / (@baseWidth / @baseColumns), rem);
                     font-size:unit(24px / (@baseWidth / @baseColumns), rem);
+                    margin-bottom: 8px;
                     font-family:MicrosoftYaHei;
+                    // float: left;
                     color:rgba(151,154,167,1);
                     span{
                         color: #FF3366
                     }
+                }
+                .tips__area{
+                    font-size:unit(24px / (@baseWidth / @baseColumns), rem);
+                    font-family:MicrosoftYaHei;
+                    // float: right;
+                    color: #FF3366
                 }
             }
             .list{

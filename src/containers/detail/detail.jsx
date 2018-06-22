@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { getDetails, getMyInfo, setMoney, postInvest, setProfit } from '../../actions/detail';
+import StepperInput from '../../components/stepperInput/stepperInput';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginUser , authCode} from '../../actions/auth';
 import { bindActionCreators } from 'redux';
-import { Modal, Toast } from 'antd-mobile';
+import { Modal, Toast, Button } from 'antd-mobile';
 import { hex_md5 } from '../../libs/md5'
 import './detail.less'
 
@@ -19,7 +20,10 @@ class Detail extends Component{
         reward:'选择系统奖励',
         modal1: false,
         minInvestAmount:0,
-        minInvestAmount2:0
+        minInvestAmount2:0,
+        tips:'',
+        code:100,
+        allMoney:null,
       };
       
       componentDidMount(){
@@ -28,14 +32,15 @@ class Detail extends Component{
             Toast.loading('loading')
         }
         getDetails(this.props.match.params.id).then(res=>{
+            const rate = res.value.raiseRate?res.value.raiseRate+res.value.annualRate:res.value.annualRate
             this.setState({
                 money:res.value.minInvestAmount,
                 minInvestAmount2:res.value.minInvestAmount,
+                profit:res.value.minInvestAmount*(rate/12*res.value.loanExpiry)*0.01
             })
         });
         if(this.props.auth.isAuthenticated){
             getMyInfo().then(res=>{
-                console.log(res)
                 this.setState({
                     sumMoney:res.value.availableBalance
                 })
@@ -92,7 +97,7 @@ class Detail extends Component{
             return  
         }
         if(this.state.money>=this.state.sumMoney||this.state.money>=this.props.detail.projectDetails.surplusAmount||this.state.money>=this.props.detail.projectDetails.maxInvestAmount){
-            Toast.fail(`投资金额不能超过可用余额或最大可投金额以及标的剩余可投金额`,1)
+            Toast.fail(`投资金额不能超过可用余额或最大可投金额以及标的剩余可投金额`)
             return 
         }
         this.setState({
@@ -111,7 +116,8 @@ class Detail extends Component{
         }
         this.setState({
             money:this.state.sumMoney,
-            profit:(this.state.sumMoney)*(rate/12*detail.projectDetails.loanExpiry)*0.01 
+            profit:(this.state.sumMoney)*(rate/12*detail.projectDetails.loanExpiry)*0.01,
+            allMoney:this.state.sumMoney 
         })
         setMoney(this.state.sumMoney)
         setProfit((this.state.sumMoney)*(rate/12*detail.projectDetails.loanExpiry)*0.01 )
@@ -169,7 +175,6 @@ class Detail extends Component{
                                     {
                                         text: '确认',
                                         onPress: () => {
-                                            console.log(1111)
                                             this.props.history.push(`/mobile/personal?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                                         }
                                     }
@@ -239,10 +244,13 @@ class Detail extends Component{
                                     }
                                     Toast.loading('请稍等',5)
                                     postInvest(cred,0)
-                                    .then(res=>{
-                                        const { getDetails, getMyInfo } = this.props;
-                                        getDetails(this.props.match.params.id)
-                                        getMyInfo()
+                                    .then(res=>{ 
+                                        Toast.info(res.value.message,2,()=>{
+                                            const { getDetails, getMyInfo } = this.props;
+                                            getDetails(this.props.match.params.id)
+                                            getMyInfo()
+                                        })
+                                        
                                     }).catch(err=>{
                                         console.log(err)
                                     })
@@ -407,6 +415,9 @@ class Detail extends Component{
     // }
     render(){
         const { auth , detail } = this.props;
+        const rate = detail.projectDetails.raiseRate?detail.projectDetails.annualRate+detail.projectDetails.raiseRate:detail.projectDetails.annualRate
+        const maxInvestAmount = detail.projectDetails.surplusAmount<detail.projectDetails.maxInvestAmount?detail.projectDetails.surplusAmount:detail.projectDetails.maxInvestAmount
+        console.log(detail)
         return (
             <div id='detail'>
                 <div className = 'warpper'>
@@ -444,16 +455,37 @@ class Detail extends Component{
                         <div className = 'main'>
                             <div className = 'card'>
                                 <p>可用余额：
-                                    <span className = 'left'>{this.state.sumMoney}</span>
+                                    <span className = 'left'>{detail.myInfo.availableBalance}</span>
                                     <span className = 'right' onClick = {this.handleAllClick.bind(this)}>全投</span>
                                 </p>
-                                <div className className = 'money'>
+                                {/* <div className className = 'money'>
                                     <span className = 'minus' onClick = {this.handleMinusClick.bind(this)}><i className = 'icon-minus'></i></span>
                                     <div className = 'number'>{this.state.money}</div>
                                     <span className = 'plus' onClick = {this.handlePlusClick.bind(this)}><i className = 'icon-plus'></i></span>
-                                </div>
+                                </div> */}
+                                <StepperInput config = {{
+                                    defaultValue:detail.projectDetails.minInvestAmount, //默认金额
+                                    // returnAmount:investInfo.returnAmount,
+                                    money:this.state.money,
+                                    min:detail.projectDetails.minInvestAmount,
+                                    max:maxInvestAmount,
+                                    step:100,
+                                    surplusAmount:detail.projectDetails.surplusAmount,
+                                    callback:(obj)=>{
+                                        this.setState({
+                                            tips:obj.tips,
+                                            money:parseFloat(obj.value),
+                                            code:obj.code,
+                                            profit:obj.value*(rate/12*detail.projectDetails.loanExpiry)*0.01
+                                        });
+                                    }
+                                }} key={detail.projectDetails.minInvestAmount}></StepperInput>
                                 <div className = 'sum'>参考收益：
                                     <span>￥{this.state.profit}</span>
+                                </div>
+                                <div className="tips__area">
+                                    {this.state.tips!=''? <span className="errorMessages">{this.state.tips}</span>
+                                        :''}
                                 </div>
                             </div>
                             <div className = 'list'>
@@ -501,7 +533,8 @@ class Detail extends Component{
                                     <span className= 'agreement'><Link to='/mobile/protocol/4'>《投资协议》</Link>、<Link to='/mobile/protocol/3'>《网络借贷风险和禁止性行为提示》</Link></span>
                                 </label>
                             </div>
-                            <div className = {`button ${this.state.button}` } onClick = {this.handlePostClick.bind(this)}>立即投资</div>
+                            {/* <div className = {`button ${this.state.button}` } onClick = {this.handlePostClick.bind(this)}>立即投资</div> */}
+                            <Button type="primary" onClick = {this.handlePostClick.bind(this)} disabled={this.state.code!=100||!this.state.button}>立即投资</Button>
                         </div>
                         :
                         <div className = {`button active` } onClick = {this.handleLoginClick.bind(this)}>立即登录</div>
