@@ -7,6 +7,7 @@ import { loginUser, authCode } from '../../actions/auth';
 import { bindActionCreators } from 'redux';
 import { Modal, Toast, Button } from 'antd-mobile';
 import { hex_md5 } from '../../libs/md5'
+import Rewards from '../rewards/rewards'
 import './detail.less'
 
 let cred = {}
@@ -24,6 +25,9 @@ class Detail extends Component {
         tips: '',
         code: 100,
         allMoney: null,
+        Modal: false,
+        rateCouponId:'',
+        redEnvelopeId:'',
     };
 
     componentDidMount() {
@@ -170,7 +174,8 @@ class Detail extends Component {
                                                                 getDetails(this.props.match.params.id)
                                                                 getMyInfo()
                                                                 this.setState({
-                                                                    money:detail.projectDetails.minInvestAmount
+                                                                    money: detail.projectDetails.minInvestAmount,
+                                                                    reward:'选择系统奖励'
                                                                 })
                                                             })
                                                             // Toast.hide()
@@ -269,7 +274,8 @@ class Detail extends Component {
                                                             getDetails(this.props.match.params.id)
                                                             getMyInfo()
                                                             this.setState({
-                                                                money:detail.projectDetails.minInvestAmount
+                                                                money: detail.projectDetails.minInvestAmount,
+                                                                reward:'选择系统奖励'
                                                             })
                                                         })
                                                         // Toast.hide()
@@ -340,8 +346,8 @@ class Detail extends Component {
             validationCode: auth.loginCode,
             projectId: detail.projectDetails.id,
             investAmt: this.state.money,
-            redEnvelopeId: rewards.redEnvelopeId,
-            rateCouponId: rewards.rateCouponId,
+            redEnvelopeId: this.state.redEnvelopeId,
+            rateCouponId: this.state.rateCouponId,
             validationCode: auth.loginCode.imageCode,
             investWay: rewards.investWay,
             isTransfer: false,
@@ -429,7 +435,10 @@ class Detail extends Component {
     }
 
     handleSelectClick(e) {
-        this.props.history.push(`/mobile/rewards/${e}`)
+        // this.props.history.push(`/mobile/rewards/${e}`)
+        this.setState({
+            Modal: !this.state.Modal
+        })
     }
     // componentWillReceiveProps(nextProps){
     //     this.setState({
@@ -519,7 +528,7 @@ class Detail extends Component {
                                 <div className='list-item'>
                                     <i className='icon-coupon left'></i>
                                     <div className='item-content'>系统奖励
-                                        <span onClick={this.handleSelectClick.bind(this, detail.projectDetails.id)}>{this.props.rewards.reward}</span>
+                                        <span onClick={this.handleSelectClick.bind(this, detail.projectDetails.id)}>{this.state.reward}</span>
                                     </div>
                                     <i className='icon-arrow right'></i>
                                 </div>
@@ -569,6 +578,24 @@ class Detail extends Component {
 
                     </div>
                 </div>
+                {
+                    this.state.Modal ?
+                        <Rewards config={{
+                            projectId: detail.projectDetails.id,
+                            money: this.state.money,
+                            handleSelectClickL:this.handleSelectClick.bind(this),
+                            callback: (obj) => {
+                                this.setState({
+                                    reward:obj.reward,
+                                    rateCouponId:obj.rateCouponId,
+                                    redEnvelopeId:obj.redEnvelopeId 
+                                });
+                            }
+                        }}
+
+                        ></Rewards>
+                        : ''
+                }
             </div>
         )
     }
