@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 
 const initialState = fromJS({
     isFetching: false,
-    tradeList: []
+    tradeData: {}
 });
 
 export default createReducer(initialState, {
@@ -13,7 +13,7 @@ export default createReducer(initialState, {
     }),
     ['GET_TRADELIST_FULFILLED']: (state, action) => state.merge({
         isFetching: false,
-        tradeList: action.payload
+        tradeData: action.payload
     }),
     ['GET_TRADELIST_REJECTED']: (state, action) => state.merge({
         isFetching: false,
