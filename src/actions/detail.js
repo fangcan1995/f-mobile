@@ -1,6 +1,7 @@
 import cFetch from '../libs/cFetch';
 let urls='http://172.16.7.3:9070/'
 import { Toast } from 'antd-mobile';
+import {getTips} from '../libs/famatData'
 
 export const  getDetails = (params) => {
     return {
@@ -91,14 +92,14 @@ export const setProfit = cd => {
     return {
       type: 'detail/POST_INVEST',
       async payload(){
-          return await cFetch(`invest/invest`, {           
+          return await cFetch(`app/invest/invest`, {           
               method: 'POST', 
               headers: {
                   'Content-Type': 'application/json'
               },
               body:JSON.stringify(params),
           },true).then(res=>{
-            //'http://172.16.1.228:9090/'
+            //'http://172.16.1.228:9090/','http://172.16.1.221:9070/'
              if ( res.code == 0 ) {
                   Toast.success(res.message,1)
                 return res || {};
@@ -109,6 +110,8 @@ export const setProfit = cd => {
           .catch(err=>{
             err.msg=101;
             let type=``;
+            let messageCode=err.message;
+            (err.code == 0)?type='success':type='error';
             console.log('返回第'+(times+1)+'次请求的结果');
             if((times+1)===5){
               err.msg=102;
@@ -118,8 +121,8 @@ export const setProfit = cd => {
             return {
                 code:err.code,
                 type:type,
-                message:err.message||``,
-                userCode:err.msg,
+                message:getTips(messageCode).message||``,
+                userCode:getTips(messageCode).code,
                 times:times+1
             }
           });
