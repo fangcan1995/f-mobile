@@ -100,14 +100,14 @@ class HomePage extends Component {
 						<img src={newPerson} alt='' />
 					}
 					
-					<div className='greenhand-content'>
+					{/* <div className='greenhand-content'> */}
 						{
 							home.project.noviceList.length?
 							<div>
 								{
 									home.project.noviceList.map(item=>{
 										return (
-											<div key={item.id} onClick = {this.handleDetailClick.bind(this,item.id)}>
+											<div key={item.id} onClick = {this.handleDetailClick.bind(this,item.id)} className='greenhand-content'>
 												<div className='tag'>
 													<label className='l'>新手专享</label>
 													<ul className='l'>
@@ -133,7 +133,7 @@ class HomePage extends Component {
 							</div>
 							:''
 						}
-					</div>
+					{/* </div> */}
 						{
 							home.project.standardList.length?
 							<div>

@@ -38,7 +38,10 @@ class Detail extends Component{
                 minInvestAmount2:res.value.minInvestAmount,
                 profit:res.value.minInvestAmount*(rate/12*res.value.loanExpiry)*0.01
             })
+            setMoney(res.value.minInvestAmount);
+            setProfit(res.value.minInvestAmount*(rate/12*res.value.loanExpiry)*0.01)
         });
+        
         if(this.props.auth.isAuthenticated){
             getMyInfo().then(res=>{
                 this.setState({
@@ -120,8 +123,8 @@ class Detail extends Component{
             code:100,
             tips:'' 
         })
-        setMoney(this.state.sumMoney)
-        setProfit((this.state.sumMoney)*(rate/12*detail.projectDetails.loanExpiry)*0.01 )
+        setMoney(sumMoney)
+        setProfit(sumMoney*(rate/12*detail.projectDetails.loanExpiry)*0.01 )
     }
     handleAgreeClick(){
         if(this.state.checked){
@@ -156,7 +159,7 @@ class Detail extends Component{
                                             tradePassword,
                                             ...cred
                                         }
-                                        Toast.loading('请稍等',5)
+                                        Toast.loading('请稍等')
                                         postInvest(cred,0)
                                         .then(res=>{
                                             Toast.info(res.value.message,2,()=>{
@@ -245,7 +248,8 @@ class Detail extends Component{
                                         tradePassword,
                                         ...cred
                                     }
-                                    Toast.loading('请稍等',5)
+                                    Toast.loading('请稍等');
+                                    console.log(cred)
                                     postInvest(cred,0)
                                     .then(res=>{ 
                                         Toast.info(res.value.message,2,()=>{
@@ -475,6 +479,7 @@ class Detail extends Component{
                                     max:maxInvestAmount,
                                     step:detail.projectDetails.minInvestAmount,
                                     surplusAmount:detail.projectDetails.surplusAmount,
+                                    setMoney:this.props.setMoney,
                                     callback:(obj)=>{
                                         this.setState({
                                             tips:obj.tips,

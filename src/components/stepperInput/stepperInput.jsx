@@ -21,10 +21,11 @@ export default class StepperInput extends Component{
         }
     }
     handleChange(event) {
-        const {min,max,callback} = this.props.config;
+        const {min,max,callback,setMoney} = this.props.config;
         this.setState({value: event.target.value}, () =>{
             let result=this.checkMoney(this.state.value);
            if(result.code>1){
+                setMoney(this.state.value)
                 callback({
                     code:result.code,
                     value:this.state.value,
@@ -79,7 +80,7 @@ export default class StepperInput extends Component{
         };
     }
     add() {
-        const {callback} = this.props.config;
+        const {callback,setMoney} = this.props.config;
         let step=this.props.config.step;
         let max=this.props.config.max;  //可投金额
         let result=this.checkMoney(parseInt(this.state.value)+step);  //验证增加后是否合法
@@ -88,6 +89,7 @@ export default class StepperInput extends Component{
             }else{
                 step=step;
             }
+            setMoney(parseInt(this.state.value)+step)
             // (result.code==3)?step=0:step=step;
             this.setState({
                 code:result.code,
@@ -105,11 +107,12 @@ export default class StepperInput extends Component{
         }
     }
     minus(){
-        const {callback} = this.props.config;
+        const {callback,setMoney} = this.props.config;
         let step=this.props.config.step;
         let result=this.checkMoney(parseInt(this.state.value)-step);
         if(result.code>1 ){
             (result.code==2)?step=0:step=step;
+            setMoney(parseInt(this.state.value)-step)
             this.setState({
                 code:result.code,
                 value: (parseInt(this.state.value) - step),
