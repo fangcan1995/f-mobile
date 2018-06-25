@@ -56,6 +56,9 @@ export default class StepperInput extends Component{
             return {code:0,tips:'请输入投资金额'};
         }else {
             let reg=/^\+?[1-9][0-9]*$/;
+            if(value===0){
+                return {code:2,tips: `最低可投${min}元`};
+            }
             if(reg.test(value)){
                 if(value<min){
                     return {code:2,tips: `最低可投${min}元`};
