@@ -7,7 +7,7 @@ import { isTel } from '../../libs/utils';
 import './login-message-page.less';
 import bbhLogo from '../../assets/images/bbh-logo.png';
 import parseJson2URL from '../../libs/parseJson2URL'; 
-import {parseQueryString} from '../../libs/utils';
+import {parseQueryString,setStorage,getStorage} from '../../libs/utils';
 import { Link } from 'react-router-dom';
 import  { Toast } from 'antd-mobile';
 import DragValidator from '../../components/drag-validator/drag-validator';
@@ -47,7 +47,7 @@ class LoginMessagePage extends Component {
             submitData.image_token=this.props.auth.loginCode.image_token
             submitData.username=this.state.username;
             submitData.verify_code=this.state.verify_code;
-            submitData.verify_token=this.props.auth.smsLoginCode.token;
+            submitData.verify_token=this.props.auth.smsLoginCode.token || localStorage.getItem('smsLoginCode');
             submitData=`?${parseJson2URL(submitData)}`           
             const { dispatch } = this.props;
             dispatch(loginUser(submitData))
@@ -114,6 +114,8 @@ class LoginMessagePage extends Component {
                 const { dispatch } = this.props;
                 dispatch(authCode());
                 this.setTime();
+                console.log(this.props.auth.smsLoginCode.token)
+                localStorage.setItem('smsLoginCode',this.props.auth.smsLoginCode.token)
             })
             .catch(res=>{
                 Toast.fail(res.message)
