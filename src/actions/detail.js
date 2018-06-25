@@ -97,7 +97,7 @@ export const setProfit = cd => {
                   'Content-Type': 'application/json'
               },
               body:JSON.stringify(params),
-          },true,'http://172.16.1.221:9070/').then(res=>{
+          },true).then(res=>{
             //'http://172.16.1.228:9090/'
              if ( res.code == 0 ) {
                   Toast.success(res.message,1)
