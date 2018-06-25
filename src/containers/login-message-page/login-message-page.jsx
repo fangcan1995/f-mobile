@@ -47,7 +47,7 @@ class LoginMessagePage extends Component {
             submitData.image_token=this.props.auth.loginCode.image_token
             submitData.username=this.state.username;
             submitData.verify_code=this.state.verify_code;
-            submitData.verify_token=this.props.auth.smsLoginCode.token || localStorage.getItem('smsLoginCode');
+            submitData.verify_token=localStorage.getItem('smsLoginCode');
             submitData=`?${parseJson2URL(submitData)}`           
             const { dispatch } = this.props;
             dispatch(loginUser(submitData))
