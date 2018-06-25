@@ -35,7 +35,7 @@ class TradePassword extends Component {
     dispatch(authCode());
     this.setState({
       username:
-        this.props.personal.personal.userName ||
+        this.props.auth.userInfo.userName ||
         this.props.detail.myInfo.userName
     });
   }
@@ -87,7 +87,7 @@ class TradePassword extends Component {
         username: this.props.auth.userInfo.userName,
         trade_password: hex_md5(this.state.newPassword),
         trade_password_code: this.state.trade_password_code,
-        trade_password_token: tradePassword.trade_password_token.token
+        trade_password_token: localStorage.getItem('trade_password_token')
       };
       const { dispatch } = this.props;
       console.log(appInfo)
@@ -144,6 +144,7 @@ class TradePassword extends Component {
         const { dispatch } = this.props;
         dispatch(authCode());
         console.log(res)
+        localStorage.setItem('trade_password_token',res.value.token)
         // this.setState({
         //   trade_password_token: res.value.token
         // });

@@ -169,6 +169,9 @@ class Detail extends Component {
                                                                 const { getDetails, getMyInfo } = this.props;
                                                                 getDetails(this.props.match.params.id)
                                                                 getMyInfo()
+                                                                this.setState({
+                                                                    money:detail.projectDetails.minInvestAmount
+                                                                })
                                                             })
                                                             // Toast.hide()
                                                         }).catch(err => {
@@ -265,6 +268,9 @@ class Detail extends Component {
                                                             const { getDetails, getMyInfo } = this.props;
                                                             getDetails(this.props.match.params.id)
                                                             getMyInfo()
+                                                            this.setState({
+                                                                money:detail.projectDetails.minInvestAmount
+                                                            })
                                                         })
                                                         // Toast.hide()
                                                     }).catch(err => {
