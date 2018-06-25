@@ -101,7 +101,8 @@ export const setProfit = cd => {
           },true).then(res=>{
             //'http://172.16.1.228:9090/','http://172.16.1.221:9070/'
              if ( res.code == 0 ) {
-                  Toast.success(res.message,1)
+                  // Toast.success(res.message,1)
+                  res.message=getTips(res.message).message
                 return res || {};
               } else {
                 throw res;
