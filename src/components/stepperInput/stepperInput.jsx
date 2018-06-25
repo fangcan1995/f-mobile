@@ -78,9 +78,14 @@ export default class StepperInput extends Component{
     add() {
         const {callback} = this.props.config;
         let step=this.props.config.step;
+        let max=this.props.config.max;  //可投金额
         let result=this.checkMoney(parseInt(this.state.value)+step);  //验证增加后是否合法
         if(result.code>1 ){
-            (result.code==3)?step=0:step=step;
+            if(result.code==3){step=(max-parseInt(this.state.value))
+            }else{
+                step=step;
+            }
+            // (result.code==3)?step=0:step=step;
             this.setState({
                 code:result.code,
                 value: (parseInt(this.state.value) + step),

@@ -111,13 +111,14 @@ class Detail extends Component{
     handleAllClick(){
         const { detail, setMoney, setProfit } = this.props;
         const rate = detail.projectDetails.raiseRate?detail.projectDetails.annualRate+detail.projectDetails.raiseRate:detail.projectDetails.annualRate
-        if(!this.state.sumMoney){
-
-        }
+        let sumMoney = this.state.sumMoney<detail.projectDetails.surplusAmount?this.state.sumMoney:detail.projectDetails.surplusAmount;
+        sumMoney = sumMoney<detail.projectDetails.maxInvestAmount?sumMoney:detail.projectDetails.maxInvestAmount
         this.setState({
-            money:this.state.sumMoney,
-            profit:(this.state.sumMoney)*(rate/12*detail.projectDetails.loanExpiry)*0.01,
-            allMoney:this.state.sumMoney 
+            money:sumMoney,
+            profit:sumMoney*(rate/12*detail.projectDetails.loanExpiry)*0.01,
+            allMoney:this.state.sumMoney,
+            code:100,
+            tips:'' 
         })
         setMoney(this.state.sumMoney)
         setProfit((this.state.sumMoney)*(rate/12*detail.projectDetails.loanExpiry)*0.01 )
@@ -465,7 +466,7 @@ class Detail extends Component{
                                     <span className = 'plus' onClick = {this.handlePlusClick.bind(this)}><i className = 'icon-plus'></i></span>
                                 </div> */}
                                 <StepperInput config = {{
-                                    defaultValue:detail.projectDetails.minInvestAmount, //默认金额
+                                    defaultValue:minInvestAmount, //默认金额
                                     // returnAmount:investInfo.returnAmount,
                                     money:this.state.money,
                                     min:minInvestAmount,
