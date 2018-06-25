@@ -143,6 +143,7 @@ class App extends Component {
         window.addEventListener('orientationchange',()=>{  
             //这里可以根据orientation做相应的处理  
             if(window.orientation==90||window.orientation==-90){
+
                 this.setState({
                     showContent:false
                 })               
