@@ -4,13 +4,13 @@ import { Toast } from 'antd-mobile';
 
 export const getTradeList = ({type, month, pageNum} = {type: '', month: 0, pageNum: 1}) => {
     console.log(type, month, pageNum);
-    let url = `/payment/fuiou/tradeRecords?payType=${type}&month=${month}&pageNum=${pageNum}&sortBy=-createTime`;
+    let url = `app/payment/fuiou/tradeRecords?payType=${type}&month=${month}&pageNum=${pageNum}&sortBy=-createTime`;
     return {
         type: 'GET_TRADELIST',
         async payload() {
             let res = await cFetch(url, {
                 method: 'GET'
-            }, true, 'http://172.16.1.225:9070').catch(err => {
+            }).catch(err => {
                 Toast.fail(err.message, 2.5)
             });
             const { code, data } = res;
