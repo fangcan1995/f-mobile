@@ -159,9 +159,11 @@ class Detail extends Component{
                                         Toast.loading('请稍等',5)
                                         postInvest(cred,0)
                                         .then(res=>{
-                                            const { getDetails, getMyInfo } = this.props;
-                                            getDetails(this.props.match.params.id)
-                                            getMyInfo()
+                                            Toast.info(res.value.message,2,()=>{
+                                                const { getDetails, getMyInfo } = this.props;
+                                                getDetails(this.props.match.params.id)
+                                                getMyInfo()
+                                            })
                                         }).catch(err=>{
                                             Toast.fail(err.msg,1)
                                         })
