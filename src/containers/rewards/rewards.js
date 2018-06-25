@@ -39,7 +39,7 @@ class Rewards extends Component{
                     rewards.rewardsList.length?
                     rewards.rewardsList.map(item=>{
                         return (
-                            item.reTypeName?
+                            item.type==1?
                             <div className={`couponBaseStyle redpacket`} key ={item.id+item.reTypeName} >
                                 <div className="couponInfo">
                                     <span className="title">
@@ -51,8 +51,8 @@ class Rewards extends Component{
                                     </span>
                                     <span className="canuse">{item.productCategoryName}</span>
                                 </div>
-                                <div className="intro">{item.reTypeName}</div>
-                                {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} */}
+                                <div className="intro">返现红包</div>
+                                {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} {item.reTypeName}*/}
                                 <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
                                 <div className="toUse"><a onClick = { this.handleUseEnvelopesClick.bind(this,item.reAmount,item.reTypeName,item.id)} >点击立即使用</a></div>
                             </div>
