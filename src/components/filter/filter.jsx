@@ -160,19 +160,19 @@ const filterOptions = {
                 val: '充值'
             },
             {
-                index: 2,
+                index: 3,
                 val: '提现'
             },
             {
-                index: 3,
+                index: 4,
                 val: '投资'
             },
             {
-                index: 4,
+                index: 5,
                 val: '回款'
             },
             {
-                index: 5,
+                index: 2,
                 val: '资费'
             },
             {

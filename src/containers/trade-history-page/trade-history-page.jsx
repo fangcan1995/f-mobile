@@ -41,7 +41,10 @@ class TradeHistoryPage extends Component {
                                 result.propTopIndex ? result.propTopIndex : 0,
                                 result.propBottomIndex ? result.propBottomIndex : ''
                             );
-                            getTradeList(result.propBottomIndex ? result.propBottomIndex : '');
+                            getTradeList(
+                                result.propTopIndex ? result.propTopIndex : '', 
+                                result.propBottomIndex ? result.propBottomIndex : 0
+                            );
                         }
                     }
                 />
