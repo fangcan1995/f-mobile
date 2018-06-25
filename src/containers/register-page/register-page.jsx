@@ -57,6 +57,7 @@ class RegisterPage extends Component {
             const { dispatch } = this.props;
             dispatch(smsRegisterCode(smsRegisterCodeData))
             .then(res=>{
+                localStorage.setItem('smsRegisterCode',this.props.register.smsRegisterCode.token)
                 const { dispatch } = this.props;
                 dispatch(registerCode());
                 this.setTime();
@@ -137,7 +138,7 @@ class RegisterPage extends Component {
             submitData.password=hex_md5(this.state.password);
             submitData.register_code=this.state.register_code;
             submitData.invite_code=this.state.invite_code;
-            submitData.register_token=this.props.register.smsRegisterCode.token
+            submitData.register_token=localStorage.getItem('smsRegisterCode')
             submitData=`?${parseJson2URL(submitData)}`
             const { dispatch } = this.props;
             dispatch(register(submitData))

@@ -50,6 +50,8 @@ class RetrievePasswordPage extends Component {
             const { dispatch } = this.props;
             dispatch(smsRetrievePasswordCode(smsRetrievePasswordData))
             .then(res=>{
+                console.log(this.props)
+                localStorage.setItem('smsRetrievePasswordCode',this.props.retrievePassword.smsRetrievePasswordCode.token)
                 const { dispatch } = this.props;
                 dispatch(retrievePasswordCode());
                 this.setTime();
@@ -117,7 +119,7 @@ class RetrievePasswordPage extends Component {
             submitData.username=this.state.username;
             submitData.password=hex_md5(this.state.password);
             submitData.forget_password_code=this.state.forget_password_code;
-            submitData.forget_password_token=this.props.retrievePassword.smsRetrievePasswordCode.token
+            submitData.forget_password_token=localStorage.getItem('smsRetrievePasswordCode')
             submitData=`?${parseJson2URL(submitData)}`
             const { dispatch } = this.props;
             dispatch(retrievePassword(submitData))
