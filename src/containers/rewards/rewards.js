@@ -56,43 +56,49 @@ class Rewards extends Component {
                 <div className='warpper'>
                     {
                         rewards.rewardsList.length ?
-                            rewards.rewardsList.map(item => {
-                                return (
-                                    item.type == 1 ?
-                                        <div className={`couponBaseStyle redpacket`} key={item.id + item.reTypeName} >
-                                            <div className="couponInfo">
-                                                <span className="title">
-                                                    {/* {type === 'rp' && '￥'} */}
-                                                    ￥
-                                        {/* {type === 'cp' && '+'} */}
-                                                    <span className="value">{item.reAmount}</span>
+                            <div className='noitem'>
+                                <div className='couponBaseStyleList'>
+                                    {
+                                        rewards.rewardsList.map(item => {
+                                            return (
+                                                item.type == 1 ?
+                                                    <div className={`couponBaseStyle redpacket`} key={item.id + item.reTypeName} >
+                                                        <div className="couponInfo">
+                                                            <span className="title">
+                                                                {/* {type === 'rp' && '￥'} */}
+                                                                ￥
+                                                                {/* {type === 'cp' && '+'} */}
+                                                                <span className="value">{item.reAmount}</span>
 
+                                                            </span>
+                                                            <span className="canuse">{item.productCategoryName}</span>
+                                                        </div>
+                                                        <div className="intro">返现红包</div>
+                                                        {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} {item.reTypeName}*/}
+                                                        <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
+                                                        <div className="toUse"><a onClick={this.handleUseEnvelopesClick.bind(this, item.title, item.id, item.reAmount)} >点击立即使用</a></div>
+                                                    </div>
+                                                    :
+                                                    <div className={`couponBaseStyle coupon`} key={item.id + item.reTypeName}>
+                                                        <div className="couponInfo">
+                                                            <span className="title">
+                                                                {/* {type === 'rp' && '￥'} */}+
+                                                                {/* {type === 'cp' && '+'} */}
+                                                                <span className="value">{item.rcAmount}</span>
+                                                                %
                                                 </span>
-                                                <span className="canuse">{item.productCategoryName}</span>
-                                            </div>
-                                            <div className="intro">返现红包</div>
-                                            {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} {item.reTypeName}*/}
-                                            <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
-                                            <div className="toUse"><a onClick={this.handleUseEnvelopesClick.bind(this, item.title, item.id, item.reAmount)} >点击立即使用</a></div>
-                                        </div>
-                                        :
-                                        <div className={`couponBaseStyle coupon`} key={item.id + item.reTypeName}>
-                                            <div className="couponInfo">
-                                                <span className="title">
-                                                    {/* {type === 'rp' && '￥'} */}+
-                                                    {/* {type === 'cp' && '+'} */}
-                                                    <span className="value">{item.rcAmount}</span>
-                                                    %
-                                                </span>
-                                                <span className="canuse">{item.productCategoryName}</span>
-                                            </div>
-                                            <div className="intro">加息券</div>
-                                            {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} */}
-                                            <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
-                                            <div className="toUse"><a onClick={this.handleUseVoucherClick.bind(this, item.title, item.id)}>点击立即使用</a></div>
-                                        </div>
-                                )
-                            })
+                                                            <span className="canuse">{item.productCategoryName}</span>
+                                                        </div>
+                                                        <div className="intro">加息券</div>
+                                                        {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} */}
+                                                        <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
+                                                        <div className="toUse"><a onClick={this.handleUseVoucherClick.bind(this, item.title, item.id)}>点击立即使用</a></div>
+                                                    </div>
+                                            )
+                                        })}
+                                </div>
+                                <div className='closeMadol2' onClick={this.handleCloseMadol.bind(this)}>取消</div>
+                            </div>
                             :
                             <div className='noitem'><NoItem />
                                 <div className='closeMadol' onClick={this.handleCloseMadol.bind(this)}>确定</div>

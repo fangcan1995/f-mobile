@@ -255,7 +255,13 @@ class Detail extends Component {
                                 '交易密码',
                                 '请输入交易密码',
                                 [
-                                    { text: '取消' },
+                                    {
+                                        text: '取消', onPress: password => {
+                                            this.setState({
+                                                button: 'active'
+                                            })
+                                        }
+                                    },
                                     {
                                         text: '确认', onPress: password => {
                                             let tradePassword = hex_md5(password)
@@ -273,7 +279,8 @@ class Detail extends Component {
                                                         getMyInfo()
                                                         this.setState({
                                                             money: detail.projectDetails.minInvestAmount,
-                                                            reward: '选择系统奖励'
+                                                            reward: '选择系统奖励',
+                                                            button: 'active'
                                                         })
                                                     })
                                                     // Toast.hide()
@@ -584,7 +591,7 @@ class Detail extends Component {
                                     reward: obj.reward,
                                     rateCouponId: obj.rateCouponId,
                                     redEnvelopeId: obj.redEnvelopeId,
-                                    profit:obj.profit?this.state.profit+obj.profit:this.state.profit
+                                    profit: obj.profit ? this.state.profit + obj.profit : this.state.profit
                                 });
                             }
                         }}
