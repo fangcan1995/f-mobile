@@ -515,7 +515,10 @@ class Detail extends Component {
                                             tips: obj.tips,
                                             money: parseFloat(obj.value),
                                             code: obj.code,
-                                            profit: obj.value * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01
+                                            profit: obj.value * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01,
+                                            reward:'选择系统奖励',
+                                            rateCouponId: '',
+                                            redEnvelopeId: '',
                                         });
                                     }
                                 }} {...this.props} key={detail.projectDetails.minInvestAmount}></StepperInput>

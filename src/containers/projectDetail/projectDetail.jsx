@@ -36,12 +36,12 @@ class ProjectDetail extends Component{
                                 <div className = 'text'><span>身份证号</span>{projectInfoBaseInfoDto?projectInfoBaseInfoDto.idNumber:''}</div>
                                 <div className = 'text'><span>性别</span>{projectInfoBaseInfoDto?projectInfoBaseInfoDto.msex=='1'?'男':'女':''}</div>
                                 <div className = 'text'><span>年龄</span>{projectInfoBaseInfoDto?projectInfoBaseInfoDto.mage:''}</div>
-                                <div className = 'text'><span>学历</span>{projectInfoBaseInfoDto?projectInfoBaseInfoDto.education:''}</div>
+                                <div className = 'text'><span>学历</span>{projectInfoBaseInfoDto?projectInfoBaseInfoDto.educationString:''}</div>
                                 <div className = 'text'><span>婚姻状况</span>{projectInfoBaseInfoDto?projectInfoBaseInfoDto.maritaStatusString:''}</div>
-                                <div className = 'text'><span>借款用途</span>{projectInfoLoanInfoDto?projectInfoLoanInfoDto.loanUse:''}</div>
+                                <div className = 'text'><span>借款用途</span>{projectInfoLoanInfoDto?projectInfoLoanInfoDto.loanUseString:''}</div>
                                 <div className = 'text'><span>还款来源</span>{projectInfoLoanInfoDto?projectInfoLoanInfoDto.rpmtSource:''}</div>
                                 <div className = 'text longtext'><span>资产介绍</span><p >{projectInfoBaseInfoDto?projectInfoBaseInfoDto.assetDesc:''}</p> </div>
-                                <div className = 'text'><span>债务介绍</span>{projectInfoLoanInfoDto?projectInfoLoanInfoDto.summary :''}</div>
+                                <div className = 'text'><span>债务介绍</span>{projectInfoBaseInfoDto?projectInfoBaseInfoDto.debtDesc :''}</div>
                         </div>
                         <div className = 'credit-info content'>
                             <div className = 'head'>信用信息</div>
@@ -63,15 +63,15 @@ class ProjectDetail extends Component{
                             {
                                 mortgageHouseHis?
                                 <div>
-                                    <div className = 'text'><span>房产地址</span>{mortgageHouseHis?mortgageHouseHis.carBrand:''}</div>
-                                    <div className = 'text'><span>房产类型</span>{mortgageHouseHis?mortgageHouseHis.carModel:''}</div>
-                                    <div className = 'text'><span>建筑面积</span>{mortgageHouseHis?mortgageHouseHis.carModel:''}平米</div>
-                                    <div className = 'text'><span>房龄</span>{mortgageHouseHis?mortgageHouseHis.viNumber:''}年</div>
+                                    <div className = 'text'><span>房产地址</span>{mortgageHouseHis?mortgageHouseHis.houseAdress:''}</div>
+                                    <div className = 'text'><span>房产类型</span>{mortgageHouseHis?mortgageHouseHis.houseType:''}</div>
+                                    <div className = 'text'><span>建筑面积</span>{mortgageHouseHis?mortgageHouseHis.area:''}平米</div>
+                                    <div className = 'text'><span>房龄</span>{mortgageHouseHis?mortgageHouseHis.houseAge:''}年</div>
                                     <div className = 'text'><span>贷款年限</span>{mortgageHouseHis?mortgageHouseHis.carRegNumber:''}</div>
-                                    <div className = 'text'><span>尚欠贷余额</span>{mortgageHouseHis?mortgageHouseHis.carModel:''}元</div>
-                                    <div className = 'text'><span>土地所有证号</span>{mortgageHouseHis?mortgageHouseHis.mileage:''}</div>
-                                    <div className = 'text'><span>房产权所有证号</span>{mortgageHouseHis?mortgageHouseHis.carAge:''}</div>
-                                    <div className = 'text'><span>评估价格</span>{mortgageHouseHis?mortgageHouseHis.carModel:''}元</div>
+                                    <div className = 'text'><span>尚欠贷余额</span>{mortgageHouseHis?mortgageHouseHis.debtMoney:''}元</div>
+                                    <div className = 'text'><span>土地所有证号</span>{mortgageHouseHis?mortgageHouseHis.landNo:''}</div>
+                                    <div className = 'text'><span>房产权所有证号</span>{mortgageHouseHis?mortgageHouseHis.houseBelongNo:''}</div>
+                                    <div className = 'text'><span>评估价格</span>{mortgageHouseHis?mortgageHouseHis.pricePotential:''}元</div>
                                     <div className = 'text'><span>抵押物描述</span>{mortgageHouseHis?mortgageHouseHis.pricePotential:''}</div>
                                 </div>:
                                 <div>
