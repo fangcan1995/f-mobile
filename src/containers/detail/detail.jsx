@@ -509,6 +509,7 @@ class Detail extends Component {
                                     step: detail.projectDetails.minInvestAmount,
                                     surplusAmount: detail.projectDetails.surplusAmount,
                                     setMoney: this.props.setMoney,
+                                    availableBalance:detail.myInfo.availableBalance,
                                     callback: (obj) => {
                                         this.setState({
                                             tips: obj.tips,
@@ -517,7 +518,7 @@ class Detail extends Component {
                                             profit: obj.value * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01
                                         });
                                     }
-                                }} key={detail.projectDetails.minInvestAmount}></StepperInput>
+                                }} {...this.props} key={detail.projectDetails.minInvestAmount}></StepperInput>
                                 <div className='sum'>参考收益：
                                     <span>￥{this.state.profit}</span>
                                 </div>
