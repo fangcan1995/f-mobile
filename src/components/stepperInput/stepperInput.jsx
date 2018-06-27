@@ -1,139 +1,156 @@
-import React,{ Component } from "react";
+import React, { Component } from "react";
 import './stepperInput.less';
-export default class StepperInput extends Component{
-    constructor(props){
+import { Modal } from 'antd-mobile';
+export default class StepperInput extends Component {
+    constructor(props) {
         super(props);
         console.log(props)
         this.add = this.add.bind(this);
         this.minus = this.minus.bind(this);
         this.cutClick = this.cutClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        let defaultValue=``;
-        if(props.config.returnAmount){
-            if(this.checkMoney(props.config.returnAmount).code==100) {
+        let defaultValue = ``;
+        if (props.config.returnAmount) {
+            if (this.checkMoney(props.config.returnAmount).code == 100) {
                 defaultValue = props.config.returnAmount;
             }
-        }else{
-            defaultValue=props.config.defaultValue;
+        } else {
+            defaultValue = props.config.defaultValue;
         }
         this.state = {
-            value:defaultValue,
+            value: defaultValue,
         }
     }
     handleChange(event) {
-        const {min,max,callback,setMoney} = this.props.config;
-        this.setState({value: event.target.value}, () =>{
-            let result=this.checkMoney(this.state.value);
-           if(result.code>1){
+        const { min, max, callback, setMoney } = this.props.config;
+        this.setState({ value: event.target.value }, () => {
+            let result = this.checkMoney(parseInt(this.state.value));
+            if (result.code > 1) {
                 setMoney(this.state.value)
                 callback({
-                    code:result.code,
-                    value:this.state.value,
-                    tips:`${result.tips}`,
+                    code: result.code,
+                    value: this.state.value,
+                    tips: `${result.tips}`,
                 })
-            }else{
+            } else {
                 callback({
-                    code:result.code,
-                    value:'0',
-                    tips:`${result.tips}`,
+                    code: result.code,
+                    value: '0',
+                    tips: `${result.tips}`,
                 })
             }
         });
     }
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         console.log(nextProps)
         this.state = {
-            value:nextProps.config.money,
+            value: nextProps.config.money,
         }
     }
-    checkMoney(value){
+    checkMoney(value) {
         console.log('//////////');
         console.log(value);
-        const {min,max,step,surplusAmount} = this.props.config;
-        if(value.length<=0){
+        const { min, max, step, surplusAmount, availableBalance } = this.props.config;
+        if (value.length <= 0) {
             this.setState({
-                value:''
+                value: ''
             })
-            return {code:0,tips:'请输入投资金额'};
-        }else {
-            let reg=/^\+?[1-9][0-9]*$/;
-            if(value===0){
-                return {code:2,tips: `最低可投${min}元`};
+            return { code: 0, tips: '请输入投资金额' };
+        } else {
+            let reg = /^\+?[1-9][0-9]*$/;
+            if (value === 0) {
+                return { code: 2, tips: `最低可投${min}元` };
             }
-            if(reg.test(value)){
-                if(value<min){
-                    return {code:2,tips: `最低可投${min}元`};
-                }else if(value>max){
-                    return {code:3,tips: `最高可投${max}元`};
-                }else{
+            if (reg.test(value)) {
+                if (value > availableBalance) {
+                    Modal.alert('您的可用余额不足', '去充值', [
+                        {
+                            text: '确认',
+                            onPress: () => {
+                                this.props.history.push('/mobile/charge')
+                            }
+                        }
+                    ]);
+                    return
+                    return { code: 5, tips: `账户可用余额不足` };
+                }
+                if (value < min) {
+                    return { code: 2, tips: `最低可投${min}元` };
+                } else if (value > max) {
+                    return { code: 3, tips: `最高可投${max}元` };
+                } else {
                     // if((surplusAmount-value)<min && max!=value){
                     //     return {code:4,tips: `投资后剩余金额不能小于起投金额，请投满剩余金额或留出最小投资金额`};
                     // }
-                    if(value%step!=0 && max!=value){
-                        return {code:4,tips: `必须是${step}的倍数`};
+                    if (value % step != 0 && max != value) {
+                        return { code: 4, tips: `必须是${step}的倍数` };
                     }
-                    return {code:100,tips: ``};
+                    return { code: 100, tips: `` };
                 }
-            }else{
-                return {code:1,tips: `金额格式不正确`};
+            } else {
+                return { code: 1, tips: `金额格式不正确` };
             };
         };
     }
     add() {
-        const {callback,setMoney} = this.props.config;
-        let step=this.props.config.step;
-        let max=this.props.config.max;  //可投金额
-        let result=this.checkMoney(parseInt(this.state.value)+step);  //验证增加后是否合法
-        if(result.code>1 ){
-            if(result.code==3){step=(max-parseInt(this.state.value))
-            }else{
-                step=step;
+        const { callback, setMoney } = this.props.config;
+        let step = this.props.config.step;
+        let max = this.props.config.max;  //可投金额
+        let result = this.checkMoney(parseInt(this.state.value) + step);  //验证增加后是否合法
+        if (result.code > 1) {
+            if (result.code == 5) {
+
             }
-            setMoney(parseInt(this.state.value)+step)
+            if (result.code == 3) {
+                step = (max - parseInt(this.state.value))
+            } else {
+                step = step;
+            }
+            setMoney(parseInt(this.state.value) + step)
             // (result.code==3)?step=0:step=step;
             this.setState({
-                code:result.code,
+                code: result.code,
                 value: (parseInt(this.state.value) + step),
                 //tips:result.tips
-            },()=>{
-                let code=this.checkMoney(parseInt(this.state.value)).code;
+            }, () => {
+                let code = this.checkMoney(parseInt(this.state.value)).code;
                 callback({
-                    code:code,
-                    value:this.state.value,
-                    tips:`${result.tips}`,
+                    code: code,
+                    value: this.state.value,
+                    tips: `${result.tips}`,
 
                 });
             });
         }
     }
-    minus(){
-        const {callback,setMoney} = this.props.config;
-        let step=this.props.config.step;
-        let result=this.checkMoney(parseInt(this.state.value)-step);
-        if(result.code>1 ){
-            (result.code==2)?step=0:step=step;
-            setMoney(parseInt(this.state.value)-step)
+    minus() {
+        const { callback, setMoney } = this.props.config;
+        let step = this.props.config.step;
+        let result = this.checkMoney(parseInt(this.state.value) - step);
+        if (result.code > 1) {
+            (result.code == 2) ? step = 0 : step = step;
+            setMoney(parseInt(this.state.value) - step)
             this.setState({
-                code:result.code,
+                code: result.code,
                 value: (parseInt(this.state.value) - step),
                 //tips:result.tips
-            },()=>{
-                let code=this.checkMoney(parseInt(this.state.value)).code;
+            }, () => {
+                let code = this.checkMoney(parseInt(this.state.value)).code;
                 callback({
-                    code:code,
-                    value:this.state.value,
-                    tips:`${result.tips}`
+                    code: code,
+                    value: this.state.value,
+                    tips: `${result.tips}`
                 });
             });
 
         }
     }
     //获取焦点即全部选中
-    cutClick(){
+    cutClick() {
         this.refs.amount.select();
     };
-    render(){
-        return(
+    render() {
+        return (
             // <div className="stepperInput">
             //     <div className="input__area">
             //         <button  className="btn_minus" onClick={this.minus}>-</button>
@@ -142,10 +159,10 @@ export default class StepperInput extends Component{
             //         <span className="unit">元</span>
             //     </div>
             // </div>
-            <div className className = 'money'>
-                <span className = 'minus' onClick = {this.minus}><i className = 'icon-minus'></i></span>
-                <div className = 'number'><input type="text"  value={this.state.value} ref="amount" maxLength={9} onClick={this.cutClick} onChange={this.handleChange}   /></div>
-                <span className = 'plus' onClick = {this.add}><i className = 'icon-plus'></i></span>
+            <div className className='money'>
+                <span className='minus' onClick={this.minus}><i className='icon-minus'></i></span>
+                <div className='number'><input type="text" value={this.state.value} ref="amount" maxLength={9} onClick={this.cutClick} onChange={this.handleChange} /></div>
+                <span className='plus' onClick={this.add}><i className='icon-plus'></i></span>
             </div>
         );
     }
