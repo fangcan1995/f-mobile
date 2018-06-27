@@ -11,7 +11,7 @@ const isTel = val => {
 };
 
 const istruePsd = val => {
-  var reg = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*?_.,]).*$/;
+  var reg = /^(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*?_.,]).{6,16}$/;
   var onlyReg=/^[a-zA-Z0-9!@#$%^&*?_.,]*$/
   return reg.test(val) && onlyReg.test(val);
 };
