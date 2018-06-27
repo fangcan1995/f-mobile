@@ -35,6 +35,12 @@ class RegisterPage extends Component {
         this.setState({
             [type]: e.target.value
         });
+        if(type=='username'&&this.timeInt){
+            clearInterval(this.timeInt)
+            this.setState({
+                verifyCodeCd:''
+            })
+        }
     }
     getMessageCode(e){
         e.stopPropagation();
@@ -72,7 +78,7 @@ class RegisterPage extends Component {
     }
     setTime(){
         let time=180;
-        var timeInt= setInterval(()=>{ 
+         this.timeInt= setInterval(()=>{ 
             if(time>0){
                 time--;
                 if(this.mounted){
@@ -86,7 +92,7 @@ class RegisterPage extends Component {
                         verifyCodeCd:''
                     })
                 } 
-                clearInterval(timeInt)
+                clearInterval(this.timeInt)
             }           
         },1000) 
     }
@@ -143,12 +149,14 @@ class RegisterPage extends Component {
             const { dispatch } = this.props;
             dispatch(register(submitData))
             .then(res=>{
+
                 Toast.success('注册成功',1,()=>{
                     this.props.history.push('/mobile/login')
                 })
                 
             })
             .catch(err=>{
+                
                 const { dispatch } = this.props;
                 dispatch(registerCode());
                 Toast.fail(err.message)

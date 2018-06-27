@@ -29,6 +29,12 @@ class LoginMessagePage extends Component {
         this.setState({
             [type]: e.target.value
         });
+        if(type=='username'&&this.timeInt){
+            clearInterval(this.timeInt)
+            this.setState({
+                verifyCodeCd:''
+            })
+        }
     }
     handleSubmit(){
         if(!this.state.username){
@@ -66,7 +72,7 @@ class LoginMessagePage extends Component {
     }
     setTime(){
         let time=180;
-        var timeInt= setInterval(()=>{ 
+        this.timeInt= setInterval(()=>{ 
             if(time>0){
                 time--;
                 if(this.mounted){
@@ -80,7 +86,7 @@ class LoginMessagePage extends Component {
                         verifyCodeCd:''
                     })
                 } 
-                clearInterval(timeInt)
+                clearInterval(this.timeInt)
             }           
         },1000) 
     }
