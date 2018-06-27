@@ -30,6 +30,12 @@ class RetrievePasswordPage extends Component {
         this.setState({
             [type]: e.target.value
         });
+        if(type=='username'&&this.timeInt){
+            clearInterval(this.timeInt)
+            this.setState({
+                verifyCodeCd:''
+            })
+        }
     }
     getMessageCode(e){
         e.stopPropagation();
