@@ -26,8 +26,8 @@ class Detail extends Component {
         code: 100,
         allMoney: null,
         Modal: false,
-        rateCouponId:'',
-        redEnvelopeId:'',
+        rateCouponId: '',
+        redEnvelopeId: '',
     };
 
     componentDidMount() {
@@ -164,26 +164,22 @@ class Detail extends Component {
                                                     tradePassword,
                                                     ...cred
                                                 }
-                                                Toast.loading('请稍等', 1, () => {
-                                                    console.log(cred)
+                                                console.log(cred)
 
-                                                    postInvest(cred, 0)
-                                                        .then(res => {
-                                                            Toast.info(res.value.message, 2, () => {
-                                                                const { getDetails, getMyInfo } = this.props;
-                                                                getDetails(this.props.match.params.id)
-                                                                getMyInfo()
-                                                                this.setState({
-                                                                    money: detail.projectDetails.minInvestAmount,
-                                                                    reward:'选择系统奖励'
-                                                                })
+                                                postInvest(cred, 0)
+                                                    .then(res => {
+                                                        Toast.info(res.value.message, 2, () => {
+                                                            const { getDetails, getMyInfo } = this.props;
+                                                            getDetails(this.props.match.params.id)
+                                                            getMyInfo()
+                                                            this.setState({
+                                                                money: detail.projectDetails.minInvestAmount,
+                                                                reward: '选择系统奖励'
                                                             })
-                                                            // Toast.hide()
-                                                        }).catch(err => {
-                                                            console.log(err)
                                                         })
-
-                                                });
+                                                    }).catch(err => {
+                                                        console.log(err)
+                                                    })
 
                                             }
                                         },
@@ -252,6 +248,9 @@ class Detail extends Component {
                 if (detail.myInfo.trueName) {//是否实名认证detail.myInfo.trueName
                     if (detail.myInfo.riskStatus == '1') {//是否进行风险评估detail.myInfo.riskStatus==1
                         if (detail.myInfo.openAccountStatus) {//是否开户detail.myInfo.openAccountStatus
+                            this.setState({
+                                button: '',
+                            })
                             prompt(
                                 '交易密码',
                                 '请输入交易密码',
@@ -264,27 +263,23 @@ class Detail extends Component {
                                                 tradePassword,
                                                 ...cred
                                             }
-                                            Toast.loading('请稍等', 1, () => {
-                                                console.log(cred)
+                                            console.log(cred)
 
-                                                postInvest(cred, 0)
-                                                    .then(res => {
-                                                        Toast.info(res.value.message, 2, () => {
-                                                            const { getDetails, getMyInfo } = this.props;
-                                                            getDetails(this.props.match.params.id)
-                                                            getMyInfo()
-                                                            this.setState({
-                                                                money: detail.projectDetails.minInvestAmount,
-                                                                reward:'选择系统奖励'
-                                                            })
+                                            postInvest(cred, 0)
+                                                .then(res => {
+                                                    Toast.info(res.value.message, 2, () => {
+                                                        const { getDetails, getMyInfo } = this.props;
+                                                        getDetails(this.props.match.params.id)
+                                                        getMyInfo()
+                                                        this.setState({
+                                                            money: detail.projectDetails.minInvestAmount,
+                                                            reward: '选择系统奖励'
                                                         })
-                                                        // Toast.hide()
-                                                    }).catch(err => {
-                                                        console.log(err)
                                                     })
-
-                                            });
-
+                                                    // Toast.hide()
+                                                }).catch(err => {
+                                                    console.log(err)
+                                                })
                                         }
                                     },
                                 ],
@@ -583,12 +578,13 @@ class Detail extends Component {
                         <Rewards config={{
                             projectId: detail.projectDetails.id,
                             money: this.state.money,
-                            handleSelectClickL:this.handleSelectClick.bind(this),
+                            handleSelectClickL: this.handleSelectClick.bind(this),
                             callback: (obj) => {
                                 this.setState({
-                                    reward:obj.reward,
-                                    rateCouponId:obj.rateCouponId,
-                                    redEnvelopeId:obj.redEnvelopeId 
+                                    reward: obj.reward,
+                                    rateCouponId: obj.rateCouponId,
+                                    redEnvelopeId: obj.redEnvelopeId,
+                                    profit:obj.profit?this.state.profit+obj.profit:this.state.profit
                                 });
                             }
                         }}

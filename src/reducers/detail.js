@@ -59,12 +59,14 @@ export default createReducer(initialState, {
 
   [`detail/POST_INVEST_PENDING`]: (state, action) => state.merge({
     isPosting: true,
+    isGetInfo:true,
   }),
   [`detail/POST_INVEST_FULFILLED`]: (state, action) =>{
     console.log(action)
     return (
       state.merge({
         isPosting: false,
+        isGetInfo:false,
         postResult: action.payload
       })
     )

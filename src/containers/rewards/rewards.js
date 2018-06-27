@@ -9,14 +9,15 @@ import './rewards.less'
 
 class Rewards extends Component {
     //选择红包
-    handleUseEnvelopesClick(e, w) {
+    handleUseEnvelopesClick(e, w, r) {
         const { setRewards, setRedEnvelopeId, config } = this.props;
-        setRewards(e + '元' + w)
+        // setRewards(e + '元' + w)
         config.handleSelectClickL();
         config.callback({
-            reward:e,
-            redEnvelopeId:w,
-            rateCouponId:''
+            reward: e,
+            redEnvelopeId: w,
+            rateCouponId: '',
+            profit: r
         })
         setRedEnvelopeId(q)
         // this.props.history.goBack()
@@ -24,14 +25,15 @@ class Rewards extends Component {
     // 选择加息券
     handleUseVoucherClick(e, w) {
         const { setRewards, setRateCouponId, config } = this.props;
-        setRewards(e + '%加息券')
+        // setRewards(e + '%加息券')
         setRateCouponId(w)
         config.handleSelectClickL()
         console.log(e)
         config.callback({
-            reward:e,
-            redEnvelopeId:'',
-            rateCouponId:w
+            reward: e,
+            redEnvelopeId: '',
+            rateCouponId: w,
+            profit: ''
         })
         // this.props.history.goBack()
     }
@@ -71,17 +73,17 @@ class Rewards extends Component {
                                             <div className="intro">返现红包</div>
                                             {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} {item.reTypeName}*/}
                                             <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
-                                            <div className="toUse"><a onClick={this.handleUseEnvelopesClick.bind(this, item.title, item.id)} >点击立即使用</a></div>
+                                            <div className="toUse"><a onClick={this.handleUseEnvelopesClick.bind(this, item.title, item.id, item.reAmount)} >点击立即使用</a></div>
                                         </div>
                                         :
                                         <div className={`couponBaseStyle coupon`} key={item.id + item.reTypeName}>
                                             <div className="couponInfo">
                                                 <span className="title">
                                                     {/* {type === 'rp' && '￥'} */}+
-                                        {/* {type === 'cp' && '+'} */}
+                                                    {/* {type === 'cp' && '+'} */}
                                                     <span className="value">{item.rcAmount}</span>
                                                     %
-                                    </span>
+                                                </span>
                                                 <span className="canuse">{item.productCategoryName}</span>
                                             </div>
                                             <div className="intro">加息券</div>
