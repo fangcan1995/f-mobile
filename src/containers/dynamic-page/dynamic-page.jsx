@@ -7,6 +7,7 @@ import { dynamic, clearData } from "../../actions/dynamic";
 import "./dynamic-page.less";
 import { Link } from "react-router-dom";
 import { PullToRefresh } from "antd-mobile";
+import defaultImg from "./../../assets/images/defaultImg.jpg";
 let ajaxData = {
   pageNum: "1",
   pageSize: "5",
@@ -141,7 +142,7 @@ class DynamicPage extends Component {
                   <Link to={"/mobile/discDetail/" + item.id} key={item.id}>
                     <dl className="dynamic-list">
                       <dt className="l">
-                        <img src={item.affIcon} alt="" />
+                        <img src={item.affIcon || defaultImg} alt="" />
                       </dt>
                       <dd>
                         <h3>{item.title}</h3>
