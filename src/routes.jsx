@@ -63,7 +63,7 @@ export default (
             <Route exact path="/mobile/changePhone" component={ChangePhonePage} />
             <Route exact path="/mobile/discover" component={DiscoverPage} />
             <Route exact path="/mobile/helpCenter" component={HelpCenterPage} />
-            <Route exact path="/mobile/detail" component={Detail} />
+            {/* <Route exact path="/mobile/detail" component={Detail} /> */}
             <Route exact path="/mobile/dynamic" component={DynamicPage} />
             <Route exact path="/mobile/subjectList" component={SubjectListPage} />
             <Route exact path="/mobile/discDetail/:id" component={DiscoverDetailPage} />
@@ -84,7 +84,7 @@ export default (
             <Route exact path="/mobile/repay-plan/:proId?" component={RepayPlanPage} />
 
             {/* add by fangcan */}
-            <Route path="/mobile/detail/:id" render={
+            <Route path="/mobile/detail/:type/:id" render={
                 ( props ) => {
                     const {match} = props
                     return (
@@ -94,7 +94,7 @@ export default (
             } />
             <Route exact path="/mobile/my/:callback?" component={My} />
             <Route exact path='/mobile/projectDetail/:id' component = {ProjectDetail}/>
-            <Route exact path='/mobile/investment-records/:id' component = {InvestmentRecords}/>
+            <Route exact path='/mobile/investment-records/:type/:id' component = {InvestmentRecords}/>
             <Route exact path='/mobile/rewards/:id' component = { Rewards }/>
             <Route exact path='/mobile/tradePassword' component = { TradePassword }/>
             <Redirect to = '/mobile/home' />

@@ -9,7 +9,8 @@ const initialState = fromJS({
         loanCreditCountDto:{},
         mortgageCarHis:{},
         projectInfoBaseInfoDto:{},
-        mortgageHouseHis:{}       
+        mortgageHouseHis:{},
+        houseTypeName:''       
     }
 });
 

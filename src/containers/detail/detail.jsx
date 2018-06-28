@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getDetails, getMyInfo, setMoney, postInvest, setProfit } from '../../actions/detail';
+import { getDetails, getMyInfo, setMoney, postInvest, setProfit, getTransferDetails } from '../../actions/detail';
 import StepperInput from '../../components/stepperInput/stepperInput';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -31,21 +31,35 @@ class Detail extends Component {
     };
 
     componentDidMount() {
-        const { getDetails, getMyInfo, authCode, setMoney, setProfit } = this.props;
+        const { getDetails, getMyInfo, authCode, setMoney, setProfit, getTransferDetails } = this.props;
+        console.log(this.props.match)
         if (this.props.detail.isFetching) {
             Toast.loading('loading')
         }
-        getDetails(this.props.match.params.id).then(res => {
-            const rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate
-            this.setState({
-                money: res.value.minInvestAmount,
-                minInvestAmount2: res.value.minInvestAmount,
-                profit: res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01
-            })
-            setMoney(res.value.minInvestAmount);
-            setProfit(res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01)
-        });
-
+        if (this.props.match.params.type == 0) {
+            getDetails(this.props.match.params.id).then(res => {
+                const rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate
+                this.setState({
+                    money: res.value.minInvestAmount,
+                    minInvestAmount2: res.value.minInvestAmount,
+                    profit: res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01
+                })
+                setMoney(res.value.minInvestAmount);
+                setProfit(res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01)
+            });
+        } else {
+            getTransferDetails(this.props.match.params.id).then(res => {
+                console.log(res)
+                const rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate
+                this.setState({
+                    money: res.value.minInvestAmount,
+                    minInvestAmount2: res.value.minInvestAmount,
+                    profit: res.value.minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01
+                })
+                setMoney(res.value.minInvestAmount);
+                setProfit(res.value.minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01)
+            });
+        }
         if (this.props.auth.isAuthenticated) {
             getMyInfo().then(res => {
                 this.setState({
@@ -60,8 +74,8 @@ class Detail extends Component {
     handleProjectClick(e) {
         this.props.history.push(`/mobile/projectDetail/${e}`)
     }
-    handleRecordsClick(e) {
-        this.props.history.push(`/mobile/investment-records/${e}`)
+    handleRecordsClick(e,q) {
+        this.props.history.push(`/mobile/investment-records/${e}/${q}`)
     }
 
     handleMinusClick() {
@@ -472,7 +486,7 @@ class Detail extends Component {
                                 <li>{detail.projectDetails.surplusAmount}
                                     <p>剩余金额（元）</p>
                                 </li>
-                                <li>{detail.projectDetails.loanExpiry}
+                                <li>{detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod}
                                     <p>期限（月）</p>
                                 </li>
                                 <li>{detail.projectDetails.minInvestAmount}
@@ -516,7 +530,7 @@ class Detail extends Component {
                                             tips: obj.tips,
                                             money: parseFloat(obj.value),
                                             code: obj.code,
-                                            profit: obj.value * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01,
+                                            profit: obj.value * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
                                             reward: '选择系统奖励',
                                             rateCouponId: '',
                                             redEnvelopeId: '',
@@ -551,11 +565,11 @@ class Detail extends Component {
                                 </div> */}
                             </div>
                             <div className='i-list'>
-                                <div className='i-list-item' onClick={this.handleProjectClick.bind(this, detail.projectDetails.id)}>
+                                <div className='i-list-item' onClick={this.handleProjectClick.bind(this, detail.projectDetails.projectId?detail.projectDetails.projectId:detail.projectDetails.id)}>
                                     <i className='icon-item-detail icon'></i>
                                     <p>项目详情</p>
                                 </div>
-                                <div className='i-list-item' onClick={this.handleRecordsClick.bind(this, detail.projectDetails.id)}>
+                                <div className='i-list-item' onClick={this.handleRecordsClick.bind(this, detail.projectDetails.raiseRate===undefined ? 1 : 0, detail.projectDetails.id)}>
                                     <i className='icon-invest-history icon'></i>
                                     <p>投资记录</p>
                                 </div>
@@ -627,7 +641,8 @@ const mapDispatchToProps = dispatch =>
         setMoney,
         postInvest,
         authCode,
-        setProfit
+        setProfit,
+        getTransferDetails
     }, dispatch)
 
 export default connect(select, mapDispatchToProps)(Detail);
