@@ -377,7 +377,7 @@ class SubjectListPage extends Component {
 							this.state.list.length?
 							this.state.list.map(item=>{
 								return (
-									<li key = {item.id} onClick = {this.handleDetailClick.bind(this,item.id)}>
+									<li key = {item.id} onClick = {this.handleDetailClick.bind(this,item.projectId?item.projectId:item.id)}>
 									{ 
 										item.statusString == '收益中'?<img src={earnings} alt=""/>:''
 									}

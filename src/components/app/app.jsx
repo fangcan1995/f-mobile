@@ -90,7 +90,7 @@ class App extends Component {
                 setBrowserTitle('我的合同');
                 break;
             case url.indexOf('/mobile/my-scatter') === 0:
-                setBrowserTitle('我的投资');
+                setBrowserTitle('我的散标');
                 break;
             case url.indexOf('/mobile/trade-history') === 0:
                 setBrowserTitle('交易记录');
@@ -161,7 +161,6 @@ class App extends Component {
     }
 
     render() {
-        console.log()
         return (
             <div id="app">
                 {

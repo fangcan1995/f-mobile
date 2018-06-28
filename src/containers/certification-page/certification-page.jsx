@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import { certification } from '../../actions/personal';
-import { isIdCard } from '../../libs/utils';
+import { isIdCard,realnameRegExp } from '../../libs/utils';
 import './../retrievePassword-page/retrievePassword-page.less';
 import  { Toast } from 'antd-mobile';
 import parseQueryString from '../../libs/parseQueryString'
@@ -27,7 +27,12 @@ class CertificationPage extends Component {
         else if(!this.state.idNumber){
             Toast.info('请输入身份证号')
             return false
-        }else if(!isIdCard(this.state.idNumber)){
+        }
+        else if(!realnameRegExp(this.state.tureName)){
+            Toast.info('请输入2-6位汉字')
+            return false
+        }
+        else if(!isIdCard(this.state.idNumber)){
             Toast.info('请输入正确的身份证号')
             return false
         }
