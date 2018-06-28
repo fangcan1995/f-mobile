@@ -17,23 +17,22 @@ class Rewards extends Component {
             reward: e,
             redEnvelopeId: w,
             rateCouponId: '',
-            profit: r
+            profit: r + config.profit
         })
-        setRedEnvelopeId(q)
+        // setRedEnvelopeId(q)
         // this.props.history.goBack()
     }
     // 选择加息券
-    handleUseVoucherClick(e, w) {
+    handleUseVoucherClick(e, w, r) {
         const { setRewards, setRateCouponId, config } = this.props;
         // setRewards(e + '%加息券')
-        setRateCouponId(w)
+        // setRateCouponId(w)
         config.handleSelectClickL()
-        console.log(e)
         config.callback({
             reward: e,
             redEnvelopeId: '',
             rateCouponId: w,
-            profit: ''
+            profit: r + config.profit
         })
         // this.props.history.goBack()
     }
@@ -92,7 +91,7 @@ class Rewards extends Component {
                                                         <div className="intro">加息券</div>
                                                         {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} */}
                                                         <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
-                                                        <div className="toUse"><a onClick={this.handleUseVoucherClick.bind(this, item.title, item.id)}>点击立即使用</a></div>
+                                                        <div className="toUse"><a onClick={this.handleUseVoucherClick.bind(this, item.title, item.id, item.reAmount)}>点击立即使用</a></div>
                                                     </div>
                                             )
                                         })}

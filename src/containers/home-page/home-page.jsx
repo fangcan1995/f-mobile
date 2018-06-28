@@ -97,8 +97,8 @@ class HomePage extends Component {
                 alt={home.project.advertList[0].title}
               />
             ) : (
-              <img src={newPerson} alt="" />
-            )}
+                <img src={newPerson} alt="" />
+              )}
 
             {/* <div className='greenhand-content'> */}
             {home.project.noviceList.length ? (
@@ -113,8 +113,10 @@ class HomePage extends Component {
                       <div className="tag">
                         <label className="l">新手专享</label>
                         <ul className="l">
-                          <li className="l">加息</li>
-                          <li className="l">限额1万元</li>
+                          {
+                            item.raiseRate ? <li className="l">加息</li> : ''
+                          }
+                          <li className="l">限额{item.maxInvestAmount / 10000}万元</li>
                           <li className="l">限投一次</li>
                         </ul>
                       </div>
@@ -138,8 +140,8 @@ class HomePage extends Component {
                 })}
               </div>
             ) : (
-              ""
-            )}
+                ""
+              )}
             {/* </div> */}
             {home.project.standardList.length ? (
               <div>
@@ -153,7 +155,9 @@ class HomePage extends Component {
                       <div className="tag">
                         <label className="l">优质推荐</label>
                         <ul className="l">
-                          <li className="l">加息</li>
+                          {
+                            item.raiseRate ? <li className="l">加息</li> : ''
+                          }
                         </ul>
                       </div>
                       <div className="yield">
@@ -176,8 +180,8 @@ class HomePage extends Component {
                 })}
               </div>
             ) : (
-              ""
-            )}
+                ""
+              )}
           </div>
         </div>
         <div className="footer-tab-parent">{/* <FooterTab></FooterTab> */}</div>

@@ -509,14 +509,15 @@ class Detail extends Component {
                                     step: detail.projectDetails.minInvestAmount,
                                     surplusAmount: detail.projectDetails.surplusAmount,
                                     setMoney: this.props.setMoney,
-                                    availableBalance:detail.myInfo.availableBalance,
+                                    setProfit: this.props.setProfit,
+                                    availableBalance: detail.myInfo.availableBalance,
                                     callback: (obj) => {
                                         this.setState({
                                             tips: obj.tips,
                                             money: parseFloat(obj.value),
                                             code: obj.code,
                                             profit: obj.value * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01,
-                                            reward:'选择系统奖励',
+                                            reward: '选择系统奖励',
                                             rateCouponId: '',
                                             redEnvelopeId: '',
                                         });
@@ -590,12 +591,13 @@ class Detail extends Component {
                             projectId: detail.projectDetails.id,
                             money: this.state.money,
                             handleSelectClickL: this.handleSelectClick.bind(this),
+                            profit: detail.profit,
                             callback: (obj) => {
                                 this.setState({
                                     reward: obj.reward,
                                     rateCouponId: obj.rateCouponId,
                                     redEnvelopeId: obj.redEnvelopeId,
-                                    profit: obj.profit ? this.state.profit + obj.profit : this.state.profit
+                                    profit: obj.profit
                                 });
                             }
                         }}
