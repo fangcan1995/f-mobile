@@ -74,7 +74,7 @@ export default (
             <Route exact path="/mobile/redpacket" component={RedPacket} />
             <Route exact path="/mobile/coupon" component={CouponPage} />
             <Route exact path="/mobile/withdraw" component={WithdrawPage} />
-            <Route exact path="/mobile/transfer" component={TransferPage} />
+            <Route exact path="/mobile/transfer/:id?/:proName?" component={TransferPage} />
             <Route exact path="/mobile/charge" component={ChargePage} />
             <Route exact path="/mobile/my-assets" component={MyAssetsPage} />
             <Route exact path="/mobile/my-agreement" component={MyAgreementPage} />
