@@ -27,7 +27,7 @@ class investmentRecords extends Component{
                             investmentRecord.records.map(item=>{
                                 return (
                                     <div className = 'records-list' key = {item.investTime}>
-                                        <div className = 'name'>{item.investor}<span className = 'r'>-{item.investAmt}</span></div>
+                                        <div className = 'name'>{item.investor}<span className = 'r'>{item.investAmt}</span></div>
                                         <div className = 'invest-way'>{item.investWayString}<span className = 'r'>{item.investTime}</span></div>
                                     </div>
                                 )
