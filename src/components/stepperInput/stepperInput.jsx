@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import './stepperInput.less';
 import { Modal } from 'antd-mobile';
+let rate;
+let loanExpiry;
 export default class StepperInput extends Component {
     constructor(props) {
         super(props);
@@ -22,11 +24,12 @@ export default class StepperInput extends Component {
         }
     }
     handleChange(event) {
-        const { min, max, callback, setMoney } = this.props.config;
+        const { min, max, callback, setMoney, setProfit } = this.props.config;
         this.setState({ value: event.target.value }, () => {
             let result = this.checkMoney(parseInt(this.state.value));
             if (result.code > 1) {
-                setMoney(this.state.value)
+                setMoney(this.state.value),
+                    setProfit(this.state.value * (rate / 12 * loanExpiry) * 0.01)
                 callback({
                     code: result.code,
                     value: this.state.value,
@@ -43,6 +46,8 @@ export default class StepperInput extends Component {
     }
     componentWillReceiveProps(nextProps) {
         console.log(nextProps)
+        rate = nextProps.detail.projectDetails.annualRate + nextProps.detail.projectDetails.raiseRate;
+        loanExpiry = nextProps.detail.projectDetails.loanExpiry
         this.state = {
             value: nextProps.config.money,
         }
@@ -93,7 +98,7 @@ export default class StepperInput extends Component {
         };
     }
     add() {
-        const { callback, setMoney } = this.props.config;
+        const { callback, setMoney, setProfit } = this.props.config;
         let step = this.props.config.step;
         let max = this.props.config.max;  //可投金额
         let result = this.checkMoney(parseInt(this.state.value) + step);  //验证增加后是否合法
@@ -107,6 +112,7 @@ export default class StepperInput extends Component {
                 step = step;
             }
             setMoney(parseInt(this.state.value) + step)
+            setProfit((parseInt(this.state.value) + step) * (rate / 12 * loanExpiry) * 0.01)
             // (result.code==3)?step=0:step=step;
             this.setState({
                 code: result.code,
@@ -124,12 +130,13 @@ export default class StepperInput extends Component {
         }
     }
     minus() {
-        const { callback, setMoney } = this.props.config;
+        const { callback, setMoney, setProfit } = this.props.config;
         let step = this.props.config.step;
         let result = this.checkMoney(parseInt(this.state.value) - step);
         if (result.code > 1) {
             (result.code == 2) ? step = 0 : step = step;
             setMoney(parseInt(this.state.value) - step)
+            setProfit((parseInt(this.state.value) - step) * (rate / 12 * loanExpiry) * 0.01)
             this.setState({
                 code: result.code,
                 value: (parseInt(this.state.value) - step),
