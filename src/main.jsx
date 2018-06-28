@@ -13,5 +13,6 @@ render(
       {routes}
     </BrowserRouter>
   </Provider>,
-  document.body.appendChild(document.createElement('div'))
+  // document.body.appendChild(document.createElement('div'))
+  document.body.appendChild(document.createElement('selection'))
 );
