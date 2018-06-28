@@ -24,8 +24,8 @@ class HomePage extends Component {
     window.location.href = e;
   }
 
-  handleDetailClick(e) {
-    this.props.history.push(`/mobile/detail/${e}`);
+  handleDetailClick(e,q) {
+    this.props.history.push(`/mobile/detail/${e}/${q}`);
   }
   handleAdClick(e) {
     window.location.href = e;
@@ -107,7 +107,7 @@ class HomePage extends Component {
                   return (
                     <div
                       key={item.id}
-                      onClick={this.handleDetailClick.bind(this, item.id)}
+                      onClick={this.handleDetailClick.bind(this, 0,item.id)}
                       className="greenhand-content"
                     >
                       <div className="tag">
@@ -150,7 +150,7 @@ class HomePage extends Component {
                     <div
                       key={item.id}
                       className="greenhand-content"
-                      onClick={this.handleDetailClick.bind(this, item.id)}
+                      onClick={this.handleDetailClick.bind(this,0, item.id)}
                     >
                       <div className="tag">
                         <label className="l">优质推荐</label>

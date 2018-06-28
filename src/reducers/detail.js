@@ -25,6 +25,18 @@ export default createReducer(initialState, {
     errorMessage: action.message
   }),
 
+  [`detail/GET_TRANSFER_DETAILS_PENDING`]: (state, action) => state.merge({
+    isFetching: true,
+  }),
+  [`detail/GET_TRANSFER_DETAILS_FULFILLED`]: (state, action) => state.merge({
+    isFetching: false,
+    projectDetails: action.payload
+  }),
+  [`detail/GET_TRANSFER_DETAILS_REJECTED`]: (state, action) => state.merge({
+    isFetching: false,
+    errorMessage: action.message
+  }),
+
   //获取账户信息
   [`detail/GET_MY_INFO_PENDING`]: (state, action) => state.merge({
     isFetching: true,

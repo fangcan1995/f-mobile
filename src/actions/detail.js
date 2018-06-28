@@ -2,7 +2,7 @@ import cFetch from '../libs/cFetch';
 let urls='http://172.16.7.3:9070/'
 import { Toast } from 'antd-mobile';
 import {getTips} from '../libs/famatData'
-
+// 获取散标详细信息
 export const  getDetails = (params) => {
     return {
       type: 'detail/GET_DETAILS',
@@ -18,6 +18,22 @@ export const  getDetails = (params) => {
       }
     }
   }
+  // 获取债转详细信息
+export const  getTransferDetails = (params) => {
+  return {
+    type: 'detail/GET_TRANSFER_DETAILS',
+    async payload() {
+      const res = await cFetch(`app/invest/transfer/loan/${params}` , { method: 'GET' },false);
+      const { code, data } = res;
+      if ( code == 0 ) {
+          // data.surplusAmount=500
+        return data || {};
+      } else {
+        throw res;
+      }
+    }
+  }
+}
   // 获取个人信息
   export const  getMyInfo = (params) => {
     return {
