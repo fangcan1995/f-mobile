@@ -31,6 +31,11 @@ const isBankcard = val => {
   return reg.test(val);
 };
 
+const realnameRegExp = val => {
+  var reg = /(^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]){2,6}$)/;
+  return reg.test(val);
+};
+
 // 字符串处理
 const trim = (str, isGlobal) => {
   return isGlobal ? str.replace(/\s/g, "") : str.replace(/(^\s+)|(\s+$)/g, "");
@@ -289,6 +294,7 @@ export {
   tradePasswordRegExp,
   trim,
   isArray,
+  realnameRegExp,
   preloadImage,
   setStorage,
   getStorage,
