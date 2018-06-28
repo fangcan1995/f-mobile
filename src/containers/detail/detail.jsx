@@ -136,7 +136,7 @@ class Detail extends Component {
         sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount
         this.setState({
             money: sumMoney,
-            profit: sumMoney * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01,
+            profit: sumMoney * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
             allMoney: this.state.sumMoney,
             code: 100,
             tips: ''
