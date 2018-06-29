@@ -54,6 +54,8 @@ class SubjectListPage extends Component {
 				list: subjectList.projectList.list
 			})
 		} else {
+			cred.pageNum = 1
+			cred.pageSize = 5
 			this.setState({
 				borderClass: "two",
 				tabClassOne: "",
