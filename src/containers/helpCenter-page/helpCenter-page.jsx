@@ -25,6 +25,7 @@ class HelpCenterPage extends Component {
       down: false,
       hasMore:true,
       height: document.documentElement.clientHeight,
+      list: []
     };
   }
   handleClick(type, e) {
@@ -37,7 +38,8 @@ class HelpCenterPage extends Component {
         tabClassOne: "active",
         tabClassTwo: "",
         hasMore:true,
-        down:false
+        down:false,
+        list:[]
       });
       this.getListData(4)
     } else {
@@ -46,7 +48,8 @@ class HelpCenterPage extends Component {
         tabClassOne: "",
         tabClassTwo: "active",
         hasMore:true,
-        down:false
+        down:false,
+        list:[]
       });
       this.getListData(5)
     }
@@ -55,7 +58,7 @@ class HelpCenterPage extends Component {
     ajaxData.pageNum=1;
     const { dispatch } = this.props;
     dispatch(clearData());
-    this.getListData(4);
+    this.getListData(4)
     const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
 		setTimeout(() => this.setState({
       height: hei,
@@ -63,16 +66,10 @@ class HelpCenterPage extends Component {
   }
   getListData(type){
     const { dispatch } = this.props;
-    return dispatch(dynamic(type,ajaxData));
-  }
-  getNewData() {
-    ajaxData.pageNum++;
-    if (this.state.borderClass == "one") {
-      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
-        this.getListData(4, ajaxData)
-        .then(res=>{
+    return dispatch(dynamic(type,ajaxData))
+    .then(res=>{
           this.setState({
-            refreshing:false
+            list: [...this.state.list, ...res.value.list]
           })   
         })
         .catch(err=>{
@@ -81,7 +78,13 @@ class HelpCenterPage extends Component {
             down:true,
             hasMore:false,
           }) 
-        }) 
+        }) ;
+  }
+  getNewData() {
+    ajaxData.pageNum++;
+    if (this.state.borderClass == "one") {
+      if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
+        this.getListData(4, ajaxData);
       }else{
         this.setState({
           refreshing:false,
@@ -91,19 +94,7 @@ class HelpCenterPage extends Component {
       }     
     } else {
       if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
-        this.getListData(5, ajaxData)
-        .then(res=>{
-          this.setState({
-            refreshing:false
-          })   
-        })
-        .catch(err=>{
-          this.setState({
-            refreshing:false,
-            down:true,
-            hasMore:false,
-          }) 
-        }) 
+        this.getListData(5, ajaxData);
       }else{
         this.setState({
           refreshing:false,
@@ -115,7 +106,7 @@ class HelpCenterPage extends Component {
   }
   render() {
     const { dynamic } = this.props;
-    let list = this.props.dynamic.dynamic.list;
+    let list = this.state.list;
     return (
       <div className="helpCenter-body">
         <div className="main">
