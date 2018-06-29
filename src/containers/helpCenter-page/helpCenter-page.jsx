@@ -22,6 +22,8 @@ class HelpCenterPage extends Component {
       tabClassOne: "active",
       tabClassTwo: "",
       refreshing: false,
+      down: false,
+      hasMore:true,
       height: document.documentElement.clientHeight,
     };
   }
@@ -33,14 +35,18 @@ class HelpCenterPage extends Component {
       this.setState({
         borderClass: "one",
         tabClassOne: "active",
-        tabClassTwo: ""
+        tabClassTwo: "",
+        hasMore:true,
+        down:false
       });
       this.getListData(4)
     } else {
       this.setState({
         borderClass: "two",
         tabClassOne: "",
-        tabClassTwo: "active"
+        tabClassTwo: "active",
+        hasMore:true,
+        down:false
       });
       this.getListData(5)
     }
@@ -71,12 +77,16 @@ class HelpCenterPage extends Component {
         })
         .catch(err=>{
           this.setState({
-            refreshing:false
+            refreshing:false,
+            down:true,
+            hasMore:false,
           }) 
         }) 
       }else{
         this.setState({
-          refreshing:false
+          refreshing:false,
+          down:true,
+          hasMore:false,
         }) 
       }     
     } else {
@@ -89,12 +99,16 @@ class HelpCenterPage extends Component {
         })
         .catch(err=>{
           this.setState({
-            refreshing:false
+            refreshing:false,
+            down:true,
+            hasMore:false,
           }) 
         }) 
       }else{
         this.setState({
-          refreshing:false
+          refreshing:false,
+          down:true,
+          hasMore:false,
         }) 
       }
     }
@@ -127,6 +141,7 @@ class HelpCenterPage extends Component {
               style={{ height: this.state.height, overflow: "auto" }}
               direction={"up"}
               refreshing={this.state.refreshing}
+              indicator={this.state.down ? { deactivate: '没有更多数据了' } : { deactivate: '上拉加载更多' }}
               onRefresh={this.getNewData.bind(this)}
             >
               {
@@ -147,6 +162,9 @@ class HelpCenterPage extends Component {
                 );
               }):''
               }
+              {
+								this.state.hasMore ? <div></div> : <div className='onDeep'>已经到底部了^-^```</div>
+							}
             </PullToRefresh>
             </ul>
           </div>
