@@ -13,7 +13,6 @@ import full from '../../assets/images/full.png';
 import { PullToRefresh } from "antd-mobile";
 
 let cred = {
-	sortBy: null,
 	pageSize: 5,
 	pageNum: 1
 }
@@ -80,7 +79,6 @@ class SubjectListPage extends Component {
 			});
 			if (this.state.tabClassOne) {
 				cred = {
-					sortBy: null,
 					pageNum: 1,
 					pageSize: 5
 				}
@@ -90,7 +88,6 @@ class SubjectListPage extends Component {
 				})
 			} else {
 				cred = {
-					sortBy: null,
 					pageNum: 1,
 					pageSize: 5
 				}
@@ -119,7 +116,7 @@ class SubjectListPage extends Component {
 			if (this.state.tabClassOne) {
 				if (this.state.arrow == 1) {
 					cred = {
-						sortBy: '-annualRate',
+						sortBy: '-totalrate',
 						pageNum: 1,
 						pageSize: 5
 					}
@@ -131,7 +128,7 @@ class SubjectListPage extends Component {
 				} else {
 					// cred.sortBy = 
 					cred = {
-						sortBy: 'annualRate',
+						sortBy: 'totalrate',
 						pageNum: 1,
 						pageSize: 5
 					}
@@ -208,7 +205,7 @@ class SubjectListPage extends Component {
 				if (this.state.otherArrow == 1) {
 					// cred.sortBy = 
 					cred = {
-						sortBy: '-loanExpiry',
+						sortBy: '-transferPeriod',
 						pageNum: 1,
 						pageSize: 5
 					}
@@ -220,7 +217,7 @@ class SubjectListPage extends Component {
 				} else {
 					cred.sortBy =
 						cred = {
-							sortBy: 'loanExpiry',
+							sortBy: 'transferPeriod',
 							pageNum: 1,
 							pageSize: 5
 						}

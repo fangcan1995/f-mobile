@@ -9,7 +9,7 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_LIST',
       async payload() {
-        const res = await cFetch(`app/invest/projects/loan/page?${params}` , { method: 'GET' },false);
+        const res = await cFetch(`app/invest/projects/loan/page?${params}`, { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
           return data || {};

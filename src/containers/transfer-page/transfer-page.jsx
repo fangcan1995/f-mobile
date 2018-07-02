@@ -48,7 +48,10 @@ class TransferPage extends Component {
                 transFee:myScatter.transfer.transferRate
               }
               const { dispatch } = this.props;
-              dispatch(applyTransfer(submitData));
+              dispatch(applyTransfer(submitData))
+              .then(res=>{
+                Toast.success('转让标的成功',1)     
+              });
             }
           }
         ],
@@ -71,7 +74,7 @@ class TransferPage extends Component {
           <div className="baseStyle">
             <div className="label">投资金额</div>
             <div className="realName">
-              ￥{myScatter.transfer.canTransferMoney}
+              ￥{myScatter.transfer.canTransferMoney || 0}
             </div>
           </div>
         </div>
@@ -83,7 +86,7 @@ class TransferPage extends Component {
                 type="text"
                 onChange={this.handleChange.bind(this, "money")}
                 value={this.state.money}
-                placeholder={`最多取出${myScatter.transfer.canTransferMoney}元`}
+                placeholder={`最多取出${myScatter.transfer.canTransferMoney || 0}元`}
               />
               <span
                 className="withdrawTotal"

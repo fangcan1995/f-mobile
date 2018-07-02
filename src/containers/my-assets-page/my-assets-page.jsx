@@ -71,7 +71,7 @@ class MyAssetsPage extends Component {
                     data: [
                         {
                             value: myInfo.availableBalance !== undefined ? parseFloat(myInfo.availableBalance).toFixed(2) : 0..toFixed,
-                            name: '账户余额',
+                            name: '可用余额',
                             itemStyle: {
                                 color: '#3298fa'
                             }
@@ -119,7 +119,7 @@ class MyAssetsPage extends Component {
                         <div className="infoLine">
                             <div className="title">
                                 <div className="color colorAccount"></div>
-                                账户余额
+                                可用余额
                         </div>
                             <div className="val">￥{myInfo.availableBalance !== undefined ? parseFloat(myInfo.availableBalance).toFixed(2) : 0..toFixed(2)}</div>
                         </div>

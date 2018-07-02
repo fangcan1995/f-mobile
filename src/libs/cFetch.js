@@ -144,7 +144,7 @@ function toQueryString(object) {
 }
 
 
-function cFetch(url, options, withAuth = true, defaultUrl = API_CONFIG.baseUri) {
+function cFetch(url, options, withAuth = true, defaultUrl = API_CONFIG.baseUri,timeout = 10000) {
     //let mergeUrl = API_CONFIG.baseUri + url;
     let mergeUrl = defaultUrl+url;
     const defaultOptions = {
@@ -168,13 +168,23 @@ function cFetch(url, options, withAuth = true, defaultUrl = API_CONFIG.baseUri) 
         ...opts.headers,
     };
 
-    return fetch(mergeUrl, opts)
+    return _fetch(fetch(mergeUrl, opts),timeout)
         .then(check401)
         .then(check404)
         .then(checkStatus)
         .then(jsonParse);
 }
-
+function _fetch(fetch, timeout = Infinity) {
+    return Promise.race([
+      fetch,
+      new Promise(function (resolve, reject) {
+        setTimeout(() => reject(new StandardError({
+          statusCode: -1,
+          msg: '请求超时',
+        })), timeout);
+      })
+    ]);
+  }
 //catch all the unhandled exception
 window.addEventListener("unhandledrejection", function (err) {
     const ex = err.reason;
