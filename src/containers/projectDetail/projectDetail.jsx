@@ -67,12 +67,12 @@ class ProjectDetail extends Component {
                                                 <div className='text'><span>房产类型</span>{houseTypeName ? houseTypeName : ''}</div>
                                                 <div className='text'><span>建筑面积</span>{mortgageHouseHis ? mortgageHouseHis.area : ''}平米</div>
                                                 <div className='text'><span>房龄</span>{mortgageHouseHis ? mortgageHouseHis.houseAge : ''}年</div>
-                                                <div className='text'><span>贷款年限</span>{mortgageHouseHis ? mortgageHouseHis.carRegNumber : ''}</div>
+                                                {/* <div className='text'><span>贷款年限</span>{mortgageHouseHis ? mortgageHouseHis.carRegNumber : ''}</div> */}
                                                 <div className='text'><span>尚欠贷余额</span>{mortgageHouseHis ? mortgageHouseHis.debtMoney : ''}元</div>
                                                 <div className='text'><span>土地所有证号</span>{mortgageHouseHis ? mortgageHouseHis.landNo : ''}</div>
                                                 <div className='text'><span>房产权所有证号</span>{mortgageHouseHis ? mortgageHouseHis.houseBelongNo : ''}</div>
                                                 <div className='text'><span>评估价格</span>{mortgageHouseHis ? mortgageHouseHis.pricePotential : ''}元</div>
-                                                <div className='text'><span>抵押物描述</span>{mortgageHouseHis ? mortgageHouseHis.pricePotential : ''}</div>
+                                                {/* <div className='text'><span>抵押物描述</span>{mortgageHouseHis ? mortgageHouseHis.pricePotential : ''}</div> */}
                                             </div> :
                                             <div>
                                                 <div className='text'><span>车辆品牌</span>{mortgageCarHis ? mortgageCarHis.carBrand : ''}</div>

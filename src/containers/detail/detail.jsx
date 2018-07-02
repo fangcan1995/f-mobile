@@ -37,10 +37,12 @@ class Detail extends Component {
             Toast.loading('loading')
         }
         if (this.props.match.params.type == 0) {
+            cred.isTransfer = false,
+                cred.transfer = false
             getDetails(this.props.match.params.id).then(res => {
                 const rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate
                 this.setState({
-                    money: res.value.minInvestAmount,
+                    money: res.value.minInvestAmount < res.value.surplusAmount ? res.value.minInvestAmount : res.value.surplusAmount,
                     minInvestAmount2: res.value.minInvestAmount,
                     profit: res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01
                 })
@@ -48,17 +50,22 @@ class Detail extends Component {
                 setProfit(res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01)
             });
         } else {
-            getTransferDetails(this.props.match.params.id).then(res => {
-                console.log(res)
-                const rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate
-                this.setState({
-                    money: res.value.minInvestAmount,
-                    minInvestAmount2: res.value.minInvestAmount,
-                    profit: res.value.minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01
-                })
-                setMoney(res.value.minInvestAmount);
-                setProfit(res.value.minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01)
-            });
+            // debugger
+            cred.isTransfer = true,
+                cred.transfer = true,
+                getTransferDetails(this.props.match.params.id).then(res => {
+                    console.log(res)
+                    const rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate;
+                    const minInvestAmount = res.value.minInvestAmount < res.value.surplusAmount ? res.value.minInvestAmount : res.value.surplusAmount;
+                    cred.transferProjectId = res.value.id
+                    this.setState({
+                        money: minInvestAmount,
+                        minInvestAmount2: res.value.minInvestAmount,
+                        profit: minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01
+                    })
+                    setMoney(res.value.minInvestAmount);
+                    setProfit(res.value.minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01)
+                });
         }
         if (this.props.auth.isAuthenticated) {
             getMyInfo().then(res => {
@@ -74,7 +81,7 @@ class Detail extends Component {
     handleProjectClick(e) {
         this.props.history.push(`/mobile/projectDetail/${e}`)
     }
-    handleRecordsClick(e,q) {
+    handleRecordsClick(e, q) {
         this.props.history.push(`/mobile/investment-records/${e}/${q}`)
     }
 
@@ -183,8 +190,8 @@ class Detail extends Component {
                                                 postInvest(cred, 0)
                                                     .then(res => {
                                                         Toast.info(res.value.message, 2, () => {
-                                                            const { getDetails, getMyInfo } = this.props;
-                                                            getDetails(this.props.match.params.id)
+                                                            const { getDetails, getMyInfo, getTransferDetails } = this.props;
+                                                            this.props.match.params.type?getDetails(this.props.match.params.id):getTransferDetails(this.props.match.params.id)
                                                             getMyInfo()
                                                             this.setState({
                                                                 money: detail.projectDetails.minInvestAmount,
@@ -288,8 +295,13 @@ class Detail extends Component {
                                             postInvest(cred, 0)
                                                 .then(res => {
                                                     Toast.info(res.value.message, 2, () => {
-                                                        const { getDetails, getMyInfo } = this.props;
-                                                        getDetails(this.props.match.params.id)
+                                                        const { getDetails, getMyInfo, getTransferDetails } = this.props;
+                                                        console.log(this.props.match.params.type)
+                                                        if(this.props.match.params.type){
+                                                            getTransferDetails(this.props.match.params.id)
+                                                        }else{
+                                                            getDetails(this.props.match.params.id)
+                                                        }
                                                         getMyInfo()
                                                         this.setState({
                                                             money: detail.projectDetails.minInvestAmount,
@@ -358,7 +370,7 @@ class Detail extends Component {
         const { detail, postInvest, auth, rewards, setMoney, setProfit } = this.props;
         const prompt = Modal.prompt;
         let restMoney = detail.projectDetails.surplusAmount - this.state.money;
-        cred = {
+        let creds = {
             validationCode: auth.loginCode,
             projectId: detail.projectDetails.id,
             investAmt: this.state.money,
@@ -366,9 +378,8 @@ class Detail extends Component {
             rateCouponId: this.state.rateCouponId,
             validationCode: auth.loginCode.imageCode,
             investWay: rewards.investWay,
-            isTransfer: false,
-            transfer: false,
         }
+        cred = { ...cred, ...creds }
         if (!this.state.checked) {
             return
         }
@@ -565,11 +576,11 @@ class Detail extends Component {
                                 </div> */}
                             </div>
                             <div className='i-list'>
-                                <div className='i-list-item' onClick={this.handleProjectClick.bind(this, detail.projectDetails.projectId?detail.projectDetails.projectId:detail.projectDetails.id)}>
+                                <div className='i-list-item' onClick={this.handleProjectClick.bind(this, detail.projectDetails.projectId ? detail.projectDetails.projectId : detail.projectDetails.id)}>
                                     <i className='icon-item-detail icon'></i>
                                     <p>项目详情</p>
                                 </div>
-                                <div className='i-list-item' onClick={this.handleRecordsClick.bind(this, detail.projectDetails.raiseRate===undefined ? 1 : 0, detail.projectDetails.id)}>
+                                <div className='i-list-item' onClick={this.handleRecordsClick.bind(this, detail.projectDetails.raiseRate === undefined ? 1 : 0, detail.projectDetails.id)}>
                                     <i className='icon-invest-history icon'></i>
                                     <p>投资记录</p>
                                 </div>
