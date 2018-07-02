@@ -22,7 +22,10 @@ class HelpCenterPage extends Component {
       tabClassOne: "active",
       tabClassTwo: "",
       refreshing: false,
+      down: false,
+      hasMore:true,
       height: document.documentElement.clientHeight,
+      list: []
     };
   }
   handleClick(type, e) {
@@ -33,14 +36,20 @@ class HelpCenterPage extends Component {
       this.setState({
         borderClass: "one",
         tabClassOne: "active",
-        tabClassTwo: ""
+        tabClassTwo: "",
+        hasMore:true,
+        down:false,
+        list:[]
       });
       this.getListData(4)
     } else {
       this.setState({
         borderClass: "two",
         tabClassOne: "",
-        tabClassTwo: "active"
+        tabClassTwo: "active",
+        hasMore:true,
+        down:false,
+        list:[]
       });
       this.getListData(5)
     }
@@ -49,7 +58,7 @@ class HelpCenterPage extends Component {
     ajaxData.pageNum=1;
     const { dispatch } = this.props;
     dispatch(clearData());
-    this.getListData(4);
+    this.getListData(4)
     const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
 		setTimeout(() => this.setState({
       height: hei,
@@ -57,51 +66,47 @@ class HelpCenterPage extends Component {
   }
   getListData(type){
     const { dispatch } = this.props;
-    return dispatch(dynamic(type,ajaxData));
+    return dispatch(dynamic(type,ajaxData))
+    .then(res=>{
+          this.setState({
+            list: [...this.state.list, ...res.value.list]
+          })   
+        })
+        .catch(err=>{
+          this.setState({
+            refreshing:false,
+            down:true,
+            hasMore:false,
+          }) 
+        }) ;
   }
   getNewData() {
     ajaxData.pageNum++;
     if (this.state.borderClass == "one") {
       if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
-        this.getListData(4, ajaxData)
-        .then(res=>{
-          this.setState({
-            refreshing:false
-          })   
-        })
-        .catch(err=>{
-          this.setState({
-            refreshing:false
-          }) 
-        }) 
+        this.getListData(4, ajaxData);
       }else{
         this.setState({
-          refreshing:false
+          refreshing:false,
+          down:true,
+          hasMore:false,
         }) 
       }     
     } else {
       if(ajaxData.pageNum<this.props.dynamic.dynamic.pages || ajaxData.pageNum==this.props.dynamic.dynamic.pages){        
-        this.getListData(5, ajaxData)
-        .then(res=>{
-          this.setState({
-            refreshing:false
-          })   
-        })
-        .catch(err=>{
-          this.setState({
-            refreshing:false
-          }) 
-        }) 
+        this.getListData(5, ajaxData);
       }else{
         this.setState({
-          refreshing:false
+          refreshing:false,
+          down:true,
+          hasMore:false,
         }) 
       }
     }
   }
   render() {
     const { dynamic } = this.props;
-    let list = this.props.dynamic.dynamic.list;
+    let list = this.state.list;
     return (
       <div className="helpCenter-body">
         <div className="main">
@@ -127,6 +132,7 @@ class HelpCenterPage extends Component {
               style={{ height: this.state.height, overflow: "auto" }}
               direction={"up"}
               refreshing={this.state.refreshing}
+              indicator={this.state.down ? { deactivate: '没有更多数据了' } : { deactivate: '上拉加载更多' }}
               onRefresh={this.getNewData.bind(this)}
             >
               {
@@ -147,6 +153,9 @@ class HelpCenterPage extends Component {
                 );
               }):''
               }
+              {
+								this.state.hasMore ? <div></div> : <div className='onDeep'>已经到底部了^-^```</div>
+							}
             </PullToRefresh>
             </ul>
           </div>

@@ -36,7 +36,8 @@ class DynamicPage extends Component {
         borderClass: "one",
         tabClassOne: "active",
         tabClassTwo: "",
-        hasMore: true
+        hasMore: true,
+        list: []
       });
       this.getListData(2);
     } else {
@@ -44,7 +45,8 @@ class DynamicPage extends Component {
         borderClass: "two",
         tabClassOne: "",
         tabClassTwo: "active",
-        hasMore: true
+        hasMore: true,
+        list: []
       });
       this.getListData(1);
     }
@@ -53,30 +55,28 @@ class DynamicPage extends Component {
     ajaxData.pageNum = 1;
     const { dispatch } = this.props;
     dispatch(clearData());
-    this.getListData(2).then(res => {
-      this.setState({
-        list: res.value.list
-      })
-    });
+    this.getListData(2)
     const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
     setTimeout(() => this.setState({
       height: hei,
     }), 0);
   }
-  componentWillReceiveProps(nextProps) {
-    const { dynamic } = nextProps;
-    console.log(nextProps)
-    if (ajaxData.pageNum == 1) {
-      this.setState({
-        list: dynamic.dynamic.list
-      })
-    } else {
-    }
-  }
   getListData(type) {
-
     const { dispatch } = this.props;
-    return dispatch(dynamic(type, ajaxData));
+    return dispatch(dynamic(type, ajaxData))
+    .then(res => {
+      console.log(res)
+      this.setState({
+        // refreshing:false,
+        list: [...this.state.list, ...res.value.list]
+      })
+    })
+    .catch(err => {
+      this.setState({
+        refreshing: false,
+        hasMore: false
+      })
+    });
   }
   getNewData() {
     ajaxData.pageNum++;
@@ -88,20 +88,7 @@ class DynamicPage extends Component {
           refreshing: true
         })
         this.getListData(2, ajaxData)
-          .then(res => {
-            console.log(res)
-            this.setState({
-              // refreshing:false,
-              list: [...this.state.list, ...res.value.list]
-            })
-
-          })
-          .catch(err => {
-            this.setState({
-              refreshing: false,
-              hasMore: false
-            })
-          })
+        
       } else {
         this.setState({
           refreshing: false,
@@ -115,19 +102,6 @@ class DynamicPage extends Component {
       })
       if (ajaxData.pageNum < this.props.dynamic.dynamic.pages || ajaxData.pageNum == this.props.dynamic.dynamic.pages) {
         this.getListData(1, ajaxData)
-          .then(res => {
-            this.setState({
-              // refreshing:false,
-              list: [...this.state.list, ...res.value.list]
-            })
-
-          })
-          .catch(err => {
-            this.setState({
-              refreshing: false,
-              hasMore: false
-            })
-          })
       } else {
         this.setState({
           refreshing: false,
@@ -195,7 +169,7 @@ class DynamicPage extends Component {
                   }) : ''
               }
               {
-                this.state.hasMore ? <div></div> : <div>已经到底部了^-^```</div>
+                this.state.hasMore ? <div></div> : <div className='onDeep'>已经到底部了^-^```</div>
               }
             </PullToRefresh>
           </div>
