@@ -5,6 +5,7 @@ import Immutable from 'immutable';
 import { discoverDeail } from '../../actions/discoverDetail';
 import './discoverDetail-page.less';
 import { Link } from 'react-router-dom';
+import { setBrowserTitle } from '../../libs/utils';
 
 class DiscoverDetailPage extends Component {
 	componentDidMount(){
@@ -14,6 +15,7 @@ class DiscoverDetailPage extends Component {
 	render() {
 		const { discoverDeail } = this.props;
 		let obj = this.props.discoverDeail.discoverDeail;
+		setBrowserTitle(obj.title)
 		return (
             <div className="discoverDetail-body">
 				<h2>{obj.title}</h2>

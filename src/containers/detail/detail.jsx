@@ -549,7 +549,7 @@ class Detail extends Component {
                                     }
                                 }} {...this.props} key={detail.projectDetails.minInvestAmount}></StepperInput>
                                 <div className='sum'>参考收益：
-                                    <span>￥{this.state.profit}</span>
+                                    <span>￥{this.state.profit.toFixed(2)}</span>
                                 </div>
                                 <div className="tips__area">
                                     {this.state.tips != '' ? <span className="errorMessages">{this.state.tips}</span>
