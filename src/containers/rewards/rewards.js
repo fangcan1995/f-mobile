@@ -74,7 +74,8 @@ class Rewards extends Component {
                                                         </div>
                                                         <div className="intro">返现红包</div>
                                                         {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} {item.reTypeName}*/}
-                                                        <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
+                                                        <div className="endTime">有效期：{item.validity}</div>
+                                                        {/* item.endTime ? item.endTime.split(' ')[0] : '暂无期限' */}
                                                         <div className="toUse"><a onClick={this.handleUseEnvelopesClick.bind(this, item.title, item.id, item.reAmount)} >点击立即使用</a></div>
                                                     </div>
                                                     :
@@ -90,7 +91,7 @@ class Rewards extends Component {
                                                         </div>
                                                         <div className="intro">加息券</div>
                                                         {/* {data.endTime ? data.endTime.split(' ')[0] : '暂无期限'} */}
-                                                        <div className="endTime">{item.endTime ? item.endTime.split(' ')[0] : '暂无期限'}</div>
+                                                        <div className="endTime">有效期：{item.validity}</div>
                                                         <div className="toUse"><a onClick={this.handleUseVoucherClick.bind(this, item.title, item.id, item.reAmount)}>点击立即使用</a></div>
                                                     </div>
                                             )
