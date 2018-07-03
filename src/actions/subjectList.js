@@ -9,8 +9,9 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_LIST',
       async payload() {
-        const res = await cFetch(`app/invest/projects/loan/page?${params}`, { method: 'GET' },false);
-        const { code, data } = res;
+        let res = await cFetch(`app/invest/projects/loan/page?${params}`, { method: 'GET' },false);
+        let { code, data } = res;
+        data.istransfer='0';
         if ( code == 0 ) {
           return data || {};
         } else {
@@ -24,8 +25,9 @@ export const  getsubjectList = (params) => {
     return {
       type: 'subject/GET_TRANSFER_LIST',
       async payload() {
-        const res = await cFetch(`app/invest/transfer/loan/page?${params}` , { method: 'GET' },false);
-        const { code, data } = res;
+        let res = await cFetch(`app/invest/transfer/loan/page?${params}` , { method: 'GET' },false);
+        let { code, data } = res;
+        data.istransfer='1';
         if ( code == 0 ) {
           return data || {};
         } else {

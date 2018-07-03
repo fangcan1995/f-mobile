@@ -63,7 +63,7 @@ const AgreementCard = ({ isFull, data }) => {
                     截止日期：
                     <span>{data.dueDate ? data.dueDate.split(' ')[0] : '--'}</span>
                     &nbsp;&nbsp;/&nbsp;
-                    下期汇款日：
+                    下期回款日：
                     <span>{data.nextRePaymentsDate ? data.nextRePaymentsDate.split(' ')[0] : '--'}</span>
                 </div>
                 <div className="tag blue">{data.investStatusName ? data.investStatusName : ''}</div>

@@ -137,19 +137,29 @@ class Detail extends Component {
         setProfit((this.state.money + 100) * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01)
     }
     handleAllClick() {
-        const { detail, setMoney, setProfit } = this.props;
-        const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
-        let sumMoney = this.state.sumMoney < detail.projectDetails.surplusAmount ? this.state.sumMoney : detail.projectDetails.surplusAmount;
-        sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount
-        this.setState({
-            money: sumMoney,
-            profit: sumMoney * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
-            allMoney: this.state.sumMoney,
-            code: 100,
-            tips: ''
-        })
-        setMoney(sumMoney)
-        setProfit(sumMoney * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01)
+        console.log(this.props)
+        const { detail, setMoney, setProfit,auth } = this.props;
+        if(auth.isAuthenticated){
+            const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
+            let sumMoney = this.state.sumMoney < detail.projectDetails.surplusAmount ? this.state.sumMoney : detail.projectDetails.surplusAmount;
+            sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount;
+            sumMoney=Math.floor(sumMoney/100)*100
+            this.setState({
+                money: sumMoney,
+                profit: sumMoney * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
+                allMoney: this.state.sumMoney,
+                code: 100,
+                tips: ''
+            })
+            setMoney(sumMoney)
+            setProfit(sumMoney * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01)
+        }else{
+            Toast.info('请登陆',2,()=>{
+                let redirect=location.pathname
+                location.href = '/mobile/login?redirect='+redirect;
+            })
+        }
+        
     }
     handleAgreeClick() {
         if (this.state.checked) {
