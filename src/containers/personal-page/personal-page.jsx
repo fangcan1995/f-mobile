@@ -6,15 +6,39 @@ import { Link } from 'react-router-dom';
 import { personal, getFuiou } from '../../actions/personal';
 import { auth, logoutUser } from '../../actions/auth';
 import { mdPhone } from '../../libs/utils';
-import { Toast } from 'antd-mobile';
+import { Toast, ImagePicker } from 'antd-mobile';
 import './personal-page.less';
 let ajaxData = {
     adType: '7',
     putEnv: '2',
     number: ''
 }
+const data = [{
+    url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
+    id: '2121',
+}, {
+    url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
+    id: '2122',
+}];
 class PersonalContainer extends Component {
+    state = {
+        files: data,
+        multiple: false,
+    }
+    onChange = (files, type, index) => {
+        console.log(files, type, index);
+        this.setState({
+            files,
+        });
+    }
+    onSegChange = (e) => {
+        const index = e.nativeEvent.selectedSegmentIndex;
+        this.setState({
+            multiple: index === 1,
+        });
+    }
     componentDidMount() {
+        let personalObj = this.props.personal.personal
         if (this.props.match.params.id) {
 
             let id = this.props.match.params.id.split('_')[1]
@@ -86,6 +110,7 @@ class PersonalContainer extends Component {
     }
     render() {
         const { personal, auth } = this.props;
+        const { files } = this.state;
         let personalObj = this.props.personal.personal;
         personalObj.userName = this.props.auth.userInfo.userName;
         let toOthersInfo = personal.fuiouData.data;
@@ -115,6 +140,13 @@ class PersonalContainer extends Component {
                             <div className="leftTitle">头像设置</div>
                             <span className="rightAction">
                                 <span>
+                                    {/* <ImagePicker
+                                        files={files}
+                                        onChange={this.onChange}
+                                        onImageClick={(index, fs) => console.log(index, fs)}
+                                        selectable={files.length < 5}
+                                        multiple={this.state.multiple}
+                                    /> */}
                                     <span className="icon-arrow"></span>
                                     <img className="personIcon" src={personalObj.photo} />
                                 </span>
@@ -147,7 +179,7 @@ class PersonalContainer extends Component {
                                             }
                                         </span>
                                     </Link>
-                                ): (
+                                ) : (
                                     <a href="javascript:void(0)">
                                         <div className="leftTitle">实名认证</div>
                                         <span className="rightAction">
