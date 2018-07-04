@@ -11,6 +11,7 @@ import Rewards from '../rewards/rewards'
 import './detail.less'
 
 let cred = {}
+let rate;
 class Detail extends Component {
     state = {
         money: 0,
@@ -40,7 +41,7 @@ class Detail extends Component {
             cred.isTransfer = false,
                 cred.transfer = false
             getDetails(this.props.match.params.id).then(res => {
-                const rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate
+                rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate
                 this.setState({
                     money: res.value.minInvestAmount < res.value.surplusAmount ? res.value.minInvestAmount : res.value.surplusAmount,
                     minInvestAmount2: res.value.minInvestAmount,
@@ -55,7 +56,7 @@ class Detail extends Component {
                 cred.transfer = true,
                 getTransferDetails(this.props.match.params.id).then(res => {
                     console.log(res)
-                    const rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate;
+                    rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate;
                     const minInvestAmount = res.value.minInvestAmount < res.value.surplusAmount ? res.value.minInvestAmount : res.value.surplusAmount;
                     cred.transferProjectId = res.value.id
                     this.setState({
@@ -87,7 +88,7 @@ class Detail extends Component {
 
     handleMinusClick() {
         const { detail, setMoney, setProfit } = this.props;
-        const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
+        rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
         if (this.state.money <= this.state.minInvestAmount2) {
             Toast.fail(`投资金额不能小于起投金额${this.state.minInvestAmount2}`, 1)
             return
@@ -101,7 +102,7 @@ class Detail extends Component {
     }
     handlePlusClick() {
         const { detail, setMoney, setProfit } = this.props;
-        const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
+        rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
         if (detail.myInfo.availableBalance <= 0) {
             Modal.alert('您的可用余额不足', '去充值', [
                 {
@@ -140,7 +141,7 @@ class Detail extends Component {
         console.log(this.props)
         const { detail, setMoney, setProfit,auth } = this.props;
         if(auth.isAuthenticated){
-            const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
+            rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
             let sumMoney = this.state.sumMoney < detail.projectDetails.surplusAmount ? this.state.sumMoney : detail.projectDetails.surplusAmount;
             sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount;
             sumMoney=Math.floor(sumMoney/100)*100
@@ -205,7 +206,9 @@ class Detail extends Component {
                                                             getMyInfo()
                                                             this.setState({
                                                                 money: detail.projectDetails.minInvestAmount,
-                                                                reward: '选择系统奖励'
+                                                                profit:detail.projectDetails.minInvestAmount*(rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
+                                                                reward: '选择系统奖励',
+                                                                button: 'active'
                                                             })
                                                         })
                                                     }).catch(err => {
@@ -316,6 +319,7 @@ class Detail extends Component {
                                                         this.setState({
                                                             money: detail.projectDetails.minInvestAmount,
                                                             reward: '选择系统奖励',
+                                                            profit:detail.projectDetails.minInvestAmount*(rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,                                                            
                                                             button: 'active'
                                                         })
                                                     })
@@ -486,7 +490,7 @@ class Detail extends Component {
     // }
     render() {
         const { auth, detail } = this.props;
-        const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
+        // const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
         const maxInvestAmount = detail.projectDetails.surplusAmount < detail.projectDetails.maxInvestAmount ? detail.projectDetails.surplusAmount : detail.projectDetails.maxInvestAmount
         const minInvestAmount = detail.projectDetails.surplusAmount < detail.projectDetails.minInvestAmount ? detail.projectDetails.surplusAmount : detail.projectDetails.minInvestAmount
         console.log(detail)
