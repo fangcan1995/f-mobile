@@ -44,7 +44,7 @@ const AgreementCard = ({ isFull, data }) => {
     return (
         <div className={`cardBody ${fullClass}`}>
             <div className="cardInfo">
-                <div className="title">{data.proName ? data.proName : ''}</div>
+                <div className="title">{data.transNo ? data.transNo:data.proName }</div>
                 <div className="valueBlock">
                     <div className="cell">
                         <div className="value">{data.investAmt ? data.investAmt : '0.00'}</div>
