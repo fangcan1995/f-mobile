@@ -23,7 +23,7 @@ const AgreementCard = ({ isFull, data }) => {
                 ? (
                     <div className="cardAction">
                         <div className="actionButton">转让</div>
-                        <div className="actionButton active"><Link to={`/mobile/repay-plan/${data.investId}`}>回款计划</Link></div>
+                        <div className="actionButton">回款计划</div>
                         <div className="actionButton">项目合同</div>
                     </div>
                 )

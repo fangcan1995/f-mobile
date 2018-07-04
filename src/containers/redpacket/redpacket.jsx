@@ -5,7 +5,7 @@ import { Toast } from 'antd-mobile';
 import RedCoupon from '../../components/redCoupon/redCoupon';
 import Filter from '../../components/filter/filter';
 import NoItems from '../../components/no-items/no-items';
-import './RedPacket.less';
+import './redpacket.less';
 
 import { getRedpacket } from '../../actions/redpacket';
 

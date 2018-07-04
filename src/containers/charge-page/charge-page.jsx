@@ -78,6 +78,9 @@ class ChargePage extends Component {
         if(isNaN(parseFloat(this.state.chargeNum)) || this.state.chargeNum === '0.00') {
             Toast.info('请输入合法的金额！', 2.5);
         }
+        else if (parseFloat(this.state.chargeNum) < 10) {
+            Toast.info('充值金额不能小于10元！', 2.5);
+        }
         else {
             getCharge(this.state.chargeNum)
             .then(res => {
