@@ -29,6 +29,9 @@ class Detail extends Component {
         Modal: false,
         rateCouponId: '',
         redEnvelopeId: '',
+        status: null,
+        transStatus:null,
+        statusString: ''
     };
 
     componentDidMount() {
@@ -41,11 +44,14 @@ class Detail extends Component {
             cred.isTransfer = false,
                 cred.transfer = false
             getDetails(this.props.match.params.id).then(res => {
-                rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate
+                rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate;
+                const minInvestAmount = res.value.minInvestAmount < res.value.surplusAmount ? res.value.minInvestAmount : res.value.surplusAmount;
                 this.setState({
-                    money: res.value.minInvestAmount < res.value.surplusAmount ? res.value.minInvestAmount : res.value.surplusAmount,
+                    money: minInvestAmount,
                     minInvestAmount2: res.value.minInvestAmount,
-                    profit: res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01
+                    profit: minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01,
+                    statusString: res.value.statusString,
+                    status: res.value.status
                 })
                 setMoney(res.value.minInvestAmount);
                 setProfit(res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01)
@@ -62,7 +68,9 @@ class Detail extends Component {
                     this.setState({
                         money: minInvestAmount,
                         minInvestAmount2: res.value.minInvestAmount,
-                        profit: minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01
+                        profit: minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01,
+                        statusString: res.value.statusString,
+                        transStatus: res.value.transStatus
                     })
                     setMoney(res.value.minInvestAmount);
                     setProfit(res.value.minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01)
@@ -139,12 +147,12 @@ class Detail extends Component {
     }
     handleAllClick() {
         console.log(this.props)
-        const { detail, setMoney, setProfit,auth } = this.props;
-        if(auth.isAuthenticated){
+        const { detail, setMoney, setProfit, auth } = this.props;
+        if (auth.isAuthenticated) {
             rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
             let sumMoney = this.state.sumMoney < detail.projectDetails.surplusAmount ? this.state.sumMoney : detail.projectDetails.surplusAmount;
             sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount;
-            sumMoney=Math.floor(sumMoney/100)*100
+            sumMoney = Math.floor(sumMoney / 100) * 100
             this.setState({
                 money: sumMoney,
                 profit: sumMoney * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
@@ -154,13 +162,13 @@ class Detail extends Component {
             })
             setMoney(sumMoney)
             setProfit(sumMoney * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01)
-        }else{
-            Toast.info('请登陆',2,()=>{
-                let redirect=location.pathname
-                location.href = '/mobile/login?redirect='+redirect;
+        } else {
+            Toast.info('请登陆', 2, () => {
+                let redirect = location.pathname
+                location.href = '/mobile/login?redirect=' + redirect;
             })
         }
-        
+
     }
     handleAgreeClick() {
         if (this.state.checked) {
@@ -202,11 +210,11 @@ class Detail extends Component {
                                                     .then(res => {
                                                         Toast.info(res.value.message, 2, () => {
                                                             const { getDetails, getMyInfo, getTransferDetails } = this.props;
-                                                            this.props.match.params.type=='0'?getDetails(this.props.match.params.id):getTransferDetails(this.props.match.params.id)
+                                                            this.props.match.params.type == '0' ? getDetails(this.props.match.params.id) : getTransferDetails(this.props.match.params.id)
                                                             getMyInfo()
                                                             this.setState({
                                                                 money: detail.projectDetails.minInvestAmount,
-                                                                profit:detail.projectDetails.minInvestAmount*(rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
+                                                                profit: detail.projectDetails.minInvestAmount * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
                                                                 reward: '选择系统奖励',
                                                                 button: 'active'
                                                             })
@@ -310,16 +318,16 @@ class Detail extends Component {
                                                     Toast.info(res.value.message, 2, () => {
                                                         const { getDetails, getMyInfo, getTransferDetails } = this.props;
                                                         console.log(this.props.match.params.type)
-                                                        if(this.props.match.params.type=='1'){
+                                                        if (this.props.match.params.type == '1') {
                                                             getTransferDetails(this.props.match.params.id)
-                                                        }else{
+                                                        } else {
                                                             getDetails(this.props.match.params.id)
                                                         }
                                                         getMyInfo()
                                                         this.setState({
                                                             money: detail.projectDetails.minInvestAmount,
                                                             reward: '选择系统奖励',
-                                                            profit:detail.projectDetails.minInvestAmount*(rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,                                                            
+                                                            profit: detail.projectDetails.minInvestAmount * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
                                                             button: 'active'
                                                         })
                                                     })
@@ -397,7 +405,17 @@ class Detail extends Component {
         if (!this.state.checked) {
             return
         }
-
+        if(detail.myInfo.availableBalance<this.state.money){
+            Modal.alert('您的可用余额不足', '去充值', [
+                        {
+                            text: '确认',
+                            onPress: () => {
+                                this.props.history.push('/mobile/charge')
+                            }
+                        }
+                    ]);
+                    return
+        }
         if (detail.projectDetails.surplusAmount == 0) {
             Modal.alert(`该标的已经投满`, '请重新选择其他标的', [
                 {
@@ -616,7 +634,7 @@ class Detail extends Component {
                                         </label>
                                     </div>
                                     {/* <div className = {`button ${this.state.button}` } onClick = {this.handlePostClick.bind(this)}>立即投资</div> */}
-                                    <Button type="primary" onClick={this.handlePostClick.bind(this)} disabled={this.state.code != 100 || !this.state.button}>立即投资</Button>
+                                    <Button type="primary" onClick={this.handlePostClick.bind(this)} disabled={this.state.code != 100 || !this.state.button || (this.state.status != 2&&this.state.transStatus!=2)}>{(this.state.status==2||this.state.transStatus==2)?'立即投资':this.state.statusString}</Button>
                                 </div>
                                 :
                                 <div className={`button active`} onClick={this.handleLoginClick.bind(this)}>立即登录</div>

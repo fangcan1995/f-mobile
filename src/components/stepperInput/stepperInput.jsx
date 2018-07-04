@@ -67,18 +67,7 @@ export default class StepperInput extends Component {
                 return { code: 2, tips: `最低可投${min}元` };
             }
             if (reg.test(value)) {
-                if (value > availableBalance) {
-                    Modal.alert('您的可用余额不足', '去充值', [
-                        {
-                            text: '确认',
-                            onPress: () => {
-                                this.props.history.push('/mobile/charge')
-                            }
-                        }
-                    ]);
-                    return
-                    return { code: 5, tips: `账户可用余额不足` };
-                }
+
                 if (value < min) {
                     return { code: 2, tips: `最低可投${min}元` };
                 } else if (value > max) {
@@ -91,6 +80,18 @@ export default class StepperInput extends Component {
                         return { code: 4, tips: `必须是${step}的倍数` };
                     }
                     return { code: 100, tips: `` };
+                }
+                if (value > availableBalance) {
+                    // Modal.alert('您的可用余额不足', '去充值', [
+                    //     {
+                    //         text: '确认',
+                    //         onPress: () => {
+                    //             this.props.history.push('/mobile/charge')
+                    //         }
+                    //     }
+                    // ]);
+                    // return
+                    return { code: 5, tips: `账户可用余额不足` };
                 }
             } else {
                 return { code: 1, tips: `金额格式不正确` };
