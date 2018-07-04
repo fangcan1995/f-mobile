@@ -191,7 +191,7 @@ class Detail extends Component {
                                                     .then(res => {
                                                         Toast.info(res.value.message, 2, () => {
                                                             const { getDetails, getMyInfo, getTransferDetails } = this.props;
-                                                            this.props.match.params.type?getDetails(this.props.match.params.id):getTransferDetails(this.props.match.params.id)
+                                                            this.props.match.params.type=='0'?getDetails(this.props.match.params.id):getTransferDetails(this.props.match.params.id)
                                                             getMyInfo()
                                                             this.setState({
                                                                 money: detail.projectDetails.minInvestAmount,
@@ -297,7 +297,7 @@ class Detail extends Component {
                                                     Toast.info(res.value.message, 2, () => {
                                                         const { getDetails, getMyInfo, getTransferDetails } = this.props;
                                                         console.log(this.props.match.params.type)
-                                                        if(this.props.match.params.type){
+                                                        if(this.props.match.params.type=='1'){
                                                             getTransferDetails(this.props.match.params.id)
                                                         }else{
                                                             getDetails(this.props.match.params.id)
