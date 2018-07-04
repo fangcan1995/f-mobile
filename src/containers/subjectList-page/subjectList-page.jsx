@@ -10,6 +10,8 @@ import FooterTab from '../../components/footer-tab/footer-tab';
 import earnings from '../../assets/images/earnings.png';
 import finish from '../../assets/images/finish.png';
 import full from '../../assets/images/full.png';
+import failure from '../../assets/images/failure.png';
+import end from '../../assets/images/end.png';
 import { PullToRefresh } from "antd-mobile";
 
 let cred = {
@@ -378,28 +380,31 @@ class SubjectListPage extends Component {
 										return (
 											<li key={item.id} onClick={this.handleDetailClick.bind(this, item.id, item.projectId ? 1 : 0)}>
 												{
-													item.statusString == '收益中' ? <img src={earnings} alt="" /> : ''
+													item.status == '3' ? <img src={full} alt="" /> : ''
 												}
 												{
-													item.statusString == '已结清' ? <img src={finish} alt="" /> : ''
+													item.status == '4' ? <img src={earnings} alt="" /> : ''
 												}
 												{
-													item.statusString == '提前还款' ? <img src={finish} alt="" /> : ''
+													item.status == '6' ? <img src={finish} alt="" /> : ''
 												}
 												{
-													item.statusString == '已流标' ? <img src={finish} alt="" /> : ''
+													item.status == '7' ? <img src={failure} alt="" /> : ''
 												}
 												{
-													item.statusString == '满标审核' ? <img src={full} alt="" /> : ''
+													item.status == '8' ? <img src={end} alt="" /> : ''
 												}
 												{
-													item.statusString == '满标待审核' ? <img src={full} alt="" /> : ''
+													item.transStatus == '3' ? <img src={full} alt="" /> : ''
 												}
 												{
-													item.statusString == '已划转' ? <img src={full} alt="" /> : ''
+													item.transStatus == '4' ? <img src={earnings} alt="" /> : ''
 												}
 												{
-													item.statusString == '待满标划转' ? <img src={full} alt="" /> : ''
+													item.transStatus == '5' ? <img src={failure} alt="" /> : ''
+												}
+												{
+													item.transStatus == '6' ? <img src={end} alt="" /> : ''
 												}
 
 												<div className='title'>
