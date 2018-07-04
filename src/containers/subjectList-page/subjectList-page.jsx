@@ -410,7 +410,13 @@ class SubjectListPage extends Component {
 												<div className='title'>
 													<div className='subject-name l'>{item.project ? item.project.name : item.transNo}</div><br />
 													<div className='tag-list r'>{item.refundWayString}</div>
-													<div className='tag-list r'>加息</div>
+													{
+														item.raiseRate
+														?
+														<div className='tag-list r'>加息</div>:
+														''
+													}
+													
 												</div>
 												<div className='yield'>
 													<div className='money l'>
