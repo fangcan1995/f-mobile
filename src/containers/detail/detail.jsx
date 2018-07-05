@@ -163,7 +163,7 @@ class Detail extends Component {
             setMoney(sumMoney)
             setProfit(sumMoney * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01)
         } else {
-            Toast.info('请登陆', 2, () => {
+            Toast.info('请登录', 2, () => {
                 let redirect = location.pathname
                 location.href = '/mobile/login?redirect=' + redirect;
             })

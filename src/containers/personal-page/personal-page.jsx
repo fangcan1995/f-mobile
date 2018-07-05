@@ -231,7 +231,7 @@ class PersonalContainer extends Component {
                 <dl>
                     <dd>
                         <Link to="/mobile/changePassword">
-                            <div className="leftTitle">登陆密码</div>
+                            <div className="leftTitle">登录密码</div>
                             <span className="rightAction">
                                 <span>
                                     <span className="icon-arrow r"></span>
