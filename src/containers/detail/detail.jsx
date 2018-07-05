@@ -94,11 +94,12 @@ class Detail extends Component {
     handleAllClick() {//全投
         console.log(this.props)
         const { detail, setMoney, setProfit, auth } = this.props;
+        console.log(detail)
         if (auth.isAuthenticated) {
             rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
             let sumMoney = this.state.sumMoney < detail.projectDetails.surplusAmount ? this.state.sumMoney : detail.projectDetails.surplusAmount;
             sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount;//全投金额是账户可用余额，标的剩余投资额以及标的最大投资额中最小的额度
-            sumMoney = Math.floor(sumMoney / 100) * 100
+            sumMoney = Math.floor(sumMoney / detail.projectDetails.minInvestAmount) * detail.projectDetails.minInvestAmount
             this.setState({
                 money: sumMoney,
                 profit: sumMoney * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
@@ -108,7 +109,7 @@ class Detail extends Component {
             setMoney(sumMoney)
             setProfit(sumMoney * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01)
         } else {
-            Toast.info('请登陆', 2, () => {
+            Toast.info('请登录', 2, () => {
                 let redirect = location.pathname
                 location.href = '/mobile/login?redirect=' + redirect;
             })

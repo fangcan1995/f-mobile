@@ -386,6 +386,9 @@ class SubjectListPage extends Component {
 													item.status == '4' ? <img src={earnings} alt="" /> : ''
 												}
 												{
+													item.status == '5' ? <img src={earnings} alt="" /> : ''
+												}
+												{
 													item.status == '6' ? <img src={finish} alt="" /> : ''
 												}
 												{
