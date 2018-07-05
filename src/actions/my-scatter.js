@@ -6,16 +6,13 @@ export const getMyScatter = ({status, month, pageNum} = {status: 0, month: '', p
     return {
         type: 'GET_MYSCATTER',
         async payload() {
-            let res = await cFetch(`/members/investments/projects?status=${status}&month=${month}&pageNum=${pageNum}&sortBy=-createTime`, {
+            let res = await cFetch(`app/members/investments/projects?status=${status}&month=${month}&pageNum=${pageNum}&sortBy=-createTime`, {
                 method: 'GET'
-            }, true, 'http://172.16.1.221:9070').catch(err => {
+            }).catch(err => {
                 Toast.fail(err.message, 2.5)
             });
-            console.log(res);
             const { code, data } = res;
             if(code == 0) {
-                
-                //return data.list || [];
                 return {
                     pageNum: data.pageNum,
                     pages: data.pages,
