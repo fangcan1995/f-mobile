@@ -45,9 +45,9 @@ class ProjectDetail extends Component {
                                 </div>
                                 <div className='credit-info content'>
                                     <div className='head'>信用信息</div>
-                                    <div className='text'><span>申请借款</span>{loanCreditCountDto ? loanCreditCountDto.loanApplyCount : ''}笔</div>
+                                    {/* <div className='text'><span>申请借款</span>{loanCreditCountDto ? loanCreditCountDto.loanApplyCount : ''}笔</div> */}
                                     <div className='text'><span>成功借款</span>{loanCreditCountDto ? loanCreditCountDto.loanSuccessCount : ''}笔</div>
-                                    <div className='text'><span>失败借款</span>{loanCreditCountDto ? loanCreditCountDto.loanFailCount : ''}笔</div>
+                                    {/* <div className='text'><span>失败借款</span>{loanCreditCountDto ? loanCreditCountDto.loanFailCount : ''}笔</div> */}
                                     <div className='text'><span>借款总额</span>{loanCreditCountDto ? loanCreditCountDto.loanAmtSum : ''}元</div>
                                     <div className='text'><span>逾期次数</span>{loanCreditCountDto ? loanCreditCountDto.lateAllCount : ''}次</div>
                                     <div className='text'><span>逾期金额</span>{loanCreditCountDto ? loanCreditCountDto.lateTotalFee : ''}元</div>
@@ -80,9 +80,9 @@ class ProjectDetail extends Component {
                                                 <div className='text'><span>车架号</span>{mortgageCarHis ? mortgageCarHis.viNumber : ''}</div>
                                                 <div className='text'><span>车牌号</span>{mortgageCarHis ? mortgageCarHis.carNumber : ''}</div>
                                                 <div className='text'><span>登记证号</span>{mortgageCarHis ? mortgageCarHis.carRegNumber : ''}</div>
-                                                <div className='text'><span>行驶里程</span>{mortgageCarHis ? mortgageCarHis.mileage : ''}</div>
-                                                <div className='text'><span>购车年份</span>{mortgageCarHis ? mortgageCarHis.carAge : ''}</div>
-                                                <div className='text'><span>评估价格</span>{mortgageCarHis ? mortgageCarHis.pricePotential : ''}</div>
+                                                <div className='text'><span>行驶里程</span>{mortgageCarHis ? mortgageCarHis.mileage : ''}公里</div>
+                                                <div className='text'><span>购车年份</span>{mortgageCarHis ? mortgageCarHis.carAge : ''}年</div>
+                                                <div className='text'><span>评估价格</span>{mortgageCarHis ? mortgageCarHis.pricePotential : ''}元</div>
                                             </div>
                                     }
 

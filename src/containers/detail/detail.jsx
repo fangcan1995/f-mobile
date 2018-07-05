@@ -145,10 +145,11 @@ class Detail extends Component {
                                         {
                                             text: '确认', onPress: password => {
                                                 let tradePassword = hex_md5(password)
-                                                cred = {
-                                                    tradePassword,
-                                                    ...cred
-                                                }
+                                                // cred = {
+                                                //     tradePassword,
+                                                //     ...cred
+                                                // }
+                                                cred.tradePassword=tradePassword
                                                 postInvest(cred, 0)
                                                     .then(res => {
                                                         Toast.info(res.value.message, 2, () => {
@@ -249,10 +250,11 @@ class Detail extends Component {
                                     {
                                         text: '确认', onPress: password => {
                                             let tradePassword = hex_md5(password)
-                                            cred = {
-                                                tradePassword,
-                                                ...cred
-                                            }
+                                            // cred = {
+                                            //     tradePassword:tradePassword,
+                                            //     ...cred
+                                            // }
+                                            cred.tradePassword=tradePassword
                                             postInvest(cred, 0)
                                                 .then(res => {
                                                     Toast.info(res.value.message, 2, () => {
@@ -370,7 +372,7 @@ class Detail extends Component {
             return
         }
         if (this.state.money < this.state.minInvestAmount) {
-
+debugger
             Modal.alert(`投资金额不能小于${this.state.minInvestAmount}元`, '请重新输入有效金额', [
                 {
                     text: '确认',
