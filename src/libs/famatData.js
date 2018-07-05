@@ -38,7 +38,7 @@ export function getTips(messageCode){
         },
         {
             code:`invest_009`,
-            message:{code: 100, message: `您是原标发起人，该项目不可投！`, allowGoOn: true}
+            message:{code: 100, message: `您是该转让标发起人，该项目不可投！`, allowGoOn: true}
         },
         {
             code:`invest_010`,
@@ -115,6 +115,10 @@ export function getTips(messageCode){
         {
             code:`invest_028`,
             message:{code: 9999, message: `操作失败`, allowGoOn: false}
+        },
+        {
+            code:`invest_029`,
+            message:{code: 100, message: `您是原标发起人，该项目不可投！`, allowGoOn: true}
         },
         {
             code:`pay_0000`,
