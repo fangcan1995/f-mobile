@@ -344,7 +344,7 @@ class Detail extends Component {
         if (!this.state.checked) {
             return
         }
-        if (detail.myInfo.availableBalance < this.state.money) {
+        if (detail.myInfo.availableBalance < this.state.money || this.state.money==0) {
             Modal.alert('您的可用余额不足', '去充值', [
                 {
                     text: '确认',
