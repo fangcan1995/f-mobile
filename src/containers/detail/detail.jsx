@@ -10,28 +10,26 @@ import { hex_md5 } from '../../libs/md5'
 import Rewards from '../rewards/rewards'
 import './detail.less'
 
-let cred = {}
-let rate;
+let cred = {}//投资的参数对象
+let rate;//标的的利率
 class Detail extends Component {
     state = {
-        money: 0,
-        sumMoney: 0,
-        checked: false,
-        button: '',
-        profit: 0.00,
-        reward: '选择系统奖励',
-        modal1: false,
-        minInvestAmount: 0,
-        minInvestAmount2: 0,
-        tips: '',
-        code: 100,
-        allMoney: null,
-        Modal: false,
-        rateCouponId: '',
-        redEnvelopeId: '',
-        status: null,
-        transStatus:null,
-        statusString: ''
+        money: 0,//输入框中的钱
+        sumMoney: 0,//账户可用余额
+        checked: false,//是否选择同意协议
+        button: '',//按钮样式
+        profit: 0.00,//参考收益
+        reward: '选择系统奖励',//选择红包红包
+        minInvestAmount: 0,//标的的最低起投金额
+        minInvestAmount2: 0,//保存标的最开始的最低起投金额，并且不会修改这个金额
+        tips: '',//输入框的提示语
+        code: 100,//输入框的返回码
+        Modal: false,//选择红包的模态框是否打开
+        rateCouponId: '',//选用加息券时投资传的是加息券的ID
+        redEnvelopeId: '',//选用红包时投资传的是红包的ID
+        status: null,//散标的的状态
+        transStatus: null,//债转标的状态
+        statusString: ''//标的状态话术
     };
 
     componentDidMount() {
@@ -40,10 +38,10 @@ class Detail extends Component {
         if (this.props.detail.isFetching) {
             Toast.loading('loading')
         }
-        if (this.props.match.params.type == 0) {
+        if (this.props.match.params.type == 0) {//散标的type值为0，债转的type为1
             cred.isTransfer = false,
                 cred.transfer = false
-            getDetails(this.props.match.params.id).then(res => {
+            getDetails(this.props.match.params.id).then(res => {//页面加载时获取散标的详细信息
                 rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate;
                 const minInvestAmount = res.value.minInvestAmount < res.value.surplusAmount ? res.value.minInvestAmount : res.value.surplusAmount;
                 this.setState({
@@ -53,14 +51,13 @@ class Detail extends Component {
                     statusString: res.value.statusString,
                     status: res.value.status
                 })
-                setMoney(res.value.minInvestAmount);
-                setProfit(res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01)
+                setMoney(res.value.minInvestAmount);//保存最低投资额度到redux
+                setProfit(res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01)//保存最低投资额度的利润到redux
             });
         } else {
-            // debugger
             cred.isTransfer = true,
                 cred.transfer = true,
-                getTransferDetails(this.props.match.params.id).then(res => {
+                getTransferDetails(this.props.match.params.id).then(res => {//页面加载时获取债转标的详细信息
                     console.log(res)
                     rate = res.value.raiseRate ? res.value.raiseRate + res.value.annualRate : res.value.annualRate;
                     const minInvestAmount = res.value.minInvestAmount < res.value.surplusAmount ? res.value.minInvestAmount : res.value.surplusAmount;
@@ -76,7 +73,7 @@ class Detail extends Component {
                     setProfit(res.value.minInvestAmount * (rate / 12 * res.value.transferPeriod) * 0.01)
                 });
         }
-        if (this.props.auth.isAuthenticated) {
+        if (this.props.auth.isAuthenticated) {//登录状态设置账户可用余额到页面
             getMyInfo().then(res => {
                 this.setState({
                     sumMoney: res.value.availableBalance
@@ -87,76 +84,24 @@ class Detail extends Component {
             money: this.state.minInvestAmount
         })
     }
-    handleProjectClick(e) {
+    handleProjectClick(e) {//查看项目详情
         this.props.history.push(`/mobile/projectDetail/${e}`)
     }
-    handleRecordsClick(e, q) {
+    handleRecordsClick(e, q) {//查看投资记录
         this.props.history.push(`/mobile/investment-records/${e}/${q}`)
     }
 
-    handleMinusClick() {
-        const { detail, setMoney, setProfit } = this.props;
-        rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
-        if (this.state.money <= this.state.minInvestAmount2) {
-            Toast.fail(`投资金额不能小于起投金额${this.state.minInvestAmount2}`, 1)
-            return
-        }
-        this.setState({
-            money: this.state.money - 100,
-            profit: (this.state.money - 100) * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01
-        })
-        setMoney(this.state.money - 100);
-        setProfit((this.state.money - 100) * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01)
-    }
-    handlePlusClick() {
-        const { detail, setMoney, setProfit } = this.props;
-        rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
-        if (detail.myInfo.availableBalance <= 0) {
-            Modal.alert('您的可用余额不足', '去充值', [
-                {
-                    text: '确认',
-                    onPress: () => {
-                        this.props.history.push('/mobile/charge')
-                    }
-                }
-            ]);
-            return
-        }
-        if (detail.projectDetails.surplusAmount == 0) {
-            Modal.alert(`该标的已经投满`, '请重新选择其他标的', [
-                {
-                    text: '确认',
-                    onPress: () => {
-                        this.props.history.push('/mobile/subjectList')
-                    }
-                }
-            ]);
-            return
-        }
-        if (this.state.money >= this.state.sumMoney || this.state.money >= this.props.detail.projectDetails.surplusAmount || this.state.money >= this.props.detail.projectDetails.maxInvestAmount) {
-            Toast.fail(`投资金额不能超过可用余额或最大可投金额以及标的剩余可投金额`)
-            return
-        }
-        this.setState({
-            money: this.state.money + 100,
-            profit: (this.state.money + 100) * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01
-        })
-        console.log(this.state.money)
-        setMoney(this.state.money + 100)
-        setProfit((this.state.money + 100) * (rate / 12 * detail.projectDetails.loanExpiry) * 0.01)
-    }
-    handleAllClick() {
+    handleAllClick() {//全投
         console.log(this.props)
         const { detail, setMoney, setProfit, auth } = this.props;
         if (auth.isAuthenticated) {
             rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
             let sumMoney = this.state.sumMoney < detail.projectDetails.surplusAmount ? this.state.sumMoney : detail.projectDetails.surplusAmount;
-            sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount;
+            sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount;//全投金额是账户可用余额，标的剩余投资额以及标的最大投资额中最小的额度
             sumMoney = Math.floor(sumMoney / 100) * 100
             this.setState({
                 money: sumMoney,
                 profit: sumMoney * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
-                allMoney: this.state.sumMoney,
                 code: 100,
                 tips: ''
             })
@@ -170,7 +115,7 @@ class Detail extends Component {
         }
 
     }
-    handleAgreeClick() {
+    handleAgreeClick() {//同意协议
         if (this.state.checked) {
             this.setState({
                 checked: !this.state.checked,
@@ -183,11 +128,11 @@ class Detail extends Component {
             })
         }
     }
-    PostInvest() {
+    PostInvest() {//投资
         const { detail, postInvest, auth, rewards, setMoney, setProfit } = this.props;
         const prompt = Modal.prompt;
-        if (detail.projectDetails.noviceLoan == 1) {
-            if (detail.myInfo.noviceStatus == 1) {
+        if (detail.projectDetails.noviceLoan == 1) {//是否是新手标
+            if (detail.myInfo.noviceStatus == 1) {//是否是新手
                 if (detail.myInfo.tradepasswordStatus == '1') {//是否实设置交易密码detail.myInfo.tradepasswordStatus
                     if (detail.myInfo.trueName) {//是否实名认证detail.myInfo.trueName
                         if (detail.myInfo.riskStatus == '1') {//是否进行风险评估detail.myInfo.riskStatus==1
@@ -204,8 +149,6 @@ class Detail extends Component {
                                                     tradePassword,
                                                     ...cred
                                                 }
-                                                console.log(cred)
-
                                                 postInvest(cred, 0)
                                                     .then(res => {
                                                         Toast.info(res.value.message, 2, () => {
@@ -285,7 +228,6 @@ class Detail extends Component {
                 ]);
             }
         } else {
-            console.log(detail)
             if (detail.myInfo.tradepasswordStatus == '1') {//是否实设置交易密码detail.myInfo.tradepasswordStatus
                 if (detail.myInfo.trueName) {//是否实名认证detail.myInfo.trueName
                     if (detail.myInfo.riskStatus == '1') {//是否进行风险评估detail.myInfo.riskStatus==1
@@ -311,8 +253,6 @@ class Detail extends Component {
                                                 tradePassword,
                                                 ...cred
                                             }
-                                            console.log(cred)
-
                                             postInvest(cred, 0)
                                                 .then(res => {
                                                     Toast.info(res.value.message, 2, () => {
@@ -331,7 +271,6 @@ class Detail extends Component {
                                                             button: 'active'
                                                         })
                                                     })
-                                                    // Toast.hide()
                                                 }).catch(err => {
                                                     console.log(err)
                                                 })
@@ -357,7 +296,6 @@ class Detail extends Component {
                             {
                                 text: '确认',
                                 onPress: () => {
-                                    console.log(detail)
                                     this.props.history.push(`/mobile/authentication?redirect=%2Fmobile%2Fdetail%2F${detail.projectDetails.id}`)
                                 }
                             }
@@ -392,7 +330,7 @@ class Detail extends Component {
         const { detail, postInvest, auth, rewards, setMoney, setProfit } = this.props;
         const prompt = Modal.prompt;
         let restMoney = detail.projectDetails.surplusAmount - this.state.money;
-        let creds = {
+        let creds = {//投资的参数
             validationCode: auth.loginCode,
             projectId: detail.projectDetails.id,
             investAmt: this.state.money,
@@ -405,16 +343,16 @@ class Detail extends Component {
         if (!this.state.checked) {
             return
         }
-        if(detail.myInfo.availableBalance<this.state.money){
+        if (detail.myInfo.availableBalance < this.state.money) {
             Modal.alert('您的可用余额不足', '去充值', [
-                        {
-                            text: '确认',
-                            onPress: () => {
-                                this.props.history.push('/mobile/charge')
-                            }
-                        }
-                    ]);
-                    return
+                {
+                    text: '确认',
+                    onPress: () => {
+                        this.props.history.push('/mobile/charge')
+                    }
+                }
+            ]);
+            return
         }
         if (detail.projectDetails.surplusAmount == 0) {
             Modal.alert(`该标的已经投满`, '请重新选择其他标的', [
@@ -478,40 +416,32 @@ class Detail extends Component {
     componentDidUpdate() {
         const { detail, postInvest } = this.props;
         let { postResult, isPosting } = detail;
-        if (detail.isGetInfo) {
+        if (detail.isGetInfo) {//投资后的loading
             Toast.loading('loading...', 0)
         } else {
             Toast.hide()
         }
 
-        if (postResult.userCode === 101 && postResult.times < 5 && !isPosting) {
+        if (postResult.userCode === 101 && postResult.times < 5 && !isPosting) {//处理并发，暂定5次请求
             console.log('在这里发第' + (postResult.times + 1) + '次请求');
             postInvest(cred, postResult.times)
         }
     }
-    handleLoginClick() {
+    handleLoginClick() {//登录
         this.props.history.push('/mobile/login')
     }
 
-    handleSelectClick(e) {
-        // this.props.history.push(`/mobile/rewards/${e}`)
+    handleSelectClick(e) {//选择系统奖励
         this.setState({
             Modal: !this.state.Modal
         })
     }
-    // componentWillReceiveProps(nextProps){
-    //     this.setState({
-    //         sumMoney:nextProps.detail.myInfo.availableBalance||0,
-    //         money:nextProps.detail.money,
-    //         profit:nextProps.detail.profit,
-    //     })
-    // }
+   
     render() {
         const { auth, detail } = this.props;
         // const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
         const maxInvestAmount = detail.projectDetails.surplusAmount < detail.projectDetails.maxInvestAmount ? detail.projectDetails.surplusAmount : detail.projectDetails.maxInvestAmount
         const minInvestAmount = detail.projectDetails.surplusAmount < detail.projectDetails.minInvestAmount ? detail.projectDetails.surplusAmount : detail.projectDetails.minInvestAmount
-        console.log(detail)
         return (
             <div id='detail'>
                 <div className='warpper'>
@@ -552,23 +482,17 @@ class Detail extends Component {
                                     <span className='left'>{detail.myInfo.availableBalance}</span>
                                     <span className='right' onClick={this.handleAllClick.bind(this)}>全投</span>
                                 </p>
-                                {/* <div className className = 'money'>
-                                    <span className = 'minus' onClick = {this.handleMinusClick.bind(this)}><i className = 'icon-minus'></i></span>
-                                    <div className = 'number'>{this.state.money}</div>
-                                    <span className = 'plus' onClick = {this.handlePlusClick.bind(this)}><i className = 'icon-plus'></i></span>
-                                </div> */}
                                 <StepperInput config={{
                                     defaultValue: minInvestAmount, //默认金额
-                                    // returnAmount:investInfo.returnAmount,
-                                    money: this.state.money,
-                                    min: minInvestAmount,
-                                    max: maxInvestAmount,
-                                    step: detail.projectDetails.minInvestAmount,
-                                    surplusAmount: detail.projectDetails.surplusAmount,
-                                    setMoney: this.props.setMoney,
-                                    setProfit: this.props.setProfit,
-                                    availableBalance: detail.myInfo.availableBalance,
-                                    callback: (obj) => {
+                                    money: this.state.money,//传给子组件的输入框的金额
+                                    min: minInvestAmount,//子组件需要最小投资额度
+                                    max: maxInvestAmount,//子组件需要最大投资额度
+                                    step: detail.projectDetails.minInvestAmount,//子组件需要的步长
+                                    surplusAmount: detail.projectDetails.surplusAmount,//该项目的剩余投资额度
+                                    setMoney: this.props.setMoney,//把父组件的设置金额的方法传到子组件
+                                    setProfit: this.props.setProfit,//把父组件的设置利率的方法传到子组件
+                                    availableBalance: detail.myInfo.availableBalance,//把该个人的账户可用额度传到子组件
+                                    callback: (obj) => {//子组件的回调中设置父组件的状态
                                         this.setState({
                                             tips: obj.tips,
                                             money: parseFloat(obj.value),
@@ -634,7 +558,7 @@ class Detail extends Component {
                                         </label>
                                     </div>
                                     {/* <div className = {`button ${this.state.button}` } onClick = {this.handlePostClick.bind(this)}>立即投资</div> */}
-                                    <Button type="primary" onClick={this.handlePostClick.bind(this)} disabled={this.state.code != 100 || !this.state.button || (this.state.status != 2&&this.state.transStatus!=2)}>{(this.state.status==2||this.state.transStatus==2)?'立即投资':this.state.statusString}</Button>
+                                    <Button type="primary" onClick={this.handlePostClick.bind(this)} disabled={this.state.code != 100 || !this.state.button || (this.state.status != 2 && this.state.transStatus != 2)}>{(this.state.status == 2 || this.state.transStatus == 2) ? '立即投资' : this.state.statusString}</Button>
                                 </div>
                                 :
                                 <div className={`button active`} onClick={this.handleLoginClick.bind(this)}>立即登录</div>
@@ -645,11 +569,11 @@ class Detail extends Component {
                 {
                     this.state.Modal ?
                         <Rewards config={{
-                            projectId: detail.projectDetails.id,
-                            money: this.state.money,
-                            handleSelectClickL: this.handleSelectClick.bind(this),
-                            profit: detail.profit,
-                            callback: (obj) => {
+                            projectId: detail.projectDetails.id,//项目ID
+                            money: this.state.money,//已输入的金额
+                            handleSelectClickL: this.handleSelectClick.bind(this),//关闭奖励的方法
+                            profit: detail.profit,//利润
+                            callback: (obj) => {//回调中设置父组件状态
                                 this.setState({
                                     reward: obj.reward,
                                     rateCouponId: obj.rateCouponId,

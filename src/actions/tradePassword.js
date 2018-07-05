@@ -2,7 +2,7 @@ import cFetch from './../libs/cFetch';
 import {urls,token} from '../libs/utils';
 import parseJson2URL from './../libs/parseJson2URL';
 
-
+//修改交密码
 export const setTradePassword = (params) => {
   params=parseJson2URL(params);
   return {

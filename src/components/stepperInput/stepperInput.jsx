@@ -73,24 +73,12 @@ export default class StepperInput extends Component {
                 } else if (value > max) {
                     return { code: 3, tips: `最高可投${max}元` };
                 } else {
-                    // if((surplusAmount-value)<min && max!=value){
-                    //     return {code:4,tips: `投资后剩余金额不能小于起投金额，请投满剩余金额或留出最小投资金额`};
-                    // }
                     if (value % step != 0 && max != value) {
                         return { code: 4, tips: `必须是${step}的倍数` };
                     }
                     return { code: 100, tips: `` };
                 }
                 if (value > availableBalance) {
-                    // Modal.alert('您的可用余额不足', '去充值', [
-                    //     {
-                    //         text: '确认',
-                    //         onPress: () => {
-                    //             this.props.history.push('/mobile/charge')
-                    //         }
-                    //     }
-                    // ]);
-                    // return
                     return { code: 5, tips: `账户可用余额不足` };
                 }
             } else {
@@ -159,14 +147,6 @@ export default class StepperInput extends Component {
     };
     render() {
         return (
-            // <div className="stepperInput">
-            //     <div className="input__area">
-            //         <button  className="btn_minus" onClick={this.minus}>-</button>
-            //         <input type="text"  value={this.state.value} ref="amount" maxLength={9} onClick={this.cutClick} onChange={this.handleChange}   />
-            //         <button className="btn_add" onClick={this.add}>+</button>
-            //         <span className="unit">元</span>
-            //     </div>
-            // </div>
             <div className className='money'>
                 <span className='minus' onClick={this.minus}><i className='icon-minus'></i></span>
                 <div className='number'><input type="text" value={this.state.value} ref="amount" maxLength={9} onClick={this.cutClick} onChange={this.handleChange} /></div>

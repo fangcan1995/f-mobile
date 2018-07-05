@@ -1,7 +1,7 @@
 import cFetch from '../libs/cFetch';
 import parseJson2URL from './../libs/parseJson2URL';
 let urls='http://172.16.7.3:9070/'
-
+//散标的投资记录
   export const  getInvestRecords = (params) => {
     params = parseJson2URL(params) 
     return {
@@ -17,7 +17,7 @@ let urls='http://172.16.7.3:9070/'
       }
     }
   }
-
+//债转标的投资记录
   export const  getTransferInvestRecords = (params) => {
     params = parseJson2URL(params) 
     return {

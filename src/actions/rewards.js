@@ -2,7 +2,7 @@ import cFetch from '../libs/cFetch';
 let urls='http://172.16.1.221:9070/';
 import parseJson2URL from './../libs/parseJson2URL';
 
-
+//获取可用奖励列表
 export const  getrewardsList = (params) => {
     params = parseJson2URL(params)
     return {
@@ -89,21 +89,21 @@ export const  getrewardsList = (params) => {
       }
     }
   }
-
+//设置奖励
   export const setRewards = cd => {
     return {
       type: 'rewards/SET_REWARDS',
       payload: cd,
     }
   }
-
+//记录选择的红包ID
   export const setRedEnvelopeId = cd => {
     return {
       type: 'rewards/SET_RED_ID',
       payload: cd,
     }
   }
-
+//记录选择的加息券ID
   export const setRateCouponId = cd => {
     return {
       type: 'rewards/SET_RATE_ID',

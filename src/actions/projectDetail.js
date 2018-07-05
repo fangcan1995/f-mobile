@@ -1,7 +1,7 @@
 import cFetch from '../libs/cFetch';
 //import parseJson2URL from './../libs/parseJson2URL';
 let urls='http://172.16.7.3:9070/'
-
+//标的的项目详情
   export const  getProjectInfo = (params) => {
     // params = parseJson2URL(params) 
     return {
