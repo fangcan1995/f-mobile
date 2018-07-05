@@ -83,7 +83,7 @@ class My extends Component {
                         </div>
                         <div className='base-info'>
                             <Link to='/mobile/personal'>
-                                <img src={touxiang} /><div className='tital'><span className='name'>{myInfo.userName}</span><span className='greet'>您好，</span></div>
+                                <img src={touxiang} /><div className='tital'><span className='name'>{myInfo.userName}</span>，<span className='greet'>您好，</span></div>
                             </Link>
                         </div>
                         <Link to="/mobile/my-assets">
