@@ -3,7 +3,7 @@ import parseJson2URL from './../libs/parseJson2URL';
 let urls='http://172.16.7.3:9070/'
 
 // let token = 'fadf442a-e08b-4dd1-9928-e756fc313719'?access_token=${token}
-
+//散标列表
 export const  getsubjectList = (params) => {
     params = parseJson2URL(params) 
     return {
@@ -20,6 +20,7 @@ export const  getsubjectList = (params) => {
       }
     }
   }
+  //债转列表
   export const  gettransferList = (params) => {
     params = parseJson2URL(params) 
     return {
