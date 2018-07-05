@@ -4,7 +4,7 @@ import { Toast } from 'antd-mobile';
 
 export const getTradeList = ({type, month, pageNum} = {type: '', month: 0, pageNum: 1}) => {
     console.log(type, month, pageNum);
-    let url = `app/payment/fuiou/tradeRecords?payType=${type}&month=${month}&pageNum=${pageNum}&sortBy=-createTime`;
+    let url = `app/payment/fuiou/tradeRecords?payType=${type}&monthNum=${month}&pageNum=${pageNum}&sortBy=-createTime`;
     return {
         type: 'GET_TRADELIST',
         async payload() {
