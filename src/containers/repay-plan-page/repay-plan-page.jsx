@@ -71,12 +71,12 @@ class RepayPlanPage extends Component {
                                     </div>
                                     <div className="content">
                                         <div className="contentLine">
-                                            <span>还款日期：<em>{item.earnShdEarnDate ? item.earnShdEarnDate.split(' ')[0] : '--'}</em></span>
-                                            <span>应还利息：<em>￥{item.earnIint ? item.earnIint : '--'}</em></span>
+                                            <span>回款日期：<em>{item.earnShdEarnDate ? item.earnShdEarnDate.split(' ')[0] : '--'}</em></span>
+                                            <span>应收利息：<em>￥{item.earnIint ? item.earnIint : '--'}</em></span>
                                         </div>
                                         <div className="contentLine">
-                                            <span>应还本金：<em>￥{item.earnCapital ? item.earnCapital : '--'}</em></span>
-                                            <span>应付罚息：<em>￥{item.lateIint ? item.lateIint : '--'}</em></span>
+                                            <span>应收本金：<em>￥{item.earnCapital ? item.earnCapital : '--'}</em></span>
+                                            <span>应收罚息：<em>￥{item.lateIint ? item.lateIint : '--'}</em></span>
                                         </div>
                                     </div>
                                     <div className="tag blue">{item.earnStatusName ? item.earnStatusName : '--'}</div>

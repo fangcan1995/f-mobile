@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 
 const initialState = fromJS({
     isFetching: false,
-    scatterList: [],
+    scatterData: {},
     transfer:{},
     applyTransfer:{}
 });
@@ -14,7 +14,7 @@ export default createReducer(initialState, {
     }),
     ['GET_MYSCATTER_FULFILLED']: (state, action) => state.merge({
         isFetching: false,
-        scatterList: action.payload
+        scatterData: action.payload
     }),
     ['GET_MYSCATTER_REJECTED']: (state, action) => state.merge({
         isFetching: false,

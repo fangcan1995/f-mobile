@@ -2,18 +2,22 @@ import cFetch from '../libs/cFetch';
 import { Toast } from 'antd-mobile';
 
 
-export const getMyScatter = (status = 0, month = '') => {
+export const getMyScatter = ({status, month, pageNum} = {status: 0, month: '', pageNum: 1}) => {
     return {
         type: 'GET_MYSCATTER',
         async payload() {
-            let res = await cFetch(`app/members/investments/projects?status=${status}&month=${month}`, {
+            let res = await cFetch(`app/members/investments/projects?status=${status}&month=${month}&pageNum=${pageNum}&sortBy=-createTime`, {
                 method: 'GET'
             }).catch(err => {
                 Toast.fail(err.message, 2.5)
             });
             const { code, data } = res;
             if(code == 0) {
-                return data.list || [];
+                return {
+                    pageNum: data.pageNum,
+                    pages: data.pages,
+                    list: data.list
+                }
             } 
             else {
                 throw res;
