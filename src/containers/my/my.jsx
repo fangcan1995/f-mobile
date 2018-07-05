@@ -99,16 +99,16 @@ class My extends Component {
                             <div className='show'>
                                 <div className='yesterday'>
                                     {
-                                        myInfo.dayIncome !== undefined
-                                            ? parseFloat(myInfo.dayIncome).toFixed(2)
+                                        myInfo.yesterdayIncome !== undefined
+                                            ? parseFloat(myInfo.yesterdayIncome).toFixed(2)
                                             : 0..toFixed(2)
                                     }
                                     <p>昨日收益（元）</p>
                                 </div>
                                 <div className='sum'>
                                     {
-                                        myInfo.monthsIncome !== undefined
-                                            ? parseFloat(myInfo.monthsIncome).toFixed(2)
+                                        myInfo.totalIncome !== undefined
+                                            ? parseFloat(myInfo.totalIncome).toFixed(2)
                                             : 0..toFixed(2)
                                     }
                                     <p>累计收益（元）</p>
