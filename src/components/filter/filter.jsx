@@ -104,7 +104,7 @@ const filterOptions = {
                 val: '已过期'
             },
             {
-                index: 4,
+                index: 0,
                 val: '未激活'
             },
         ],
@@ -112,6 +112,10 @@ const filterOptions = {
             {
                 index: 3,
                 val: '三个月'
+            },
+            {
+                index: 6,
+                val: '六个月'
             },
             {
                 index: 12,
@@ -136,7 +140,7 @@ const filterOptions = {
                 val: '已过期'
             },
             {
-                index: 4,
+                index: 0,
                 val: '未激活'
             },
         ],
@@ -144,6 +148,10 @@ const filterOptions = {
             {
                 index: 3,
                 val: '三个月'
+            },
+            {
+                index: 6,
+                val: '六个月'
             },
             {
                 index: 12,

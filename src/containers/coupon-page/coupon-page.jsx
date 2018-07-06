@@ -40,7 +40,7 @@ class CouponPage extends Component {
                     result={
                         result => {
                             getCouponList(
-                                result.propTopIndex ? result.propTopIndex : 0,
+                                result.propTopIndex || result.propTopIndex == 0 ? result.propTopIndex : '',
                                 result.propBottomIndex ? result.propBottomIndex : ''
                             )
                         }

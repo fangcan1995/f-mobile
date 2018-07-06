@@ -27,6 +27,7 @@ class RedPacket extends Component {
 
     render() {
         const { redpacketsList, match, getRedpacket } = this.props;
+        console.log(this.props)
         let type = match.url === '/mobile/redpacket' ? 'rp' : 'cp';
         return (
             <div className="couponList">
@@ -42,7 +43,7 @@ class RedPacket extends Component {
                     result={
                         result => {
                             getRedpacket(
-                                result.propTopIndex ? result.propTopIndex : 0,
+                                result.propTopIndex || result.propTopIndex == 0 ? result.propTopIndex : '',
                                 result.propBottomIndex ? result.propBottomIndex : ''
                             )
                         }
