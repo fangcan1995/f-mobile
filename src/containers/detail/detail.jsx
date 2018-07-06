@@ -535,7 +535,7 @@ class Detail extends Component {
                                     <i className='icon-item-detail icon'></i>
                                     <p>项目详情</p>
                                 </div>
-                                <div className='i-list-item' onClick={this.handleRecordsClick.bind(this, detail.projectDetails.raiseRate === undefined ? 1 : 0, detail.projectDetails.id)}>
+                                <div className='i-list-item' onClick={this.handleRecordsClick.bind(this, this.props.match.params.type, detail.projectDetails.id)}>
                                     <i className='icon-invest-history icon'></i>
                                     <p>投资记录</p>
                                 </div>
