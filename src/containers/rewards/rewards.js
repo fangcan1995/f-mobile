@@ -17,6 +17,7 @@ class Rewards extends Component {
             reward: e,
             redEnvelopeId: w,
             rateCouponId: '',
+            rewardType:1,
             profit: r + config.profit
         })
         // setRedEnvelopeId(q)
@@ -32,6 +33,7 @@ class Rewards extends Component {
             reward: e,
             redEnvelopeId: '',
             rateCouponId: w,
+            rewardType:2, 
             profit: r + config.profit
         })
         // this.props.history.goBack()

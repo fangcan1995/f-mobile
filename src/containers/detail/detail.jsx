@@ -337,8 +337,7 @@ class Detail extends Component {
             validationCode: auth.loginCode,
             projectId: detail.projectDetails.id,
             investAmt: this.state.money,
-            redEnvelopeId: this.state.redEnvelopeId,
-            rateCouponId: this.state.rateCouponId,
+            rewardId: this.state.rateCouponId || this.state.redEnvelopeId,
             validationCode: auth.loginCode.imageCode,
             investWay: rewards.investWay,
         }
@@ -373,7 +372,6 @@ class Detail extends Component {
             return
         }
         if (this.state.money < this.state.minInvestAmount) {
-debugger
             Modal.alert(`投资金额不能小于${this.state.minInvestAmount}元`, '请重新输入有效金额', [
                 {
                     text: '确认',
@@ -515,25 +513,23 @@ debugger
                                         : ''}
                                 </div>
                             </div>
-                            <div className='list'>
-                                <div className='list-item'>
-                                    <i className='icon-coupon left'></i>
-                                    <div className='item-content'>系统奖励
-                                        <span onClick={this.handleSelectClick.bind(this, detail.projectDetails.id)}>{this.state.reward}</span>
+                            {
+                                this.props.match.params.type==0?
+                                <div className='list'>
+                                    <div className='list-item'>
+                                        <i className='icon-coupon left'></i>
+                                        <div className='item-content'>系统奖励
+                                            <span onClick={this.handleSelectClick.bind(this, detail.projectDetails.id)}>{this.state.reward}</span>
+                                        </div>
+                                        <i className='icon-arrow right'></i>
                                     </div>
-                                    <i className='icon-arrow right'></i>
                                 </div>
-                                {/* <div className = 'list-item'>
-                                    <i className = 'icon-redpacket left'></i>
-                                    <div className = 'item-content'>红包
-                                        <span>无可用返现红包</span>
-                                    </div>
-                                    <i className = 'icon-arrow right'></i>
+                                :
+                                <div className='list'>
                                 </div>
-                                <div className = 'plan'>
-                                    已按最优方案匹配奖励
-                                </div> */}
-                            </div>
+
+                            }
+                            
                             <div className='i-list'>
                                 <div className='i-list-item' onClick={this.handleProjectClick.bind(this, detail.projectDetails.projectId ? detail.projectDetails.projectId : detail.projectDetails.id)}>
                                     <i className='icon-item-detail icon'></i>
@@ -583,6 +579,7 @@ debugger
                                     redEnvelopeId: obj.redEnvelopeId,
                                     profit: obj.profit
                                 });
+                                cred.rewardType = obj.rewardType; 
                             }
                         }}
 
