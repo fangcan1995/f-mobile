@@ -409,6 +409,9 @@ class SubjectListPage extends Component {
 												{
 													item.transStatus == '6' ? <img src={end} alt="" /> : ''
 												}
+												{
+													item.transStatus == '7' ? <img src={finish} alt="" /> : ''
+												}
 
 												<div className='title'>
 													<div className='subject-name l'>{item.project ? item.project.name : item.transNo}</div><br />
