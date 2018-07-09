@@ -86,9 +86,6 @@ class PersonalContainer extends Component {
             Toast.hide()
         }
     }
-    uploadImg(e){
-        console.log(e.target)
-    }
     render() {
         const { personal, auth } = this.props;
         let personalObj = this.props.personal.personal;
@@ -124,7 +121,6 @@ class PersonalContainer extends Component {
                                     <img className="personIcon" src={personalObj.photo || buddha} />
                                 </span>
                             </span>
-                            <input type="file" onChange={this.uploadImg} />
                         </a>    
                     </dd>
                 </dl>
