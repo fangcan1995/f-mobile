@@ -6,37 +6,15 @@ import { Link } from 'react-router-dom';
 import { personal, getFuiou } from '../../actions/personal';
 import { auth, logoutUser } from '../../actions/auth';
 import { mdPhone } from '../../libs/utils';
-import { Toast, ImagePicker } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import './personal-page.less';
+import buddha from "./../../assets/images/buddha.jpg";
 let ajaxData = {
     adType: '7',
     putEnv: '2',
     number: ''
 }
-const data = [{
-    url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-    id: '2121',
-}, {
-    url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
-    id: '2122',
-}];
 class PersonalContainer extends Component {
-    state = {
-        files: data,
-        multiple: false,
-    }
-    onChange = (files, type, index) => {
-        console.log(files, type, index);
-        this.setState({
-            files,
-        });
-    }
-    onSegChange = (e) => {
-        const index = e.nativeEvent.selectedSegmentIndex;
-        this.setState({
-            multiple: index === 1,
-        });
-    }
     componentDidMount() {
         let personalObj = this.props.personal.personal
         if (this.props.match.params.id) {
@@ -108,9 +86,11 @@ class PersonalContainer extends Component {
             Toast.hide()
         }
     }
+    uploadImg(e){
+        console.log(e.target)
+    }
     render() {
         const { personal, auth } = this.props;
-        const { files } = this.state;
         let personalObj = this.props.personal.personal;
         personalObj.userName = this.props.auth.userInfo.userName;
         let toOthersInfo = personal.fuiouData.data;
@@ -136,22 +116,16 @@ class PersonalContainer extends Component {
                 </form>
                 <dl>
                     <dd>
-                        <Link to="/">
+                        <a href="javascript:void(0)">
                             <div className="leftTitle">头像设置</div>
                             <span className="rightAction">
                                 <span>
-                                    {/* <ImagePicker
-                                        files={files}
-                                        onChange={this.onChange}
-                                        onImageClick={(index, fs) => console.log(index, fs)}
-                                        selectable={files.length < 5}
-                                        multiple={this.state.multiple}
-                                    /> */}
                                     <span className="icon-arrow"></span>
-                                    <img className="personIcon" src={personalObj.photo} />
+                                    <img className="personIcon" src={personalObj.photo || buddha} />
                                 </span>
                             </span>
-                        </Link>
+                            <input type="file" onChange={this.uploadImg} />
+                        </a>    
                     </dd>
                 </dl>
                 <dl>
@@ -210,15 +184,6 @@ class PersonalContainer extends Component {
                         </Link>
                     </dd>
                     <dd>
-                        <a onClick={this.bindCard.bind(this)}>
-                            <div className="leftTitle">银行开户</div>
-                            <span className="rightAction" >
-                                <span className="icon-arrow r"></span>
-                                <span className="actionText r">{personalObj.openAccountStatus == '0' ? '未开户' : '已开户'}</span>
-                            </span>
-                        </a>
-                    </dd>
-                    <dd>
                         <a onClick={this.tradePassword.bind(this)}>
                             <div className="leftTitle">交易密码</div>
                             <span className="rightAction">
@@ -227,6 +192,16 @@ class PersonalContainer extends Component {
                             </span>
                         </a>
                     </dd>
+                    <dd>
+                        <a onClick={this.bindCard.bind(this)}>
+                            <div className="leftTitle">银行开户</div>
+                            <span className="rightAction" >
+                                <span className="icon-arrow r"></span>
+                                <span className="actionText r">{personalObj.openAccountStatus == '0' ? '未开户' : '已开户'}</span>
+                            </span>
+                        </a>
+                    </dd>
+                    
                 </dl>
                 <dl>
                     <dd>
