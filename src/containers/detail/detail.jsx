@@ -99,7 +99,10 @@ class Detail extends Component {
             rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
             let sumMoney = this.state.sumMoney < detail.projectDetails.surplusAmount ? this.state.sumMoney : detail.projectDetails.surplusAmount;
             sumMoney = sumMoney < detail.projectDetails.maxInvestAmount ? sumMoney : detail.projectDetails.maxInvestAmount;//全投金额是账户可用余额，标的剩余投资额以及标的最大投资额中最小的额度
-            sumMoney = Math.floor(sumMoney / detail.projectDetails.minInvestAmount) * detail.projectDetails.minInvestAmount
+            console.log(sumMoney,detail.projectDetails.minInvestAmount)
+            if(sumMoney>detail.projectDetails.minInvestAmount){
+                sumMoney = Math.floor(sumMoney / detail.projectDetails.minInvestAmount) * detail.projectDetails.minInvestAmount
+            }
             this.setState({
                 money: sumMoney,
                 profit: sumMoney * (rate / 12 * (detail.projectDetails.loanExpiry || detail.projectDetails.transferPeriod)) * 0.01,
