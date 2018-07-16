@@ -29,7 +29,9 @@ class Detail extends Component {
         redEnvelopeId: '',//选用红包时投资传的是红包的ID
         status: null,//散标的的状态
         transStatus: null,//债转标的状态
-        statusString: ''//标的状态话术
+        statusString: '',//标的状态话术
+        noviceLoan: null,//是否是新手标
+        noviceStatus: null,//是否是新手
     };
 
     componentDidMount() {
@@ -49,7 +51,8 @@ class Detail extends Component {
                     minInvestAmount2: res.value.minInvestAmount,
                     profit: minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01,
                     statusString: res.value.statusString,
-                    status: res.value.status
+                    status: res.value.status,
+                    noviceLoan: res.value.noviceLoan
                 })
                 setMoney(res.value.minInvestAmount);//保存最低投资额度到redux
                 setProfit(res.value.minInvestAmount * (rate / 12 * res.value.loanExpiry) * 0.01)//保存最低投资额度的利润到redux
@@ -76,7 +79,8 @@ class Detail extends Component {
         if (this.props.auth.isAuthenticated) {//登录状态设置账户可用余额到页面
             getMyInfo().then(res => {
                 this.setState({
-                    sumMoney: res.value.availableBalance
+                    sumMoney: res.value.availableBalance,
+                    noviceStatus: res.value.noviceStatus
                 })
             })
         }
@@ -153,7 +157,7 @@ class Detail extends Component {
                                                 //     tradePassword,
                                                 //     ...cred
                                                 // }
-                                                cred.tradePassword=tradePassword
+                                                cred.tradePassword = tradePassword
                                                 postInvest(cred, 0)
                                                     .then(res => {
                                                         Toast.info(res.value.message, 2, () => {
@@ -258,7 +262,7 @@ class Detail extends Component {
                                             //     tradePassword:tradePassword,
                                             //     ...cred
                                             // }
-                                            cred.tradePassword=tradePassword
+                                            cred.tradePassword = tradePassword
                                             postInvest(cred, 0)
                                                 .then(res => {
                                                     Toast.info(res.value.message, 2, () => {
@@ -348,7 +352,7 @@ class Detail extends Component {
         if (!this.state.checked) {
             return
         }
-        if (detail.myInfo.availableBalance < this.state.money || this.state.money==0) {
+        if (detail.myInfo.availableBalance < this.state.money || this.state.money == 0) {
             Modal.alert('您的可用余额不足', '去充值', [
                 {
                     text: '确认',
@@ -425,7 +429,6 @@ class Detail extends Component {
         } else {
             Toast.hide()
         }
-
         if (postResult.userCode === 101 && postResult.times < 5 && !isPosting) {//处理并发，暂定5次请求
             console.log('在这里发第' + (postResult.times + 1) + '次请求');
             postInvest(cred, postResult.times)
@@ -440,7 +443,7 @@ class Detail extends Component {
             Modal: !this.state.Modal
         })
     }
-   
+
     render() {
         const { auth, detail } = this.props;
         // const rate = detail.projectDetails.raiseRate ? detail.projectDetails.annualRate + detail.projectDetails.raiseRate : detail.projectDetails.annualRate
@@ -517,22 +520,22 @@ class Detail extends Component {
                                 </div>
                             </div>
                             {
-                                this.props.match.params.type==0?
-                                <div className='list'>
-                                    <div className='list-item'>
-                                        <i className='icon-coupon left'></i>
-                                        <div className='item-content'>系统奖励
+                                this.props.match.params.type == 0 ?
+                                    <div className='list'>
+                                        <div className='list-item'>
+                                            <i className='icon-coupon left'></i>
+                                            <div className='item-content'>系统奖励
                                             <span onClick={this.handleSelectClick.bind(this, detail.projectDetails.id)}>{this.state.reward}</span>
+                                            </div>
+                                            <i className='icon-arrow right'></i>
                                         </div>
-                                        <i className='icon-arrow right'></i>
                                     </div>
-                                </div>
-                                :
-                                <div className='list'>
-                                </div>
+                                    :
+                                    <div className='list'>
+                                    </div>
 
                             }
-                            
+
                             <div className='i-list'>
                                 <div className='i-list-item' onClick={this.handleProjectClick.bind(this, detail.projectDetails.projectId ? detail.projectDetails.projectId : detail.projectDetails.id)}>
                                     <i className='icon-item-detail icon'></i>
@@ -560,7 +563,7 @@ class Detail extends Component {
                                         </label>
                                     </div>
                                     {/* <div className = {`button ${this.state.button}` } onClick = {this.handlePostClick.bind(this)}>立即投资</div> */}
-                                    <Button type="primary" onClick={this.handlePostClick.bind(this)} disabled={this.state.code != 100 || !this.state.button || (this.state.status != 2 && this.state.transStatus != 2)}>{(this.state.status == 2 || this.state.transStatus == 2) ? '立即投资' : this.state.statusString}</Button>
+                                    <Button type="primary" onClick={this.handlePostClick.bind(this)} disabled={this.state.code != 100 || !this.state.button || (this.state.status != 2 && this.state.transStatus != 2) || (this.state.noviceLoan == 1 && this.state.noviceStatus == 0)}>{(this.state.status == 2 || this.state.transStatus == 2) ?((this.state.noviceLoan == 1 && this.state.noviceStatus == 0)?'仅限新手': '立即投资') : this.state.statusString}</Button>
                                 </div>
                                 :
                                 <div className={`button active`} onClick={this.handleLoginClick.bind(this)}>立即登录</div>
@@ -582,7 +585,7 @@ class Detail extends Component {
                                     redEnvelopeId: obj.redEnvelopeId,
                                     profit: obj.profit
                                 });
-                                cred.rewardType = obj.rewardType; 
+                                cred.rewardType = obj.rewardType;
                             }
                         }}
 
