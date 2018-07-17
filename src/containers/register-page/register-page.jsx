@@ -144,7 +144,8 @@ class RegisterPage extends Component {
             submitData.password=hex_md5(this.state.password);
             submitData.register_code=this.state.register_code;
             submitData.invite_code=this.state.invite_code;
-            submitData.register_token=localStorage.getItem('smsRegisterCode')
+            submitData.register_token=localStorage.getItem('smsRegisterCode');
+            submitData.remarks='1';
             submitData=`?${parseJson2URL(submitData)}`
             const { dispatch } = this.props;
             dispatch(register(submitData))
