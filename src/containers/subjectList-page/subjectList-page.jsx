@@ -33,7 +33,7 @@ class SubjectListPage extends Component {
 			otherArrow: 0,
 			refreshing: false,
 			height: document.documentElement.clientHeight,
-			distanceToRefresh: 25,
+			distanceToRefresh: 50,
 			down: false,
 			hasMore: true,
 		};
@@ -242,6 +242,7 @@ class SubjectListPage extends Component {
 		cred.pageNum = 1
 		this.getsubjectList(cred)
 		this.gettransferList(cred);
+		console.log(ReactDOM.findDOMNode(this.ptr))
 		const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
 		setTimeout(() => this.setState({
 			height: hei,
@@ -369,7 +370,7 @@ class SubjectListPage extends Component {
 							style={{ height: this.state.height, overflow: "auto" }}
 							direction={"up"}
 							indicator={this.state.down ? { deactivate: '没有更多数据了' } : { deactivate: '上拉加载更多' }}
-							// distanceToRefresh={this.state.distanceToRefresh}
+							distanceToRefresh={this.state.distanceToRefresh}
 							refreshing={this.state.refreshing}
 							onRefresh={this.getNewData.bind(this)}
 						>
