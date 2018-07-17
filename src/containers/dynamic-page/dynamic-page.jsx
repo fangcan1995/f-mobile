@@ -23,6 +23,7 @@ class DynamicPage extends Component {
       refreshing: false,
       height: document.documentElement.clientHeight,
       hasMore: true,
+      distanceToRefresh: 100,
       down: false,
       list: []
     };
@@ -140,6 +141,7 @@ class DynamicPage extends Component {
               indicator={this.state.down ? { deactivate: '没有更多数据了' } : { deactivate: '上拉加载更多' }}
               refreshing={this.state.refreshing}
               onRefresh={this.getNewData.bind(this)}
+              distanceToRefresh={this.state.distanceToRefresh}
             >
               {
                 (list) ?

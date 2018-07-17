@@ -10,7 +10,7 @@ let urls='http://172.16.7.3:9070/'
         const res = await cFetch(`app/invest/projects/record?${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
-          return data.list || {};
+          return data || {};
         } else {
           throw res;
         }
@@ -26,7 +26,7 @@ let urls='http://172.16.7.3:9070/'
         const res = await cFetch(`app/invest/transfer/record?${params}` , { method: 'GET' },false);
         const { code, data } = res;
         if ( code == 0 ) {
-          return data.list || {};
+          return data || {};
         } else {
           throw res;
         }
