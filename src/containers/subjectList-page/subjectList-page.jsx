@@ -242,7 +242,6 @@ class SubjectListPage extends Component {
 		cred.pageNum = 1
 		this.getsubjectList(cred)
 		this.gettransferList(cred);
-		console.log(ReactDOM.findDOMNode(this.ptr))
 		const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
 		setTimeout(() => this.setState({
 			height: hei,
